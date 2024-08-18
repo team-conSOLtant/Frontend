@@ -4,6 +4,7 @@ import MakePortfolioPage from "./pages/MakePortfolioPage.jsx";
 import MainPage from "./pages/MainPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import PortfolioPage from "./pages/PortfolioPage";
+import RecommendPage from "./pages/RecommendPage.jsx";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/main" element={<MainPage />} />
           <Route path="/make-portfolio" element={<MakePortfolioPage />} />
           <Route path="/portfolio" element={<PortfolioPage />} />
+          <Route path="/recommend" element={<RecommendPage />} />
         </Routes>
       </Router>
     </>
