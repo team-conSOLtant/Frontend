@@ -12,11 +12,30 @@ function RecommendTabs() {
   };
 
   useEffect(() => {
-    const dddddd = [
-      { id: 1, name: "상품 1", description: "이것은 상품 1입니다.", rate: 3.4 },
-      { id: 2, name: "상품 2", description: "이것은 상품 2입니다.", rate: 3.4 },
-      { id: 3, name: "상품 3", description: "이것은 상품 3입니다.", rate: 3.4 },
-    ];
+    var dddddd = [];
+    if(activeTab == "deposit"){ 
+      dddddd = [
+        { id: 1, name: "예금 1", description: "이것은 상품 1입니다.", rate: 3.4 },
+        { id: 2, name: "예금 2", description: "이것은 상품 2입니다.", rate: 3.4 },
+        { id: 3, name: "예금 3", description: "이것은 상품 3입니다.", rate: 3.4 },
+      ];
+    }
+    else if(activeTab == "savings"){
+      dddddd = [
+        { id: 1, name: "적금 1", description: "이것은 상품 1입니다.", rate: 3.4 },
+        { id: 2, name: "적금 2", description: "이것은 상품 2입니다.", rate: 3.4 },
+        { id: 3, name: "적금 3", description: "이것은 상품 3입니다.", rate: 3.4 },
+      ];
+    }
+    else if(activeTab == "loan"){
+      dddddd = [
+        { id: 1, name: "대출 1", description: "이것은 상품 1입니다.", rate: 3.4 },
+        { id: 2, name: "대출 2", description: "이것은 상품 2입니다.", rate: 3.4 },
+        { id: 3, name: "대출 3", description: "이것은 상품 3입니다.", rate: 3.4 },
+      ];
+    }
+    
+
     const items = dddddd.map((item) => <RecommendItem item={item} />)
     setProducts(items);
   });
@@ -70,37 +89,37 @@ function RecommendTabs() {
       {/* 선택된 탭에 따라 다른 내용 표시 */}
       <div className="tab-content">
         {activeTab === "basicInfo" && (
-          <div>
+          <div className="mx-[5%]">
             <p className="text-[#0046FF] text-sm">다음은 선배님들의 평균 값 입니다.</p>
-            <div className="flex flex-col">
-              <div className="flex justify-between">
+            <div className="flex flex-col ">
+              <div className="flex justify-between mb-3">
                 <div>월급</div>
                 <div>
                   <span>{recommendInfo.career}</span>
                   <span className="">만원</span>
                 </div>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between mb-3">
                 <div>성향</div>
                 <div>
                   <span>{recommendInfo.capitalTendency}</span>
                 </div>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between mb-3">
                 <div>초기자본</div>
                 <div>
                   <span>{recommendInfo.initialCapital}</span>
                   <span>만원</span>
                 </div>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between mb-3">
                 <div>현 자본</div>
                 <div>
                   <span>{recommendInfo.currentCapital}</span>
                   <span>만원</span>
                 </div>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between mb-3">
                 <div>기간</div>
                 <div>
                   <span>10</span>
@@ -112,22 +131,26 @@ function RecommendTabs() {
         )}
         {activeTab === "deposit" && (
           <div>
-            <h2 className="text-2xl font-semibold mb-2">예금 상품</h2>
-            <div className="flex flex-col">
+            <p className="pb-4 text-sm text-[#0046ff] font-semibold">상품 클릭 시 고객님의 로드맵에 적용할 수 있습니다.</p>
+            <div className="flex flex-col justify-center item-center">
               {products}
-            </div>
+            </div> 
           </div>
         )}
         {activeTab === "savings" && (
           <div>
-            <h2 className="text-2xl font-semibold mb-2">적금 상품</h2>
-            <p>여기는 대출에 대한 정보가 표시됩니다.</p>
+            <p className="pb-4 text-sm text-[#0046ff] font-semibold">상품 클릭 시 고객님의 로드맵에 적용할 수 있습니다.</p>
+            <div className="flex flex-col justify-center item-center">
+              {products}
+            </div> 
           </div>
         )}
         {activeTab === "loan" && (
           <div>
-            <h2 className="text-2xl font-semibold mb-2">대출 상품</h2>
-            <p>여기는 대출에 대한 정보가 표시됩니다.</p>
+            <p className="pb-4 text-sm text-[#0046ff] font-semibold">상품 클릭 시 고객님의 로드맵에 적용할 수 있습니다.</p>
+            <div className="flex flex-col justify-center item-center">
+              {products}
+            </div> 
           </div>
         )}
       </div>
