@@ -2,25 +2,49 @@ import React, { useEffect, useState } from "react";
 import "./PorfolioSection.css";
 import styled from "styled-components";
 import { getAwards } from "../../apis/Award";
+import AwardItem from "./AwardItem";
 
-const AwardCertificationSectionStyle = styled.div``;
-const SectionHeader = styled.div``;
-const SectionTitleText = styled.div``;
+const AwardCertificationSectionStyle = styled.div`
+  width: 100%;
+  background-color: red;
+`;
+const SectionHeader = styled.div`
+  width: 100%;
+`;
+const SectionTitleText = styled.div`
+  width: 100%;
+`;
 
-const SectionTitleIcon = styled.img``;
+const SectionTitleIcon = styled.img`
+  width: 100%;
+`;
 
-const SectionBody = styled.div``;
+const SectionBody = styled.div`
+  width: 100%;
+  background-color: blue;
+  height: 50vh;
+`;
 
-const SubSectionStyle = styled.div``;
+const SubSectionStyle = styled.div`
+  width: 100%;
+`;
 
-const SubSectionHeader = styled.div``;
+const SubSectionHeader = styled.div`
+  width: 100%;
+`;
 
 const SubSectionBody = styled.div`
   display: flex;
   flex-direction: column;
+  background-color: green;
+  height: 40vh;
+  width: 100%;
+  flex-direction: row;
 `;
 
-const SubSectionTitleText = styled.div``;
+const SubSectionTitleText = styled.div`
+  width: 100%;
+`;
 
 const SubSectionTitleButton = styled.div``;
 
@@ -34,7 +58,7 @@ function AwardCertificationSection() {
 
   useEffect(() => {
     getAwardData();
-  }, [awardData]);
+  }, []);
 
   const getAwardData = async () => {
     const res = await getAwards();
@@ -56,7 +80,7 @@ function AwardCertificationSection() {
             <SubSectionTitleButton />
           </SubSectionHeader>
           <SubSectionBody>
-            <AwardItem data={data}></AwardItem>
+            {awardData && awardData.map((data) => <AwardItem data={data} />)}
           </SubSectionBody>
         </SubSectionStyle>
         <SubSectionStyle>

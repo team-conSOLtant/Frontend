@@ -18,9 +18,7 @@
   font-family: "OneShinhanLight";
   src: url("./assets/fonts/OneShinhanLight.woff") format("woff");
 }
-/* 
-:root {
-  --font-OneShinhanBold: "OneShinhanBold";
-  --font-OneShinhanBold: "OneShinhanBold";
 
-} */
+:root {
+  font-family: "OneShinhanLight";
+}
