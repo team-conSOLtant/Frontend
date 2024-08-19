@@ -1,8 +1,9 @@
 import React from "react";
+import Navbar from "../components/header/Navbar";
 import { useNavigate } from "react-router";
 
 // 로그인 페이지
-function LoginPage() {
+function CompanyLoginPage() {
   const navigate = useNavigate();
   return (
     <div className="flex flex-col justify-center items-center h-[100vh]">
@@ -14,7 +15,7 @@ function LoginPage() {
       </div>
       <div className="w-[40%] border border-[#ACACAC] shadow-lg rounded-[0.7rem] flex flex-col items-center p-5">
         <div className="w-[80%] mt-[1.5rem]">
-          <div className="border rounded-t-[10px] flex items-center py-2 pl-2">
+          <div className=" border rounded-t-[10px] flex items-center py-2 pl-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -66,12 +67,12 @@ function LoginPage() {
           <div className="mx-1 text-[#0046ff]">회원가입</div>
         </div>
         <div className="flex text-[0.8rem]">
-          <div className="text-[#525252]">혹시 기업 회원이신가요?</div>
+          <div className="text-[#525252]">혹시 학생 회원이신가요?</div>
           <div
             className="mx-1 text-[#0046ff] cursor-pointer"
-            onClick={() => navigate("/complogin")}
+            onClick={() => navigate("/login")}
           >
-            기업 로그인
+            학생 로그인
           </div>
         </div>
       </div>
@@ -79,4 +80,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default CompanyLoginPage;
