@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.App {
-  font-family: "OneShinhanMedium";
-}
-
 @font-face {
   font-family: "OneShinhanBold";
   src: url("./assets/fonts/OneShinhanBold.woff") format("woff");
@@ -18,9 +14,9 @@
   font-family: "OneShinhanLight";
   src: url("./assets/fonts/OneShinhanLight.woff") format("woff");
 }
-/* 
-:root {
-  --font-OneShinhanBold: "OneShinhanBold";
-  --font-OneShinhanBold: "OneShinhanBold";
 
-} */
+:root {
+  /* --font-OneShinhanBold: "OneShinhanBold";
+  --font-OneShinhanBold: "OneShinhanBold"; */
+  font-family: "OneShinhanMedium";
+}

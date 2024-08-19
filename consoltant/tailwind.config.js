@@ -14,6 +14,11 @@ module.exports = {
     //   "white":"#ffffff",
     // },
     extend: {},
+    fontFamily: {
+      OneShinhanBold: ["OneShinhanBold"],
+      OneShinhanMedium: ["OneShinhanMedium"],
+      OneShinhanLight: ["OneShinhanLight"],
+    },
   },
   plugins: [],
 };
