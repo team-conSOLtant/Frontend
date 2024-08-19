@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./PorfolioSection.css";
 import styled from "styled-components";
 import { getAwards } from "../../apis/Award";
+import AwardItem from "./AwardItem";
 
 const AwardCertificationSectionStyle = styled.div``;
 const SectionHeader = styled.div``;
@@ -56,7 +57,7 @@ function AwardCertificationSection() {
             <SubSectionTitleButton />
           </SubSectionHeader>
           <SubSectionBody>
-            <AwardItem data={data}></AwardItem>
+            <AwardItem data={awardData}></AwardItem>
           </SubSectionBody>
         </SubSectionStyle>
         <SubSectionStyle>

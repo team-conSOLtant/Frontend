@@ -8,13 +8,11 @@ function LoginPage() {
     <div className="flex flex-col justify-center items-center h-[100vh]">
       <div className="flex items-center mb-5">
         <img className="w-[2.5rem]" src="/logo/shinhan_logo_blue.png" alt="" />
-        <div className="text-[#5C5C5C] text-[1.4rem] font-[600] px-[1rem]">
-          SOL 학생 로드맵
-        </div>
+        <div className="text-[#5C5C5C] text-[1.4rem] font-[600] px-[1rem]">SOL 학생 로드맵</div>
       </div>
-      <div className="w-[40%] border border-[#ACACAC] shadow-lg rounded-[0.7rem] flex flex-col items-center p-5">
+      <div className="w-[40%] font-OneShinhanLight border border-[#ACACAC] shadow-lg rounded-[0.7rem] flex flex-col items-center p-5">
         <div className="w-[80%] mt-[1.5rem]">
-          <div className="border rounded-t-[10px] flex items-center py-2 pl-2">
+          <div className="border text-[0.8rem] rounded-t-[10px] flex items-center py-2 pl-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -32,7 +30,7 @@ function LoginPage() {
               placeholder="아이디(이메일 주소)"
             />
           </div>
-          <div className="border rounded-b-[10px] flex items-center py-2 pl-2">
+          <div className="border text-[0.8rem] rounded-b-[10px] flex items-center py-2 pl-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -45,22 +43,18 @@ function LoginPage() {
               />
             </svg>
 
-            <input
-              className="pl-6 focus:outline-none"
-              type="text"
-              placeholder="비밀번호"
-            />
+            <input className="pl-6 focus:outline-none" type="text" placeholder="비밀번호" />
           </div>
-          <div className="flex mt-[0.5rem]">
+          <div className="flex mt-[0.5rem] text-[0.8rem] ">
             <input type="checkbox" className="mr-[0.5rem]" />
             <div className="text-[#8F8F8F]">로그인 상태 유지</div>
           </div>
         </div>
-        <div className="mt-[3rem] py-[0.5rem] shadow-md border rounded-[0.5rem] flex justify-center w-[80%] bg-[#0046ff] text-white">
+        <div className="mt-[3rem] py-[0.5rem] font-OneShinhanMedium shadow-md border rounded-[0.5rem] flex justify-center w-[80%] bg-[#0046ff] text-white">
           로그인
         </div>
       </div>
-      <div className="mt-[1rem] flex flex-col items-center ">
+      <div className="mt-[1rem] flex flex-col items-center font-OneShinhanLight">
         <div className="flex text-[0.8rem]">
           <div className="text-[#525252]">아직 회원이 아니신가요?</div>
           <div className="mx-1 text-[#0046ff]">회원가입</div>
