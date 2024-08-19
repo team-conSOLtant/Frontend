@@ -6,6 +6,8 @@ import MainPage from "./pages/MainPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import PortfolioPage from "./pages/PortfolioPage";
 import CompanyLoginPage from "./pages/CompanyLoginPage.jsx";
+import SignupPage from "./pages/SignupPage.jsx";
+import SignupCompletePage from "./pages/SignupCompletePage.jsx";
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/complogin" element={<CompanyLoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/complete" element={<SignupCompletePage />} />
           <Route path="/main" element={<MainPage />} />
           <Route path="/make-portfolio" element={<MakePortfolioPage />} />
           <Route path="/portfolio" element={<PortfolioPage />} />
