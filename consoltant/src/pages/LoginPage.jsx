@@ -8,9 +8,9 @@ function LoginPage() {
     <div className="flex flex-col justify-center items-center h-[100vh]">
       <div className="flex items-center mb-5">
         <img className="w-[2.5rem]" src="/logo/shinhan_logo_blue.png" alt="" />
-        <div className="text-[#5C5C5C] text-[1.4rem] font-[600] px-[1rem]">SOL 학생 로드맵</div>
+        <div className="text-[#5C5C5C] text-[1.4rem] px-[1rem]">SOL 학생 로드맵</div>
       </div>
-      <div className="w-[40%] font-OneShinhanLight border border-[#ACACAC] shadow-lg rounded-[0.7rem] flex flex-col items-center p-5">
+      <div className="w-[40%] max-w-[27rem] font-OneShinhanLight border border-[#ACACAC] shadow-lg rounded-[0.7rem] flex flex-col items-center p-5">
         <div className="w-[80%] mt-[1.5rem]">
           <div className="border text-[0.8rem] rounded-t-[10px] flex items-center py-2 pl-2">
             <svg
@@ -57,7 +57,9 @@ function LoginPage() {
       <div className="mt-[1rem] flex flex-col items-center font-OneShinhanLight">
         <div className="flex text-[0.8rem]">
           <div className="text-[#525252]">아직 회원이 아니신가요?</div>
-          <div className="mx-1 text-[#0046ff]">회원가입</div>
+          <div className="mx-1 text-[#0046ff] cursor-pointer" onClick={() => navigate("/signup")}>
+            회원가입
+          </div>
         </div>
         <div className="flex text-[0.8rem]">
           <div className="text-[#525252]">혹시 기업 회원이신가요?</div>
