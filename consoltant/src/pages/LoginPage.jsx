@@ -15,8 +15,8 @@ function LoginPage() {
 
   return (
     <>
-      <div>This is login page</div>
-      <button onClick={goPortfolioPage}> goto portfolipage</button>
+      <div className="text-[10rem]">This is login page</div>
+      <button className="border" onClick={goPortfolioPage}> goto portfolipage</button>
       <button onClick={goMakePortfolioPage}> goto make portfolipage</button>
       <button onClick={goMainPage}> goto MainPage</button>
     </>
