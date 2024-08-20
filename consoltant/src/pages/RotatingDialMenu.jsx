@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 const RotatingDialMenu = () => {
   const [angle, setAngle] = useState(0);
-  const [colorIndex, setColorIndex] = useState(0);
+  const [itemIndex, setItemIndex] = useState(0);
   const radius = 870; // 반지름, dial 크기와 아이템 크기에 따라 조정
   // const items = Array.from({ length: 7 }, (_, i) => `Item ${i + 1}`);
   const items = [
@@ -20,11 +20,18 @@ const RotatingDialMenu = () => {
 
   const handleScroll = (event) => {
     if (event.deltaY > 0) {
-      setAngle((prevAngle) => prevAngle + 35 / 7); // Scroll down
+      // Scroll down (upward movement in UI)
+      if (itemIndex > 0) {
+        setAngle((prevAngle) => prevAngle + 5);
+        setItemIndex((prevIndex) => prevIndex - 1);
+      }
     } else {
-      setAngle((prevAngle) => prevAngle - 35 / 7); // Scroll up
+      // Scroll up (downward movement in UI)
+      if (itemIndex < items.length - 1) {
+        setAngle((prevAngle) => prevAngle - 5);
+        setItemIndex((prevIndex) => prevIndex + 1);
+      }
     }
-    setColorIndex((prevIndex) => (prevIndex + 1) % 7);
   };
 
   useEffect(() => {
@@ -32,7 +39,7 @@ const RotatingDialMenu = () => {
     return () => {
       window.removeEventListener("wheel", handleScroll);
     };
-  }, []);
+  }, [itemIndex]);
 
   return (
     <div className="flex justify-start items-center h-screen m-0 overflow-hidden bg-gray-100 relative">
@@ -54,7 +61,7 @@ const RotatingDialMenu = () => {
             <div
               key={index}
               className={`absolute w-[8rem] h-[3rem] flex justify-center rounded-[2rem] p-[1rem] items-center ${
-                colorIndex === index ? styled : unstyled
+                itemIndex === index ? styled : unstyled
               }`}
               style={{
                 transform: `translate(${x}px, ${y}px) rotate(${itemAngle}rad)`,
@@ -65,12 +72,12 @@ const RotatingDialMenu = () => {
           );
         })}
       </div>
-      <div
+      {/* <div
         className="w-[10rem] h-[10rem] fixed top-2.5 left-2.5"
-        style={{ backgroundColor: colors[colorIndex] }}
+        style={{ backgroundColor: colors[itemIndex] }}
       >
         test
-      </div>
+      </div> */}
     </div>
   );
 };

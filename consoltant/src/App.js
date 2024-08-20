@@ -21,7 +21,6 @@ function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/complete" element={<SignupCompletePage />} />
           <Route path="/main" element={<MainPage />} />
-          <Route path="/test" element={<RotatingDialMenu />} />
           <Route path="/make-portfolio" element={<MakePortfolioPage />} />
           <Route path="/portfolio" element={<PortfolioPage />} />
         </Routes>

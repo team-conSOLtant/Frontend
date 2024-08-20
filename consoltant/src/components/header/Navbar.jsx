@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import MenuDropdown from "./MenuDropdown";
+import { useNavigate } from "react-router";
 
 // 상단바
 function Navbar() {
+  const navigate = useNavigate();
+
   // 메뉴 드롭다운 관리
   const [menuView, setMenuView] = useState(false);
 
@@ -43,7 +46,12 @@ function Navbar() {
           {menuView && <MenuDropdown />}
         </>
       ) : (
-        <div className="text-white cursor-pointer">로그인</div>
+        <div
+          className="text-white cursor-pointer"
+          onClick={() => navigate("/login")}
+        >
+          로그인
+        </div>
       )}
     </div>
   );
