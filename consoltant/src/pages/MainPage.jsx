@@ -27,7 +27,7 @@ const MainPage = () => {
         GPA: "3.7",
         limitGPA: "4.5",
         myGPA: "70",
-        totalGPA: "170",
+        totalGPA: "290",
       },
     },
     {
