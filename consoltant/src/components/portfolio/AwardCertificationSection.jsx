@@ -3,11 +3,8 @@ import "./PorfolioSection.css";
 import styled from "styled-components";
 import { getAwards } from "../../apis/Award";
 import AwardItem from "./AwardItem";
-<<<<<<< HEAD
-import AwardForm from "./AwardForm";
-import CertificationItem from "./CertificationItem";
-=======
->>>>>>> 5e9ffaebb53271a0ff5049ed17f7946501a6badd
+import AwardForm from "./AwardForm.jsx";
+import CertificationItem from "./CertificationItem.jsx";
 
 const AwardCertificationSectionStyle = styled.div`
   width: 100%;
@@ -117,7 +114,6 @@ function AwardCertificationSection() {
             <SubSectionTitleButton />
           </SubSectionHeader>
           <SubSectionBody>
-<<<<<<< HEAD
             <CertificationItem />
             {awardData && awardData.map((data) => <AwardItem data={data} />)}
             {Array.from({ length: awardNum }, (_, index) => (
@@ -128,9 +124,6 @@ function AwardCertificationSection() {
                 <PlusBoxButton></PlusBoxButton>
               </PlusBox>
             </PlusBoxContainer>
-=======
-            <AwardItem data={awardData}></AwardItem>
->>>>>>> 5e9ffaebb53271a0ff5049ed17f7946501a6badd
           </SubSectionBody>
         </SubSectionStyle>
         <SubSectionStyle>
