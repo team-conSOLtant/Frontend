@@ -8,6 +8,7 @@ import PortfolioPage from "./pages/PortfolioPage";
 import CompanyLoginPage from "./pages/CompanyLoginPage.jsx";
 import SignupPage from "./pages/SignupPage.jsx";
 import SignupCompletePage from "./pages/SignupCompletePage.jsx";
+import RotatingDialMenu from "./pages/RotatingDialMenu.jsx";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/complete" element={<SignupCompletePage />} />
           <Route path="/main" element={<MainPage />} />
+          <Route path="/test" element={<RotatingDialMenu />} />
           <Route path="/make-portfolio" element={<MakePortfolioPage />} />
           <Route path="/portfolio" element={<PortfolioPage />} />
         </Routes>
