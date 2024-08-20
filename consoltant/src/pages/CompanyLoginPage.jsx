@@ -8,7 +8,9 @@ function LoginPage() {
     <div className="flex flex-col justify-center items-center h-[100vh]">
       <div className="flex items-center mb-5">
         <img className="w-[2.5rem]" src="/logo/shinhan_logo_blue.png" alt="" />
-        <div className="text-[#5C5C5C] text-[1.4rem] px-[1rem]">SOL 학생 로드맵</div>
+        <div className="text-[#5C5C5C] text-[1.4rem] px-[1rem]">
+          SOL 학생 로드맵(기업용)
+        </div>
       </div>
       <div className="w-[40%] max-w-[27rem] font-OneShinhanLight border border-[#ACACAC] shadow-lg rounded-[0.7rem] flex flex-col items-center p-5">
         <div className="w-[80%] mt-[1.5rem]">
@@ -24,11 +26,7 @@ function LoginPage() {
                 clip-rule="evenodd"
               />
             </svg>
-            <input
-              className="pl-6 focus:outline-none"
-              type="text"
-              placeholder="아이디(이메일 주소)"
-            />
+            <input className="pl-6 focus:outline-none" type="text" placeholder="아이디" />
           </div>
           <div className="border text-[0.8rem] rounded-b-[10px] flex items-center py-2 pl-2">
             <svg
@@ -43,7 +41,7 @@ function LoginPage() {
               />
             </svg>
 
-            <input className="pl-6 focus:outline-none" type="text" placeholder="비밀번호" />
+            <input className="pl-6 focus:outline-none" type="text" placeholder="보안코드" />
           </div>
           <div className="flex mt-[0.5rem] text-[0.8rem] ">
             <input type="checkbox" className="mr-[0.5rem]" />
@@ -62,12 +60,9 @@ function LoginPage() {
           </div>
         </div>
         <div className="flex text-[0.8rem]">
-          <div className="text-[#525252]">혹시 기업 회원이신가요?</div>
-          <div
-            className="mx-1 text-[#0046ff] cursor-pointer"
-            onClick={() => navigate("/complogin")}
-          >
-            기업 로그인
+          <div className="text-[#525252]">혹시 학생 회원이신가요?</div>
+          <div className="mx-1 text-[#0046ff] cursor-pointer" onClick={() => navigate("/login")}>
+            학생 로그인
           </div>
         </div>
       </div>

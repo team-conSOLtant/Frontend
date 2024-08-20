@@ -1,0 +1,54 @@
+{
+  "award": [
+    {
+      "id": 1,
+      "portfolio_id": 1,
+      "title": "Best Backend Developer",
+      "acquisition_date": "2023-05-10",
+      "award_organization": "Tech Conference",
+      "award_grade": "Gold",
+      "content": "Awarded for outstanding performance in backend development.",
+      "is_deleted": false
+    },
+    {
+      "id": 2,
+      "portfolio_id": 2,
+      "title": "Top Financial Analyst",
+      "acquisition_date": "2022-11-15",
+      "award_organization": "Finance Summit",
+      "award_grade": "Silver",
+      "content": "Recognized for exceptional skills in financial analysis and forecasting.",
+      "is_deleted": false
+    },
+    {
+      "id": 3,
+      "portfolio_id": 3,
+      "title": "Best Data Scientist",
+      "acquisition_date": "2023-08-25",
+      "award_organization": "Data Science Expo",
+      "award_grade": "Platinum",
+      "content": "Awarded for innovative contributions to data science and analytics.",
+      "is_deleted": false
+    },
+    {
+      "id": 4,
+      "portfolio_id": 1,
+      "title": "Innovative Project Award",
+      "acquisition_date": "2023-04-10",
+      "award_organization": "Tech Innovations Inc.",
+      "award_grade": "Gold",
+      "content": "Honored for leading a groundbreaking project in AI development.",
+      "is_deleted": false
+    },
+    {
+      "id": 5,
+      "portfolio_id": 2,
+      "title": "Outstanding Volunteer Award",
+      "acquisition_date": "2021-12-20",
+      "award_organization": "Community Service Foundation",
+      "award_grade": "Bronze",
+      "content": "Acknowledged for exceptional volunteer service to the community.",
+      "is_deleted": false
+    }
+  ]
+}
