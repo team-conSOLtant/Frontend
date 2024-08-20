@@ -3,6 +3,8 @@ import "./PorfolioSection.css";
 import styled from "styled-components";
 import { getAwards } from "../../apis/Award";
 import AwardItem from "./AwardItem";
+import AwardForm from "./AwardForm";
+import CertificationItem from "./CertificationItem";
 
 const AwardCertificationSectionStyle = styled.div`
   width: 100%;
@@ -36,8 +38,9 @@ const SubSectionHeader = styled.div`
 const SubSectionBody = styled.div`
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   background-color: green;
-  height: 40vh;
+  height: auto;
   width: 100%;
   flex-direction: row;
 `;
@@ -49,12 +52,38 @@ const SubSectionTitleText = styled.div`
 const SubSectionTitleButton = styled.div``;
 
 const InputLabel = styled.label``;
+
 const InputContainer = styled.input`
   border: 1px solid black;
+`;
+const PlusBoxContainer = styled.div`
+  width: 12rem;
+  height: 14.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const PlusBox = styled.div`
+  height: 12rem;
+  width: 10rem;
+  background-color: #f5f5f5;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const PlusBoxButton = styled.div`
+  height: 4rem;
+  width: 4rem;
+  border-radius: 2rem;
+  background-color: #c7c7c7;
 `;
 
 function AwardCertificationSection() {
   const [awardData, setAwardData] = useState(null);
+  const [awardNum, setAwardNum] = useState(1);
+  const [certificationData, setCertificationData] = useState(null);
+  const [certificationNum, setCertificationNum] = useState(1);
 
   useEffect(() => {
     getAwardData();
@@ -65,7 +94,12 @@ function AwardCertificationSection() {
     // console.log("res", res.award);
     setAwardData(res.award);
   };
-  const getCertificationdData = () => {};
+
+  const getCertificationdData = () => {
+    // const res = await getCertifications();
+    // console.log("res", res.award);
+    // setAwardData(res.award);
+  };
 
   return (
     <AwardCertificationSectionStyle>
@@ -80,7 +114,16 @@ function AwardCertificationSection() {
             <SubSectionTitleButton />
           </SubSectionHeader>
           <SubSectionBody>
+            <CertificationItem />
             {awardData && awardData.map((data) => <AwardItem data={data} />)}
+            {Array.from({ length: awardNum }, (_, index) => (
+              <AwardForm key={index}>Award {index + 1}</AwardForm>
+            ))}
+            <PlusBoxContainer>
+              <PlusBox>
+                <PlusBoxButton></PlusBoxButton>
+              </PlusBox>
+            </PlusBoxContainer>
           </SubSectionBody>
         </SubSectionStyle>
         <SubSectionStyle>

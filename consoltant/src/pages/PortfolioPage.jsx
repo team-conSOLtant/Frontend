@@ -15,19 +15,22 @@ const PortfolioPageStyle = styled.div`
   background-color: gray;
 `;
 
-const PortfolioLeft = styled.div`
+const PortfolioMain = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  height: 100vh;
-  width: 80%;
+  align-items: center;
+  width: 75%;
+  padding: 0 10%;
 `;
 
 function PortfolioPage() {
   return (
     <PortfolioPageStyle>
-      <EducationSection />
-      <AwardCertificationSection />
+      <PortfolioMain>
+        <EducationSection />
+        <AwardCertificationSection />
+      </PortfolioMain>
+
       {/* <PortfolioSection title="수상 / 자격증" />
         <PortfolioSection title="학력 / 경력" />
         <PortfolioSection title="프로젝트" /> */}

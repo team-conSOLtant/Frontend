@@ -1,31 +1,81 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const AwardItemStyle = styled.div`
   background-color: #fffbeb;
-  width: 10rem;
-  height: 6rem;
-  font-size: 0.5rem;
-  border-top: #ffcc00 0.2rem solid;
-  margin: 0 0.3rem;
+  width: 12rem;
+  height: 14.4rem;
+  font-size: 1rem;
+  border-top: #ffcc00 0.5rem solid;
+  margin: 0.3rem 0.3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 0.5rem;
+`;
+const AwardItemBody = styled.div``;
+
+const AwardTitleStyle = styled.div`
+  font-family: "OneShinhanBold";
+  padding-top: 0.8rem;
+  padding-bottom: 1rem;
+  min-height: 3rem;
+  border-bottom: #ffcc00 0.15rem solid;
 `;
 
-const AwardItemHrStyle = styled.hr`
-  border: none;
-  border-top: 1px solid #ffcc00;
-  /* margin: 20px 0; */
+const AwardContentStyle = styled.div`
+  font-size: 0.7rem;
+  margin-top: 0.4rem;
 `;
+const AwardItemFooter = styled.div``;
+
+const AwardGradeStyle = styled.div`
+  /* font-size: 0.8rem; */
+  text-align: right;
+  width: 100%;
+`;
+
+const AwardOrganizationStyle = styled.div`
+  font-size: 0.8rem;
+  text-align: right;
+  font-family: "OneShinhanBold";
+`;
+
+const AwardAcqDateStyle = styled.div`
+  font-size: 0.7rem;
+  text-align: right;
+  font-family: "OneShinhanBold";
+`;
+
+// const HoverContent = styled.div`
+//   display: none; /* 기본적으로 숨김 */
+//   background-color: rgb(0, 0, 0, 0.6);
+//   position: absolute;
+//   top: 0;
+//   width: 12rem;
+//   height: 14.4rem;
+//   transition: opacity 0.5s ease;
+// `;
 
 // 포트폴리오 옆에서 순서 바꾸게 리모컨 역할 해주는 것
 function AwardItem({ data }) {
   return (
-    <AwardItemStyle>
-      <div>{data.title}</div>
-      <div>{data.content}</div>
-      <AwardItemHrStyle />
-      <div>{data.award_organization}</div>
-      <div>{data.acquisition_date}</div>
-    </AwardItemStyle>
+    <div style={{ position: "relative" }}>
+      <AwardItemStyle>
+        <AwardItemBody>
+          <AwardTitleStyle>{data.title}</AwardTitleStyle>
+          <AwardContentStyle>{data.content}</AwardContentStyle>
+        </AwardItemBody>
+        <AwardItemFooter>
+          <AwardGradeStyle>{data.award_grade}</AwardGradeStyle>
+          <AwardOrganizationStyle>
+            {data.award_organization}
+          </AwardOrganizationStyle>
+          <AwardAcqDateStyle>{data.acquisition_date}</AwardAcqDateStyle>
+        </AwardItemFooter>
+      </AwardItemStyle>
+      {/* <HoverContent></HoverContent> */}
+    </div>
   );
 }
 
