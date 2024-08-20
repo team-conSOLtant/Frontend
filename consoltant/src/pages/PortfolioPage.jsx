@@ -10,26 +10,30 @@ import AwardCertificationSection from "../components/portfolio/AwardCertificatio
 const PortfolioPageStyle = styled.div`
   display: flex;
   flex-direction: row;
+  width: 100%;
+  height: 100vh;
+  background-color: gray;
 `;
 
-const PortfolioLeft = styled.div`
+const PortfolioMain = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  height: 100vh;
-  width: 80%;
+  align-items: center;
+  width: 75%;
+  padding: 0 10%;
 `;
 
 function PortfolioPage() {
   return (
     <PortfolioPageStyle>
-      <div className="w-4/5">
+      <PortfolioMain>
         <EducationSection />
         <AwardCertificationSection />
-        {/* <PortfolioSection title="수상 / 자격증" />
+      </PortfolioMain>
+
+      {/* <PortfolioSection title="수상 / 자격증" />
         <PortfolioSection title="학력 / 경력" />
         <PortfolioSection title="프로젝트" /> */}
-      </div>
       <PortfolioController></PortfolioController>
     </PortfolioPageStyle>
   );
