@@ -8,7 +8,7 @@ import RecommendGraph from '../components/recommend/RecommendGraph.jsx';
 
 function RecommendPage() {
   return <div>
-    <div className="flex justify-center">
+    <div className="flex justify-center text-[#444444]">
       <div className="flex flex-col mr-24">
         <div className="flex flex-col mb-10">
           <div className="text-2xl mb-2 text-[#0046ff] font-semibold">추천 로드맵</div>
@@ -31,6 +31,9 @@ function RecommendPage() {
         </div>
         <div>{/* 기본정보, 예금, 적금, 대출 */}
           <RecommendTabs />
+        </div>
+        <div>
+          <button className="text-base bg-amber-300 text-white font-semibold p-2 rounded-lg hover:bg-gray-400">담아두기</button>
         </div>
       </div>
     </div>

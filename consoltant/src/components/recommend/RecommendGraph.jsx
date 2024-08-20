@@ -25,32 +25,40 @@ function LineChartExample() {
         label: '전체자산',
         data: [65, 59, 80, 81, 56, 55],
         fill: false,
-        backgroundColor:'rgb(75, 192, 192)',
-        borderColor: 'rgb(75, 192, 192)',
+        backgroundColor:'rgba(0, 0, 0, 0.5)',
+        borderColor: 'rgba(0, 0, 0, 0.5)',
+        borderWidth: 2,
+        pointRadius: 2,
         tension: 0.1
       },
       {
         label: '예금',
         data: [65, 59, 80, 10, 56, 55],
         fill: false,
-        backgroundColor:'#0046ff',
-        borderColor: '#0046ff',
+        backgroundColor:'rgb(255, 175, 0.5)',
+        borderColor: 'rgb(255, 175, 0.5)',
+        borderWidth: 2,
+        pointRadius: 2,
         tension: 0.1
       },
       {
         label: '적금',
         data: savingData,
         fill: true,
-        backgroundColor: '#553366',
-        borderColor: '#553366',
+        backgroundColor: 'rgb(245, 50, 85, 0.5)',
+        borderColor: 'rgb(245, 50, 85, 0.5)',
+        borderWidth: 2,
+        pointRadius: 2,
         tension: 0.1,
       },
       {
         label: '대출',
         data: loanData,
         fill: false,
-        backgroundColor:'#555555',
-        borderColor: '#555555',
+        backgroundColor:'rgb(245, 110, 39, 0.5)',
+        borderColor: 'rgb(245, 110, 39, 0.5)',
+        borderWidth: 2,
+        pointRadius: 2,
         tension: 0.1
       }
     ]

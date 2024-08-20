@@ -12,7 +12,7 @@ function FinanceMyPage() {
       <div className="flex flex-col w-full">
         <div className="flex flex-col mb-10">
           <div className="text-2xl mb-2 text-[#0046ff] font-semibold">김싸피님의 예상 로드맵</div>
-          <div className="text-sm">추천 로드맵의 금융 상품 중 신한은행 금융 상품과 유사한 상품을 매칭하여 제공해드립니다.</div>
+          <div className="text-sm text-[#444444]">추천 로드맵의 금융 상품 중 신한은행 금융 상품과 유사한 상품을 매칭하여 제공해드립니다.</div>
         </div>
         <div className="flex">
           <div className="mb-4 w-[60%]">{/* 그래프 */}

@@ -131,24 +131,24 @@ function RecommendTabs() {
         )}
         {activeTab === "deposit" && (
           <div>
-            <p className="pb-4 text-sm text-[#0046ff] font-semibold">상품 클릭 시 고객님의 로드맵에 적용할 수 있습니다.</p>
-            <div className="flex flex-col justify-center item-center">
+            <div className="flex flex-col justify-center item-center mx-[5%]">
+              <p className="pb-4 text-sm text-[#0046ff]">상품 클릭 시 고객님의 로드맵에 적용할 수 있습니다.</p>
               {products}
             </div> 
           </div>
         )}
         {activeTab === "savings" && (
           <div>
-            <p className="pb-4 text-sm text-[#0046ff] font-semibold">상품 클릭 시 고객님의 로드맵에 적용할 수 있습니다.</p>
-            <div className="flex flex-col justify-center item-center">
-              {products}
+            <div className="flex flex-col justify-center item-center mx-[5%]">
+              <p className="pb-4 text-sm text-[#0046ff]">상품 클릭 시 고객님의 로드맵에 적용할 수 있습니다.</p>
+            {products}
             </div> 
           </div>
         )}
         {activeTab === "loan" && (
           <div>
-            <p className="pb-4 text-sm text-[#0046ff] font-semibold">상품 클릭 시 고객님의 로드맵에 적용할 수 있습니다.</p>
-            <div className="flex flex-col justify-center item-center">
+            <div className="flex flex-col justify-center item-center mx-[5%]">
+              <p className="pb-4 text-sm text-[#0046ff]">상품 클릭 시 고객님의 로드맵에 적용할 수 있습니다.</p>
               {products}
             </div> 
           </div>
