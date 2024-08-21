@@ -5,10 +5,8 @@ import { getAwards } from "../../apis/Award";
 import AwardItem from "./AwardItem";
 import AwardForm from "./AwardForm";
 import CertificationItem from "./CertificationItem";
-import CertificationForm from "./CertificationForm";
-import ProjectForm from "./ProjectForm";
-import PlusBox from "../common/PlusButton";
-import SectionHeader from "./SectionHeader";
+=======
+>>>>>>> 5e9ffaebb53271a0ff5049ed17f7946501a6badd
 
 const AwardCertificationSectionStyle = styled.div`
   width: 100%;
@@ -105,6 +103,8 @@ function AwardCertificationSection() {
           </SubSectionHeader>
 
           <SubSectionBody>
+<<<<<<< HEAD
+            <CertificationItem />
             {awardData && awardData.map((data) => <AwardItem data={data} />)}
             {Array.from({ length: awardNum }, (_, index) => (
               <AwardForm key={index}>Award {index + 1}</AwardForm>

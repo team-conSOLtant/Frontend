@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import MenuDropdown from "./MenuDropdown";
+import { useNavigate } from "react-router";
 
 // 상단바
 function Navbar() {
+  const navigate = useNavigate();
+
   // 메뉴 드롭다운 관리
   const [menuView, setMenuView] = useState(false);
 
@@ -24,9 +27,11 @@ function Navbar() {
             src="/nav/shinhan_logo_white.png"
             alt=""
           />
-          <div className="text-[1.4rem] text-white">신한은행</div>
+          <div className="text-[1.4rem] text-[#EAF1FF] font-OneShinhanBold">
+            신한은행
+          </div>
         </div>
-        <div className="px-[1rem] text-[0.8rem] text-white font-[100]">
+        <div className="px-[1rem] text-[0.7rem] text-white font-[100]">
           {formattedDate}
         </div>
       </div>
@@ -43,7 +48,12 @@ function Navbar() {
           {menuView && <MenuDropdown />}
         </>
       ) : (
-        <div className="text-white cursor-pointer">로그인</div>
+        <div
+          className="text-white cursor-pointer"
+          onClick={() => navigate("/login")}
+        >
+          로그인
+        </div>
       )}
     </div>
   );

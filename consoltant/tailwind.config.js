@@ -20,5 +20,5 @@ module.exports = {
       OneShinhanLight: ["OneShinhanLight"],
     },
   },
-  plugins: [],
+  plugins: [require('tailwind-scrollbar-hide'),],
 };
