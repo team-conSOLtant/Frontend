@@ -11,7 +11,6 @@ import SearchPage from "./pages/SearchPage.jsx";
 import CompanyLoginPage from "./pages/CompanyLoginPage.jsx";
 import SignupPage from "./pages/SignupPage.jsx";
 import SignupCompletePage from "./pages/SignupCompletePage.jsx";
-import RotatingDialMenu from "./pages/RotatingDialMenu.jsx";
 
 function App() {
   return (

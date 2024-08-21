@@ -18,3 +18,13 @@
 :root {
   font-family: "OneShinhanLight";
 }
+
+*::-webkit-scrollbar {
+  width: 0.3rem;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #d9d9d9;
+  border-radius: 1rem;
+  cursor: pointer;
+}

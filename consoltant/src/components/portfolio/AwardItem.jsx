@@ -60,22 +60,19 @@ const AwardAcqDateStyle = styled.div`
 // 포트폴리오 옆에서 순서 바꾸게 리모컨 역할 해주는 것
 function AwardItem({ data }) {
   return (
-    <div style={{ position: "relative" }}>
-      <AwardItemStyle>
-        <AwardItemBody>
-          <AwardTitleStyle>{data.title}</AwardTitleStyle>
-          <AwardContentStyle>{data.content}</AwardContentStyle>
-        </AwardItemBody>
-        <AwardItemFooter>
-          <AwardGradeStyle>{data.award_grade}</AwardGradeStyle>
-          <AwardOrganizationStyle>
-            {data.award_organization}
-          </AwardOrganizationStyle>
-          <AwardAcqDateStyle>{data.acquisition_date}</AwardAcqDateStyle>
-        </AwardItemFooter>
-      </AwardItemStyle>
-      {/* <HoverContent></HoverContent> */}
-    </div>
+    <AwardItemStyle>
+      <AwardItemBody>
+        <AwardTitleStyle>{data.title}</AwardTitleStyle>
+        <AwardContentStyle>{data.content}</AwardContentStyle>
+      </AwardItemBody>
+      <AwardItemFooter>
+        <AwardGradeStyle>{data.award_grade}</AwardGradeStyle>
+        <AwardOrganizationStyle>
+          {data.award_organization}
+        </AwardOrganizationStyle>
+        <AwardAcqDateStyle>{data.acquisition_date}</AwardAcqDateStyle>
+      </AwardItemFooter>
+    </AwardItemStyle>
   );
 }
 
