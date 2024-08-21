@@ -30,6 +30,20 @@ const MainPage = () => {
         accountName: "쏠편한 입출금 통장(저축 예금)",
         accountNum: "110-123-123456",
         accountAmount: 100000000,
+        assets: [
+          {
+            type: "입출금",
+            percent: 70,
+          },
+          {
+            type: "적금",
+            percent: 20,
+          },
+          {
+            type: "대출",
+            percent: 10,
+          },
+        ],
       },
       products: [
         {
@@ -67,6 +81,20 @@ const MainPage = () => {
         accountName: "쏠편한 입출금 통장(저축 예금)",
         accountNum: "110-123-123456",
         accountAmount: 100000000,
+        assets: [
+          {
+            type: "입출금",
+            percent: 70,
+          },
+          {
+            type: "적금",
+            percent: 10,
+          },
+          {
+            type: "대출",
+            percent: 20,
+          },
+        ],
       },
       products: [
         {
@@ -110,6 +138,20 @@ const MainPage = () => {
         accountName: "쏠편한 입출금 통장(저축 예금)",
         accountNum: "110-123-123456",
         accountAmount: 100000000,
+        assets: [
+          {
+            type: "입출금",
+            percent: 70,
+          },
+          {
+            type: "적금",
+            percent: 10,
+          },
+          {
+            type: "대출",
+            percent: 20,
+          },
+        ],
       },
       products: [
         {
@@ -147,6 +189,20 @@ const MainPage = () => {
         accountName: "쏠편한 입출금 통장(저축 예금)",
         accountNum: "110-123-123456",
         accountAmount: 100000000,
+        assets: [
+          {
+            type: "입출금",
+            percent: 70,
+          },
+          {
+            type: "적금",
+            percent: 10,
+          },
+          {
+            type: "대출",
+            percent: 20,
+          },
+        ],
       },
       products: [
         {
@@ -184,6 +240,20 @@ const MainPage = () => {
         accountName: "쏠편한 입출금 통장(저축 예금)",
         accountNum: "110-123-123456",
         accountAmount: 100000000,
+        assets: [
+          {
+            type: "입출금",
+            percent: 70,
+          },
+          {
+            type: "적금",
+            percent: 10,
+          },
+          {
+            type: "대출",
+            percent: 20,
+          },
+        ],
       },
       products: [
         {
@@ -226,6 +296,20 @@ const MainPage = () => {
         accountName: "쏠편한 입출금 통장(저축 예금)",
         accountNum: "110-123-123456",
         accountAmount: 100000000,
+        assets: [
+          {
+            type: "입출금",
+            percent: 70,
+          },
+          {
+            type: "적금",
+            percent: 10,
+          },
+          {
+            type: "대출",
+            percent: 20,
+          },
+        ],
       },
       products: [
         {
@@ -263,6 +347,20 @@ const MainPage = () => {
         accountName: "쏠편한 입출금 통장(저축 예금)",
         accountNum: "110-123-123456",
         accountAmount: 100000000,
+        assets: [
+          {
+            type: "입출금",
+            percent: 70,
+          },
+          {
+            type: "적금",
+            percent: 10,
+          },
+          {
+            type: "대출",
+            percent: 20,
+          },
+        ],
       },
       products: [
         {
@@ -353,15 +451,9 @@ const MainPage = () => {
         </div>
         <div className="absolute top-[5rem] z-20">
           {infos[itemIndex].age === currentInfos.age ? (
-            <CurrentMain
-              userInfo={currentInfos}
-              totalInfos={infos[itemIndex]}
-            ></CurrentMain>
+            <CurrentMain userInfo={currentInfos} totalInfos={infos[itemIndex]}></CurrentMain>
           ) : (
-            <HistoryMain
-              userInfo={currentInfos}
-              totalInfos={infos[itemIndex]}
-            ></HistoryMain>
+            <HistoryMain userInfo={currentInfos} totalInfos={infos[itemIndex]}></HistoryMain>
           )}
         </div>
       </div>

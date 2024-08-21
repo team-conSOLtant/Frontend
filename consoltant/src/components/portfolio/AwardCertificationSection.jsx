@@ -5,7 +5,9 @@ import { getAwards } from "../../apis/Award";
 import AwardItem from "./AwardItem";
 import AwardForm from "./AwardForm.jsx";
 import CertificationItem from "./CertificationItem.jsx";
-
+import SectionHeader from "./SectionHeader.jsx";
+import PlusBox from "../common/PlusButton.jsx";
+import CertificationForm from "./CertificationForm.jsx";
 
 const AwardCertificationSectionStyle = styled.div`
   width: 100%;
