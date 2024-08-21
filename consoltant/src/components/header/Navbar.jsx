@@ -27,9 +27,11 @@ function Navbar() {
             src="/nav/shinhan_logo_white.png"
             alt=""
           />
-          <div className="text-[1.4rem] text-white">신한은행</div>
+          <div className="text-[1.4rem] text-[#EAF1FF] font-OneShinhanBold">
+            신한은행
+          </div>
         </div>
-        <div className="px-[1rem] text-[0.8rem] text-white font-[100]">
+        <div className="px-[1rem] text-[0.7rem] text-white font-[100]">
           {formattedDate}
         </div>
       </div>

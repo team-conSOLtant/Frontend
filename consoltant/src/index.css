@@ -16,11 +16,15 @@
 }
 
 :root {
-<<<<<<< HEAD
   font-family: "OneShinhanLight";
-=======
-  /* --font-OneShinhanBold: "OneShinhanBold";
-  --font-OneShinhanBold: "OneShinhanBold"; */
-  font-family: "OneShinhanMedium";
->>>>>>> 5e9ffaebb53271a0ff5049ed17f7946501a6badd
+}
+
+*::-webkit-scrollbar {
+  width: 0.3rem;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #d9d9d9;
+  border-radius: 1rem;
+  cursor: pointer;
 }
