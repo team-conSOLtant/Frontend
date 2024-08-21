@@ -3,7 +3,7 @@ import { Routes, Route, Router } from "react-router-dom";
 import PortfolioController from "../components/portfolio/PortfolioController.jsx";
 import PortfolioSection from "../components/portfolio/PortfolioSection.jsx";
 import styled from "styled-components";
-import EducationSection from "../components/portfolio/EducationSection.jsx";
+import EducationCareerSection from "../components/portfolio/EducationCareerSection.jsx";
 import AwardCertificationSection from "../components/portfolio/AwardCertificationSection.jsx";
 import ProjectForm from "../components/portfolio/ProjectForm.jsx";
 import ProjectSection from "../components/portfolio/ProjectSection.jsx";
@@ -27,7 +27,7 @@ function PortfolioPage() {
   return (
     <PortfolioPageStyle>
       <PortfolioMain>
-        <EducationSection />
+        <EducationCareerSection />
 
         <AwardCertificationSection />
         <ProjectSection />

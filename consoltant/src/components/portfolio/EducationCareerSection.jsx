@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "./PorfolioSection.css";
 import styled from "styled-components";
+import SectionHeader from "./SectionHeader";
+import EducationForm from "./EducationForm";
+import CareerForm from "./CareerForm";
+import CareerItem from "./CareerItem";
 
-const EducationSectionStyle = styled.div``;
-const SectionHeader = styled.div``;
+const EducationSectionStyle = styled.div`
+  width: 100%;
+`;
 const SectionTitleText = styled.div``;
 
 const SectionTitleIcon = styled.img``;
@@ -17,6 +22,7 @@ const SubSectionHeader = styled.div``;
 const SubSectionBody = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 
 const SubSectionTitleText = styled.div``;
@@ -28,7 +34,7 @@ const InputContainer = styled.input`
   border: 1px solid black;
 `;
 
-function EducationSection() {
+function EducationCareerSection() {
   const [awardData, setAwardData] = useState(null);
 
   useEffect(() => {
@@ -40,29 +46,17 @@ function EducationSection() {
 
   return (
     <EducationSectionStyle>
-      <SectionHeader>
-        <SectionTitleText>학력 / 경력</SectionTitleText>
-        <SectionTitleIcon />
-      </SectionHeader>
+      <SectionHeader title={"학력 / 경력"} image={"/Briefcase.svg"} />
+
       <SectionBody>
         <SubSectionStyle>
           <SubSectionHeader>
             <SubSectionTitleText>학력</SubSectionTitleText>
             <SubSectionTitleButton />
           </SubSectionHeader>
+
           <SubSectionBody>
-            <InputLabel>
-              학교명 <InputContainer></InputContainer>
-            </InputLabel>
-            <InputLabel>
-              학과 <InputContainer></InputContainer>
-            </InputLabel>
-            <InputLabel>
-              학점 <InputContainer></InputContainer>
-            </InputLabel>
-            <InputLabel>
-              기간 <InputContainer></InputContainer>
-            </InputLabel>
+            <EducationForm></EducationForm>
           </SubSectionBody>
         </SubSectionStyle>
         <SubSectionStyle>
@@ -70,11 +64,14 @@ function EducationSection() {
             <SubSectionTitleText>경력</SubSectionTitleText>
             <SubSectionTitleButton />
           </SubSectionHeader>
-          <SubSectionBody></SubSectionBody>
+          <SubSectionBody>
+            <CareerForm></CareerForm>
+            <CareerItem></CareerItem>
+          </SubSectionBody>
         </SubSectionStyle>
       </SectionBody>
     </EducationSectionStyle>
   );
 }
 
-export default EducationSection;
+export default EducationCareerSection;

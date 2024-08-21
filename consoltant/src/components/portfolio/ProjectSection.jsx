@@ -3,7 +3,7 @@ import styled from "styled-components";
 import ProjectForm from "./ProjectForm";
 import ProjectItem from "./ProjectItem";
 
-import PlusBox from "../common/PlusButton";
+import PlusBox from "../common/PlusBox";
 import SectionHeader from "./SectionHeader";
 const ProjectSectionStyle = styled.div`
   width: 100%;
@@ -63,7 +63,7 @@ function ProjectSection(props) {
 
   return (
     <ProjectSectionStyle>
-      <SectionHeader title={"프로젝트"} />
+      <SectionHeader title={"프로젝트"} image={"/Folders.svg"} />
       <SectionBody>
         <PlusBoxContainer>
           <PlusBox onClick={addForm} />
