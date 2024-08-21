@@ -77,6 +77,16 @@ const AwardAcqDateStyle = styled.input`
   padding-left: 0.3rem;
 `;
 
+const AwardSubmitButton = styled.div`
+  width: 100%;
+  height: 2rem;
+  background-color: #ffcc00;
+  border-radius: 0.2rem;
+  text-align: center;
+  line-height: 2rem;
+  color: white;
+`;
+
 // 포트폴리오 옆에서 순서 바꾸게 리모컨 역할 해주는 것
 function AwardForm({ data }) {
   return (
@@ -91,6 +101,7 @@ function AwardForm({ data }) {
         <AwardGradeStyle placeholder="수상명" />
         <AwardOrganizationStyle placeholder="주최" />
         <AwardAcqDateStyle placeholder="수상일"></AwardAcqDateStyle>
+        <AwardSubmitButton>제출</AwardSubmitButton>
       </AwardItemFooter>
     </AwardItemStyle>
   );

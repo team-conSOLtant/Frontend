@@ -1,0 +1,54 @@
+{
+  "Project": [
+    {
+      "id": 2,
+      "title": "AI 캠퍼스 프로젝트",
+      "language": "Python, TensorFlow, React",
+      "projectUrl": "https://github.com/ai-campus",
+      "description": "캡스톤 디자인 프로젝트 우수상 수상작.",
+      "startDate": "2024-05-01",
+      "endDate": "2024-06-15",
+      "isDeleted": false
+    },
+    {
+      "id": 3,
+      "title": "스마트 농업 플랫폼",
+      "language": "Java, Spring Boot, Vue.js",
+      "projectUrl": "https://github.com/smart-agriculture",
+      "description": "스마트 농업 솔루션 개발을 위한 프로젝트.",
+      "startDate": "2023-10-10",
+      "endDate": "2024-02-20",
+      "isDeleted": false
+    },
+    {
+      "id": 4,
+      "title": "헬스케어 모니터링 시스템",
+      "language": "Node.js, Express, React Native",
+      "projectUrl": "https://github.com/health-monitoring",
+      "description": "실시간 건강 상태 모니터링 시스템 개발.",
+      "startDate": "2024-03-01",
+      "endDate": "2024-05-30",
+      "isDeleted": false
+    },
+    {
+      "id": 5,
+      "title": "IoT 가전 컨트롤러",
+      "language": "C++, Arduino, Vue.js",
+      "projectUrl": "https://github.com/iot-controller",
+      "description": "사물인터넷 기반 가전제품 제어 시스템.",
+      "startDate": "2024-07-01",
+      "endDate": "2024-08-10",
+      "isDeleted": false
+    },
+    {
+      "id": 6,
+      "title": "교통 혼잡 예측 시스템",
+      "language": "Python, Flask, Angular",
+      "projectUrl": "https://github.com/traffic-predict",
+      "description": "교통 데이터 분석을 통한 혼잡 예측 시스템 개발.",
+      "startDate": "2024-02-15",
+      "endDate": "2024-04-10",
+      "isDeleted": false
+    }
+  ]
+}
