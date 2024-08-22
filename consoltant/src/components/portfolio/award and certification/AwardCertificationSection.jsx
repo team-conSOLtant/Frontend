@@ -4,9 +4,9 @@ import { getAwards } from "../../../apis/Award";
 import AwardItem from "./AwardItem";
 import AwardForm from "./AwardForm";
 import CertificationItem from "./CertificationItem";
-import PlusBox from "../../common/PlusBox";
 import CertificationForm from "./CertificationForm";
 import SectionHeader from "../SectionHeader";
+import { getCertifications } from "../../../apis/Certification";
 
 const AwardCertificationSectionStyle = styled.div`
   width: 100%;
@@ -31,7 +31,10 @@ const SubSectionStyle = styled.div`
 `;
 
 const SubSectionHeader = styled.div`
+  font-family: "OneShinhanBold";
   width: 100%;
+  margin: 1rem 0;
+  margin-left: 1rem;
 `;
 
 const SubSectionBody = styled.div`
@@ -64,14 +67,66 @@ const PlusBoxContainer = styled.div`
   align-items: center;
 `;
 
+const PlusBoxStyle = styled.div`
+  height: 80%;
+  width: 80%;
+  background-color: #f5f5f5;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const PlusBoxButton = styled.div`
+  --ball-size: 5rem;
+  height: var(--ball-size);
+  width: var(--ball-size);
+  border-radius: 3rem;
+  font-size: 3rem;
+  color: white;
+  text-align: center;
+  line-height: 5rem;
+  background-color: #c7c7c7;
+`;
+
+const PlusBoxCertContainer = styled.div`
+  width: 12rem;
+  height: 4.8rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+`;
+
+const PlusBoxCertStyle = styled.div`
+  height: 80%;
+  width: 80%;
+  background-color: #f5f5f5;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const PlusBoxCertButton = styled.div`
+  --ball-size: 3rem;
+  height: var(--ball-size);
+  width: var(--ball-size);
+  border-radius: 3rem;
+  font-size: 2rem;
+  color: white;
+  text-align: center;
+  line-height: 3rem;
+  background-color: #c7c7c7;
+`;
+
 function AwardCertificationSection({ isEdit }) {
-  const [awardData, setAwardData] = useState(null);
+  const [awardData, setAwardData] = useState([]);
   const [awardNum, setAwardNum] = useState(1);
-  const [certificationData, setCertificationData] = useState(null);
+  const [certificationData, setCertificationData] = useState([]);
   const [certificationNum, setCertificationNum] = useState(1);
 
   useEffect(() => {
     getAwardData();
+    getCertificationdData();
   }, []);
 
   const getAwardData = async () => {
@@ -80,15 +135,20 @@ function AwardCertificationSection({ isEdit }) {
     setAwardData(res.award);
   };
 
-  const addForm = () => {
+  const addAwardForm = () => {
     console.log(awardNum);
     setAwardNum(awardNum + 1);
   };
 
-  const getCertificationdData = () => {
-    // const res = await getCertifications();
+  const addCertForm = () => {
+    console.log(certificationNum);
+    setCertificationNum(certificationNum + 1);
+  };
+
+  const getCertificationdData = async () => {
+    const res = await getCertifications();
     // console.log("res", res.award);
-    // setAwardData(res.award);
+    setCertificationData(res.result);
   };
 
   return (
@@ -96,11 +156,7 @@ function AwardCertificationSection({ isEdit }) {
       <SectionHeader title={"수상 / 자격증"} image={"/Trophy.svg"} />
       <SectionBody>
         <SubSectionStyle>
-          <SubSectionHeader>
-            <SubSectionTitleText>수상</SubSectionTitleText>
-            <SubSectionTitleButton />
-          </SubSectionHeader>
-
+          <SubSectionHeader>수상 ({awardData?.length})</SubSectionHeader>
           <SubSectionBody>
             {awardData && awardData.map((data) => <AwardItem data={data} />)}
             {isEdit &&
@@ -109,19 +165,35 @@ function AwardCertificationSection({ isEdit }) {
               ))}
             {isEdit && (
               <PlusBoxContainer>
-                <PlusBox onClick={addForm} />
+                <PlusBoxStyle onClick={addAwardForm}>
+                  <PlusBoxButton>+</PlusBoxButton>
+                </PlusBoxStyle>
               </PlusBoxContainer>
             )}
           </SubSectionBody>
         </SubSectionStyle>
         <SubSectionStyle>
           <SubSectionHeader>
-            <SubSectionTitleText>자격증</SubSectionTitleText>
-            <SubSectionTitleButton />
+            자격증 ({certificationData?.length})
           </SubSectionHeader>
           <SubSectionBody>
-            <CertificationForm />
-            <CertificationItem />
+            {certificationData &&
+              certificationData.map((data) => (
+                <CertificationItem data={data} />
+              ))}
+            {isEdit &&
+              Array.from({ length: certificationNum }, (_, index) => (
+                <CertificationForm key={index}>
+                  Award {index + 1}
+                </CertificationForm>
+              ))}
+            {isEdit && (
+              <PlusBoxCertContainer>
+                <PlusBoxCertStyle onClick={addCertForm}>
+                  <PlusBoxCertButton>+</PlusBoxCertButton>
+                </PlusBoxCertStyle>
+              </PlusBoxCertContainer>
+            )}
           </SubSectionBody>
         </SubSectionStyle>
       </SectionBody>

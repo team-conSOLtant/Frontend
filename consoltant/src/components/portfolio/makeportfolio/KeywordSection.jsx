@@ -75,10 +75,15 @@ function KeywordSection() {
       <HappinessContainer>
         {["소확행", "중확행", "대확행"].map((happy) => (
           <HappinessComponent
+            className="relative group"
             isSelected={selectedHappiness === happy}
             onClick={() => setSelectedHappiness(happy)}
           >
             {happy}
+            <span className="absolute flex items-center bg-[#F7F7F7] rounded-[0.5rem] w-fill px-[0.3rem] top-[1rem] text-[0.6rem] scale-0 group-hover:scale-100 z-30 ">
+              <div className="mr-[0.2rem] w-[0.3rem] h-[0.3rem] rounded-full"></div>
+              {"소확행은 어쩌구입니다."}
+            </span>
           </HappinessComponent>
         ))}
       </HappinessContainer>
