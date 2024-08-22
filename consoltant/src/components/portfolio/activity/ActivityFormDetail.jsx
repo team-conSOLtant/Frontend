@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 function ActivityFormDetail({ detail, onDetailChange }) {
   const handleRoleChange = (e) => {
@@ -11,8 +11,8 @@ function ActivityFormDetail({ detail, onDetailChange }) {
 
   return (
     <div className="flex my-2">
-      <div className='w-5 h-5 flex justify-center items-center bg-[#D9D9D9] rounded-[5px] m-2'></div>
-      <div className='flex flex-col w-full'>
+      <div className="w-5 h-5 flex justify-center items-center bg-[#D9D9D9] rounded-[5px] m-2"></div>
+      <div className="flex flex-col w-full">
         <input
           type="text"
           placeholder="자신의 역할 및 한일에 대해서 간단히 작성해주세요"

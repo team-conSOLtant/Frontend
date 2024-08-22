@@ -1,60 +1,115 @@
-import React, { useState, useEffect } from "react";
-import RecommendItem from './RecommendItem.jsx';
+import React, { useEffect, useState } from "react";
+import RecommendItem from "./RecommendItem.jsx";
 
-function RecommendTabs() {
-  // 현재 선택된 탭을 관리하는 상태
+function RecommendTabs({ selectedItems, onItemClick, isKimSsafy }) {
   const [activeTab, setActiveTab] = useState("basicInfo");
   const [products, setProducts] = useState([]);
 
-  // 탭을 클릭했을 때 호출되는 함수
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
 
   useEffect(() => {
-    var dddddd = [];
-    if(activeTab == "deposit"){ 
-      dddddd = [
-        { id: 1, name: "예금 1", description: "이것은 상품 1입니다.", rate: 3.4 },
-        { id: 2, name: "예금 2", description: "이것은 상품 2입니다.", rate: 3.4 },
-        { id: 3, name: "예금 3", description: "이것은 상품 3입니다.", rate: 3.4 },
-      ];
-    }
-    else if(activeTab == "savings"){
-      dddddd = [
-        { id: 1, name: "적금 1", description: "이것은 상품 1입니다.", rate: 3.4 },
-        { id: 2, name: "적금 2", description: "이것은 상품 2입니다.", rate: 3.4 },
-        { id: 3, name: "적금 3", description: "이것은 상품 3입니다.", rate: 3.4 },
-      ];
-    }
-    else if(activeTab == "loan"){
-      dddddd = [
-        { id: 1, name: "대출 1", description: "이것은 상품 1입니다.", rate: 3.4 },
-        { id: 2, name: "대출 2", description: "이것은 상품 2입니다.", rate: 3.4 },
-        { id: 3, name: "대출 3", description: "이것은 상품 3입니다.", rate: 3.4 },
-      ];
-    }
-    
+    if (!isKimSsafy) {
+      // 추천 로드맵 탭의 경우 상품 목록을 세팅
+      var dddddd = [];
+      if (activeTab === "deposit") {
+        dddddd = [
+          {
+            id: 1,
+            name: "예금 1",
+            description: "이것은 상품 1입니다.",
+            rate: 3.4,
+          },
+          {
+            id: 2,
+            name: "예금 2",
+            description: "이것은 상품 2입니다.",
+            rate: 3.4,
+          },
+          {
+            id: 3,
+            name: "예금 3",
+            description: "이것은 상품 3입니다.",
+            rate: 3.4,
+          },
+        ];
+      } else if (activeTab === "savings") {
+        dddddd = [
+          {
+            id: 1,
+            name: "적금 1",
+            description: "이것은 상품 1입니다.",
+            rate: 3.4,
+          },
+          {
+            id: 2,
+            name: "적금 2",
+            description: "이것은 상품 2입니다.",
+            rate: 3.4,
+          },
+          {
+            id: 3,
+            name: "적금 3",
+            description: "이것은 상품 3입니다.",
+            rate: 3.4,
+          },
+        ];
+      } else if (activeTab === "loan") {
+        dddddd = [
+          {
+            id: 1,
+            name: "대출 1",
+            description: "이것은 상품 1입니다.",
+            rate: 3.4,
+          },
+          {
+            id: 2,
+            name: "대출 2",
+            description: "이것은 상품 2입니다.",
+            rate: 3.4,
+          },
+          {
+            id: 3,
+            name: "대출 3",
+            description: "이것은 상품 3입니다.",
+            rate: 3.4,
+          },
+        ];
+      }
 
-    const items = dddddd.map((item) => <RecommendItem item={item} />)
-    setProducts(items);
-  });
-
-  const recommendInfo = {
-    career : 500,
-    capitalTendency : "대확행",
-    initialCapital : 1000,
-    currentCapital : 5000000,
-    period : 10
-  }
+      const items = dddddd.map((item) => (
+        <RecommendItem
+          key={item.id}
+          item={item}
+          onClick={() => onItemClick(item)} // 클릭 핸들러 호출
+          isSelected={selectedItems.some(
+            (selectedItem) => selectedItem.id === item.id
+          )} // 선택 여부 전달
+        />
+      ));
+      setProducts(items);
+    } else {
+      // 김싸피 탭의 경우 selectedItems만 표시
+      const items = selectedItems.map((item) => (
+        <RecommendItem
+          key={item.id}
+          item={item}
+          isSelected={true} // 이미 선택된 항목들만 있으므로 true
+        />
+      ));
+      setProducts(items);
+    }
+  }, [activeTab, selectedItems, isKimSsafy]);
 
   return (
     <div className="p-4">
-      {/* 탭 버튼들 */}
       <div className="flex border-b-2 border-gray-200 mb-4">
         <button
           className={`px-4 py-2 focus:outline-none ${
-            activeTab === "basicInfo" ? "border-b-2 border-blue-500 font-bold" : ""
+            activeTab === "basicInfo"
+              ? "border-b-2 border-blue-500 font-bold"
+              : ""
           }`}
           onClick={() => handleTabClick("basicInfo")}
         >
@@ -62,7 +117,9 @@ function RecommendTabs() {
         </button>
         <button
           className={`px-4 py-2 focus:outline-none ${
-            activeTab === "deposit" ? "border-b-2 border-blue-500 font-bold" : ""
+            activeTab === "deposit"
+              ? "border-b-2 border-blue-500 font-bold"
+              : ""
           }`}
           onClick={() => handleTabClick("deposit")}
         >
@@ -70,7 +127,9 @@ function RecommendTabs() {
         </button>
         <button
           className={`px-4 py-2 focus:outline-none ${
-            activeTab === "savings" ? "border-b-2 border-blue-500 font-bold" : ""
+            activeTab === "savings"
+              ? "border-b-2 border-blue-500 font-bold"
+              : ""
           }`}
           onClick={() => handleTabClick("savings")}
         >
@@ -86,71 +145,21 @@ function RecommendTabs() {
         </button>
       </div>
 
-      {/* 선택된 탭에 따라 다른 내용 표시 */}
       <div className="tab-content">
         {activeTab === "basicInfo" && (
           <div className="mx-[5%]">
-            <p className="text-[#0046FF] text-sm">다음은 선배님들의 평균 값 입니다.</p>
-            <div className="flex flex-col ">
-              <div className="flex justify-between mb-3">
-                <div>월급</div>
-                <div>
-                  <span>{recommendInfo.career}</span>
-                  <span className="">만원</span>
-                </div>
-              </div>
-              <div className="flex justify-between mb-3">
-                <div>성향</div>
-                <div>
-                  <span>{recommendInfo.capitalTendency}</span>
-                </div>
-              </div>
-              <div className="flex justify-between mb-3">
-                <div>초기자본</div>
-                <div>
-                  <span>{recommendInfo.initialCapital}</span>
-                  <span>만원</span>
-                </div>
-              </div>
-              <div className="flex justify-between mb-3">
-                <div>현 자본</div>
-                <div>
-                  <span>{recommendInfo.currentCapital}</span>
-                  <span>만원</span>
-                </div>
-              </div>
-              <div className="flex justify-between mb-3">
-                <div>기간</div>
-                <div>
-                  <span>10</span>
-                  <span>년</span>
-                </div>
-              </div>
-            </div>
+            <p className="text-[#0046FF] text-sm">
+              다음은 선배님들의 평균 값 입니다.
+            </p>
+            {/* 여기에 기본 정보를 표시 */}
           </div>
         )}
-        {activeTab === "deposit" && (
-          <div>
-            <div className="flex flex-col justify-center item-center mx-[5%]">
-              <p className="pb-4 text-sm text-[#0046ff]">상품 클릭 시 고객님의 로드맵에 적용할 수 있습니다.</p>
-              {products}
-            </div> 
-          </div>
-        )}
-        {activeTab === "savings" && (
-          <div>
-            <div className="flex flex-col justify-center item-center mx-[5%]">
-              <p className="pb-4 text-sm text-[#0046ff]">상품 클릭 시 고객님의 로드맵에 적용할 수 있습니다.</p>
+        {["deposit", "savings", "loan"].includes(activeTab) && (
+          <div className="flex flex-col justify-center item-center mx-[5%]">
+            <p className="pb-4 text-sm text-[#0046ff]">
+              상품 클릭 시 고객님의 로드맵에 적용할 수 있습니다.
+            </p>
             {products}
-            </div> 
-          </div>
-        )}
-        {activeTab === "loan" && (
-          <div>
-            <div className="flex flex-col justify-center item-center mx-[5%]">
-              <p className="pb-4 text-sm text-[#0046ff]">상품 클릭 시 고객님의 로드맵에 적용할 수 있습니다.</p>
-              {products}
-            </div> 
           </div>
         )}
       </div>
