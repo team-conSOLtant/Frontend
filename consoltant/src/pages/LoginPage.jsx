@@ -8,16 +8,16 @@ function LoginPage() {
   const [id, setId] = useState();
   const [pw, setPw] = useState();
 
-  const login = () => {
+  const login = async () => {
     const form = new FormData();
-    console.log(id);
-    console.log(pw);
-    form.append("id", id);
-    form.append("pw", pw);
-    // console.log(form.get("id"));
-    // console.log(form.get("id"));
+    // console.log(id);
+    // console.log(pw);
+    form.append("username", id);
+    form.append("password", pw);
+    console.log(form.get("username"));
+    console.log(form.get("password"));
     try {
-      console.log(requestLogin(form));
+      await console.log(requestLogin(form));
       // if (requestLogin(formData)) {
       //   console.log("로그인 성공!");
       //   navigate("/main");
