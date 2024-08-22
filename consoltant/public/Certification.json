@@ -1,0 +1,44 @@
+{
+  "success": true,
+  "statusCode": 1000,
+  "httpStatus": 200,
+  "message": "요청에 성공하였습니다.",
+  "timestamp": "2024-08-20T19:55:19",
+  "result": [
+    {
+      "id": 1,
+      "title": "정보처리기사",
+      "issuingOrganization": "한국산업인력공단",
+      "acquisitionDate": "2024-06-18",
+      "isDeleted": false
+    },
+    {
+      "id": 2,
+      "title": "빅데이터분석기사",
+      "issuingOrganization": "한국데이터산업진흥원",
+      "acquisitionDate": "2023-11-25",
+      "isDeleted": false
+    },
+    {
+      "id": 3,
+      "title": "네트워크관리사 2급",
+      "issuingOrganization": "한국정보통신진흥협회",
+      "acquisitionDate": "2022-09-15",
+      "isDeleted": false
+    },
+    {
+      "id": 4,
+      "title": "SQLD(SQL 개발자)",
+      "issuingOrganization": "한국데이터산업진흥원",
+      "acquisitionDate": "2024-04-12",
+      "isDeleted": false
+    },
+    {
+      "id": 5,
+      "title": "리눅스마스터 1급",
+      "issuingOrganization": "한국정보통신진흥협회",
+      "acquisitionDate": "2023-08-30",
+      "isDeleted": false
+    }
+  ]
+}

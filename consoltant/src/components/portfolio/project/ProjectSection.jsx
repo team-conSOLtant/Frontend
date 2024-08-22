@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ProjectForm from "./ProjectForm";
 import ProjectItem from "./ProjectItem";
 
-import PlusBox from "../../common/PlusBox";
 import SectionHeader from "../SectionHeader";
+import { getProjects } from "../../../apis/Project";
 const ProjectSectionStyle = styled.div`
   width: 100%;
 `;
@@ -35,18 +35,6 @@ const SubSectionBody = styled.div`
   flex-direction: row;
 `;
 
-const SubSectionTitleText = styled.div`
-  width: 100%;
-`;
-
-const SubSectionTitleButton = styled.div``;
-
-const InputLabel = styled.label``;
-
-const InputContainer = styled.input`
-  border: 1px solid black;
-`;
-
 const PlusBoxContainer = styled.div`
   width: 100%;
   height: 3rem;
@@ -54,11 +42,39 @@ const PlusBoxContainer = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
+const PlusBoxStyle = styled.div`
+  height: 80%;
+  width: 60%;
+  background-color: #f5f5f5;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const PlusBoxButton = styled.div`
+  --ball-size: 1.5rem;
+  height: var(--ball-size);
+  width: var(--ball-size);
+  border-radius: 2rem;
+  background-color: #c7c7c7;
+  text-align: center;
+  color: white;
+  font-family: "OneShinhanBold";
+`;
 function ProjectSection({ isEdit }) {
-  const addForm = () => {
-    // console.log(awardNum);
-    // setAwardNum(awardNum + 1);
+  const [formList, setFormList] = useState([{}]);
+  const [projectList, setProjectList] = useState([]);
+  const addForm = () => {};
+
+  useEffect(() => {
+    getProjectData();
+  }, []);
+
+  const getProjectData = async () => {
+    const res = await getProjects();
+    // console.log("res", res.award);
+    setProjectList(res.result);
+    console.log("?", res.result);
   };
 
   return (
@@ -67,11 +83,14 @@ function ProjectSection({ isEdit }) {
       <SectionBody>
         {isEdit && (
           <PlusBoxContainer>
-            <PlusBox onClick={addForm} />
+            <PlusBoxStyle onClick={addForm}>
+              <PlusBoxButton>+</PlusBoxButton>
+            </PlusBoxStyle>
           </PlusBoxContainer>
         )}
-        {isEdit && <ProjectForm />}
-        <ProjectItem />
+        {isEdit && formList.map((data) => <ProjectForm data={data} />)}
+        {projectList.length > 0 &&
+          projectList.map((data) => <ProjectItem data={data} />)}
       </SectionBody>
     </ProjectSectionStyle>
   );

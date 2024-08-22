@@ -34,11 +34,13 @@ const CertificationAcqDateStyle = styled.div`
 function CertificationItem({ data }) {
   return (
     <CertificationItemStyle>
-      <CertificationTitleStyle>타이틀{data?.title}</CertificationTitleStyle>
+      <CertificationTitleStyle>{data?.title}</CertificationTitleStyle>
       <CertificationOrganizationStyle>
-        {data?.organization}조직
+        {data?.issuingOrganization}
       </CertificationOrganizationStyle>
-      <CertificationAcqDateStyle>{data?.ac}취득날짜</CertificationAcqDateStyle>
+      <CertificationAcqDateStyle>
+        {data?.acquisitionDate}
+      </CertificationAcqDateStyle>
     </CertificationItemStyle>
   );
 }

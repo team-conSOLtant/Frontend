@@ -16,7 +16,15 @@ const SectionBody = styled.div``;
 
 const SubSectionStyle = styled.div``;
 
-const SubSectionHeader = styled.div``;
+const SubSectionHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  font-family: "OneShinhanBold";
+  width: 100%;
+  margin: 1rem 0;
+  margin-left: 1rem;
+  align-items: center;
+`;
 
 const SubSectionBody = styled.div`
   display: flex;
@@ -26,7 +34,16 @@ const SubSectionBody = styled.div`
 
 const SubSectionTitleText = styled.div``;
 
-const SubSectionTitleButton = styled.div``;
+const SubSectionTitleButton = styled.div`
+  background-color: #c7c7c7;
+  color: white;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 2rem;
+  text-align: center;
+  line-height: 1.5rem;
+  margin-left: 0.5rem;
+`;
 
 const InputLabel = styled.label``;
 const InputContainer = styled.input`
@@ -51,7 +68,6 @@ function EducationCareerSection({ isEdit }) {
         <SubSectionStyle>
           <SubSectionHeader>
             <SubSectionTitleText>학력</SubSectionTitleText>
-            <SubSectionTitleButton />
           </SubSectionHeader>
 
           <SubSectionBody>
@@ -61,7 +77,7 @@ function EducationCareerSection({ isEdit }) {
         <SubSectionStyle>
           <SubSectionHeader>
             <SubSectionTitleText>경력</SubSectionTitleText>
-            <SubSectionTitleButton />
+            <SubSectionTitleButton>+</SubSectionTitleButton>
           </SubSectionHeader>
           <SubSectionBody>
             <CareerForm></CareerForm>
