@@ -11,7 +11,7 @@ function FinanceRoadMap() {
         alt=""
       />
       <div className="text-[1.3rem]">
-        유사 성향 <span className="font-OneShinhanBold">금융 로드맵</span>이
+        유사 성향 <span className="font-OneShinhanBold">금융 로드맵</span>이<br />
         도착했어요
       </div>
       <div className="text-[0.8rem]">추천 금융상품</div>

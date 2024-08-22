@@ -1,24 +1,33 @@
-import { useState } from "react";
-
 function StickGraph({ data }) {
-  const [show, setShow] = useState(false);
+  const getColorByType = (type) => {
+    switch (type) {
+      case "입출금":
+        return "#4E59C3";
+      case "적금":
+        return "#39C4C0";
+      default:
+        return "#CAD9FF";
+    }
+  };
+
   return (
     <div className="flex">
       {data.map((asset, index) => (
         <div
           key={index}
-          className={`relative group h-[1.3rem] w-[${asset.percent}%] bg-[#${
-            asset.type === "입출금" ? "4E59C3" : asset.type === "적금" ? "39C4C0" : "CAD9FF"
-          }]`}
+          className="relative group h-[1.3rem]"
+          style={{
+            width: `${asset.percent}%`,
+            backgroundColor: getColorByType(asset.type),
+          }}
         >
-          <span className="absolute flex items-center bg-[#F7F7F7] rounded-[0.5rem] w-fill px-[0.3rem] top-[1rem] text-[0.6rem] scale-0 group-hover:scale-100 ">
+          <span className="absolute flex items-center bg-[#F7F7F7] rounded-[0.5rem] w-fill px-[0.3rem] top-[1rem] text-[0.6rem] scale-0 group-hover:scale-100 z-30 ">
             <div
-              className={`mr-[0.2rem] w-[0.3rem] h-[0.3rem] rounded-full bg-[#${
-                asset.type === "입출금" ? "4E59C3" : asset.type === "적금" ? "39C4C0" : "CAD9FF"
-              }]`}
-            >
-              {" "}
-            </div>
+              className="mr-[0.2rem] w-[0.3rem] h-[0.3rem] rounded-full"
+              style={{
+                backgroundColor: getColorByType(asset.type),
+              }}
+            ></div>
             {asset.type} {asset.percent}%
           </span>
         </div>

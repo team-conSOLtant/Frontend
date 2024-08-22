@@ -8,7 +8,9 @@ function LoginPage() {
     <div className="flex flex-col justify-center items-center h-[100vh]">
       <div className="flex items-center mb-5">
         <img className="w-[2.5rem]" src="/logo/shinhan_logo_blue.png" alt="" />
-        <div className="text-[#5C5C5C] text-[1.4rem] px-[1rem]">SOL 학생 로드맵</div>
+        <div className="font-OneShinhanBold text-[#5C5C5C] text-[1.4rem] px-[1rem]">
+          SOL 학생 로드맵
+        </div>
       </div>
       <div className="w-[40%] max-w-[27rem] font-OneShinhanLight border border-[#ACACAC] shadow-lg rounded-[0.7rem] flex flex-col items-center p-5">
         <div className="w-[80%] mt-[1.5rem]">
@@ -43,7 +45,11 @@ function LoginPage() {
               />
             </svg>
 
-            <input className="pl-6 focus:outline-none" type="text" placeholder="비밀번호" />
+            <input
+              className="pl-6 focus:outline-none"
+              type="text"
+              placeholder="비밀번호"
+            />
           </div>
           <div className="flex mt-[0.5rem] text-[0.8rem] ">
             <input type="checkbox" className="mr-[0.5rem]" />
@@ -57,7 +63,10 @@ function LoginPage() {
       <div className="mt-[1rem] flex flex-col items-center font-OneShinhanLight">
         <div className="flex text-[0.8rem]">
           <div className="text-[#525252]">아직 회원이 아니신가요?</div>
-          <div className="mx-1 text-[#0046ff] cursor-pointer" onClick={() => navigate("/signup")}>
+          <div
+            className="mx-1 text-[#0046ff] cursor-pointer"
+            onClick={() => navigate("/signup")}
+          >
             회원가입
           </div>
         </div>
