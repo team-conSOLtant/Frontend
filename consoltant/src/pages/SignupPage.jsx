@@ -27,7 +27,7 @@ function SignupPage() {
         {/* 이메일 */}
         <div className="my-[0.5rem] flex text-[#5C5C5C] w-[40%] max-w-[35rem] min-w-[25rem] items-center justify-between text-[0.9rem]">
           <div className="w-[20%] min-w-[7rem]">아이디(이메일)</div>
-          <div className="flex justify-between items-center text-[0.8rem] font-OneShinhanLight">
+          <div className="flex justify-between items-center w-[30rem] text-[0.8rem] font-OneShinhanLight">
             {/* 이메일 아이디 입력란 */}
             <input
               type="text"

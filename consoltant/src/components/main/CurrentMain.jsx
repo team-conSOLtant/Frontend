@@ -17,10 +17,8 @@ function CurrentMain(props) {
   return (
     <div className="pt-[1rem] px-[2rem] text-[#444444]">
       {/* title */}
-      <div className="">
-        <div className="font-OneShinhanBold text-[#005DF9] text-[1.8rem] ">
-          SOL 학생로드맵
-        </div>
+      <div>
+        <div className="font-OneShinhanBold text-[#005DF9] text-[1.8rem] ">SOL 학생로드맵</div>
         <div className="font-OneShinhanLight text-[0.6rem] ">
           모든 신한 금융상품을 통해 자산관리를 시작해보세요
         </div>
@@ -38,9 +36,7 @@ function CurrentMain(props) {
         {/* 내 계좌항목 */}
         <div className="font-OneShinhanMedium flex items-end">내 계좌항목</div>
         {/* 상품 장바구니 */}
-        <div className="font-OneShinhanMedium flex items-end">
-          상품 장바구니
-        </div>
+        <div className="font-OneShinhanMedium flex items-end">상품 장바구니</div>
         {/* CurrentInfo */}
         <PersonalInfo univInfos={univInfos} />
         {/* My Account */}

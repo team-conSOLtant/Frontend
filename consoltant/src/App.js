@@ -11,6 +11,9 @@ import SearchPage from "./pages/SearchPage.jsx";
 import CompanyLoginPage from "./pages/CompanyLoginPage.jsx";
 import SignupPage from "./pages/SignupPage.jsx";
 import SignupCompletePage from "./pages/SignupCompletePage.jsx";
+import SignupInfoPage from "./pages/SignupInfoPage.jsx";
+import CheckAccount from "./pages/CheckAccount.jsx";
+import AccountInfoPage from "./pages/AccountInfoPage.jsx";
 
 function App() {
   return (
@@ -21,7 +24,10 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/complogin" element={<CompanyLoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/signup-info" element={<SignupInfoPage />} />
+          <Route path="/check-account" element={<CheckAccount />} />
           <Route path="/complete" element={<SignupCompletePage />} />
+          <Route path="/account-info" element={<AccountInfoPage />} />
           <Route path="/main" element={<MainPage />} />
           <Route path="/make-portfolio" element={<MakePortfolioPage />} />
           <Route path="/portfolio" element={<PortfolioPage />} />
