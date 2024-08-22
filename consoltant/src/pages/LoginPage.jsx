@@ -10,18 +10,14 @@ function LoginPage() {
 
   const login = async () => {
     const form = new FormData();
-    // console.log(id);
-    // console.log(pw);
     form.append("username", id);
     form.append("password", pw);
-    console.log(form.get("username"));
-    console.log(form.get("password"));
     try {
-      await console.log(requestLogin(form));
-      // if (requestLogin(formData)) {
-      //   console.log("로그인 성공!");
-      //   navigate("/main");
-      // }
+      // await console.log(requestLogin(form));
+      if (requestLogin(form)) {
+        console.log("로그인 성공!");
+        navigate("/main");
+      }
     } catch (error) {
       console.log(error);
     }
