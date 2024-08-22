@@ -2,13 +2,16 @@ import React from "react";
 import { Routes, Route, Router } from "react-router-dom";
 import RecommendTabs from '../components/recommend/RecommendTabs.jsx';
 import RecommendGraph from '../components/recommend/RecommendGraph.jsx';
+import Navbar from '../components/header/Navbar.jsx';
+import MyFinanceGraph from '../components/main/MyFinanceGraph.jsx';
 
 // 금융 상품 추천 페이지
 // 일단 한 개만 만들어놨는데 추후 금융 상품 추천에 대한 계획이 구체화되면 늘릴 수도 있음
 
 function RecommendPage() {
   return <div>
-    <div className="flex justify-center text-[#444444]">
+    <Navbar />
+    <div className="flex justify-center text-[#444444] mt-10">
       <div className="flex flex-col mr-24">
         <div className="flex flex-col mb-10">
           <div className="text-2xl mb-2 text-[#0046ff] font-semibold">추천 로드맵</div>
@@ -37,6 +40,7 @@ function RecommendPage() {
         </div>
       </div>
     </div>
+    <MyFinanceGraph />
   </div>;
 }
 
