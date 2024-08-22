@@ -13,7 +13,9 @@ const AwardItemStyle = styled.div`
   justify-content: space-between;
   padding: 0 0.5rem;
 `;
+
 const AwardItemBody = styled.div``;
+
 const AwardHeaderStyle = styled.div`
   padding-top: 0.8rem;
   padding-bottom: 0.5rem;

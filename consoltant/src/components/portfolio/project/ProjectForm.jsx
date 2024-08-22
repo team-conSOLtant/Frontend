@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import RangeDatePicker from "../common/RangeDatePicker";
+import RangeDatePicker from "../../common/RangeDatePicker";
 
 const ProjectItemStyle = styled.div`
   background-color: #ffffff;
