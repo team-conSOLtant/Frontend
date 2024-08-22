@@ -1,9 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router";
+import { requestLogin } from "../apis/Login";
 
 // 로그인 페이지
 function LoginPage() {
   const navigate = useNavigate();
+  const [id, setId] = useState();
+  const [pw, setPw] = useState();
+
+  const login = () => {
+    const form = new FormData();
+    console.log(id);
+    console.log(pw);
+    form.append("id", id);
+    form.append("pw", pw);
+    // console.log(form.get("id"));
+    // console.log(form.get("id"));
+    try {
+      console.log(requestLogin(form));
+      // if (requestLogin(formData)) {
+      //   console.log("로그인 성공!");
+      //   navigate("/main");
+      // }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="flex flex-col justify-center items-center h-[100vh]">
       <div className="flex items-center mb-5">
@@ -30,6 +53,9 @@ function LoginPage() {
               className="pl-6 focus:outline-none"
               type="text"
               placeholder="아이디(이메일 주소)"
+              onChange={(e) => {
+                setId(e.target.value);
+              }}
             />
           </div>
           <div className="border text-[0.8rem] rounded-b-[10px] flex items-center py-2 pl-2">
@@ -49,6 +75,9 @@ function LoginPage() {
               className="pl-6 focus:outline-none"
               type="text"
               placeholder="비밀번호"
+              onChange={(e) => {
+                setPw(e.target.value);
+              }}
             />
           </div>
           <div className="flex mt-[0.5rem] text-[0.8rem] ">
@@ -56,7 +85,10 @@ function LoginPage() {
             <div className="text-[#8F8F8F]">로그인 상태 유지</div>
           </div>
         </div>
-        <div className="mt-[3rem] py-[0.5rem] font-OneShinhanMedium shadow-md border rounded-[0.5rem] flex justify-center w-[80%] bg-[#0046ff] text-white">
+        <div
+          onClick={login}
+          className="mt-[3rem] py-[0.5rem] font-OneShinhanMedium shadow-md border rounded-[0.5rem] flex justify-center w-[80%] bg-[#0046ff] text-white"
+        >
           로그인
         </div>
       </div>

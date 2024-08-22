@@ -1,4 +1,4 @@
-import axios from "./Axios";
+import { axios } from "./Axios";
 
 export const getCertifications = async () => {
   try {

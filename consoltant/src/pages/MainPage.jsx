@@ -24,7 +24,7 @@ const MainPage = () => {
     console.log("Calculated radius:", newRadius); // radius 값을 확인하기 위해 로그 추가
     if (newRadius > 800) {
       setRadius(800);
-    } else if(newRadius < 675) {
+    } else if (newRadius < 675) {
       setRadius(675);
     } else {
       setRadius(newRadius);
@@ -45,12 +45,15 @@ const MainPage = () => {
   const styled = "text-white bg-[#005DF9]";
 
   const handleScroll = (event) => {
+    // infos가 존재하지 않으면 handleScroll 실행 안 함
+    if (!infos || !infos.length) return;
+
     const scrollableDiv = document.querySelector(".scrollable-container");
     if (scrollableDiv && scrollableDiv.contains(event.target)) {
       return; // 스크롤이 특정 컨테이너 내에서 발생하면, 부모의 스크롤 이벤트를 무시
     }
 
-    if (infos && event.deltaY > 0) {
+    if (event.deltaY > 0) {
       // Scroll down (upward movement in UI)
       if (itemIndex > 0) {
         setAngle((prevAngle) => prevAngle + 5);
@@ -70,7 +73,7 @@ const MainPage = () => {
     return () => {
       window.removeEventListener("wheel", handleScroll);
     };
-  }, [itemIndex]);
+  }, [itemIndex, infos]);
 
   return (
     <div className="h-screen overflow-hidden">

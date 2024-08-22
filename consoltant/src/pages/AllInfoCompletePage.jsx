@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-function SignupCompletePage() {
+function AllinfoCompletePage() {
   const navigate = useNavigate();
   return (
     <div>
@@ -14,21 +14,21 @@ function SignupCompletePage() {
       <div className="h-[80vh] flex flex-col justify-center items-center">
         <div className="border rounded-[0.7rem] border-[#ACACAC] shadow-lg w-[40%] py-[3rem] flex flex-col justify-center items-center">
           <div className="font-OneShinhanBold text-[1.5rem] text-[#5C5C5C] my-[1rem]">
-            회원가입 완료
+            정보 입력 완료
           </div>
           <div className="font-OneShinhanLight text-[#5C5C5C] ">
-            로그인 후 서비스를 이용해보세요
+            SOL 학생 로드맵 서비스를 이용해보세요
           </div>
           {/* 로그인 */}
           <div
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/main")}
             className="mt-[3rem] py-[0.3rem] w-[40%] cursor-pointer font-OneShinhanMedium shadow-md border rounded-[0.5rem] flex justify-center bg-[#0046ff] text-white"
           >
-            로그인
+            메인으로
           </div>
         </div>
       </div>
     </div>
   );
 }
-export default SignupCompletePage;
+export default AllinfoCompletePage;

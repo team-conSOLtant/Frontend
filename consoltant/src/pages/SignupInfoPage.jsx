@@ -10,7 +10,7 @@ function SignupInfo() {
   const submit = () => {
     // 학교 데이터 넘기기
     // 계좌 여부 확인 페이지로 넘어가기
-    navigate("/checkaccount");
+    navigate("/check-account");
   };
 
   return (
@@ -25,53 +25,55 @@ function SignupInfo() {
       {/* 회원정보 입력란 */}
       <div className="h-[80vh] flex flex-col justify-center items-center">
         {/* 단계 표시 */}
-        <div className="w-[50%] h-[1rem] pb-[4rem] flex justify-between">
+        <div className="w-[50%] max-w-[25rem] min-w-[20rem] h-[1rem] pb-[4rem] flex justify-between">
           <div className="w-[48%] h-[0.8rem] bg-[#D3E1FB]"></div>
           <div className="w-[48%] h-[0.8rem] bg-[#D9D9D9]"></div>
         </div>
-        {/* 대학교 */}
-        <div className="my-[0.5rem] flex text-[#5C5C5C] w-[40%] max-w-[35rem] min-w-[25rem] items-center justify-between text-[0.9rem]">
-          <div className="w-[20%] min-w-[7rem]">대학교</div>
-          <input
-            type="text"
-            className="border rounded-[0.2rem] w-[30rem] p-[0.2rem] text-[0.8rem] font-OneShinhanLight focus:outline-none"
-          />
-        </div>
-        {/* 전공 학과 */}
-        <div className="my-[0.5rem] flex text-[#5C5C5C] w-[40%] max-w-[35rem] min-w-[25rem] items-center justify-between text-[0.9rem]">
-          <div className="w-[20%] min-w-[7rem]">전공 학과</div>
-          <input
-            type="text"
-            className="border rounded-[0.2rem] w-[30rem] p-[0.2rem] text-[0.8rem] font-OneShinhanLight focus:outline-none"
-          />
-        </div>
-        {/* 학년 선택 */}
-        <div className="my-[0.5rem] flex text-[#5C5C5C] w-[40%] max-w-[35rem] min-w-[25rem] items-center justify-between text-[0.9rem]">
-          <div className="w-[20%] min-w-[7rem]">학년</div>
-          <select
-            className="border text-[#8F8F8F] rounded-[0.2rem] w-[30rem] p-[0.2rem] text-[0.8rem] focus:outline-none"
-            name="email"
-            id="email"
-            value={emailDomain}
-            onChange={(e) => setEmailDomain(e.target.value)}
+        <div className="flex flex-col justify-center items-center w-[50%] max-w-[25rem] min-w-[20rem]"> 
+          {/* 대학교 */}
+          <div className="my-[0.5rem] flex text-[#5C5C5C] w-[100%] items-center justify-between text-[0.9rem]">
+            <div className="w-[20%] min-w-[7rem]">대학교</div>
+            <input
+              type="text"
+              className="border rounded-[0.2rem] w-[20rem] p-[0.2rem] text-[0.8rem] font-OneShinhanLight focus:outline-none"
+            />
+          </div>
+          {/* 전공 학과 */}
+          <div className="my-[0.5rem] flex text-[#5C5C5C] w-[100%] items-center justify-between text-[0.9rem]">
+            <div className="w-[20%] min-w-[7rem]">전공 학과</div>
+            <input
+              type="text"
+              className="border rounded-[0.2rem] w-[20rem] p-[0.2rem] text-[0.8rem] font-OneShinhanLight focus:outline-none"
+            />
+          </div>
+          {/* 학년 선택 */}
+          <div className="my-[0.5rem] flex text-[#5C5C5C] w-[100%] items-center justify-between text-[0.9rem]">
+            <div className="w-[20%] min-w-[7rem]">학년</div>
+            <select
+              className="border text-[#8F8F8F] rounded-[0.2rem] w-[20rem] p-[0.2rem] text-[0.8rem] focus:outline-none"
+              name="email"
+              id="email"
+              value={emailDomain}
+              onChange={(e) => setEmailDomain(e.target.value)}
+            >
+              <option value="">학년 선택</option>
+              <option value="1">1학년</option>
+              <option value="2">2학년</option>
+              <option value="3">3학년</option>
+              <option value="4">4학년</option>
+            </select>
+          </div>
+          {/* 파일 업로드 */}
+          <div className="my-[0.5rem] flex text-[#5C5C5C] w-[100%] items-center justify-between text-[0.9rem]">
+            <input type="file" />
+          </div>
+          {/* 다음으로 */}
+          <div
+            onClick={submit}
+            className="mt-[3rem] py-[0.3rem] w-[100%] cursor-pointer font-OneShinhanMedium shadow-md border rounded-[0.5rem] flex justify-center bg-[#0046ff] text-white"
           >
-            <option value="">학년 선택</option>
-            <option value="1">1학년</option>
-            <option value="2">2학년</option>
-            <option value="3">3학년</option>
-            <option value="4">4학년</option>
-          </select>
-        </div>
-        {/* 파일 업로드 */}
-        <div className="my-[0.5rem] flex text-[#5C5C5C] w-[40%] max-w-[35rem] min-w-[25rem] items-center justify-between text-[0.9rem]">
-          <input type="file" />
-        </div>
-        {/* 다음으로 */}
-        <div
-          onClick={submit}
-          className="mt-[3rem] py-[0.3rem] w-[40%] max-w-[35rem] min-w-[25rem] cursor-pointer font-OneShinhanMedium shadow-md border rounded-[0.5rem] flex justify-center bg-[#0046ff] text-white"
-        >
-          계좌 연결하기
+            계좌 연결하기
+          </div>
         </div>
       </div>
     </div>

@@ -16,7 +16,7 @@ function Navbar() {
   }월 ${today.getDate()}일`;
 
   // 로그인 확인
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
 
   return (
     <div className="bg-[#102FA8] h-[4rem] flex items-center justify-between px-[3rem]">

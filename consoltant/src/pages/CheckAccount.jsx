@@ -23,7 +23,12 @@ function CheckAccount() {
       {/* 선택란 */}
       <div className="h-[80vh] flex flex-col justify-center items-center text-[#444444]">
         <div className="w-[550px] flex justify-between">
-          <div className="group relative border flex flex-col items-center rounded-[1rem] p-[1rem] w-[250px] h-[325px] shadow bg-[#FBFBFD] hover:bg-[#EBF3FF]">
+          <div
+            className="group cursor-pointer relative border flex flex-col items-center rounded-[1rem] p-[1rem] w-[250px] h-[325px] shadow bg-[#FBFBFD] hover:bg-[#EBF3FF]"
+            onClick={() =>
+              navigate("/account-info", { state: { hasAccount: true } })
+            }
+          >
             <div className=" text-[1.5rem] mt-[3rem]">
               <div className="my-[0.5rem]">이미</div>
               <div className="my-[0.5rem]">
@@ -39,14 +44,16 @@ function CheckAccount() {
                 입니다
               </div>
             </div>
-            <div
-              onClick={() => navigate("/account-info", { state: { hasAccount: true } })}
-              className="absolute font-OneShinhanMedium bg-[#F5F5F5] border rounded-[1rem] py-[0.3rem] px-[2rem] bottom-[2rem] group-hover:text-white group-hover:bg-[#0046FF]"
-            >
+            <div className="absolute font-OneShinhanMedium bg-[#F5F5F5] border rounded-[1rem] py-[0.3rem] px-[2rem] bottom-[2rem] group-hover:text-white group-hover:bg-[#0046FF]">
               계좌 연결하기
             </div>
           </div>
-          <div className="group relative border flex flex-col items-center rounded-[1rem] p-[1rem] w-[250px] h-[325px] shadow bg-[#FBFBFD] hover:bg-[#EBF3FF]">
+          <div
+            className="group cursor-pointer relative border flex flex-col items-center rounded-[1rem] p-[1rem] w-[250px] h-[325px] shadow bg-[#FBFBFD] hover:bg-[#EBF3FF]"
+            onClick={() =>
+              navigate("/account-info", { state: { hasAccount: false } })
+            }
+          >
             <div className="text-[1.5rem] mt-[3rem]">
               <div className="my-[0.5rem]">보유중인</div>
               <div className="my-[0.5rem]">
@@ -61,12 +68,7 @@ function CheckAccount() {
                 </span>
               </div>
             </div>
-            <div
-              onClick={() =>
-                navigate("/account-info", { state: { hasAccount: false } })
-              }
-              className="absolute font-OneShinhanMedium bg-[#F5F5F5] border rounded-[1rem] py-[0.3rem] px-[2rem] bottom-[2rem] group-hover:text-white group-hover:bg-[#0046FF]"
-            >
+            <div className="absolute font-OneShinhanMedium bg-[#F5F5F5] border rounded-[1rem] py-[0.3rem] px-[2rem] bottom-[2rem] group-hover:text-white group-hover:bg-[#0046FF]">
               계좌 생성하기
             </div>
           </div>
