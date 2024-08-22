@@ -3,8 +3,8 @@ import styled from "styled-components";
 import ProjectForm from "./ProjectForm";
 import ProjectItem from "./ProjectItem";
 
-import PlusBox from "../common/PlusBox";
-import SectionHeader from "./SectionHeader";
+import PlusBox from "../../common/PlusBox";
+import SectionHeader from "../SectionHeader";
 const ProjectSectionStyle = styled.div`
   width: 100%;
 `;
@@ -55,7 +55,7 @@ const PlusBoxContainer = styled.div`
   align-items: center;
 `;
 
-function ProjectSection(props) {
+function ProjectSection({ isEdit }) {
   const addForm = () => {
     // console.log(awardNum);
     // setAwardNum(awardNum + 1);
@@ -65,10 +65,12 @@ function ProjectSection(props) {
     <ProjectSectionStyle>
       <SectionHeader title={"프로젝트"} image={"/Folders.svg"} />
       <SectionBody>
-        <PlusBoxContainer>
-          <PlusBox onClick={addForm} />
-        </PlusBoxContainer>
-        <ProjectForm />
+        {isEdit && (
+          <PlusBoxContainer>
+            <PlusBox onClick={addForm} />
+          </PlusBoxContainer>
+        )}
+        {isEdit && <ProjectForm />}
         <ProjectItem />
       </SectionBody>
     </ProjectSectionStyle>

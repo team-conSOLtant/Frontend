@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "./PorfolioSection.css";
 import styled from "styled-components";
-import SectionHeader from "./SectionHeader";
+import SectionHeader from "../SectionHeader";
 import EducationForm from "./EducationForm";
 import CareerForm from "./CareerForm";
 import CareerItem from "./CareerItem";
@@ -34,7 +33,7 @@ const InputContainer = styled.input`
   border: 1px solid black;
 `;
 
-function EducationCareerSection() {
+function EducationCareerSection({ isEdit }) {
   const [awardData, setAwardData] = useState(null);
 
   useEffect(() => {

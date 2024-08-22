@@ -10,17 +10,18 @@ const EducationFormStyle = styled.div`
 `;
 
 const InputLabel = styled.label``;
+
 const InputTitle = styled.div`
   font-size: 0.8rem;
   font-family: "OneShinhanBold";
   margin-left: 0.3rem;
   margin-bottom: 0.1rem;
 `;
+
 const InputContainer = styled.input`
   border: #c7c7c7 0.1rem solid;
   border-radius: 0.3rem;
   background-color: #fbfbfd;
-  text-align: center;
   height: 2rem;
   padding-left: 0.3rem;
   width: 15rem;

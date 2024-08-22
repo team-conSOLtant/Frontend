@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import "./PorfolioSection.css";
 import styled from "styled-components";
-import { getAwards } from "../../apis/Award";
+import { getAwards } from "../../../apis/Award";
 import AwardItem from "./AwardItem";
 import AwardForm from "./AwardForm";
 import CertificationItem from "./CertificationItem";
+import PlusBox from "../../common/PlusBox";
+import CertificationForm from "./CertificationForm";
+import SectionHeader from "../SectionHeader";
 
 const AwardCertificationSectionStyle = styled.div`
   width: 100%;
@@ -62,7 +64,7 @@ const PlusBoxContainer = styled.div`
   align-items: center;
 `;
 
-function AwardCertificationSection() {
+function AwardCertificationSection({ isEdit }) {
   const [awardData, setAwardData] = useState(null);
   const [awardNum, setAwardNum] = useState(1);
   const [certificationData, setCertificationData] = useState(null);
@@ -100,15 +102,16 @@ function AwardCertificationSection() {
           </SubSectionHeader>
 
           <SubSectionBody>
-<<<<<<< HEAD
-            <CertificationItem />
             {awardData && awardData.map((data) => <AwardItem data={data} />)}
-            {Array.from({ length: awardNum }, (_, index) => (
-              <AwardForm key={index}>Award {index + 1}</AwardForm>
-            ))}
-            <PlusBoxContainer>
-              <PlusBox onClick={addForm} />
-            </PlusBoxContainer>
+            {isEdit &&
+              Array.from({ length: awardNum }, (_, index) => (
+                <AwardForm key={index}>Award {index + 1}</AwardForm>
+              ))}
+            {isEdit && (
+              <PlusBoxContainer>
+                <PlusBox onClick={addForm} />
+              </PlusBoxContainer>
+            )}
           </SubSectionBody>
         </SubSectionStyle>
         <SubSectionStyle>
