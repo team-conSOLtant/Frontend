@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import update from "immutability-helper";
-import { Card } from "./Card";
+import { Card } from "../makeportfolio/Card";
 import styled from "styled-components";
 import PortfolioControllerItem from "./PortfolioControllerItem";
 

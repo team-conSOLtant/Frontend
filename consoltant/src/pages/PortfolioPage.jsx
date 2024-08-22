@@ -1,18 +1,23 @@
 import React from "react";
 import { Routes, Route, Router } from "react-router-dom";
-import PortfolioController from "../components/portfolio/PortfolioController.jsx";
-import PortfolioSection from "../components/portfolio/PortfolioSection.jsx";
+import PortfolioController from "../components/portfolio/controller/PortfolioController.jsx";
 import styled from "styled-components";
-import EducationSection from "../components/portfolio/EducationSection.jsx";
-import AwardCertificationSection from "../components/portfolio/AwardCertificationSection.jsx";
-import ProjectForm from "../components/portfolio/ProjectForm.jsx";
-import ProjectSection from "../components/portfolio/ProjectSection.jsx";
+import Navbar from "../components/header/Navbar.jsx";
+import ProfileViewSection from "../components/portfolio/ProfileViewSection.jsx";
+import KeywordSection from "../components/portfolio/makeportfolio/KeywordSection.jsx";
+import EducationCareerSection from "../components/portfolio/education and career/EducationCareerSection.jsx";
+import AwardCertificationSection from "../components/portfolio/award and certification/AwardCertificationSection.jsx";
+import ProjectSection from "../components/portfolio/project/ProjectSection.jsx";
+import ActivitySection from "../components/portfolio/activity/ActivitySection.jsx";
 // 포트폴리오(이력서) 보는 페이지
 
-const PortfolioPageStyle = styled.div`
+const PortfolioPageStyle = styled.div``;
+
+const PortfolioBody = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
+  margin-top: 2rem;
 `;
 
 const PortfolioMain = styled.div`
@@ -23,22 +28,23 @@ const PortfolioMain = styled.div`
   padding: 0 10%;
 `;
 
-function PortfolioPage() {
+function PortfolioFormPage() {
   return (
     <PortfolioPageStyle>
-      <PortfolioMain>
-        <EducationSection />
-
-        <AwardCertificationSection />
-        <ProjectSection />
-      </PortfolioMain>
-      {/* <PortfolioSection title="수상 / 자격증" />
-        <PortfolioSection title="학력 / 경력" />
-        <PortfolioSection title="프로젝트" /> */}
-
-      <PortfolioController />
+      <Navbar></Navbar>
+      <PortfolioBody>
+        <PortfolioMain>
+          <ProfileViewSection />
+          <EducationCareerSection isEdit={false} />
+          <AwardCertificationSection isEdit={false} />
+          <ProjectSection isEdit={false} />
+          <ActivitySection isEdit={false} />
+        </PortfolioMain>
+        <PortfolioController />
+      </PortfolioBody>
+      <PortfolioController></PortfolioController>
     </PortfolioPageStyle>
   );
 }
 
-export default PortfolioPage;
+export default PortfolioFormPage;

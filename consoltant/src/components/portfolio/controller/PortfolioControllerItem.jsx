@@ -57,7 +57,7 @@ function PortfolioControllerItem(props) {
         </PortfolioControllerItemTitle>
       </PortfolioControllerItemLeft>
       <PortfolioControllerItemRight>
-        <PortfolioControllerItemDelete src="/MinusIcon.svg"></PortfolioControllerItemDelete>
+        {/* <PortfolioControllerItemDelete src="/MinusIcon.svg"></PortfolioControllerItemDelete> */}
         <PortfolioControllerItemHandler src="/HandlerIcon.svg"></PortfolioControllerItemHandler>
       </PortfolioControllerItemRight>
     </PortfolioControllerItemStyle>
