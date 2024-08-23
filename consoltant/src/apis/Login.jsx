@@ -1,4 +1,4 @@
-import axios from "./Axios";
+import { axios } from "./Axios";
 
 export const requestLogin = async (form) => {
   try {
@@ -15,7 +15,7 @@ export const requestLogin = async (form) => {
     }
   } catch (error) {
     console.error("login failed:", error);
-    throw error;
+    return false;
   }
 };
 

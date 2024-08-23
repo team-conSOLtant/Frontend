@@ -4,6 +4,7 @@ import { useState } from "react";
 
 function SignupPage() {
   const [emailDomain, setEmailDomain] = useState("");
+  // const [password, ]
 
   const navigate = useNavigate();
 
@@ -59,7 +60,7 @@ function SignupPage() {
           <div className="my-[0.5rem] flex text-[#5C5C5C] w-[40%] max-w-[35rem] min-w-[25rem] items-center justify-between text-[0.9rem]">
             <div className="w-[20%] min-w-[7rem]">비밀번호</div>
             <input
-              type="text"
+              type="password"
               className="border rounded-[0.2rem] w-[30rem] p-[0.2rem] text-[0.8rem] font-OneShinhanLight focus:outline-none"
             />
           </div>
@@ -67,7 +68,7 @@ function SignupPage() {
           <div className="my-[0.5rem] flex text-[#5C5C5C] w-[40%] max-w-[35rem] min-w-[25rem] items-center justify-between text-[0.9rem]">
             <div className="w-[20%] min-w-[7rem]">비밀번호 재확인</div>
             <input
-              type="text"
+              type="password"
               className="border rounded-[0.2rem] w-[30rem] p-[0.2rem] text-[0.8rem] font-OneShinhanLight focus:outline-none"
             />
           </div>

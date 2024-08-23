@@ -22,8 +22,8 @@ const MainPage = () => {
   const updateRadius = () => {
     const newRadius = window.innerWidth * 0.6; // 화면 크기에 맞게 반지름 설정
     console.log("Calculated radius:", newRadius); // radius 값을 확인하기 위해 로그 추가
-    if (newRadius > 800) {
-      setRadius(800);
+    if (newRadius > 900) {
+      setRadius(900);
     } else if (newRadius < 675) {
       setRadius(675);
     } else {
@@ -117,7 +117,7 @@ const MainPage = () => {
         </div>
         {currentInfos && infos && (
           <div className={`w-[${radius}]`}>
-            <div className="absolute top-[5rem] min-w-[55rem] w-[75%] z-20">
+            <div className="absolute top-[5rem] min-w-[55rem] w-[78%] z-20">
               {infos[itemIndex].age === currentInfos.age ? (
                 <CurrentMain
                   userInfo={currentInfos}

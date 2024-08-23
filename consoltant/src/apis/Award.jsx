@@ -1,8 +1,8 @@
-import axios from "./Axios";
+import {localAxios} from "./Axios";
 
 export const getAwards = async () => {
   try {
-    const response = await axios.get(`/Award.json`);
+    const response = await localAxios.get(`/Award.json`);
     // console.log(response.data.award);
     return response.data;
   } catch (error) {
@@ -13,7 +13,7 @@ export const getAwards = async () => {
 
 export const postAwards = async () => {
   try {
-    const response = await axios.post(`/Award.json`);
+    const response = await localAxios.post(`/Award.json`);
     // console.log(response.data.award);
     return response.data;
   } catch (error) {
@@ -24,7 +24,7 @@ export const postAwards = async () => {
 
 export const putAwards = async () => {
   try {
-    const response = await axios.put(`/Award.json`);
+    const response = await localAxios.put(`/Award.json`);
     // console.log(response.data.award);
     return response.data;
   } catch (error) {
@@ -35,7 +35,7 @@ export const putAwards = async () => {
 
 export const deleteAwards = async () => {
   try {
-    const response = await axios.delete(`/Award.json`);
+    const response = await localAxios.delete(`/Award.json`);
     // console.log(response.data.award);
     return response.data;
   } catch (error) {
