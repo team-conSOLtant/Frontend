@@ -4,19 +4,56 @@ import RecommendGraph from "../components/recommend/RecommendGraph.jsx";
 import RecommendTabs from "../components/recommend/RecommendTabs.jsx";
 
 function RecommendPage() {
-  const [selectedItems, setSelectedItems] = useState([]); // 선택된 아이템들을 관리하는 상태 추가
+  const [selectedItems, setSelectedItems] = useState({
+    deposit: [],
+    savings: [],
+    loan: [],
+  });
+
+  const [checkedItems, setCheckedItems] = useState({
+    deposit: [],
+    savings: [],
+    loan: [],
+  });
 
   // 아이템 선택 시 호출되는 함수
-  const handleItemClick = (item) => {
-    if (selectedItems.some((selectedItem) => selectedItem.id === item.id)) {
-      // 이미 선택된 아이템이면 해제
-      setSelectedItems(
-        selectedItems.filter((selectedItem) => selectedItem.id !== item.id)
-      );
+  const handleItemClick = (item, tab) => {
+    const itemsInTab = selectedItems[tab] || [];
+    if (itemsInTab.some((selectedItem) => selectedItem.id === item.id)) {
+      setSelectedItems({
+        ...selectedItems,
+        [tab]: itemsInTab.filter((selectedItem) => selectedItem.id !== item.id),
+      });
     } else {
-      // 선택되지 않은 아이템이면 추가
-      setSelectedItems([...selectedItems, item]);
+      setSelectedItems({
+        ...selectedItems,
+        [tab]: [...itemsInTab, item],
+      });
     }
+  };
+
+  // 체크박스 변경 시 호출되는 함수
+  const handleCheckboxChange = (item, tab, isChecked) => {
+    const itemsInTab = checkedItems[tab] || [];
+    if (isChecked) {
+      setCheckedItems({
+        ...checkedItems,
+        [tab]: [...itemsInTab, item],
+      });
+    } else {
+      setCheckedItems({
+        ...checkedItems,
+        [tab]: itemsInTab.filter((checkedItem) => checkedItem.id !== item.id),
+      });
+    }
+  };
+
+  // 담아두기 버튼 클릭 시 처리할 함수
+  const handleSave = () => {
+    console.log("선택된 예금 상품들:", checkedItems.deposit);
+    console.log("선택된 적금 상품들:", checkedItems.savings);
+    console.log("선택된 대출 상품들:", checkedItems.loan);
+    // 선택된 상품들을 저장하거나 처리하는 로직 추가
   };
 
   return (
@@ -34,14 +71,13 @@ function RecommendPage() {
             </div>
           </div>
           <div className="mb-4">
-            {/* 그래프 */}
             <RecommendGraph />
           </div>
           <div>
-            {/* 기본정보, 예금, 적금, 대출 */}
             <RecommendTabs
               selectedItems={selectedItems}
-              onItemClick={handleItemClick} // 아이템 클릭 핸들러 전달
+              onItemClick={handleItemClick}
+              onCheckboxChange={handleCheckboxChange} // 체크박스 상태 변경 핸들러 전달
             />
           </div>
         </div>
@@ -56,25 +92,26 @@ function RecommendPage() {
             </div>
           </div>
           <div className="mb-4">
-            {/* 그래프 */}
             <RecommendGraph />
           </div>
           <div>
-            {/* 기본정보, 예금, 적금, 대출 */}
             <RecommendTabs
-              selectedItems={selectedItems} // 선택된 아이템들만 전달
-              onItemClick={() => {}} // 클릭 기능은 필요 없으므로 빈 함수 전달
-              isKimSsafy={true} // 김싸피 탭임을 나타내기 위한 prop 전달
+              selectedItems={selectedItems}
+              onItemClick={handleItemClick}
+              onCheckboxChange={handleCheckboxChange} // 체크박스 상태 변경 핸들러 전달
+              isKimSsafy={true}
             />
           </div>
-          <div>
-            <button className="text-base bg-amber-300 text-white font-semibold p-2 rounded-lg hover:bg-gray-400">
+          <div className="flex justify-end pr-[10%]">
+            <button
+              className="text-base bg-amber-300 text-white font-semibold p-2 rounded-lg hover:bg-gray-400"
+              onClick={handleSave} // 담아두기 버튼 클릭 시 함수 호출
+            >
               담아두기
             </button>
           </div>
         </div>
       </div>
-      {/* <MyFinanceGraph /> */}
     </div>
   );
 }

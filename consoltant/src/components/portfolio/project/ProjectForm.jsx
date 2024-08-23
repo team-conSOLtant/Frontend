@@ -136,6 +136,9 @@ const Tag = styled.div`
 
 const PlusButton = styled.div`
   background-color: gray;
+  color: white;
+  text-align: center;
+  line-height: 1rem;
   width: 1rem;
   height: 1rem;
   border-radius: 0.5rem;
@@ -165,15 +168,22 @@ const ProjectDescriptionLine = styled.div`
 
 // const ProjectIntroduction = styled.div``;
 
-// 포트폴리오 옆에서 순서 바꾸게 리모컨 역할 해주는 것
 function ProjectForm({ data }) {
   // const [rangeDate, setRangeDate] = useState([new Date(), new Date()]);
   const [introductionCount, setIntroductionCount] = useState();
+  const [description, setDescription] = useState({ title: null, contents: [] });
+
+  const addDescription = () => {
+    setDescription({
+      title: description.title,
+      contents: ["", ...description.contents],
+    });
+  };
   return (
     <ProjectItemStyle>
       <ProjectHeader>
         <ProjectLabelStyle>
-          프로젝트명 <ProjectInput />
+          프로젝트명 <ProjectInput value={data?.title} />
         </ProjectLabelStyle>
         {/* <RangeDatePicker /> */}
 
@@ -186,7 +196,7 @@ function ProjectForm({ data }) {
         키워드
         <ProjectInput />
         <ProjectSelectedKeywordContainer>
-          {["React", "Javascript", "Spring"].map((text) => (
+          {data?.language?.split(",").map((text) => (
             <Tag>{text}</Tag>
           ))}
         </ProjectSelectedKeywordContainer>
@@ -197,14 +207,24 @@ function ProjectForm({ data }) {
         <ProjectIntroductionContentContainer>
           <ProjectInputContainer>
             <BulletPoint />
-            <ProjectInput placeholder="프로젝트에 대해 간단한 소개를 적어주세요" />
+            <ProjectInput
+              placeholder="프로젝트에 대해 간단한 소개를 적어주세요"
+              value={description.title}
+            />
           </ProjectInputContainer>
-          <ProjectInputLargeContainer>
-            <BulletPoint />
-
-            <ProjectInputLarge placeholder="자신의 역할 및 한 일에 대해서 작성해주세요" />
-            {true && <PlusButton />}
-          </ProjectInputLargeContainer>
+          {description.title &&
+            description.contents.map((content, index) => (
+              <ProjectInputLargeContainer>
+                <BulletPoint />
+                <ProjectInputLarge
+                  placeholder="자신의 역할 및 한 일에 대해서 작성해주세요"
+                  value={content}
+                />
+                {index === 0 && (
+                  <PlusButton onClick={addDescription}>+</PlusButton>
+                )}
+              </ProjectInputLargeContainer>
+            ))}
         </ProjectIntroductionContentContainer>
       </ProjectIntroduction>
       <ProjectLabelStyle>
@@ -224,7 +244,10 @@ function ProjectForm({ data }) {
           <BulletPoint />
           URL
         </ProjectDescriptionLine>
-        <ProjectInputMargin placeholder="URL을 입력해주세요" />
+        <ProjectInputMargin
+          placeholder="URL을 입력해주세요"
+          value={data?.projectUrl}
+        />
       </ProjectLabelStyle>
       <SubmitButton>제출</SubmitButton>
     </ProjectItemStyle>

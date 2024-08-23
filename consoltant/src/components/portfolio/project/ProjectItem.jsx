@@ -132,52 +132,48 @@ const ProjectURL = styled.input``;
 // const ProjectIntroduction = styled.div``;
 
 // 포트폴리오 옆에서 순서 바꾸게 리모컨 역할 해주는 것
-function ProjectForm({ data }) {
+function ProjectItem({ data }) {
   // const [rangeDate, setRangeDate] = useState([new Date(), new Date()]);
   return (
     <ProjectItemStyle>
       <ProjectHeader>
-        <ProjectTitleStyle>
-          {data?.title}어떻게 하면 취업을 할 수 있을지에 대한 고찰
-        </ProjectTitleStyle>
+        <ProjectTitleStyle>{data?.title}</ProjectTitleStyle>
 
-        <ProjectDateStyle>2024-08-21-2024-08-22</ProjectDateStyle>
+        <ProjectDateStyle>
+          {data?.startDate} ~ {data?.endDate}
+        </ProjectDateStyle>
       </ProjectHeader>
       <TagContainer>
-        {["React", "Javascript", "Spring"].map((text) => (
+        {data?.language?.split(",").map((text) => (
+          <Tag>{text}</Tag>
+        ))}
+      </TagContainer>
+      <ProjectDescriptionLine>
+        <BulletPoint />
+        <ProjectDescriptionText>{data?.description}</ProjectDescriptionText>
+      </ProjectDescriptionLine>
+      {data?.contents.map((content) => (
+        <ProjectSubDescriptionLine>{content}</ProjectSubDescriptionLine>
+      ))}
+      <ProjectDescriptionLine>
+        <BulletPoint />
+        <ProjectDescriptionText>
+          팀 구성 : {data?.members?.length}명
+        </ProjectDescriptionText>
+      </ProjectDescriptionLine>
+      <TagContainer>
+        {data?.members.map((text) => (
           <Tag>{text}</Tag>
         ))}
       </TagContainer>
       <ProjectDescriptionLine>
         <BulletPoint />
         <ProjectDescriptionText>
-          세종대학교 직업별 교과목 및 비교과 활동 추천 웹/앱 서비스
+          URL : {data?.projectUrl}
         </ProjectDescriptionText>
-      </ProjectDescriptionLine>
-      <ProjectSubDescriptionLine>
-        서비스 기획 및 MSA 아키텍처 구성
-      </ProjectSubDescriptionLine>
-      <ProjectSubDescriptionLine>
-        유드림, 두드림 홈페이지 크롤링 기능 개발
-      </ProjectSubDescriptionLine>
-      <ProjectSubDescriptionLine>
-        Frontend - Backend 개발 용이하도록 API 문서 제작
-      </ProjectSubDescriptionLine>
-      <ProjectDescriptionLine>
-        <BulletPoint />
-        <ProjectDescriptionText>팀 구성 : 4명</ProjectDescriptionText>
-      </ProjectDescriptionLine>
-      <TagContainer>
-        {["김준우", "고다현", "이동열", "지수영"].map((text) => (
-          <Tag>{text}</Tag>
-        ))}
-      </TagContainer>
-      <ProjectDescriptionLine>
-        <BulletPoint />
-        <ProjectDescriptionText>URL : sejong.com</ProjectDescriptionText>
       </ProjectDescriptionLine>
     </ProjectItemStyle>
   );
 }
 
-export default ProjectForm;
+export default ProjectItem;
