@@ -2,10 +2,11 @@ import Axios from "axios"; // 인스턴스와 구분하기 위해 대문자 사�
 // import { store } from "../app/store";
 
 const baseURL = "";
-const baselocalURL = "http://localhost:8080";
+const baselocalURL = "http://localhost:8080/api";
+const testURL = "http://13.124.49.149:8080/api";
 
-const axios = Axios.create({
-  // baseURL: baseURL,
+export const localAxios = Axios.create({
+  // baseURL: testURL,
 });
 axios.defaults.withCredentials = true;
 
@@ -24,4 +25,22 @@ axios.defaults.withCredentials = true;
 //   (error) => Promise.reject(error)
 // );
 
-export default axios;
+export const axios = Axios.create({
+  baseURL: testURL,
+  // timeout: 5000, // 5초 제한시간 설정
+});
+
+axios.interceptors.request.use(
+  (config) => {
+    const accessToken = sessionStorage.getItem("accessToken");
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+// export default axios;

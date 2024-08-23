@@ -14,6 +14,7 @@ import SignupCompletePage from "./pages/SignupCompletePage.jsx";
 import SignupInfoPage from "./pages/SignupInfoPage.jsx";
 import CheckAccount from "./pages/CheckAccount.jsx";
 import AccountInfoPage from "./pages/AccountInfoPage.jsx";
+import AllinfoCompletePage from "./pages/AllInfoCompletePage.jsx";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/signup-info" element={<SignupInfoPage />} />
           <Route path="/check-account" element={<CheckAccount />} />
           <Route path="/complete" element={<SignupCompletePage />} />
+          <Route path="/all-complete" element={<AllinfoCompletePage />} />
           <Route path="/account-info" element={<AccountInfoPage />} />
           <Route path="/main" element={<MainPage />} />
           <Route path="/make-portfolio" element={<MakePortfolioPage />} />

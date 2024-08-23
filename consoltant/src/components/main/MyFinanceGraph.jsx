@@ -12,7 +12,7 @@ ChartJS.register(
   Legend
 );
 
-function LineChartExample() {
+function MyFinanceGraph() {
 
   const labelData = ['1년', '2년', '3년', '4년', '5년', '6년', '7년', '8년', '9년'];
   const savingData = [10, 20, 30, 40, 50, 100, 140, 150, 1000];
@@ -124,10 +124,10 @@ function LineChartExample() {
   };
 
   return (
-    <div className="h-[23rem]">
+    <div className="h-[20rem]">
       <Line data={data} options={options} />
     </div>
   );
 }
 
-export default LineChartExample;
+export default MyFinanceGraph;
