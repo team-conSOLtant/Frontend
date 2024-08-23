@@ -9,6 +9,12 @@ function LoginPage() {
   const [pw, setPw] = useState();
   const [loginFail, setLoginFail] = useState();
 
+  const activeEnter = (e) => {
+    if (e.key === "Enter") {
+      login();
+    }
+  };
+
   const login = async () => {
     const form = new FormData();
     form.append("username", id);
@@ -61,6 +67,7 @@ function LoginPage() {
               onChange={(e) => {
                 setId(e.target.value);
               }}
+              onKeyDown={(e) => activeEnter(e)}
             />
           </div>
           <div className="border text-[0.9rem] rounded-b-[10px] flex items-center py-2 pl-2">
@@ -83,6 +90,7 @@ function LoginPage() {
               onChange={(e) => {
                 setPw(e.target.value);
               }}
+              onKeyDown={(e) => activeEnter(e)}
             />
           </div>
           {loginFail && (

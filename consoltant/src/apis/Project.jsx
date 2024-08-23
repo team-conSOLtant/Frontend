@@ -1,8 +1,8 @@
-import axios from "./Axios";
+import {localAxios} from "./Axios";
 
 export const getProjects = async () => {
   try {
-    const response = await axios.get(`/Project.json`);
+    const response = await localAxios.get(`/Project.json`);
     // console.log(response.data.award);
     return response.data;
   } catch (error) {
@@ -13,7 +13,7 @@ export const getProjects = async () => {
 
 export const postProjects = async () => {
   try {
-    const response = await axios.post(`/Project.json`);
+    const response = await localAxios.post(`/Project.json`);
     // console.log(response.data.award);
     return response.data;
   } catch (error) {
@@ -24,7 +24,7 @@ export const postProjects = async () => {
 
 export const putProjects = async () => {
   try {
-    const response = await axios.put(`/Project.json`);
+    const response = await localAxios.put(`/Project.json`);
     // console.log(response.data.award);
     return response.data;
   } catch (error) {
@@ -35,7 +35,7 @@ export const putProjects = async () => {
 
 export const deleteProjects = async () => {
   try {
-    const response = await axios.delete(`/Project.json`);
+    const response = await localAxios.delete(`/Project.json`);
     // console.log(response.data.award);
     return response.data;
   } catch (error) {
