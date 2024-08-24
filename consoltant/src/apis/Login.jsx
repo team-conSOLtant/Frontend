@@ -22,3 +22,23 @@ export const requestLogin = async (form) => {
 export const logout = async () => {
   sessionStorage.removeItem("accessToken");
 };
+
+export const register = async (info) => {
+  try {
+    // const status = "";
+    const response = await axios.post("/auth/register", info).catch((error) => {
+      if (error.response) {
+        console.log(error.response.data.message);
+        console.log(error.response.status);
+      }
+    });
+    if (response) {
+      return true;
+    } else {
+      return false;
+    }
+    console.log(response);
+  } catch (error) {
+    console.log("register fail:", error);
+  }
+};

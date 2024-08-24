@@ -114,6 +114,16 @@ function AccountInfoPage() {
           </div>
           {/* 월급 취업한 경우만 받음 */}
           {work && work === "true" ? (
+            <>
+            <div className="my-[0.5rem] flex text-[#5C5C5C] w-[100%] items-center justify-between text-[0.9rem]">
+              <div className="w-[20%] min-w-[7rem]">재직중인 회사</div>
+              <div className="relative w-[30rem]">
+                <input
+                  type="text"
+                  className="border rounded-[0.2rem] w-full p-[0.2rem] pr-[1.8rem] text-[0.8rem] font-OneShinhanLight focus:outline-none"
+                />
+              </div>
+            </div>
             <div className="my-[0.5rem] flex text-[#5C5C5C] w-[100%] items-center justify-between text-[0.9rem]">
               <div className="w-[20%] min-w-[7rem]">월급</div>
               <div className="relative w-[30rem]">
@@ -124,6 +134,7 @@ function AccountInfoPage() {
                 <div className="absolute top-[0.2rem] right-[0.7rem]">원</div>
               </div>
             </div>
+            </>
           ) : (
             <></>
           )}

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Routes, Route, Router, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { register } from "../apis/Login";
 
 function SignupPage() {
   const [emailDomain, setEmailDomain] = useState("");
@@ -11,6 +12,10 @@ function SignupPage() {
   const [name, setName] = useState();
   const [phone, setPhone] = useState();
   const [birth, setBirth] = useState();
+  const [registerFail, setRegisterFail] = useState();
+  const [fillCheck, setFillCheck] = useState();
+  const [errorMessage, setErrorMessage] = useState();
+  const [isError, setIsError] = useState();
 
   const navigate = useNavigate();
 
@@ -23,12 +28,48 @@ function SignupPage() {
     }
   };
 
-  useEffect(() => {}, [setIsSamePwd, isSamePwd, setPwdCheck, pwdCheck]);
+  useEffect(() => {
+    checkPwd(pwdCheck);
+  }, [setIsSamePwd, isSamePwd, setPwdCheck, pwdCheck, password, setPassword]);
 
-  const submit = () => {
-    // 회원가입 진행(데이터 넘기기
-    // 완료 페이지로 넘어가기
-    navigate("/signup-info");
+  useEffect(() => {}, [setIsError, isError]);
+  const submit = async () => {
+    // 빈 정보란 check
+    if (!email || !emailDomain || !password || !pwdCheck || !name || !phone || !birth) {
+      setErrorMessage("모든 정보를 입력해주세요");
+      setIsError(true);
+    } else {
+      setIsError(false);
+
+      // 회원가입 데이터 넘기기
+      const fullEmail = `${email}@${emailDomain}`;
+      const currYear = new Date();
+      const age = Number(currYear.getFullYear) - Number(birth.split("-")[0]);
+      const info = {
+        email: fullEmail,
+        password: password,
+        name: name,
+        age: `${age}`,
+        phoneNumber: phone,
+        birthDate: birth,
+      };
+      try {
+        if (
+          await register(info).then((data) => {
+            return data;
+          })
+        ) {
+          console.log("회원가입 성공!");
+          navigate("/signup-info");
+        } else {
+          setErrorMessage("회원가입 실패");
+          setIsError(true);
+          console.log("회원가입 실패!");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
 
   return (
@@ -43,6 +84,7 @@ function SignupPage() {
       {/* 회원정보 입력란 */}
       <div className="h-[80vh] flex justify-center items-center">
         <div className="flex  flex-col items-center">
+          <div className="font-OneShinhanBold text-[#5C5C5C] text-[1.7rem] mb-[1rem]">회원가입</div>
           {/* 이메일 */}
           <div className="my-[0.5rem] flex text-[#5C5C5C] w-[40%] max-w-[35rem] min-w-[25rem] items-center justify-between text-[0.9rem]">
             <div className="w-[20%] min-w-[7rem]">아이디(이메일)</div>
@@ -69,8 +111,8 @@ function SignupPage() {
                 onChange={(e) => setEmailDomain(e.target.value)}
               >
                 <option value="">직접입력</option>
-                <option value="gmail.com">gmail.com</option>
-                <option value="naver.com">naver.com</option>
+                <option value="gmail.com">Google</option>
+                <option value="naver.com">Naver</option>
               </select>
             </div>
           </div>
@@ -134,6 +176,7 @@ function SignupPage() {
               className="border rounded-[0.2rem] w-[30rem] p-[0.2rem] text-[0.8rem] font-OneShinhanLight focus:outline-none"
             />
           </div>
+
           {/* 다음으로 */}
           <div
             onClick={submit}
@@ -141,6 +184,12 @@ function SignupPage() {
           >
             다음으로
           </div>
+          {/* 회원가입 실패 */}
+          {isError && (
+            <div className="my-[0.5rem] flex justify-center w-[40%] max-w-[35rem] min-w-[25rem] text-[0.9rem]">
+              <div className="text-red-500">{errorMessage}</div>
+            </div>
+          )}
         </div>
       </div>
     </div>
