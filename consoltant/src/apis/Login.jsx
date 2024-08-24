@@ -1,5 +1,6 @@
 import { axios } from "./Axios";
 
+// 로그인
 export const requestLogin = async (form) => {
   try {
     const response = await axios.post("/login", form, {
@@ -19,26 +20,38 @@ export const requestLogin = async (form) => {
   }
 };
 
+// 로그아웃
 export const logout = async () => {
   sessionStorage.removeItem("accessToken");
 };
 
+// 회원가입
 export const register = async (info) => {
   try {
     // const status = "";
     const response = await axios.post("/auth/register", info).catch((error) => {
       if (error.response) {
-        console.log(error.response.data.message);
-        console.log(error.response.status);
+        // console.log(error.response.data.message);
+        // console.log(error.response.status);
       }
     });
+    console.log(response);
     if (response) {
       return true;
     } else {
       return false;
     }
-    console.log(response);
   } catch (error) {
     console.log("register fail:", error);
+  }
+};
+
+// 대학정보 입력
+export const registerAcademy = async (info) => {
+  try {
+    const response = await axios.post("/users/academy", info);
+    console.log(response);
+  } catch (error) {
+    console.log("academy register fail:", error);
   }
 };
