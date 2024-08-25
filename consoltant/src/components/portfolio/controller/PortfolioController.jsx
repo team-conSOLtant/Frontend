@@ -3,6 +3,7 @@ import update from "immutability-helper";
 import { Card } from "../makeportfolio/Card";
 import styled from "styled-components";
 import PortfolioControllerItem from "./PortfolioControllerItem";
+import { useNavigate } from "react-router";
 
 // 포트폴리오 아이템을 드래그하여 순서를 변경하는 컴포넌트
 
@@ -41,8 +42,23 @@ const SaveButton = styled.div`
   font-size: 0.9rem;
 `;
 
-function PortfolioController() {
+const EditButton = styled.div`
+  background-color: white;
+  border: 0.1rem solid #77a5ff;
+  height: 2rem;
+  text-align: center;
+  line-height: 2rem;
+  color: #77a5ff;
+  width: 80%;
+  border-radius: 0.3rem;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+`;
+
+function PortfolioController({ isEdit }) {
   // 아이템들의 순서를 상태로 관리
+  const navigate = useNavigate();
+
   const [cards, setCards] = useState([
     {
       id: 1,
@@ -100,6 +116,11 @@ function PortfolioController() {
         ></PortfolioControllerItem>
       ))}
       <SaveButton>포트폴리오 저장</SaveButton>
+      {!isEdit && (
+        <EditButton onClick={() => navigate("/make-portfolio")}>
+          포트폴리오 편집
+        </EditButton>
+      )}
     </PortfolioControllerStyle>
   );
 }

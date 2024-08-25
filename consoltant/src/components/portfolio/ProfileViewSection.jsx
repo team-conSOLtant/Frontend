@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+import { getPortfolios } from "../../apis/Portfolio";
 
 const ProfileSectionStyle = styled.div`
   margin-left: 15vw;
@@ -24,6 +26,7 @@ const ProfileImage = styled.div`
   display: flex;
   flex-direction: column;
   width: 12rem;
+  height: 10rem;
   background-color: #f5f5f5;
   border-radius: 0.5rem;
   margin: 1rem;
@@ -68,6 +71,21 @@ const Keyword = styled.div`
 `;
 
 function ProfileViewSection() {
+  const loginid = useSelector((state) => {
+    console.log("state", state);
+    return state.user.loginid;
+  });
+
+  useEffect(() => {
+    getProfileData();
+  }, []);
+
+  const getProfileData = async () => {
+    console.log("profile : loginid", loginid);
+    const res = await getPortfolios(loginid);
+    console.log(res);
+  };
+
   return (
     <ProfileSectionStyle>
       <ProfileImage></ProfileImage>
