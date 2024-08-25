@@ -132,7 +132,7 @@ function AwardCertificationSection({ isEdit }) {
   const getAwardData = async () => {
     const res = await getAwards();
     // console.log("res", res.award);
-    setAwardData(res.award);
+    setAwardData(res);
   };
 
   const addAwardForm = () => {
@@ -147,8 +147,8 @@ function AwardCertificationSection({ isEdit }) {
 
   const getCertificationdData = async () => {
     const res = await getCertifications();
-    // console.log("res", res.award);
-    setCertificationData(res.result);
+    // console.log("res", res);
+    setCertificationData(res);
   };
 
   return (

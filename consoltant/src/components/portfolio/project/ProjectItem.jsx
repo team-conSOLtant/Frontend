@@ -158,12 +158,12 @@ function ProjectItem({ data }) {
       <ProjectDescriptionLine>
         <BulletPoint />
         <ProjectDescriptionText>
-          팀 구성 : {data?.members?.length}명
+          팀 구성 : {data?.projectUsers?.length}명
         </ProjectDescriptionText>
       </ProjectDescriptionLine>
       <TagContainer>
-        {data?.members.map((text) => (
-          <Tag>{text}</Tag>
+        {data?.projectUsers.map((userData, index) => (
+          <Tag key={index}>{userData.name}</Tag>
         ))}
       </TagContainer>
       <ProjectDescriptionLine>

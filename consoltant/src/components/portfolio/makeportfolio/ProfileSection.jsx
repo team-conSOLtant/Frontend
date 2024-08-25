@@ -1,12 +1,21 @@
 import React, { useState } from "react";
+import { SliderPicker } from "react-color";
 import styled from "styled-components";
 
 const ProfileSectionStyle = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
+const ProfileTitleContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  /* align-items: flex-start; */
+`;
 const ProfileTitle = styled.div`
   font-size: 1.5rem;
   font-family: "OneShinhanBold";
@@ -36,22 +45,28 @@ const ProfileSubTitle = styled.div`
 const ProfileContainer = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
   margin-top: 1rem;
+  margin-left: 15vw;
+  width: 100vw;
+  background-color: ${(props) => props.bgcolor.hex};
 `;
 
 const ProfileImage = styled.div`
   display: flex;
   flex-direction: column;
   width: 12rem;
+  height: 10rem;
   background-color: #f5f5f5;
   border-radius: 0.5rem;
-  margin: 2rem 2rem 5rem;
+  /* margin: 2rem 2rem 5rem; */
 `;
 
 const ProfileDescription = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 70%;
 `;
 
 const NameInput = styled.input`
@@ -63,6 +78,15 @@ const NameInput = styled.input`
 const JobInput = styled.input`
   outline: none;
   margin: 0.5rem 0;
+`;
+const ProfileSectionLeft = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const ColorPickerContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 12rem;
 `;
 
 const ProfileIntroductionContainer = styled.div``;
@@ -100,17 +124,30 @@ const InputContainer = styled.input`
 `;
 
 function ProfileSection() {
+  const [bgcolor, setBgcolor] = useState({ hex: "#FFFFFF" });
   return (
     <ProfileSectionStyle>
-      <ProfileTitle>포트폴리오 작성하기</ProfileTitle>
+      <ProfileTitleContainer>
+        <ProfileTitle>포트폴리오 작성하기</ProfileTitle>
+        <ProfileSubTitle>
+          해당 포트폴리오가 기업에게 노출되고 선후배 이력서 매칭 시 정보가
+          노출되어 추천됩니다!
+        </ProfileSubTitle>
+      </ProfileTitleContainer>
 
-      <ProfileSubTitle>
-        해당 포트폴리오가 기업에게 노출되고 선후배 이력서 매칭 시 정보가
-        노출되어 추천됩니다!
-      </ProfileSubTitle>
-
-      <ProfileContainer>
-        <ProfileImage></ProfileImage>
+      <ProfileContainer bgcolor={bgcolor}>
+        <ProfileSectionLeft>
+          <ProfileImage></ProfileImage>
+          <ColorPickerContainer>
+            <SliderPicker
+              color={bgcolor}
+              onChangeComplete={(bgcolor) => {
+                console.log("bg color : ", bgcolor);
+                return setBgcolor(bgcolor);
+              }}
+            />
+          </ColorPickerContainer>
+        </ProfileSectionLeft>
         <ProfileDescription>
           <NameInput placeholder="이름을 입력해주세요"></NameInput>
           <JobInput placeholder="직업을 입력해주세요(ex - 백엔드 개발자)"></JobInput>

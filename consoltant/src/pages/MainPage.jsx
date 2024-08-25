@@ -21,7 +21,7 @@ const MainPage = () => {
 
   const updateRadius = () => {
     const newRadius = window.innerWidth * 0.6; // 화면 크기에 맞게 반지름 설정
-    console.log("Calculated radius:", newRadius); // radius 값을 확인하기 위해 로그 추가
+    // console.log("Calculated radius:", newRadius); // radius 값을 확인하기 위해 로그 추가
     if (newRadius > 900) {
       setRadius(900);
     } else if (newRadius < 675) {

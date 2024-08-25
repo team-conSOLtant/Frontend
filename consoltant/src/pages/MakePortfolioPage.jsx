@@ -43,7 +43,7 @@ function MakePortfolioPage() {
           <ProjectSection isEdit={true} />
           <ActivitySection isEdit={true} />
         </PortfolioMain>
-        <PortfolioController />
+        <PortfolioController isEdit={true} />
       </PortfolioBody>
     </PortfolioPageStyle>
   );

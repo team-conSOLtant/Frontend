@@ -8,7 +8,7 @@ const testURL = "http://13.124.49.149:8080/api";
 export const localAxios = Axios.create({
   // baseURL: testURL,
 });
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 
 // axios.interceptors.request.use(
 //   async (config) => {
@@ -35,6 +35,8 @@ axios.interceptors.request.use(
     const accessToken = sessionStorage.getItem("accessToken");
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
+    } else {
+      console.log("Error : no accessToken");
     }
     return config;
   },
