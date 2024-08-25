@@ -12,8 +12,6 @@ function SignupPage() {
   const [name, setName] = useState();
   const [phone, setPhone] = useState();
   const [birth, setBirth] = useState();
-  const [registerFail, setRegisterFail] = useState();
-  const [fillCheck, setFillCheck] = useState();
   const [errorMessage, setErrorMessage] = useState();
   const [isError, setIsError] = useState();
 
@@ -38,13 +36,17 @@ function SignupPage() {
     if (!email || !emailDomain || !password || !pwdCheck || !name || !phone || !birth) {
       setErrorMessage("모든 정보를 입력해주세요");
       setIsError(true);
+    } else if (!isSamePwd) {
+      setErrorMessage("비밀 번호를 확인해주세요");
+      setIsError(true);
     } else {
       setIsError(false);
 
       // 회원가입 데이터 넘기기
       const fullEmail = `${email}@${emailDomain}`;
       const currYear = new Date();
-      const age = Number(currYear.getFullYear) - Number(birth.split("-")[0]);
+      const myBirth = new Date(birth);
+      const age = Number(currYear.getFullYear()) - Number(myBirth.getFullYear()) + 1;
       const info = {
         email: fullEmail,
         password: password,
@@ -54,13 +56,14 @@ function SignupPage() {
         birthDate: birth,
       };
       try {
-        if (
-          await register(info).then((data) => {
-            return data;
-          })
-        ) {
+        const response = await register(info).then((data) => {
+          return data;
+        });
+        console.log(response.success);
+        if (response.success) {
           console.log("회원가입 성공!");
-          navigate("/signup-info");
+          console.log(response.result.email);
+          navigate("/signup-info", { state: response.result.email });
         } else {
           setErrorMessage("회원가입 실패");
           setIsError(true);

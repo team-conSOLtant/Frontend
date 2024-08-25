@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Routes, Route, Router, useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { registerAcademy } from "../apis/Login";
 
@@ -9,27 +9,47 @@ function SignupInfo() {
   const [major, setMajor] = useState();
   const [grade, setGrade] = useState();
   const [file, setFile] = useState();
+  const [errorMessage, setErrorMessage] = useState();
+  const [isError, setIsError] = useState();
+  const { state } = useLocation();
 
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   console.log(file);
-  // }, [file, setFile]);
-
-  const submit = () => {
+  const submit = async () => {
+    console.log(state);
     // 학교 데이터 넘기기
-    const info = {
-      subject: file,
-      data: {
+    const form = new FormData();
+    if (!file || !university || !major || !grade) {
+      setErrorMessage("모든 정보를 입력해주세요");
+      setIsError(true);
+    } else {
+      setIsError(false);
+      form.append("subject", file, "[PROXY]");
+      let data = {
         university: university,
         major: major,
-      },
-    };
-
-    registerAcademy(info);
-
-    // 계좌 여부 확인 페이지로 넘어가기
-    // navigate("/check-account");
+      };
+      form.append(
+        "data",
+        new Blob([JSON.stringify(data)], {
+          type: "application/json",
+        })
+      );
+      try {
+        const response = await registerAcademy(form, state).then((data) => {
+          return data;
+        });
+        if (response.success) {
+          // 계좌 여부 확인 페이지로 넘어가기
+          navigate("/check-account", { state: response.result.email });
+        } else {
+          setErrorMessage("학사정보 등록에 실패했습니다.");
+          setIsError(true);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
 
   return (
@@ -90,11 +110,11 @@ function SignupInfo() {
               수강 내역 업로드
             </label>
             <input
-              className=""
+              className="hidden"
               type="file"
               name="file"
               id="file"
-              onChange={(e) => setFile(e.target.value)}
+              onChange={(e) => setFile(e.target.files[0])}
             />
           </div>
           {/* 다음으로 */}
@@ -104,6 +124,12 @@ function SignupInfo() {
           >
             계좌 연결하기
           </div>
+          {/* 학과 정보 입력 실패 */}
+          {isError && (
+            <div className="my-[0.5rem] flex justify-center w-[40%] max-w-[35rem] min-w-[25rem] text-[0.9rem]">
+              <div className="text-red-500">{errorMessage}</div>
+            </div>
+          )}
         </div>
       </div>
     </div>

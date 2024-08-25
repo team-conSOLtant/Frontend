@@ -28,16 +28,15 @@ export const logout = async () => {
 // 회원가입
 export const register = async (info) => {
   try {
-    // const status = "";
-    const response = await axios.post("/auth/register", info).catch((error) => {
+    const response = await axios.post("/auth/register", info, { skipAuth: true }).catch((error) => {
       if (error.response) {
-        // console.log(error.response.data.message);
-        // console.log(error.response.status);
+        console.log(error.response.data.message);
+        console.log(error.response.status);
       }
     });
     console.log(response);
     if (response) {
-      return true;
+      return response.data;
     } else {
       return false;
     }
@@ -46,11 +45,22 @@ export const register = async (info) => {
   }
 };
 
-// 대학정보 입력
-export const registerAcademy = async (info) => {
+// 학력 정보 추가
+export const registerAcademy = async (form, state) => {
   try {
-    const response = await axios.post("/users/academy", info);
-    console.log(response);
+    console.log(form.get("subject"));
+    console.log(state);
+    const response = await axios.post(`/users/${state}/academy`, form, {
+      headers: { "Content-Type": "multipart/form-data" },
+      skipAuth: true,
+    });
+    // console.log(response.data);
+    if (response) {
+      // console.log(response.data);
+      return response.data;
+    } else {
+      return false;
+    }
   } catch (error) {
     console.log("academy register fail:", error);
   }

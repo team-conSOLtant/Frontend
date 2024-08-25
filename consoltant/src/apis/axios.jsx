@@ -15,9 +15,10 @@ export const axios = Axios.create({
 axios.interceptors.request.use(
   (config) => {
     const accessToken = sessionStorage.getItem("accessToken");
-    if (accessToken) {
+    if (accessToken && !config.skipAuth) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
+    console.log(config);
     return config;
   },
   (error) => {
