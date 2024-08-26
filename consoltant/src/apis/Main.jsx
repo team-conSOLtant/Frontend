@@ -21,4 +21,13 @@ export const getMainInfo = async () => {
   }
 };
 
-// export const 
+export const getAllInfo = async () => {
+  try {
+    const response = await axios.get("/journeys/stats").then((res) => {
+      return res.data;
+    });
+    return response;
+  } catch (error) {
+    console.log("get All Info failed: ", error);
+  }
+};

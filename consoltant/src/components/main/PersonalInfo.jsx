@@ -4,7 +4,7 @@ function PersonalInfo({ univInfos }) {
       <hr className="mb-[0.5rem]" />
       {/* 대학/학과 정보 */}
       <div className="font-OneShinhanBold text-[1.2rem]">
-        {univInfos.univ} 대학교
+        {univInfos.university.name}
       </div>
       <div className="text-[0.8rem]">
         <span className="font-OneShinhanMedium">{univInfos.major}</span>

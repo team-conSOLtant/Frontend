@@ -3,7 +3,9 @@ import Navbar from "../components/header/Navbar";
 import CurrentMain from "../components/main/CurrentMain";
 import HistoryMain from "../components/main/HistoryMain";
 import ArrowWithTriangle from "../components/main/ArrowWithTriangle";
-import { getMainInfo, getPersonalInfo } from "../apis/Main";
+import { getMainInfo, getPersonalInfo, getAllInfo } from "../apis/Main";
+import { getNotifications } from "../apis/Notification";
+import { useSelector } from "react-redux";
 
 const MainPage = () => {
   const [angle, setAngle] = useState(0);
@@ -11,10 +13,17 @@ const MainPage = () => {
   const [radius, setRadius] = useState(0); // 반지름을 상태로 관리
   const [currentInfos, setCurrentInfos] = useState(null);
   const [infos, setInfos] = useState();
+  const [notifications, setNotifications] = useState();
+
+  const loginid = useSelector((state) => {
+    console.log("state", state);
+    return state.user.loginid;
+  });
 
   useEffect(() => {
+    getNotification();
     getPersonalInfoData();
-    getAllInfo();
+    getAllInfos();
     updateRadius(); // 초기 반지름 설정
     window.addEventListener("resize", updateRadius); // 화면 크기 변경 시 반지름 업데이트
     return () => window.removeEventListener("resize", updateRadius);
@@ -35,11 +44,17 @@ const MainPage = () => {
     setCurrentInfos(res.currentInfos);
   };
 
-  const getAllInfo = async () => {
-    const res = await getMainInfo();
-    setInfos(res.infos);
+  const getAllInfos = async () => {
+    // const res = await getMainInfo();
+    const res = await getAllInfo();
+    console.log(res.result);
+    setInfos(res.result);
   };
 
+  const getNotification = async () => {
+    const res = await getNotifications(loginid);
+    await setNotifications(res.result);
+  };
   const handleScroll = (event) => {
     // infos가 존재하지 않으면 handleScroll 실행 안 함
     if (!infos || !infos.length) return;
@@ -94,25 +109,9 @@ const MainPage = () => {
                   height: `${radius * 2}px`, // radius를 기준으로 height 설정
                   transform: `rotate(${angle}deg)`,
                   left: "-25rem", // 원래 중심 위치로 유지
-                  boxShadow: `0px 0px 15px ${infos[itemIndex].color}`, // 현재 인덱스에 따른 그림자 색상 적용
+                  boxShadow: `0px 0px 15px ${infos[itemIndex].rgba}`, // 현재 인덱스에 따른 그림자 색상 적용
                 }}
               >
-                {/* <div
-                  key={index}
-                  className={`absolute flex justify-center p-[1rem] pl-[1.5rem] items-center`}
-                  style={{
-                    width: "9rem",
-                    height: "3rem",
-                    transform: `translate(${x}px, ${y}px) rotate(${itemAngle}rad)`,
-                    color: itemIndex === index ? "white" : "#525252",
-                    backgroundColor:
-                      itemIndex === index
-                        ? `${infos[itemIndex].color}`
-                        : `transparent`,
-                    position: "relative",
-                    borderRadius: "0.5rem", // 둥근 모서리
-                  }}
-                > */}
                 <div
                   key={index}
                   className={`absolute flex justify-center items-center transition-transform ease-out duration-300`}
@@ -123,7 +122,7 @@ const MainPage = () => {
                   }}
                 >
                   <ArrowWithTriangle
-                    color={infos[itemIndex].color}
+                    color={infos[itemIndex].hex}
                     visible={itemIndex === index}
                   />
                   <span
@@ -134,7 +133,7 @@ const MainPage = () => {
                       top: "10px",
                     }}
                   >
-                    {info.ageName}
+                    {info.journeyType}
                   </span>
                 </div>
               </div>
@@ -147,6 +146,7 @@ const MainPage = () => {
                 <CurrentMain
                   userInfo={currentInfos}
                   totalInfos={infos[itemIndex]}
+                  notification={notifications}
                 />
               ) : (
                 <HistoryMain
