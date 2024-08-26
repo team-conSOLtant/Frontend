@@ -6,14 +6,17 @@ import ArrowWithTriangle from "../components/main/ArrowWithTriangle";
 import { getMainInfo, getPersonalInfo, getAllInfo } from "../apis/Main";
 import { getNotifications } from "../apis/Notification";
 import { useSelector } from "react-redux";
+import { getUserInfo } from "../apis/Users";
+import { getCurrentRecommend } from "../apis/Recommend";
 
 const MainPage = () => {
   const [angle, setAngle] = useState(0);
   const [itemIndex, setItemIndex] = useState(0);
   const [radius, setRadius] = useState(0); // 반지름을 상태로 관리
-  const [currentInfos, setCurrentInfos] = useState(null);
+  const [userInfos, setUserInfos] = useState(null);
   const [infos, setInfos] = useState();
   const [notifications, setNotifications] = useState();
+  const [products, setProducts] = useState();
 
   const loginid = useSelector((state) => {
     console.log("state", state);
@@ -22,8 +25,9 @@ const MainPage = () => {
 
   useEffect(() => {
     getNotification();
-    getPersonalInfoData();
+    getUserInfoData();
     getAllInfos();
+    getRecommenedProducts();
     updateRadius(); // 초기 반지름 설정
     window.addEventListener("resize", updateRadius); // 화면 크기 변경 시 반지름 업데이트
     return () => window.removeEventListener("resize", updateRadius);
@@ -39,9 +43,11 @@ const MainPage = () => {
     }
   };
 
-  const getPersonalInfoData = async () => {
-    const res = await getPersonalInfo();
-    setCurrentInfos(res.currentInfos);
+  const getUserInfoData = async () => {
+    // const res = await getPersonalInfo();
+    const res = await getUserInfo();
+    // console.log(res);
+    setUserInfos(res);
   };
 
   const getAllInfos = async () => {
@@ -55,6 +61,13 @@ const MainPage = () => {
     const res = await getNotifications(loginid);
     await setNotifications(res.result);
   };
+
+  const getRecommenedProducts = async () => {
+    const res = await getCurrentRecommend();
+    await console.log(res.result);
+    await setProducts(res.result);
+  };
+
   const handleScroll = (event) => {
     // infos가 존재하지 않으면 handleScroll 실행 안 함
     if (!infos || !infos.length) return;
@@ -121,10 +134,7 @@ const MainPage = () => {
                     transform: `translate(${x}px, ${y}px) rotate(${itemAngle}rad)`,
                   }}
                 >
-                  <ArrowWithTriangle
-                    color={infos[itemIndex].hex}
-                    visible={itemIndex === index}
-                  />
+                  <ArrowWithTriangle color={infos[itemIndex].hex} visible={itemIndex === index} />
                   <span
                     style={{
                       color: itemIndex === index ? "white" : "#525252",
@@ -139,20 +149,18 @@ const MainPage = () => {
               </div>
             );
           })}
-        {currentInfos && infos && (
+        {userInfos && infos && (
           <div className={`w-[${radius}]`}>
             <div className="absolute top-[5rem] min-w-[55rem] w-[78%] z-20">
-              {infos[itemIndex].age === currentInfos.age ? (
+              {infos[itemIndex].age === userInfos.currentJourneyType ? (
                 <CurrentMain
-                  userInfo={currentInfos}
+                  userInfo={userInfos}
                   totalInfos={infos[itemIndex]}
                   notification={notifications}
+                  products={products}
                 />
               ) : (
-                <HistoryMain
-                  userInfo={currentInfos}
-                  totalInfos={infos[itemIndex]}
-                />
+                <HistoryMain userInfo={userInfos} totalInfos={infos[itemIndex]} />
               )}
             </div>
           </div>

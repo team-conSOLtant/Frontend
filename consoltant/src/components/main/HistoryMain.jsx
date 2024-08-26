@@ -6,9 +6,36 @@ import MyFinanceGraph from "./MyFinanceGraph";
 function HistoryMain(props) {
   let userInfo = props.userInfo;
   let totalInfos = props.totalInfos;
-  let univInfos = totalInfos.univInfo;
-  let accountInfos = totalInfos.accountInfo;
   let products = totalInfos.products;
+
+  const accountInfos = {
+    accountName: totalInfos.accountName,
+    accountType: totalInfos.accountName,
+    accountNum: userInfo.accountNo,
+    accountAmount: totalInfos.totalAssetValue,
+    assets: [
+      {
+        type: "demandDeposit",
+        name: "입출금",
+        percent: totalInfos.demandDeposit,
+      },
+      {
+        type: "deposit",
+        name: "예금",
+        percent: totalInfos.deposit,
+      },
+      {
+        type: "savings",
+        name: "적금",
+        percent: totalInfos.savings,
+      },
+      {
+        type: "loan",
+        name: "대출",
+        percent: totalInfos.loan,
+      },
+    ],
+  };
   return (
     <div className="pt-[1rem] px-[2rem] text-[#444444]">
       {/* title */}
@@ -34,7 +61,7 @@ function HistoryMain(props) {
         {/* 상품 장바구니 */}
         <div className="font-OneShinhanMedium flex items-end">상품 장바구니</div>
         {/* PersonalInfo */}
-        <PersonalInfo univInfos={univInfos} />
+        <PersonalInfo userInfos={userInfo} />
         {/* AccountHistory */}
         <AccountHistory userInfo={userInfo} accountInfos={accountInfos} />
         {/* ProductHistory */}

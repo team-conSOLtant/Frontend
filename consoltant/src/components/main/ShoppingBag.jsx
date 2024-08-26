@@ -18,7 +18,7 @@ function ShoppingBag({ products }) {
               >
                 <div className="text-[0.7rem]">
                   <span className="font-OneShinhanBold text-[0.9rem]">
-                    {product.recommendStart} ~ {product.recommendEnd}
+                    {product.startDate} ~ {product.endDate}
                   </span>
                   에<br /> 가입을 추천하는 상품입니다.
                 </div>
