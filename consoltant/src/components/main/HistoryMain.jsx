@@ -41,7 +41,7 @@ function HistoryMain(props) {
         <ProductHistory products={products} />
       </div>
       {/* 아랫줄 */}
-      <div className="flex justify-center">
+      <div className="flex justify-center w-[100%]">
         <MyFinanceGraph />
       </div>
     </div>
