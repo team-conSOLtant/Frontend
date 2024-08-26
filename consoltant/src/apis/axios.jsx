@@ -4,7 +4,7 @@ const baselocalURL = "http://localhost:3000/";
 const baseURL = "http://13.124.49.149:8080/api";
 
 export const localAxios = Axios.create({
-  baseURL: baselocalURL,
+  // baseURL: baselocalURL,
 });
 
 export const axios = Axios.create({

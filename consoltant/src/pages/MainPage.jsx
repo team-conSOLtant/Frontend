@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../components/header/Navbar";
 import CurrentMain from "../components/main/CurrentMain";
 import HistoryMain from "../components/main/HistoryMain";
+import ArrowWithTriangle from "../components/main/ArrowWithTriangle";
 import { getMainInfo, getPersonalInfo } from "../apis/Main";
 
 const MainPage = () => {
@@ -20,11 +21,9 @@ const MainPage = () => {
   }, []);
 
   const updateRadius = () => {
-    const newRadius = window.innerWidth * 0.6; // 화면 크기에 맞게 반지름 설정
-    // console.log("Calculated radius:", newRadius); // radius 값을 확인하기 위해 로그 추가
-    if (newRadius > 900) {
-      setRadius(900);
-    } else if (newRadius < 675) {
+    const newRadius = window.innerWidth * 0.57; // 화면 크기에 맞게 반지름 설정
+    console.log("Calculated radius:", newRadius); // radius 값을 확인하기 위해 로그 추가
+    if (newRadius < 675) {
       setRadius(675);
     } else {
       setRadius(newRadius);
@@ -40,9 +39,6 @@ const MainPage = () => {
     const res = await getMainInfo();
     setInfos(res.infos);
   };
-
-  const unstyled = "text-[#525252]";
-  const styled = "text-white bg-[#005DF9]";
 
   const handleScroll = (event) => {
     // infos가 존재하지 않으면 handleScroll 실행 안 함
@@ -80,41 +76,70 @@ const MainPage = () => {
       <div className="absolute top-0 z-20 w-full">
         <Navbar />
       </div>
-      {/* 원형 스크롤 구현 */}
       <div className="flex justify-start items-center h-full m-0 bg-gray-100 relative z-10">
-        <div
-          className="absolute rounded-full bg-white shadow-lg shadow-[#005DF9] flex justify-center items-center transition-transform ease-out duration-300"
-          style={{
-            width: `${radius * 2}px`, // radius를 기준으로 width 설정
-            height: `${radius * 2}px`, // radius를 기준으로 height 설정
-            transform: `rotate(${angle}deg)`,
-            left: "-25rem", // 원래 중심 위치로 유지
-          }}
-        >
-          {infos &&
-            infos.map((info, index) => {
-              const angleStep = Math.PI / 36;
-              const itemAngle = index * angleStep;
-              const x = (radius + 60) * Math.cos(itemAngle);
-              const y = (radius + 60) * Math.sin(itemAngle);
+        {/* 원형 스크롤 구현 */}
+        {infos &&
+          infos.map((info, index) => {
+            const angleStep = Math.PI / 36;
+            const itemAngle = index * angleStep;
+            const x = (radius + 90) * Math.cos(itemAngle);
+            const y = (radius + 90) * Math.sin(itemAngle);
 
-              return (
+            return (
+              <div
+                key={index}
+                className={`absolute rounded-full bg-white shadow-lg flex justify-center items-center transition-transform ease-out duration-300`}
+                style={{
+                  width: `${radius * 2}px`, // radius를 기준으로 width 설정
+                  height: `${radius * 2}px`, // radius를 기준으로 height 설정
+                  transform: `rotate(${angle}deg)`,
+                  left: "-25rem", // 원래 중심 위치로 유지
+                  boxShadow: `0px 0px 15px ${infos[itemIndex].color}`, // 현재 인덱스에 따른 그림자 색상 적용
+                }}
+              >
+                {/* <div
+                  key={index}
+                  className={`absolute flex justify-center p-[1rem] pl-[1.5rem] items-center`}
+                  style={{
+                    width: "9rem",
+                    height: "3rem",
+                    transform: `translate(${x}px, ${y}px) rotate(${itemAngle}rad)`,
+                    color: itemIndex === index ? "white" : "#525252",
+                    backgroundColor:
+                      itemIndex === index
+                        ? `${infos[itemIndex].color}`
+                        : `transparent`,
+                    position: "relative",
+                    borderRadius: "0.5rem", // 둥근 모서리
+                  }}
+                > */}
                 <div
                   key={index}
-                  className={`absolute flex justify-center rounded-[2rem] p-[1rem] items-center ${
-                    itemIndex === index ? styled : unstyled
-                  }`}
+                  className={`absolute flex justify-center items-center transition-transform ease-out duration-300`}
                   style={{
-                    width: "8rem",
+                    width: "9rem",
                     height: "3rem",
                     transform: `translate(${x}px, ${y}px) rotate(${itemAngle}rad)`,
                   }}
                 >
-                  {info.ageName}
+                  <ArrowWithTriangle
+                    color={infos[itemIndex].color}
+                    visible={itemIndex === index}
+                  />
+                  <span
+                    style={{
+                      color: itemIndex === index ? "white" : "#525252",
+                      position: "absolute",
+                      left: "40px",
+                      top: "10px",
+                    }}
+                  >
+                    {info.ageName}
+                  </span>
                 </div>
-              );
-            })}
-        </div>
+              </div>
+            );
+          })}
         {currentInfos && infos && (
           <div className={`w-[${radius}]`}>
             <div className="absolute top-[5rem] min-w-[55rem] w-[78%] z-20">
