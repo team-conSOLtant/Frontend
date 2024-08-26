@@ -4,6 +4,7 @@ import SectionHeader from "../SectionHeader";
 import EducationForm from "./EducationForm";
 import CareerForm from "./CareerForm";
 import CareerItem from "./CareerItem";
+import EducationItem from "./EducationItem";
 
 const EducationSectionStyle = styled.div`
   width: 100%;
@@ -50,16 +51,17 @@ const InputContainer = styled.input`
   border: 1px solid black;
 `;
 
-function EducationCareerSection({ isEdit }) {
-  const [awardData, setAwardData] = useState(null);
+const CareerItemView = styled.label`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
 
-  useEffect(() => {
-    getAwardData();
-  }, [awardData]);
+const CompanyName = styled.label``;
+const Rank = styled.label``;
+const CareerDuration = styled.label``;
 
-  const getAwardData = () => {};
-  const getCertificationdData = () => {};
-
+function EducationCareerSection({ isEdit, educationAndcareer }) {
   return (
     <EducationSectionStyle>
       <SectionHeader title={"학력 / 경력"} image={"/Briefcase.svg"} />
@@ -71,17 +73,25 @@ function EducationCareerSection({ isEdit }) {
           </SubSectionHeader>
 
           <SubSectionBody>
-            <EducationForm></EducationForm>
+            {isEdit ? (
+              <EducationForm></EducationForm>
+            ) : (
+              <EducationItem
+                education={educationAndcareer?.education}
+              ></EducationItem>
+            )}
           </SubSectionBody>
         </SubSectionStyle>
         <SubSectionStyle>
           <SubSectionHeader>
             <SubSectionTitleText>경력</SubSectionTitleText>
-            <SubSectionTitleButton>+</SubSectionTitleButton>
           </SubSectionHeader>
           <SubSectionBody>
-            <CareerForm></CareerForm>
-            <CareerItem></CareerItem>
+            {isEdit && <CareerForm></CareerForm>}
+            {educationAndcareer.career.length > 0 &&
+              educationAndcareer.career.map((data) => (
+                <CareerItem data={data}></CareerItem>
+              ))}
           </SubSectionBody>
         </SubSectionStyle>
       </SectionBody>

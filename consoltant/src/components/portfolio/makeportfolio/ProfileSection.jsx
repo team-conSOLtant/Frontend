@@ -123,8 +123,9 @@ const InputContainer = styled.input`
   width: 15rem;
 `;
 
-function ProfileSection() {
+function ProfileSection({ userInfo }) {
   const [bgcolor, setBgcolor] = useState({ hex: "#FFFFFF" });
+  console.log("");
   return (
     <ProfileSectionStyle>
       <ProfileTitleContainer>
@@ -149,26 +150,35 @@ function ProfileSection() {
           </ColorPickerContainer>
         </ProfileSectionLeft>
         <ProfileDescription>
-          <NameInput placeholder="이름을 입력해주세요"></NameInput>
-          <JobInput placeholder="직업을 입력해주세요(ex - 백엔드 개발자)"></JobInput>
+          <NameInput
+            placeholder="이름을 입력해주세요"
+            value={userInfo.name}
+          ></NameInput>
+          <JobInput
+            placeholder="직업을 입력해주세요(ex - 백엔드 개발자)"
+            value={userInfo.job}
+          ></JobInput>
           <ProfileIntroductionContainer>
             <ProfileIntroductionTitle>
               한줄 소개 (300자 이내)
             </ProfileIntroductionTitle>
-            <ProfileIntroductionInput placeholder="채용 담당자에게 특별한 인상을 줄 수 있는 소개 글을 작성해보세요."></ProfileIntroductionInput>
+            <ProfileIntroductionInput
+              placeholder="채용 담당자에게 특별한 인상을 줄 수 있는 소개 글을 작성해보세요."
+              value={userInfo.description}
+            ></ProfileIntroductionInput>
           </ProfileIntroductionContainer>
           <ProfileAdditionalInfo>
             <InputLabel>
               <InputTitle>생년월일</InputTitle>
-              <InputContainer></InputContainer>
+              <InputContainer value={userInfo.birthDate}></InputContainer>
             </InputLabel>
             <InputLabel>
               <InputTitle>전화번호</InputTitle>
-              <InputContainer></InputContainer>
+              <InputContainer value={userInfo.phoneNumber}></InputContainer>
             </InputLabel>
             <InputLabel>
               <InputTitle>이메일</InputTitle>
-              <InputContainer></InputContainer>
+              <InputContainer value={userInfo.email}></InputContainer>
             </InputLabel>
           </ProfileAdditionalInfo>
         </ProfileDescription>

@@ -9,7 +9,7 @@ const ProfileSectionStyle = styled.div`
   display: flex;
   flex-direction: row;
   margin-top: 1rem;
-  background-color: #fff8df;
+  background-color: ${(props) => props.bgcolor};
 `;
 
 const ProfileName = styled.div`
@@ -70,38 +70,22 @@ const Keyword = styled.div`
   border-radius: 0.3rem;
 `;
 
-function ProfileViewSection() {
-  const loginid = useSelector((state) => {
-    console.log("state", state);
-    return state.user.loginid;
-  });
-
-  useEffect(() => {
-    getProfileData();
-  }, []);
-
-  const getProfileData = async () => {
-    console.log("profile : loginid", loginid);
-    const res = await getPortfolios(loginid);
-    console.log(res);
-  };
-
+function ProfileViewSection(props) {
   return (
-    <ProfileSectionStyle>
+    <ProfileSectionStyle bgcolor={props.userInfo?.backgroundColor}>
       <ProfileImage></ProfileImage>
       <ProfileDescription>
-        <ProfileName>Ko Dahyun</ProfileName>
-        <ProfileJob>BackEnd Developer</ProfileJob>
+        <ProfileName>{props.userInfo?.name}</ProfileName>
+        <ProfileJob>{props.userInfo?.job}</ProfileJob>
         <ProfileIntroductionContainer>
           <ProfileIntroductionTitle>
-            사람을 향한 소프트웨어 기술 기반의 안전하고 행복한 세상을 만드는
-            것이 저의 비전입니다.
+            {props.userInfo?.description}
           </ProfileIntroductionTitle>
         </ProfileIntroductionContainer>
         <ProfileSubInfoContainer>
           <ProfileSubInfo>2001년 9월 7일</ProfileSubInfo>
-          <ProfileSubInfo>010-0000-0000</ProfileSubInfo>
-          <ProfileSubInfo>example@gmail.com</ProfileSubInfo>
+          <ProfileSubInfo>{props.userInfo?.phoneNumber}</ProfileSubInfo>
+          <ProfileSubInfo>{props.userInfo?.email}</ProfileSubInfo>
         </ProfileSubInfoContainer>
         <ProfileKeywordContainer>
           <Keyword>성실함</Keyword>

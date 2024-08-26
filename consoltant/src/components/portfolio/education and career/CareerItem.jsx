@@ -36,12 +36,15 @@ const SubmitButton = styled.div`
   text-align: center;
   line-height: 2rem;
 `;
-function CareerItem() {
+function CareerItem({ data }) {
+  // console.log("career data", data);
   return (
     <CareerFormStyle>
-      <RankInputContainer>Google Korea</RankInputContainer>
-      <RankInputContainer>인턴</RankInputContainer>
-      <InputContainer>2024-01-10 ~ 2025-01-09</InputContainer>
+      <RankInputContainer>{data.company}</RankInputContainer>
+      <RankInputContainer>{data.positionLevel}</RankInputContainer>
+      <InputContainer>
+        {data.startDate} ~ {data.endDate}
+      </InputContainer>
       <SubmitButton></SubmitButton>
     </CareerFormStyle>
   );

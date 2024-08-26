@@ -52,20 +52,42 @@ const HappinessComponent = styled.div`
   line-height: 1.8rem;
 `;
 
-function KeywordSection() {
-  const [keywords, setKeywords] = useState([]);
-  const [selectedHappiness, setSelectedHappiness] = useState("");
-
+function KeywordSection({ keywords, setPortfolioData }) {
+  // console.log("keeeeeeeeeee", keywords);
   const clickKeyword = (selectedWord) => {
-    if (keywords.includes(selectedWord)) {
-      setKeywords(keywords.filter((word) => word !== selectedWord));
-    } else if (keywords.length < 3) {
-      setKeywords([...keywords, selectedWord]);
+    if (isSelected(selectedWord)) {
+      setPortfolioData((existingData) => ({
+        ...existingData,
+        keywords: {
+          ...existingData.keywords,
+          myKeyword: keywords.myKeyword.filter((word) => word !== selectedWord),
+        },
+      }));
+    } else if (keywords.myKeyword.length < 3) {
+      setPortfolioData((existingData) => ({
+        ...existingData,
+        keywords: {
+          ...existingData.keywords,
+          myKeyword: [...keywords.myKeyword, selectedWord],
+        },
+      }));
     }
+    console.log("keywordskeywordskeywordskeywords", keywords.myKeyword);
+  };
+
+  const clickFinanceKeyword = (happy) => {
+    setPortfolioData((existingData) => ({
+      ...existingData,
+      keywords: {
+        ...existingData.keywords,
+        financeKeyword: happy,
+      },
+    }));
   };
 
   const isSelected = (selectedWord) => {
-    return keywords.includes(selectedWord);
+    console.log("keywords.myKeyword", keywords.myKeyword);
+    return keywords.myKeyword.includes(selectedWord);
   };
 
   return (
@@ -77,8 +99,8 @@ function KeywordSection() {
           <HappinessComponent
             key={happy}
             className="relative group"
-            isSelected={selectedHappiness === happy}
-            onClick={() => setSelectedHappiness(happy)}
+            isSelected={keywords.financeKeyword === happy}
+            onClick={() => clickFinanceKeyword(happy)}
           >
             {/* 제목에만 폰트 적용 */}
             <span className="font-OneShinhanBold">{happy}</span>
