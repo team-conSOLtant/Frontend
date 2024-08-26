@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { requestLogin } from "../apis/Login";
+import { useDispatch } from "react-redux";
+import { setUser, removeUser } from "../feature/user/userSlice";
 
 // 로그인 페이지
 function LoginPage() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [id, setId] = useState();
   const [pw, setPw] = useState();
   const [loginFail, setLoginFail] = useState();
@@ -22,6 +25,8 @@ function LoginPage() {
     try {
       if (
         await requestLogin(form).then((data) => {
+          console.log("login data", data);
+          dispatch(setUser({ loginid: data }));
           return data;
         })
       ) {
@@ -109,7 +114,10 @@ function LoginPage() {
       <div className="mt-[1rem] flex flex-col items-center font-OneShinhanLight">
         <div className="flex text-[0.8rem]">
           <div className="text-[#525252]">아직 회원이 아니신가요?</div>
-          <div className="mx-1 text-[#0046ff] cursor-pointer" onClick={() => navigate("/signup")}>
+          <div
+            className="mx-1 text-[#0046ff] cursor-pointer"
+            onClick={() => navigate("/signup")}
+          >
             회원가입
           </div>
         </div>

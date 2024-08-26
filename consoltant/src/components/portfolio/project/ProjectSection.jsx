@@ -73,8 +73,7 @@ function ProjectSection({ isEdit }) {
   const getProjectData = async () => {
     const res = await getProjects();
     // console.log("res", res.award);
-    setProjectList(res.result);
-    console.log("?", res.result);
+    setProjectList(res);
   };
 
   return (
@@ -88,7 +87,7 @@ function ProjectSection({ isEdit }) {
             </PlusBoxStyle>
           </PlusBoxContainer>
         )}
-        {isEdit && formList.map((data) => <ProjectForm data={data} />)}
+        {isEdit && formList.map(() => <ProjectForm />)}
         {projectList.length > 0 &&
           projectList.map((data) => <ProjectItem data={data} />)}
       </SectionBody>

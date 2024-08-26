@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route, Router } from "react-router-dom";
 import PortfolioController from "../components/portfolio/controller/PortfolioController.jsx";
 import styled from "styled-components";
@@ -9,6 +9,7 @@ import EducationCareerSection from "../components/portfolio/education and career
 import AwardCertificationSection from "../components/portfolio/award and certification/AwardCertificationSection.jsx";
 import ProjectSection from "../components/portfolio/project/ProjectSection.jsx";
 import ActivitySection from "../components/portfolio/activity/ActivitySection.jsx";
+import { useDispatch, useSelector } from "react-redux";
 // 포트폴리오(이력서) 보는 페이지
 
 const PortfolioPageStyle = styled.div``;
@@ -29,6 +30,16 @@ const PortfolioMain = styled.div`
 `;
 
 function PortfolioFormPage() {
+  const loginid = useSelector((state) => state.user.loginid);
+  console.log("loginid", loginid);
+  // const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log(
+      "this is portfolio page - - - - - - - - - - - - - - - - - - - -"
+    );
+    // console.log(loginid);
+  }, []);
   return (
     <PortfolioPageStyle>
       <Navbar></Navbar>
@@ -40,9 +51,9 @@ function PortfolioFormPage() {
           <ProjectSection isEdit={false} />
           <ActivitySection isEdit={false} />
         </PortfolioMain>
-        <PortfolioController />
+        {/* <PortfolioController /> */}
       </PortfolioBody>
-      <PortfolioController></PortfolioController>
+      <PortfolioController isEdit={false}></PortfolioController>
     </PortfolioPageStyle>
   );
 }
