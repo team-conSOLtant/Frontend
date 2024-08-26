@@ -1,9 +1,11 @@
 import { axios } from "./Axios";
 
-export const getProjects = async () => {
+export const getProjects = async (portfolioId) => {
   try {
-    const response = await axios.get(`/projects?portfolioId=4`);
-    console.log("get projects data success : ", response.data.result);
+    const response = await axios.get(`/projects`, {
+      params: { portfolioId: portfolioId },
+    });
+    console.log("[IN AXIOS] projects response : ", response.data.result);
     return response.data.result;
   } catch (error) {
     console.error("get projects failed:", error);

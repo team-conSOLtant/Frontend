@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import ActivityItemDetail from './ActivityItemDetail.jsx';
+import React, { useState } from "react";
+import ActivityItemDetail from "./ActivityItemDetail.jsx";
 
-function ActivityItem() {
+function ActivityItem({ data }) {
   const [details, setDetails] = useState([{}]);
 
   const addDetail = () => {
@@ -34,7 +34,7 @@ function ActivityItem() {
             </div>
           ))}
           <div className="flex flex-col mt-2">
-            <span className="text-sm font-semibold mb-1">대외활동 기간</span>
+            <span className="text-sm font-semibold mb-1">{data.title}</span>
             <div className="text-base w-full">
               <input
                 type="date"

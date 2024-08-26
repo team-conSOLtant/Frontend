@@ -61,20 +61,20 @@ const PlusBoxButton = styled.div`
   color: white;
   font-family: "OneShinhanBold";
 `;
-function ProjectSection({ isEdit }) {
+function ProjectSection({ isEdit, projects }) {
   const [formList, setFormList] = useState([{}]);
-  const [projectList, setProjectList] = useState([]);
+  // const [projectList, setProjectList] = useState([]);
   const addForm = () => {};
 
-  useEffect(() => {
-    getProjectData();
-  }, []);
+  // useEffect(() => {
+  //   getProjectData();
+  // }, []);
 
-  const getProjectData = async () => {
-    const res = await getProjects();
-    // console.log("res", res.award);
-    setProjectList(res);
-  };
+  // const getProjectData = async () => {
+  //   const res = await getProjects();
+  //   // console.log("res", res.award);
+  //   setProjectList(res);
+  // };
 
   return (
     <ProjectSectionStyle>
@@ -88,8 +88,8 @@ function ProjectSection({ isEdit }) {
           </PlusBoxContainer>
         )}
         {isEdit && formList.map(() => <ProjectForm />)}
-        {projectList.length > 0 &&
-          projectList.map((data) => <ProjectItem data={data} />)}
+        {projects.length > 0 &&
+          projects.map((data) => <ProjectItem data={data} />)}
       </SectionBody>
     </ProjectSectionStyle>
   );
