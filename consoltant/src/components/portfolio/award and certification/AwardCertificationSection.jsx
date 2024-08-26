@@ -118,22 +118,23 @@ const PlusBoxCertButton = styled.div`
   background-color: #c7c7c7;
 `;
 
-function AwardCertificationSection({ isEdit }) {
+function AwardCertificationSection({ isEdit, awardsAndcertifications }) {
   const [awardData, setAwardData] = useState([]);
   const [awardNum, setAwardNum] = useState(1);
   const [certificationData, setCertificationData] = useState([]);
   const [certificationNum, setCertificationNum] = useState(1);
 
   useEffect(() => {
-    getAwardData();
-    getCertificationdData();
+    // getAwardData();
+    // getCertificationdData();
+    console.log("awardsAndcertifications", awardsAndcertifications);
   }, []);
 
-  const getAwardData = async () => {
-    const res = await getAwards();
-    // console.log("res", res.award);
-    setAwardData(res);
-  };
+  // const getAwardData = async () => {
+  //   const res = await getAwards();
+  //   // console.log("res", res.award);
+  //   setAwardData(res);
+  // };
 
   const addAwardForm = () => {
     console.log(awardNum);
@@ -145,20 +146,25 @@ function AwardCertificationSection({ isEdit }) {
     setCertificationNum(certificationNum + 1);
   };
 
-  const getCertificationdData = async () => {
-    const res = await getCertifications();
-    // console.log("res", res);
-    setCertificationData(res);
-  };
+  // const getCertificationdData = async () => {
+  //   const res = await getCertifications();
+  //   // console.log("res", res);
+  //   setCertificationData(res);
+  // };
 
   return (
     <AwardCertificationSectionStyle>
       <SectionHeader title={"수상 / 자격증"} image={"/Trophy.svg"} />
       <SectionBody>
         <SubSectionStyle>
-          <SubSectionHeader>수상 ({awardData?.length})</SubSectionHeader>
+          <SubSectionHeader>
+            수상 ({awardsAndcertifications.awards?.length})
+          </SubSectionHeader>
           <SubSectionBody>
-            {awardData && awardData.map((data) => <AwardItem data={data} />)}
+            {awardsAndcertifications.awards &&
+              awardsAndcertifications.awards.map((data) => (
+                <AwardItem data={data} />
+              ))}
             {isEdit &&
               Array.from({ length: awardNum }, (_, index) => (
                 <AwardForm key={index}>Award {index + 1}</AwardForm>
@@ -174,11 +180,11 @@ function AwardCertificationSection({ isEdit }) {
         </SubSectionStyle>
         <SubSectionStyle>
           <SubSectionHeader>
-            자격증 ({certificationData?.length})
+            자격증 ({awardsAndcertifications.certifications?.length})
           </SubSectionHeader>
           <SubSectionBody>
-            {certificationData &&
-              certificationData.map((data) => (
+            {awardsAndcertifications.certifications &&
+              awardsAndcertifications.certifications.map((data) => (
                 <CertificationItem data={data} />
               ))}
             {isEdit &&

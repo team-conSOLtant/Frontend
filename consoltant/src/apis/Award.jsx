@@ -1,11 +1,11 @@
 import { axios } from "./Axios";
 
-export const getAwards = async () => {
-  console.log("vefore award response : ");
-
+export const getAwards = async (portfolioId) => {
   try {
-    const response = await axios.get(`/awards?portfolioId=4`);
-    console.log("award response : ", response.data.result);
+    const response = await axios.get(`/awards`, {
+      params: { portfolioId: portfolioId },
+    });
+    console.log("[IN AXIOS] award response : ", response.data.result);
     return response.data.result;
   } catch (error) {
     console.error("get awards failed:", error);

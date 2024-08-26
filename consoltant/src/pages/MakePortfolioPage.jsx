@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route, Router } from "react-router-dom";
 import PortfolioController from "../components/portfolio/controller/PortfolioController.jsx";
 import styled from "styled-components";
@@ -11,6 +11,13 @@ import KeywordSection from "../components/portfolio/makeportfolio/KeywordSection
 import ProfileSection from "../components/portfolio/makeportfolio/ProfileSection.jsx";
 import Navbar from "../components/header/Navbar.jsx";
 import ActivitySection from "../components/portfolio/activity/ActivitySection.jsx";
+import { getCertifications } from "../apis/Certification.jsx";
+import { getProjects } from "../apis/Project.jsx";
+import { getAwards } from "../apis/Award.jsx";
+import { getCareer } from "../apis/Career.jsx";
+import { getUserInfo } from "../apis/Users.jsx";
+import { getPortfolios } from "../apis/Portfolio.jsx";
+import { useSelector } from "react-redux";
 // 포트폴리오(이력서) 만드는 페이지
 
 const PortfolioPageStyle = styled.div``;
@@ -31,17 +38,175 @@ const PortfolioBody = styled.div`
 `;
 
 function MakePortfolioPage() {
+  const loginid = useSelector((state) => state.user.loginid);
+
+  const [portfolioData, setPortfolioData] = useState({
+    userInfo: {
+      name: null,
+      email: null,
+      age: null,
+      job: null,
+      phoneNumber: null,
+      imageUrl: null,
+      description: null,
+      portfolioId: null,
+    },
+    keywords: { financeKeyword: null, myKeyword: [] },
+    educationAndcareer: {
+      education: {
+        university: {
+          id: null,
+          name: null,
+          universityCode: null,
+          isDeleted: null,
+        },
+        totalGpa: null,
+        majorGpa: null,
+        major: null,
+      },
+      career: [],
+    },
+    awardsAndcertifications: { awards: [], certifications: [] },
+    projects: [],
+    activities: [],
+  });
+  useEffect(() => {
+    console.log("this is portfolio page - - - - - - - - - - - - - - - - -");
+    getProfileData();
+  }, []);
+
+  useEffect(() => {
+    if (portfolioData.userInfo.portfolioId) {
+      getUserData();
+      getCareerData();
+      getAwardsData();
+      getCertificationdData();
+      getProjectsData();
+      console.log("after get projects : ", portfolioData);
+    }
+  }, [portfolioData.userInfo.portfolioId]);
+
+  const getProfileData = async () => {
+    const newData = await getPortfolios(loginid);
+    setPortfolioData((existingData) => ({
+      ...existingData,
+      userInfo: {
+        ...existingData.userInfo,
+        job: newData.job, // Backend Engineer로 업데이트
+        imageUrl: newData.imageUrl, // 새로운 이미지 URL로 업데이트
+        description: newData.description, // 새로운 설명으로 업데이트
+        portfolioId: newData.id,
+      },
+      keywords: {
+        ...existingData.keywords,
+        financeKeyword: newData.financeKeyword, // 새로운 financeKeyword로 업데이트
+        myKeyword: newData.myKeyword.split(","), // 새로운 myKeyword로 업데이트
+      },
+      educationAndcareer: {
+        ...existingData.educationAndcareer,
+        education: {
+          ...existingData.educationAndcareer.education,
+          totalGpa: newData.totalGpa, // 새로운 totalGpa로 업데이트
+          majorGpa: newData.majorGpa, // 새로운 majorGpa로 업데이트
+          university: {
+            ...existingData.educationAndcareer.education.university,
+            isDeleted: newData.isDeleted, // isDeleted 상태 업데이트
+          },
+        },
+      },
+    }));
+  };
+
+  const getUserData = async () => {
+    const newData = await getUserInfo();
+    // console.log("new Data", newData);
+    setPortfolioData((existingData) => ({
+      ...existingData,
+      userInfo: {
+        ...existingData.userInfo,
+        name: newData.name,
+        email: newData.email,
+        age: newData.age,
+        phoneNumber: newData.phoneNumber,
+      },
+      educationAndcareer: {
+        ...existingData.educationAndcareer,
+        education: {
+          ...existingData.educationAndcareer.education,
+          university: newData.university,
+          major: newData.major,
+        },
+      },
+    }));
+  };
+
+  const getCareerData = async () => {
+    console.log("[getCareer function] start");
+    const newData = await getCareer(portfolioData.userInfo.portfolioId);
+    setPortfolioData((existingData) => ({
+      ...existingData,
+      educationAndcareer: {
+        ...existingData.educationAndcareer,
+        career: newData,
+      },
+    }));
+  };
+
+  const getAwardsData = async () => {
+    console.log("[getAwards function] start");
+    const newData = await getAwards(portfolioData.userInfo.portfolioId);
+    setPortfolioData((existingData) => ({
+      ...existingData,
+      awardsAndcertifications: {
+        ...existingData.awardsAndcertifications,
+        awards: newData,
+      },
+    }));
+  };
+
+  const getCertificationdData = async () => {
+    console.log("[getCertification function] start");
+    const newData = await getCertifications(portfolioData.userInfo.portfolioId);
+    setPortfolioData((existingData) => ({
+      ...existingData,
+      awardsAndcertifications: {
+        ...existingData.awardsAndcertifications,
+        certifications: newData,
+      },
+    }));
+  };
+
+  const getProjectsData = async () => {
+    console.log("[getProjects function] start");
+    const newData = await getProjects(portfolioData.userInfo.portfolioId);
+    setPortfolioData((existingData) => ({
+      ...existingData,
+      projects: newData,
+    }));
+  };
   return (
     <PortfolioPageStyle>
       <Navbar></Navbar>
       <PortfolioBody>
         <PortfolioMain>
-          <ProfileSection />
-          <KeywordSection />
-          <EducationCareerSection isEdit={true} />
-          <AwardCertificationSection isEdit={true} />
-          <ProjectSection isEdit={true} />
-          <ActivitySection isEdit={true} />
+          <ProfileSection userInfo={portfolioData.userInfo} />
+          <KeywordSection
+            keywords={portfolioData.keywords}
+            setPortfolioData={setPortfolioData}
+          />
+          <EducationCareerSection
+            isEdit={true}
+            educationAndcareer={portfolioData.educationAndcareer}
+          />
+          <AwardCertificationSection
+            isEdit={true}
+            awardsAndcertifications={portfolioData.awardsAndcertifications}
+          />
+          <ProjectSection isEdit={true} projects={portfolioData.projects} />
+          <ActivitySection
+            isEdit={true}
+            activities={portfolioData.activities}
+          />
         </PortfolioMain>
         <PortfolioController isEdit={true} />
       </PortfolioBody>
