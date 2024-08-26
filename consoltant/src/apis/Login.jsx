@@ -28,12 +28,14 @@ export const logout = async () => {
 // 회원가입
 export const register = async (info) => {
   try {
-    const response = await axios.post("/auth/register", info, { skipAuth: true }).catch((error) => {
-      if (error.response) {
-        console.log(error.response.data.message);
-        console.log(error.response.status);
-      }
-    });
+    const response = await axios
+      .post("/auth/register", info, { skipAuth: true })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response.data.message);
+          console.log(error.response.status);
+        }
+      });
     console.log(response);
     if (response) {
       return response.data;
@@ -68,7 +70,9 @@ export const registerAcademy = async (form, state) => {
 export const getProductList = async (type) => {
   try {
     console.log(type);
-    const response = await axios.post("/products/bank/type", type, { skipAuth: true });
+    const response = await axios.post("/products/bank/type", type, {
+      skipAuth: true,
+    });
     return response.data;
   } catch (error) {
     console.log("product list fail:", error);
@@ -108,9 +112,11 @@ export const issueAccount = async (accountInfo, email) => {
 export const checkMessage = async (accountInfo, email) => {
   try {
     console.log(accountInfo);
-    const response = await axios.post(`/auth/${email}/check/message`, accountInfo).then((res) => {
-      return res.data;
-    });
+    const response = await axios
+      .post(`/auth/${email}/check/message`, accountInfo)
+      .then((res) => {
+        return res.data;
+      });
     return response;
   } catch (error) {
     console.log("Checking Message fail:", error);
@@ -121,11 +127,27 @@ export const checkMessage = async (accountInfo, email) => {
 export const checkAccount = async (checkInfo, email) => {
   try {
     console.log(checkInfo);
-    const response = await axios.post(`/auth/${email}/check/account`, checkInfo).then((res) => {
-      return res.data
-    });
+    const response = await axios
+      .post(`/auth/${email}/check/account`, checkInfo)
+      .then((res) => {
+        return res.data;
+      });
     return response;
   } catch (error) {
     console.log("checking account fail: ", error);
+  }
+};
+
+// 계좌 정보 추가
+export const createAccountInfo = async (info, email) => {
+  try {
+    const response = await axios
+      .post(`/users/${email}/account`, info)
+      .then((res) => {
+        return res.data;
+      });
+    return response;
+  } catch (error) {
+    console.log("creating account info fail: ", error);
   }
 };

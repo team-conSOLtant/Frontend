@@ -7,6 +7,7 @@ import {
   checkAccount,
   issueAccount,
   checkMessage,
+  createAccountInfo,
 } from "../apis/Login";
 
 function AccountInfoPage() {
@@ -23,6 +24,8 @@ function AccountInfoPage() {
   const [approved, setApproved] = useState();
   const [company, setCompany] = useState();
   const [salary, setSalary] = useState();
+  const [errorMessage, setErrorMessage] = useState();
+  const [isError, setIsError] = useState();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -39,12 +42,33 @@ function AccountInfoPage() {
     }
   }, []);
 
-  useEffect(() => {}, [setAccountNo, setApproved]);
+  useEffect(() => {
+    if (approved) {
+      setIsError(false);
+    }
+  }, [setAccountNo, setApproved]);
 
-  const submit = () => {
-    // 학교 데이터 넘기기
-    // 계좌 여부 확인 페이지로 넘어가기
-    navigate("/all-complete");
+  const submit = async () => {
+    if (approved) {
+      setIsError(false);
+      // 학교 데이터 넘기기
+      const info = {
+        isEmployed: work,
+        salary: salary,
+        corporateName: company,
+        accountNo: accountNo,
+      };
+      const response = await createAccountInfo(info, email);
+      if (response.success) {
+        navigate("/all-complete");
+      } else {
+        setErrorMessage("계좌정보 입력에 실패했습니다.");
+        setIsError(true);
+      }
+    } else {
+      setErrorMessage("계좌 인증을 해주세요");
+      setIsError(true);
+    }
   };
 
   const makeAccount = () => {
@@ -189,9 +213,13 @@ function AccountInfoPage() {
           </div>
           {approved &&
             (approved ? (
-              <div className="text-[0.7rem] text-green-500">인증되었습니다.</div>
+              <div className="text-[0.7rem] text-green-500">
+                인증되었습니다.
+              </div>
             ) : (
-              <div className="text-[0.7rem] text-red-500">인증에 실패 했습니다.</div>
+              <div className="text-[0.7rem] text-red-500">
+                인증에 실패 했습니다.
+              </div>
             ))}
           {/* 취업 여부 */}
           <div className="my-[0.5rem] flex text-[#5C5C5C] w-[100%] items-center justify-between text-[0.9rem]">
@@ -244,6 +272,12 @@ function AccountInfoPage() {
           >
             완료
           </div>
+          {/* 계좌 정보 입력 실패 */}
+          {isError && (
+            <div className="my-[0.5rem] flex justify-center w-[40%] max-w-[35rem] min-w-[25rem] text-[0.9rem]">
+              <div className="text-red-500">{errorMessage}</div>
+            </div>
+          )}
         </div>
       </div>
     </div>
