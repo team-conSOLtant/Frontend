@@ -1,17 +1,78 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route, Router, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { register } from "../apis/Login";
 
 function SignupPage() {
   const [emailDomain, setEmailDomain] = useState("");
-  // const [password, ]
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [pwdCheck, setPwdCheck] = useState("");
+  const [isSamePwd, setIsSamePwd] = useState();
+  const [name, setName] = useState();
+  const [phone, setPhone] = useState();
+  const [birth, setBirth] = useState();
+  const [errorMessage, setErrorMessage] = useState();
+  const [isError, setIsError] = useState();
 
   const navigate = useNavigate();
 
-  const submit = () => {
-    // 회원가입 진행(데이터 넘기기
-    // 완료 페이지로 넘어가기
-    navigate("/complete");
+  const checkPwd = (pwd) => {
+    setPwdCheck(pwd);
+    if (pwd === password) {
+      setIsSamePwd(true);
+    } else {
+      setIsSamePwd(false);
+    }
+  };
+
+  useEffect(() => {
+    checkPwd(pwdCheck);
+  }, [setIsSamePwd, isSamePwd, setPwdCheck, pwdCheck, password, setPassword]);
+
+  useEffect(() => {}, [setIsError, isError]);
+  const submit = async () => {
+    // 빈 정보란 check
+    if (!email || !emailDomain || !password || !pwdCheck || !name || !phone || !birth) {
+      setErrorMessage("모든 정보를 입력해주세요");
+      setIsError(true);
+    } else if (!isSamePwd) {
+      setErrorMessage("비밀 번호를 확인해주세요");
+      setIsError(true);
+    } else {
+      setIsError(false);
+
+      // 회원가입 데이터 넘기기
+      const fullEmail = `${email}@${emailDomain}`;
+      const currYear = new Date();
+      const myBirth = new Date(birth);
+      const age = Number(currYear.getFullYear()) - Number(myBirth.getFullYear()) + 1;
+      const info = {
+        email: fullEmail,
+        password: password,
+        name: name,
+        age: `${age}`,
+        phoneNumber: phone,
+        birthDate: birth,
+      };
+      try {
+        const response = await register(info).then((data) => {
+          return data;
+        });
+        console.log(response.success);
+        if (response.success) {
+          console.log("회원가입 성공!");
+          console.log(response.result.email);
+          navigate("/signup-info", { state: response.result.email });
+        } else {
+          setErrorMessage("회원가입 실패");
+          setIsError(true);
+          console.log("회원가입 실패!");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
 
   return (
@@ -26,6 +87,7 @@ function SignupPage() {
       {/* 회원정보 입력란 */}
       <div className="h-[80vh] flex justify-center items-center">
         <div className="flex  flex-col items-center">
+          <div className="font-OneShinhanBold text-[#5C5C5C] text-[1.7rem] mb-[1rem]">회원가입</div>
           {/* 이메일 */}
           <div className="my-[0.5rem] flex text-[#5C5C5C] w-[40%] max-w-[35rem] min-w-[25rem] items-center justify-between text-[0.9rem]">
             <div className="w-[20%] min-w-[7rem]">아이디(이메일)</div>
@@ -33,6 +95,7 @@ function SignupPage() {
               {/* 이메일 아이디 입력란 */}
               <input
                 type="text"
+                onChange={(e) => setEmail(e.target.value)}
                 className="border rounded-[0.2rem] w-[35%] p-[0.2rem] focus:outline-none"
               />
               <div className="px-[0.3rem]">@</div>
@@ -51,8 +114,8 @@ function SignupPage() {
                 onChange={(e) => setEmailDomain(e.target.value)}
               >
                 <option value="">직접입력</option>
-                <option value="gmail.com">gmail.com</option>
-                <option value="naver.com">naver.com</option>
+                <option value="gmail.com">Google</option>
+                <option value="naver.com">Naver</option>
               </select>
             </div>
           </div>
@@ -61,22 +124,37 @@ function SignupPage() {
             <div className="w-[20%] min-w-[7rem]">비밀번호</div>
             <input
               type="password"
+              onChange={(e) => setPassword(e.target.value)}
               className="border rounded-[0.2rem] w-[30rem] p-[0.2rem] text-[0.8rem] font-OneShinhanLight focus:outline-none"
             />
           </div>
           {/* 비밀번호 재확인 */}
-          <div className="my-[0.5rem] flex text-[#5C5C5C] w-[40%] max-w-[35rem] min-w-[25rem] items-center justify-between text-[0.9rem]">
+          <div className="relative my-[0.5rem] flex text-[#5C5C5C] w-[40%] max-w-[35rem] min-w-[25rem] items-center justify-between text-[0.9rem]">
             <div className="w-[20%] min-w-[7rem]">비밀번호 재확인</div>
             <input
               type="password"
+              onChange={(e) => checkPwd(e.target.value)}
               className="border rounded-[0.2rem] w-[30rem] p-[0.2rem] text-[0.8rem] font-OneShinhanLight focus:outline-none"
             />
+            {pwdCheck > 0 &&
+              (isSamePwd ? (
+                <div className="absolute right-[0.5rem] text-green-500 text-[0.7rem] ">
+                  비밀번호가 일치합니다.
+                </div>
+              ) : (
+                <div className="absolute right-[0.5rem] text-red-500 text-[0.7rem]">
+                  비밀번호가 일치하지 않습니다.
+                </div>
+              ))}
           </div>
           {/* 이름 */}
           <div className="my-[0.5rem] flex text-[#5C5C5C] w-[40%] max-w-[35rem] min-w-[25rem] items-center justify-between text-[0.9rem]">
             <div className="w-[20%] min-w-[7rem]">이름</div>
             <input
               type="text"
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
               className="border rounded-[0.2rem] w-[30rem] p-[0.2rem] text-[0.8rem] font-OneShinhanLight focus:outline-none"
             />
           </div>
@@ -85,6 +163,9 @@ function SignupPage() {
             <div className="w-[20%] min-w-[7rem]">전화번호</div>
             <input
               type="text"
+              onChange={(e) => {
+                setPhone(e.target.value);
+              }}
               className="border rounded-[0.2rem] w-[30rem] p-[0.2rem] text-[0.8rem] font-OneShinhanLight focus:outline-none"
               placeholder="전화번호 입력"
             />
@@ -94,9 +175,11 @@ function SignupPage() {
             <div className="w-[20%] min-w-[7rem]">생년월일</div>
             <input
               type="date"
+              onChange={(e) => setBirth(e.target.value)}
               className="border rounded-[0.2rem] w-[30rem] p-[0.2rem] text-[0.8rem] font-OneShinhanLight focus:outline-none"
             />
           </div>
+
           {/* 다음으로 */}
           <div
             onClick={submit}
@@ -104,6 +187,12 @@ function SignupPage() {
           >
             다음으로
           </div>
+          {/* 회원가입 실패 */}
+          {isError && (
+            <div className="my-[0.5rem] flex justify-center w-[40%] max-w-[35rem] min-w-[25rem] text-[0.9rem]">
+              <div className="text-red-500">{errorMessage}</div>
+            </div>
+          )}
         </div>
       </div>
     </div>

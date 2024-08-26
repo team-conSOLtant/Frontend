@@ -124,7 +124,7 @@ function MyFinanceGraph() {
   };
 
   return (
-    <div className="h-[20rem]">
+    <div className="h-[23rem]">
       <Line data={data} options={options} />
     </div>
   );

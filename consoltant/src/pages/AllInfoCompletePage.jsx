@@ -16,15 +16,15 @@ function AllinfoCompletePage() {
           <div className="font-OneShinhanBold text-[1.5rem] text-[#5C5C5C] my-[1rem]">
             정보 입력 완료
           </div>
-          <div className="font-OneShinhanLight text-[#5C5C5C] ">
+          <div className="text-center font-OneShinhanLight text-[#5C5C5C] w-[90%]">
             SOL 학생 로드맵 서비스를 이용해보세요
           </div>
           {/* 로그인 */}
           <div
-            onClick={() => navigate("/main")}
+            onClick={() => navigate("/login")}
             className="mt-[3rem] py-[0.3rem] w-[40%] cursor-pointer font-OneShinhanMedium shadow-md border rounded-[0.5rem] flex justify-center bg-[#0046ff] text-white"
           >
-            메인으로
+            로그인
           </div>
         </div>
       </div>

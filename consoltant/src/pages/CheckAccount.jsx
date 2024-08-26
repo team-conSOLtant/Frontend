@@ -1,15 +1,12 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 
 function CheckAccount() {
   const navigate = useNavigate();
 
-  // const onClick = () => {
-  //   // 학교 데이터 넘기기
-  //   // 계좌 여부 확인 페이지로 넘어가기
-  //   navigate("/complete");
-  // };
+  const { state } = useLocation();
+  
 
   return (
     <div>
@@ -25,9 +22,7 @@ function CheckAccount() {
         <div className="w-[550px] flex justify-between">
           <div
             className="group cursor-pointer relative border flex flex-col items-center rounded-[1rem] p-[1rem] w-[250px] h-[325px] shadow bg-[#FBFBFD] hover:bg-[#EBF3FF]"
-            onClick={() =>
-              navigate("/account-info", { state: { hasAccount: true } })
-            }
+            onClick={() => navigate("/account-info", { state: { hasAccount: true, email: state } })}
           >
             <div className=" text-[1.5rem] mt-[3rem]">
               <div className="my-[0.5rem]">이미</div>
@@ -38,9 +33,7 @@ function CheckAccount() {
                 를
               </div>
               <div className="my-[0.5rem]">
-                <span className="font-OneShinhanBold group-hover:text-[#0046FF]">
-                  보유중
-                </span>
+                <span className="font-OneShinhanBold group-hover:text-[#0046FF]">보유중</span>
                 입니다
               </div>
             </div>
@@ -51,7 +44,7 @@ function CheckAccount() {
           <div
             className="group cursor-pointer relative border flex flex-col items-center rounded-[1rem] p-[1rem] w-[250px] h-[325px] shadow bg-[#FBFBFD] hover:bg-[#EBF3FF]"
             onClick={() =>
-              navigate("/account-info", { state: { hasAccount: false } })
+              navigate("/account-info", { state: { hasAccount: false, email: state } })
             }
           >
             <div className="text-[1.5rem] mt-[3rem]">
@@ -63,9 +56,7 @@ function CheckAccount() {
                 가
               </div>
               <div className="my-[0.5rem]">
-                <span className="font-OneShinhanBold group-hover:text-[#0046FF]">
-                  없습니다
-                </span>
+                <span className="font-OneShinhanBold group-hover:text-[#0046FF]">없습니다</span>
               </div>
             </div>
             <div className="absolute font-OneShinhanMedium bg-[#F5F5F5] border rounded-[1rem] py-[0.3rem] px-[2rem] bottom-[2rem] group-hover:text-white group-hover:bg-[#0046FF]">
