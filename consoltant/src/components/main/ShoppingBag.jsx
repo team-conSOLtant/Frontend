@@ -23,16 +23,18 @@ function ShoppingBag({ products }) {
                   에<br /> 가입을 추천하는 상품입니다.
                 </div>
                 <div className="font-OneShinhanBold text-[#005DF9] text-[0.9rem] mt-[0.5rem]">
-                  {product.productName}
+                  {product.productInfo.accountName}
                 </div>
                 <div className="text-[0.7rem]">
                   <span>
-                    ({product.productInfo.duration}개월 기준)
+                    {/* ({product.productInfo.duration}개월 기준) */}
+                    ??개월 기준
                     <span className="text-[#005DF9]">
-                      {" "}
-                      연 {product.productInfo.minInterest}% ~
+                      {/* 연 {product.productInfo.minInterest}% ~ */}
+                      연 ??% ~
                       <span className="font-OneShinhanMedium text-[0.8rem]">
-                        {product.productInfo.maxInterest}%
+                        {/* {product.productInfo.maxInterest}% */}
+                        ??%
                       </span>
                     </span>
                   </span>

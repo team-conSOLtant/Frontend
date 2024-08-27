@@ -16,13 +16,13 @@ function CurrentMain(props) {
     (item) => item.notificationType === "PORTFOLIO_COMMENT"
   ).length;
 
-  const seniorPorfolio = notification.filter(
+  const seniorPortfolio = notification.filter(
     (item) => item.notificationType === "PORTFOLIO_MATCHING"
   );
 
   const accountInfos = {
     accountName: totalInfos.accountName,
-    accountType: totalInfos.accountName,
+    accountType: totalInfos.accountType,
     accountNum: userInfo.accountNo,
     accountAmount: totalInfos.totalAssetValue,
     assets: [
@@ -53,7 +53,9 @@ function CurrentMain(props) {
     <div className="pt-[1rem] px-[2rem] text-[#444444]">
       {/* title */}
       <div>
-        <div className="font-OneShinhanBold text-[#005DF9] text-[1.8rem] ">SOL 학생로드맵</div>
+        <div className="font-OneShinhanBold text-[#005DF9] text-[1.8rem] ">
+          SOL 학생로드맵
+        </div>
         <div className="font-OneShinhanLight text-[0.6rem] ">
           모든 신한 금융상품을 통해 자산관리를 시작해보세요
         </div>
@@ -71,19 +73,21 @@ function CurrentMain(props) {
         {/* 내 계좌항목 */}
         <div className="font-OneShinhanMedium flex items-end">내 계좌항목</div>
         {/* 상품 장바구니 */}
-        <div className="font-OneShinhanMedium flex items-end">상품 장바구니</div>
+        <div className="font-OneShinhanMedium flex items-end">
+          상품 장바구니
+        </div>
         {/* CurrentInfo */}
         <PersonalInfo userInfos={userInfo} />
-        {/* My Account */}
+        {/* My Account 내 계좌항목 */}
         <MyAccount accountInfos={accountInfos} />
-        {/* ShoppingBag */}
+        {/* ShoppingBag 상품 장바구니 */}
         <ShoppingBag products={products} />
       </div>
       <hr className="mt-[1.5rem]" />
       {/* 아랫줄 */}
       <div className="grid grid-cols-3 gap-2 mt-[2rem]">
         {/* SeniorPortfolio */}
-        <SeniorPortfolio seniorPorfolio={seniorPorfolio} />
+        <SeniorPortfolio seniorPortfolio={seniorPortfolio[0]} />
 
         {/* mid container */}
         <div className="flex flex-col justify-between">

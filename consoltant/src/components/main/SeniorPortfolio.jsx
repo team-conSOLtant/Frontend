@@ -1,9 +1,10 @@
 import RoundButton from "../common/RoundButton";
 
-function SeniorPortfolio({ seniorPorfolio }) {
-  const seniorCompany = seniorPorfolio.content.split(",")[0];
-  const seniorId = seniorPorfolio.content.split(",")[1];
-  console.log(seniorPorfolio);
+function SeniorPortfolio({ seniorPortfolio }) {
+  console.log(seniorPortfolio);
+  const seniorCompany = seniorPortfolio.content.split(",")[0];
+  const seniorId = seniorPortfolio.content.split(",")[1];
+  console.log(seniorPortfolio);
   return (
     <div className="relative px-[1rem] pt-[2rem] pb-[1rem] border bg-[#005DF9] rounded-[1rem] h-[13rem] shadow">
       <div className="absolute top-[0.5rem] right-[0.5rem]">

@@ -3,11 +3,7 @@ import AccountHistory from "./AccountHistory";
 import ProductHistory from "./ProductHistory";
 import MyFinanceGraph from "./MyFinanceGraph";
 
-function HistoryMain(props) {
-  let userInfo = props.userInfo;
-  let totalInfos = props.totalInfos;
-  let products = totalInfos.products;
-
+function HistoryMain({ userInfo, totalInfos, graphInfo }) {
   const accountInfos = {
     accountName: totalInfos.accountName,
     accountType: totalInfos.accountName,
@@ -18,21 +14,25 @@ function HistoryMain(props) {
         type: "demandDeposit",
         name: "입출금",
         percent: totalInfos.demandDeposit,
+        value: totalInfos.demandDepositValue,
       },
       {
         type: "deposit",
         name: "예금",
         percent: totalInfos.deposit,
+        value: totalInfos.depositValue,
       },
       {
         type: "savings",
         name: "적금",
         percent: totalInfos.savings,
+        value: totalInfos.savingsValue,
       },
       {
         type: "loan",
         name: "대출",
         percent: totalInfos.loan,
+        value: totalInfos.loanValue,
       },
     ],
   };
@@ -40,7 +40,9 @@ function HistoryMain(props) {
     <div className="pt-[1rem] px-[2rem] text-[#444444]">
       {/* title */}
       <div className="">
-        <div className="font-OneShinhanBold text-[#005DF9] text-[1.8rem] ">SOL 학생로드맵</div>
+        <div className="font-OneShinhanBold text-[#005DF9] text-[1.8rem] ">
+          SOL 학생로드맵
+        </div>
         <div className="font-OneShinhanLight text-[0.6rem] ">
           모든 신한 금융상품을 통해 자산관리를 시작해보세요
         </div>
@@ -58,18 +60,20 @@ function HistoryMain(props) {
         </div>
         {/* 내 계좌항목 */}
         <div className="font-OneShinhanMedium flex items-end">내 자산현황</div>
-        {/* 상품 장바구니 */}
-        <div className="font-OneShinhanMedium flex items-end">상품 장바구니</div>
+        {/* 과거 자산 모아보기 */}
+        <div className="font-OneShinhanMedium flex items-end">
+          과거 자산 모아보기
+        </div>
         {/* PersonalInfo */}
         <PersonalInfo userInfos={userInfo} />
         {/* AccountHistory */}
         <AccountHistory userInfo={userInfo} accountInfos={accountInfos} />
         {/* ProductHistory */}
-        <ProductHistory products={products} />
+        <ProductHistory products={accountInfos.assets} />
       </div>
       {/* 아랫줄 */}
       <div className="flex justify-center w-[100%]">
-        <MyFinanceGraph />
+        <MyFinanceGraph graphInfo={graphInfo} />
       </div>
     </div>
   );

@@ -20,19 +20,11 @@ ChartJS.register(
   Legend
 );
 
-function MyFinanceGraph() {
-  const labelData = [
-    "1년",
-    "2년",
-    "3년",
-    "4년",
-    "5년",
-    "6년",
-    "7년",
-    "8년",
-    "9년",
-  ];
-  const savingData = [10, 20, 30, 40, 50, 100, 140, 150, 1000];
+function MyFinanceGraph({ graphInfo }) {
+  console.log(graphInfo);
+
+  const labelData = graphInfo.data.map((item) => item.age);
+  const savingData = graphInfo.data.map((item) => item.totalAssetValue/10000);
 
   const data = {
     labels: labelData,
@@ -70,7 +62,7 @@ function MyFinanceGraph() {
       },
       onComplete: function (animation) {
         const chart = animation.chart;
-        const activeIndex = labelData.indexOf("3년");
+        const activeIndex = labelData.indexOf(graphInfo.age);
         chart.tooltip.setActiveElements(
           [
             {
@@ -95,14 +87,14 @@ function MyFinanceGraph() {
         backgroundColor: (context) => {
           // 3년차일 때 툴팁 배경 색상을 변경
           const index = context.tooltip.dataPoints[0].dataIndex;
-          return labelData[index] === "3년"
+          return labelData[index] === graphInfo.age
             ? "rgba(0, 93, 249, 0.8)"
             : "rgba(0, 0, 0, 0.8)";
         },
         borderColor: (context) => {
           // 3년차일 때 툴팁 보더 색상을 변경
           const index = context.tooltip.dataPoints[0].dataIndex;
-          return labelData[index] === "3년"
+          return labelData[index] === graphInfo.age
             ? "rgba(0, 93, 249, 0.8)"
             : "rgba(0, 0, 0, 0.3)";
         },

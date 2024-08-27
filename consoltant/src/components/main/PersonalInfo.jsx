@@ -1,4 +1,5 @@
 function PersonalInfo({ userInfos }) {
+
   return (
     <div>
       <hr className="mb-[0.5rem]" />
@@ -7,11 +8,11 @@ function PersonalInfo({ userInfos }) {
         {userInfos.university.name}
       </div>
       <div className="text-[0.8rem]">
-        <span className="font-OneShinhanMedium">{userInfos.major}</span>
-        재학 중
+        <span className="font-OneShinhanMedium">{userInfos.major}</span> 재학 중
         <span className="">
           {" "}
-          ({userInfos.level}-{userInfos.semester}학기)
+          ({userInfos.age}세)
+          {/* ({userInfos.level}-{userInfos.semester}학기) */}
         </span>
       </div>
       {/* 학점 */}

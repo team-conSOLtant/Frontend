@@ -3,7 +3,7 @@ import Navbar from "../components/header/Navbar";
 import CurrentMain from "../components/main/CurrentMain";
 import HistoryMain from "../components/main/HistoryMain";
 import ArrowWithTriangle from "../components/main/ArrowWithTriangle";
-import { getMainInfo, getPersonalInfo, getAllInfo } from "../apis/Main";
+import { getAllInfo, getGraphInfo } from "../apis/Main";
 import { getNotifications } from "../apis/Notification";
 import { useSelector } from "react-redux";
 import { getUserInfo } from "../apis/Users";
@@ -17,6 +17,7 @@ const MainPage = () => {
   const [infos, setInfos] = useState();
   const [notifications, setNotifications] = useState();
   const [products, setProducts] = useState();
+  const [graphInfo, setGraphInfo] = useState();
 
   const loginid = useSelector((state) => {
     console.log("state", state);
@@ -28,6 +29,7 @@ const MainPage = () => {
     getUserInfoData();
     getAllInfos();
     getRecommenedProducts();
+    getGraphInfos();
     updateRadius(); // 초기 반지름 설정
     window.addEventListener("resize", updateRadius); // 화면 크기 변경 시 반지름 업데이트
     return () => window.removeEventListener("resize", updateRadius);
@@ -43,23 +45,26 @@ const MainPage = () => {
     }
   };
 
+  const getNotification = async () => {
+    const res = await getNotifications(loginid);
+    await setNotifications(res.result);
+  };
+
   const getUserInfoData = async () => {
-    // const res = await getPersonalInfo();
     const res = await getUserInfo();
-    // console.log(res);
     setUserInfos(res);
   };
 
   const getAllInfos = async () => {
-    // const res = await getMainInfo();
     const res = await getAllInfo();
     console.log(res.result);
     setInfos(res.result);
   };
 
-  const getNotification = async () => {
-    const res = await getNotifications(loginid);
-    await setNotifications(res.result);
+  const getGraphInfos = async () => {
+    const res = await getGraphInfo();
+    console.log(res.result);
+    setGraphInfo(res.result);
   };
 
   const getRecommenedProducts = async () => {
@@ -134,7 +139,10 @@ const MainPage = () => {
                     transform: `translate(${x}px, ${y}px) rotate(${itemAngle}rad)`,
                   }}
                 >
-                  <ArrowWithTriangle color={infos[itemIndex].hex} visible={itemIndex === index} />
+                  <ArrowWithTriangle
+                    color={infos[itemIndex].hex}
+                    visible={itemIndex === index}
+                  />
                   <span
                     style={{
                       color: itemIndex === index ? "white" : "#525252",
@@ -143,7 +151,7 @@ const MainPage = () => {
                       top: "10px",
                     }}
                   >
-                    {info.journeyType}
+                    {info.journeyTypeName}
                   </span>
                 </div>
               </div>
@@ -152,7 +160,7 @@ const MainPage = () => {
         {userInfos && infos && (
           <div className={`w-[${radius}]`}>
             <div className="absolute top-[5rem] min-w-[55rem] w-[78%] z-20">
-              {infos[itemIndex].age === userInfos.currentJourneyType ? (
+              {infos[itemIndex].journeyType === userInfos.currentJourneyType ? (
                 <CurrentMain
                   userInfo={userInfos}
                   totalInfos={infos[itemIndex]}
@@ -160,7 +168,11 @@ const MainPage = () => {
                   products={products}
                 />
               ) : (
-                <HistoryMain userInfo={userInfos} totalInfos={infos[itemIndex]} />
+                <HistoryMain
+                  userInfo={userInfos}
+                  totalInfos={infos[itemIndex]}
+                  graphInfo={graphInfo}
+                />
               )}
             </div>
           </div>

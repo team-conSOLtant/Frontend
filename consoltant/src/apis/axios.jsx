@@ -8,25 +8,9 @@ export const localAxios = Axios.create({
   // baseURL: testURL,
 });
 
-// axios.defaults.withCredentials = true;
-
-// axios.interceptors.request.use(
-//   async (config) => {
-//     const state = store.getState();
-//     const user = state.user;
-//     let accessToken = user?.token;
-
-//     if (accessToken) {
-//       config.headers["Authorization"] = `Bearer ${accessToken}`;
-//     }
-
-//     return config;
-//   },
-//   (error) => Promise.reject(error)
-// );
 
 export const axios = Axios.create({
-  baseURL: baseURL,
+  baseURL: baselocalURL,
 });
 
 axios.interceptors.request.use(
