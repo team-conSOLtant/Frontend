@@ -1,17 +1,18 @@
-function PersonalInfo({ univInfos }) {
+function PersonalInfo({ userInfos }) {
+
   return (
     <div>
       <hr className="mb-[0.5rem]" />
       {/* 대학/학과 정보 */}
       <div className="font-OneShinhanBold text-[1.2rem]">
-        {univInfos.univ} 대학교
+        {userInfos.university.name}
       </div>
       <div className="text-[0.8rem]">
-        <span className="font-OneShinhanMedium">{univInfos.major}</span>
-        재학 중
+        <span className="font-OneShinhanMedium">{userInfos.major}</span> 재학 중
         <span className="">
           {" "}
-          ({univInfos.level}-{univInfos.semester}학기)
+          ({userInfos.age}세)
+          {/* ({userInfos.level}-{userInfos.semester}학기) */}
         </span>
       </div>
       {/* 학점 */}
@@ -22,9 +23,9 @@ function PersonalInfo({ univInfos }) {
           </div>
           <div>
             <span className="font-OneShinhanMedium text-[#005DF9]">
-              {univInfos.GPA}
+              {userInfos.majorGpa}
             </span>
-            / {univInfos.limitGPA}
+            / {userInfos.maxGpa}
           </div>
         </div>
         <div>
@@ -33,8 +34,8 @@ function PersonalInfo({ univInfos }) {
               | 총 취득 <span className="font-OneShinhanMedium">학점</span>:
             </div>
             <div>
-              <span className="font-OneShinhanMedium">{univInfos.myGPA}</span>/{" "}
-              {univInfos.totalGPA}
+              <span className="font-OneShinhanMedium">{userInfos.credit}</span>/{" "}
+              {userInfos.maxCredit}
             </div>
           </div>
         </div>
