@@ -38,6 +38,12 @@ const SearchTitleUniv = styled.div`
 `;
 
 function SearchPage() {
+
+  // 검색 하면 api 불러오기
+  
+  // 불러온 list map으로 뿌리기
+
+  // 무한 스크롤 구현
   return (
     <div>
       <Navbar />
@@ -89,7 +95,7 @@ function SearchPage() {
           </select>
         </div>
       </div>
-      <div className="flex flex-col items-center w-full">
+      <div className="flex flex-col items-center">
         <SearchItem />
       </div>
     </div>

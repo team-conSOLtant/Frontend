@@ -15,6 +15,7 @@ import SignupInfoPage from "./pages/SignupInfoPage.jsx";
 import CheckAccount from "./pages/CheckAccount.jsx";
 import AccountInfoPage from "./pages/AccountInfoPage.jsx";
 import AllinfoCompletePage from "./pages/AllInfoCompletePage.jsx";
+import FollowingFollowerPage from "./pages/FollowingFollowerPage.jsx";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           <Route path="/recommend" element={<RecommendPage />} />
           <Route path="/finance-mypage" element={<FinanceMyPage />} />
           <Route path="/search" element={<SearchPage />} />
+          <Route path="/follow" element={<FollowingFollowerPage />} />
         </Routes>
       </Router>
     </>
