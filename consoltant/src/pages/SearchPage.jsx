@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route, Router } from "react-router-dom";
 import SearchItem from "../components/portfolio/makeportfolio/SearchItem.jsx";
 import Navbar from "../components/header/Navbar.jsx";
@@ -38,12 +38,47 @@ const SearchTitleUniv = styled.div`
 `;
 
 function SearchPage() {
+  const [keyword, setKeyword] = useState();
+  const [isEmployed, setIsEmployed] = useState();
+  const [minGpa, setMinGpa] = useState();
+  const [maxGpa, setMaxGpa] = useState();
 
   // 검색 하면 api 불러오기
-  
+  const goSearch = () => {
+    const search = {
+      keyword: keyword,
+      isEmployed: isEmployed,
+      minGpa: minGpa,
+      maxGpa: maxGpa,
+    };
+  };
+
+  const onEmploySelect = (e) => {
+    setIsEmployed(e.target.value);
+    goSearch();
+  };
+
+  const onGpaSelect = (e) => {
+    const range = e.target.value.split("~");
+    setMinGpa(range[0]);
+    setMaxGpa(range[1]);
+    goSearch();
+  };
+
+  const activeEnter = (e) => {
+    if (e.key === "Enter") {
+      goSearch();
+    }
+  };
+
+  useEffect(() => {}, [setKeyword, setIsEmployed, setMinGpa, setMaxGpa]);
+
   // 불러온 list map으로 뿌리기
+  const portfolios = [{}];
 
   // 무한 스크롤 구현
+
+  
   return (
     <div>
       <Navbar />
@@ -64,6 +99,10 @@ function SearchPage() {
               required
               placeholder="원하는 검색어를 입력하세요"
               className="w-[18rem] h-[2.5rem] border border-[#9C9C9C] rounded px-[0.5rem] focus:outline-none"
+              onChange={(e) => {
+                setKeyword(e.target.value);
+              }}
+              onKeyDown={(e) => activeEnter(e)}
             />
             <img
               className="absolute w-[1.5rem] right-[0.5rem]"
@@ -75,6 +114,7 @@ function SearchPage() {
             name=""
             id=""
             className="h-[2.5rem] border border-[#9C9C9C] rounded px-[0.5rem] focus:outline-none text-[#8F8F8F]"
+            onChange={(e) => onEmploySelect(e)}
           >
             <option value="">취업여부</option>
             <option value={true}>예</option>
@@ -84,6 +124,9 @@ function SearchPage() {
             name=""
             id=""
             className="h-[2.5rem] border border-[#9C9C9C] rounded px-[0.5rem] focus:outline-none text-[#8F8F8F]"
+            onChange={(e) => {
+              goSearch(e);
+            }}
           >
             <option value="">학점</option>
             <option value="0.0~2.0">0.0 ~ 2.0</option>
@@ -96,7 +139,7 @@ function SearchPage() {
         </div>
       </div>
       <div className="flex flex-col items-center">
-        <SearchItem />
+        {/* <SearchItem /> */}
       </div>
     </div>
   );

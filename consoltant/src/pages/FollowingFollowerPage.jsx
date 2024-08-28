@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Routes, Route, Router } from "react-router-dom";
 import SearchItem from "../components/portfolio/makeportfolio/SearchItem.jsx";
 import Navbar from "../components/header/Navbar.jsx";
 import styled from "styled-components";
+import { getFollower, getFollowing } from "../apis/Follow.jsx";
+import { useSelector } from "react-redux";
 
 // 검색하는 페이지
 // PortfolioView(피그마에 있는 거) 페이지랑 그 밑의 검색창 없는 페이지랑 같은건가?
@@ -30,7 +31,41 @@ const FollowTitle = styled.div`
 
 function FollowingFollowerPage() {
   const [following, setFollowing] = useState(true);
+  const [followingList, setFollowingList] = useState();
+  const [followerList, setFollowerList] = useState();
+
+  const loginid = useSelector((state) => {
+    console.log("state", state);
+    return state.user.loginid;
+  });
+
+  const portfolioid = useSelector((state) => {
+    console.log("state", state);
+    return state.user.portfolioid;
+  });
+
   useEffect(() => {}, [setFollowing]);
+
+  useEffect(() => {
+    getFollowingList();
+    getFollowerList();
+  }, []);
+
+  // 팔로잉 목록 불러오기
+  const getFollowingList = async () => {
+    console.log("여기 오니?");
+    const response = await getFollowing(loginid);
+    await console.log(response.result);
+    await setFollowingList(response.result);
+  };
+
+  // 팔로워 목록 불러오기
+  const getFollowerList = async () => {
+    const response = await getFollower(portfolioid);
+    await console.log("follower List : ", response.result);
+    await setFollowerList(response.result);
+  };
+
   return (
     <div>
       <Navbar />
@@ -44,8 +79,9 @@ function FollowingFollowerPage() {
             </>
           ) : (
             <>
-              고객님의 포트폴리오가 추천된 <span className="font-OneShinhanMedium">후배</span>의
-              포트폴리오 입니다.
+              고객님의 포트폴리오가 추천된{" "}
+              <span className="font-OneShinhanMedium">후배</span>의 포트폴리오
+              입니다.
             </>
           )}
         </div>
@@ -56,19 +92,39 @@ function FollowingFollowerPage() {
               style={{ backgroundColor: following ? "#DCEAFF" : "" }}
               onClick={() => setFollowing(true)}
             >
-              팔로잉
+              팔로잉 ({followingList && followingList.length})
             </div>
             <div
               className="flex w-[100%] h-[5rem] justify-center items-center cursor-pointer"
               style={{ backgroundColor: !following ? "#DCEAFF" : "" }}
               onClick={() => setFollowing(false)}
             >
-              팔로워
+              팔로워 ({followerList && followerList.length})
             </div>
           </div>
           <div className="w-[100%] h-[100%] border-l">
-            <div className="flex flex-col w-[100%] items-center ">
-              <SearchItem />
+            <div className="flex flex-col w-[100%] items-center h-[30rem] overflow-auto">
+              {followingList &&
+                followerList &&
+                (following
+                  ? followingList.map((portfolio, index) => {
+                      return (
+                        <SearchItem
+                          key={index}
+                          index={index}
+                          portfolio={portfolio}
+                        />
+                      );
+                    })
+                  : followerList.map((portfolio, index) => {
+                      return (
+                        <SearchItem
+                          key={index}
+                          index={index}
+                          portfolio={portfolio}
+                        />
+                      );
+                    }))}
             </div>
           </div>
         </div>

@@ -172,6 +172,7 @@ const MainPage = () => {
                   userInfo={userInfos}
                   totalInfos={infos[itemIndex]}
                   graphInfo={graphInfo}
+                  index={itemIndex}
                 />
               )}
             </div>

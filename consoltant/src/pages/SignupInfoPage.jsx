@@ -9,11 +9,20 @@ function SignupInfo() {
   const [major, setMajor] = useState();
   const [grade, setGrade] = useState();
   const [file, setFile] = useState();
+  const [fileName, setFileName] = useState();
   const [errorMessage, setErrorMessage] = useState();
   const [isError, setIsError] = useState();
   const { state } = useLocation();
 
   const navigate = useNavigate();
+
+  useEffect(() => {}, [setFileName]);
+
+  const onChangeFile = (e) => {
+    setFile(e.target.files[0]);
+    // console.log(e.target.files[0].name);
+    setFileName(e.target.files[0].name);
+  };
 
   const submit = async () => {
     console.log(state);
@@ -72,11 +81,16 @@ function SignupInfo() {
           {/* 대학교 */}
           <div className="my-[0.5rem] flex text-[#5C5C5C] w-[100%] items-center justify-between text-[0.9rem]">
             <div className="w-[20%] min-w-[7rem]">대학교</div>
-            <input
-              type="text"
+            <select
+              className="border text-[#8F8F8F] rounded-[0.2rem] w-[20rem] p-[0.2rem] text-[0.8rem] focus:outline-none"
+              name="univ"
+              id="univ"
+              value={university}
               onChange={(e) => setUniversity(e.target.value)}
-              className="border rounded-[0.2rem] w-[20rem] p-[0.2rem] text-[0.8rem] font-OneShinhanLight focus:outline-none"
-            />
+            >
+              <option value="">대학교 선택</option>
+              <option value="신은대학교">신은대학교</option>
+            </select>
           </div>
           {/* 전공 학과 */}
           <div className="my-[0.5rem] flex text-[#5C5C5C] w-[100%] items-center justify-between text-[0.9rem]">
@@ -105,16 +119,27 @@ function SignupInfo() {
             </select>
           </div>
           {/* 파일 업로드 */}
-          <div className="my-[0.5rem] flex text-[#5C5C5C] w-[100%] items-center justify-center text-[0.7rem] border rounded-[0.5rem] border-dashed p-[1.5rem]">
-            <label htmlFor="file" className="border p-[0.3rem] rounded bg-[#D9D9D9]">
+          <div className="my-[0.5rem] flex flex-col text-[#5C5C5C] w-[100%] items-center justify-center text-[0.7rem] border rounded-[0.5rem] border-dashed p-[1.5rem]">
+            {fileName && (
+              <div className="flex flex-col items-center py-[1rem] ">
+                <img  className="w-[2rem]" src="/login/file.svg" alt="" />
+                <div className="text-[1rem]">{fileName}</div>
+              </div>
+            )}
+            <label
+              htmlFor="file"
+              className="border p-[0.3rem] rounded bg-[#D9D9D9]"
+            >
               수강 내역 업로드
             </label>
+
             <input
               className="hidden"
               type="file"
               name="file"
               id="file"
-              onChange={(e) => setFile(e.target.files[0])}
+              // onChange={(e) => setFile(e.target.files[0])}
+              onChange={(e) => onChangeFile(e)}
             />
           </div>
           {/* 다음으로 */}
