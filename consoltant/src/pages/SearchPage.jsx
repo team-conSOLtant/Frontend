@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Routes, Route, Router } from "react-router-dom";
 import SearchItem from "../components/portfolio/makeportfolio/SearchItem.jsx";
 import Navbar from "../components/header/Navbar.jsx";
 import styled from "styled-components";
+import { getSearch } from "../apis/Search.jsx";
+import { useInView } from "react-intersection-observer";
 
 // 검색하는 페이지
 // PortfolioView(피그마에 있는 거) 페이지랑 그 밑의 검색창 없는 페이지랑 같은건가?
@@ -38,10 +40,18 @@ const SearchTitleUniv = styled.div`
 `;
 
 function SearchPage() {
-  const [keyword, setKeyword] = useState();
-  const [isEmployed, setIsEmployed] = useState();
-  const [minGpa, setMinGpa] = useState();
-  const [maxGpa, setMaxGpa] = useState();
+  const [keyword, setKeyword] = useState(null);
+  const [isEmployed, setIsEmployed] = useState(null);
+  const [minGpa, setMinGpa] = useState(null);
+  const [maxGpa, setMaxGpa] = useState(null);
+  const [last, setLast] = useState();
+
+  const [cursor, setCursor] = useState();
+  const [size, setSize] = useState(3);
+
+  const [searchedList, setSearchedList] = useState([]);
+
+  // const searchListRef = useRef(null);
 
   // 검색 하면 api 불러오기
   const goSearch = () => {
@@ -51,6 +61,21 @@ function SearchPage() {
       minGpa: minGpa,
       maxGpa: maxGpa,
     };
+
+    Search(search);
+  };
+
+  const Search = async (search) => {
+    const response = await getSearch(
+      cursor ? cursor : "",
+      size ? size : "",
+      search
+    );
+    console.log(response.result.content);
+    console.log(response.result.last);
+    setLast(response.result.last);
+    // setSearchedList(response.result.content);
+    setSearchedList((prevList) => [...prevList, ...response.result.content]);
   };
 
   const onEmploySelect = (e) => {
@@ -60,6 +85,7 @@ function SearchPage() {
 
   const onGpaSelect = (e) => {
     const range = e.target.value.split("~");
+    console.log(range);
     setMinGpa(range[0]);
     setMaxGpa(range[1]);
     goSearch();
@@ -71,14 +97,35 @@ function SearchPage() {
     }
   };
 
-  useEffect(() => {}, [setKeyword, setIsEmployed, setMinGpa, setMaxGpa]);
-
-  // 불러온 list map으로 뿌리기
-  const portfolios = [{}];
+  useEffect(() => {
+    // console.log("하이", searchedList);
+    // console.log("last portfolio", cursor);
+  }, [
+    setKeyword,
+    setIsEmployed,
+    setMinGpa,
+    setMaxGpa,
+    setSearchedList,
+    searchedList,
+    setCursor,
+    cursor,
+  ]);
 
   // 무한 스크롤 구현
+  const [ref, inView] = useInView();
 
-  
+  useEffect(() => {
+    if (inView) {
+      console.log(inView, "무한 스크롤 요청");
+      const lastIndex = searchedList.length - 1;
+      setCursor(searchedList[lastIndex].portfolioId);
+
+      if (!last) {
+        goSearch();
+      }
+    }
+  }, [inView]);
+
   return (
     <div>
       <Navbar />
@@ -125,7 +172,7 @@ function SearchPage() {
             id=""
             className="h-[2.5rem] border border-[#9C9C9C] rounded px-[0.5rem] focus:outline-none text-[#8F8F8F]"
             onChange={(e) => {
-              goSearch(e);
+              onGpaSelect(e);
             }}
           >
             <option value="">학점</option>
@@ -138,8 +185,14 @@ function SearchPage() {
           </select>
         </div>
       </div>
-      <div className="flex flex-col items-center">
-        {/* <SearchItem /> */}
+      <div className="flex flex-col items-center overflow-auto h-[2rem]">
+        {searchedList &&
+          searchedList.map((portfolio, index) => {
+            return (
+              <SearchItem key={index} portfolio={portfolio} index={index} />
+            );
+          })}
+        {searchedList.length > 0 && <div ref={ref}></div>}
       </div>
     </div>
   );

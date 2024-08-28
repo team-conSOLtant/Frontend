@@ -29,7 +29,7 @@ function AccountInfoPage() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const email = location.state.email;
+  // const email = location.state.email;
 
   useEffect(() => {
     setHasAccount(location.state.hasAccount);
@@ -58,7 +58,7 @@ function AccountInfoPage() {
         corporateName: company,
         accountNo: accountNo,
       };
-      const response = await createAccountInfo(info, email);
+      const response = await createAccountInfo(info);
       if (response.success) {
         navigate("/all-complete");
       } else {
@@ -73,7 +73,7 @@ function AccountInfoPage() {
 
   const makeAccount = () => {
     const type = { accountTypeUniqueNo: product };
-    createAccount(type, email).then(async (res) => {
+    createAccount(type).then(async (res) => {
       await setAccountNo(res.result.accountNo);
     });
   };
@@ -82,7 +82,7 @@ function AccountInfoPage() {
     try {
       // 1원 송금
       const account = { accountNo: accountNo };
-      const issueResponse = await issueAccount(account, email);
+      const issueResponse = await issueAccount(account);
 
       await setTransactionUniqueNo(issueResponse.result.transactionUniqueNo);
 
@@ -94,7 +94,7 @@ function AccountInfoPage() {
         transactionUniqueNo: issueResponse.result.transactionUniqueNo,
       };
 
-      const checkResponse = await checkMessage(accountInfo, email);
+      const checkResponse = await checkMessage(accountInfo);
       await console.log(checkResponse.result.transactionSummary);
 
       // await setCheckNoAnswer(checkResponse.result.transactionSummary);
@@ -111,7 +111,7 @@ function AccountInfoPage() {
       authText: "SSAFY",
       authCode: insertNum,
     };
-    const response = await checkAccount(checkInfo, email);
+    const response = await checkAccount(checkInfo);
     await setApproved(response.success);
   };
 

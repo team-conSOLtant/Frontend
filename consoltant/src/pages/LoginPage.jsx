@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { requestLogin } from "../apis/Login";
+import { checkAccountInsert, requestLogin } from "../apis/Login";
 import { useDispatch } from "react-redux";
 import { setUser, removeUser } from "../feature/user/userSlice";
 import { getPortfolios } from "../apis/Portfolio";
@@ -35,7 +35,14 @@ function LoginPage() {
           dispatch(setUser({ portfolioid: res.id }));
         });
         console.log("로그인 성공!");
-        navigate("/main");
+        const hasAccount = await checkAccountInsert().then((res) => {
+          return res.result;
+        });
+        if (hasAccount) {
+          navigate("/main");
+        } else {
+          navigate("/signup-info");
+        }
       } else {
         console.log("로그인 실패!");
         setLoginFail(true);

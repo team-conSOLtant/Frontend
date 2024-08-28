@@ -50,14 +50,23 @@ export const register = async (info) => {
   }
 };
 
+// 계좌 정보 입력 여부 확인
+export const checkAccountInsert = async () => {
+  try {
+    const response = await axios.get("/users/check/account").then((res) => {
+      return res.data;
+    });
+    console.log("[IN AXIOS] check account insert response: ", response);
+    return response;
+  } catch (error) {}
+};
+
 // 학력 정보 추가
-export const registerAcademy = async (form, state) => {
+export const registerAcademy = async (form) => {
   try {
     console.log(form.get("subject"));
-    console.log(state);
-    const response = await axios.post(`/users/${state}/academy`, form, {
+    const response = await axios.post(`/users/academy`, form, {
       headers: { "Content-Type": "multipart/form-data" },
-      skipAuth: true,
     });
     if (response) {
       return response.data;
@@ -73,9 +82,7 @@ export const registerAcademy = async (form, state) => {
 export const getProductList = async (type) => {
   try {
     console.log(type);
-    const response = await axios.post("/products/bank/type", type, {
-      skipAuth: true,
-    });
+    const response = await axios.post("/products/bank/type", type);
     return response.data;
   } catch (error) {
     console.log("product list fail:", error);
@@ -83,11 +90,11 @@ export const getProductList = async (type) => {
 };
 
 // 사용자 계좌 생성
-export const createAccount = async (type, email) => {
+export const createAccount = async (type) => {
   try {
     console.log(type);
     const response = await axios
-      .post(`/users/${email}/create/account`, type, { skipAuth: true })
+      .post(`/users/create/account`, type)
       .then((res) => {
         return res.data;
       });
@@ -98,10 +105,10 @@ export const createAccount = async (type, email) => {
 };
 
 // 1원 송금
-export const issueAccount = async (accountInfo, email) => {
+export const issueAccount = async (accountInfo) => {
   try {
     const response = await axios
-      .post(`/auth/${email}/issue/account`, accountInfo, { skipAuth: true })
+      .post(`/auth/issue/account`, accountInfo)
       .then((res) => {
         return res.data;
       });
@@ -112,11 +119,11 @@ export const issueAccount = async (accountInfo, email) => {
 };
 
 // 1원 송금 메시지 확인
-export const checkMessage = async (accountInfo, email) => {
+export const checkMessage = async (accountInfo) => {
   try {
     console.log(accountInfo);
     const response = await axios
-      .post(`/auth/${email}/check/message`, accountInfo)
+      .post(`/auth/check/message`, accountInfo)
       .then((res) => {
         return res.data;
       });
@@ -127,11 +134,11 @@ export const checkMessage = async (accountInfo, email) => {
 };
 
 // 1원 송금 인증
-export const checkAccount = async (checkInfo, email) => {
+export const checkAccount = async (checkInfo) => {
   try {
     console.log(checkInfo);
     const response = await axios
-      .post(`/auth/${email}/check/account`, checkInfo)
+      .post(`/auth/check/account`, checkInfo)
       .then((res) => {
         return res.data;
       });
@@ -142,13 +149,11 @@ export const checkAccount = async (checkInfo, email) => {
 };
 
 // 계좌 정보 추가
-export const createAccountInfo = async (info, email) => {
+export const createAccountInfo = async (info) => {
   try {
-    const response = await axios
-      .post(`/users/${email}/account`, info)
-      .then((res) => {
-        return res.data;
-      });
+    const response = await axios.post(`/users/account`, info).then((res) => {
+      return res.data;
+    });
     return response;
   } catch (error) {
     console.log("creating account info fail: ", error);

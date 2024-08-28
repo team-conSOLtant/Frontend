@@ -63,7 +63,7 @@ function SignupPage() {
         if (response.success) {
           console.log("회원가입 성공!");
           console.log(response.result.email);
-          navigate("/signup-info", { state: response.result.email });
+          navigate("/signup-complete", { state: response.result.email });
         } else {
           setErrorMessage("회원가입 실패");
           setIsError(true);

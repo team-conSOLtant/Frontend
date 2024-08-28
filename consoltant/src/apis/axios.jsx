@@ -3,6 +3,7 @@ import Axios from "axios"; // 인스턴스와 구분하기 위해 대문자 사�
 
 const baseSWlocalURL = "http://70.12.246.186:8080/api";
 const baseDYlocalURL = "http://70.12.108.65:8080/api";
+const baseDYHomelocalURL = "http://192.168.1.109:8080/api";
 const baseURL = "http://13.124.49.149:8080/api";
 
 export const localAxios = Axios.create({
@@ -10,7 +11,7 @@ export const localAxios = Axios.create({
 });
 
 export const axios = Axios.create({
-  baseURL: baseSWlocalURL,
+  baseURL: baseURL,
 });
 
 axios.interceptors.request.use(

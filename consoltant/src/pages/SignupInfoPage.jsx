@@ -12,7 +12,6 @@ function SignupInfo() {
   const [fileName, setFileName] = useState();
   const [errorMessage, setErrorMessage] = useState();
   const [isError, setIsError] = useState();
-  const { state } = useLocation();
 
   const navigate = useNavigate();
 
@@ -25,7 +24,6 @@ function SignupInfo() {
   };
 
   const submit = async () => {
-    console.log(state);
     // 학교 데이터 넘기기
     const form = new FormData();
     if (!file || !university || !major || !grade) {
@@ -45,7 +43,7 @@ function SignupInfo() {
         })
       );
       try {
-        const response = await registerAcademy(form, state).then((data) => {
+        const response = await registerAcademy(form).then((data) => {
           return data;
         });
         if (response.success) {
