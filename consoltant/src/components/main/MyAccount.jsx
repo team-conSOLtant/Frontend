@@ -10,7 +10,7 @@ function MyAccount({ accountInfos }) {
           <RoundButton />
         </div>
         <div className="text-[0.7rem] text-[#005DF9] font-OneShinhanMedium">
-          입출금 |<span className="font-OneShinhanBold">{accountInfos.accountName}</span>
+        {accountInfos.accountType} |<span className="font-OneShinhanBold">{accountInfos.accountName}</span>
         </div>
         <div className="text-[0.6rem] my-[0.5rem] font-OneShinhanMedium">
           신한 {accountInfos.accountNum}

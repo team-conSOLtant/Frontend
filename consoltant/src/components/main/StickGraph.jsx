@@ -1,12 +1,14 @@
 function StickGraph({ data }) {
   const getColorByType = (type) => {
     switch (type) {
-      case "입출금":
+      case "demandDeposit":
         return "#4E59C3";
-      case "적금":
+      case "savings":
         return "#39C4C0";
-      default:
+      case "deposit":
         return "#CAD9FF";
+      default:
+        return "#FF7DB0";
     }
   };
 
@@ -28,7 +30,7 @@ function StickGraph({ data }) {
                 backgroundColor: getColorByType(asset.type),
               }}
             ></div>
-            {asset.type} {asset.percent}%
+            {asset.name} {asset.percent}%
           </span>
         </div>
       ))}
