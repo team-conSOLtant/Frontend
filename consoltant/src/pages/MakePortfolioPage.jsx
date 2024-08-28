@@ -38,7 +38,12 @@ const PortfolioBody = styled.div`
 `;
 
 function MakePortfolioPage() {
-  const loginid = useSelector((state) => state.user.loginid);
+  let { loginid, portfolioid } = useSelector((state) => state.user);
+
+  const [careerItems, setCareerItems] = useState([]);
+  const [certificationItems, setCertificationItems] = useState([]);
+  const [awardItems, setAwardItems] = useState([]);
+  const [projectItems, setProjectItems] = useState([]);
 
   const [portfolioData, setPortfolioData] = useState({
     userInfo: {
@@ -49,7 +54,6 @@ function MakePortfolioPage() {
       phoneNumber: null,
       imageUrl: null,
       description: null,
-      portfolioId: null,
     },
     keywords: { financeKeyword: null, myKeyword: [] },
     educationAndcareer: {
@@ -64,11 +68,7 @@ function MakePortfolioPage() {
         majorGpa: null,
         major: null,
       },
-      career: [],
     },
-    awardsAndcertifications: { awards: [], certifications: [] },
-    projects: [],
-    activities: [],
   });
   useEffect(() => {
     console.log("this is portfolio page - - - - - - - - - - - - - - - - -");
@@ -76,7 +76,7 @@ function MakePortfolioPage() {
   }, []);
 
   useEffect(() => {
-    if (portfolioData.userInfo.portfolioId) {
+    if (portfolioid) {
       getUserData();
       getCareerData();
       getAwardsData();
@@ -84,7 +84,7 @@ function MakePortfolioPage() {
       getProjectsData();
       console.log("after get projects : ", portfolioData);
     }
-  }, [portfolioData.userInfo.portfolioId]);
+  }, [portfolioid]);
 
   const getProfileData = async () => {
     const newData = await getPortfolios(loginid);
@@ -142,71 +142,58 @@ function MakePortfolioPage() {
 
   const getCareerData = async () => {
     console.log("[getCareer function] start");
-    const newData = await getCareer(portfolioData.userInfo.portfolioId);
-    setPortfolioData((existingData) => ({
-      ...existingData,
-      educationAndcareer: {
-        ...existingData.educationAndcareer,
-        career: newData,
-      },
-    }));
+    const newData = await getCareer(portfolioid);
+
+    setCareerItems(newData);
   };
 
   const getAwardsData = async () => {
     console.log("[getAwards function] start");
-    const newData = await getAwards(portfolioData.userInfo.portfolioId);
-    setPortfolioData((existingData) => ({
-      ...existingData,
-      awardsAndcertifications: {
-        ...existingData.awardsAndcertifications,
-        awards: newData,
-      },
-    }));
+    const newData = await getAwards(portfolioid);
+    setAwardItems(newData);
   };
 
   const getCertificationdData = async () => {
     console.log("[getCertification function] start");
-    const newData = await getCertifications(portfolioData.userInfo.portfolioId);
-    setPortfolioData((existingData) => ({
-      ...existingData,
-      awardsAndcertifications: {
-        ...existingData.awardsAndcertifications,
-        certifications: newData,
-      },
-    }));
+    const newData = await getCertifications(portfolioid);
+    setCertificationItems(newData);
   };
 
   const getProjectsData = async () => {
     console.log("[getProjects function] start");
-    const newData = await getProjects(portfolioData.userInfo.portfolioId);
-    setPortfolioData((existingData) => ({
-      ...existingData,
-      projects: newData,
-    }));
+    const newData = await getProjects(portfolioid);
+    setProjectItems(newData);
   };
   return (
     <PortfolioPageStyle>
       <Navbar></Navbar>
       <PortfolioBody>
         <PortfolioMain>
-          <ProfileSection userInfo={portfolioData.userInfo} />
-          <KeywordSection
+          {/* <ProfileSection userInfo={portfolioData.userInfo} /> */}
+          {/* <KeywordSection
             keywords={portfolioData.keywords}
             setPortfolioData={setPortfolioData}
-          />
-          <EducationCareerSection
-            isEdit={true}
-            educationAndcareer={portfolioData.educationAndcareer}
-          />
+          /> */}
+          {/* <EducationCareerSection isEdit={true} data={{}} /> */}
+          {/* 추후 변경해야 할 듯 하나도 없을 수도 있으니깐 */}
+
           <AwardCertificationSection
             isEdit={true}
-            awardsAndcertifications={portfolioData.awardsAndcertifications}
+            certificationItems={certificationItems}
+            setCertificationItems={setCertificationItems}
+            awardItems={awardItems}
+            setAwardItems={setAwardItems}
           />
-          <ProjectSection isEdit={true} projects={portfolioData.projects} />
-          <ActivitySection
+
+          <ProjectSection
+            isEdit={true}
+            projectItems={projectItems}
+            setProjectItems={setProjectItems}
+          />
+          {/* <ActivitySection
             isEdit={true}
             activities={portfolioData.activities}
-          />
+          /> */}
         </PortfolioMain>
         <PortfolioController isEdit={true} />
       </PortfolioBody>

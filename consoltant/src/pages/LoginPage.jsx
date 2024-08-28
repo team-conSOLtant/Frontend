@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { requestLogin } from "../apis/Login";
 import { useDispatch } from "react-redux";
 import { setUser, removeUser } from "../feature/user/userSlice";
+import { getPortfolios } from "../apis/Portfolio";
 
 // 로그인 페이지
 function LoginPage() {
@@ -18,26 +19,40 @@ function LoginPage() {
     }
   };
 
+  // const login = async () => {
+  //   const form = new FormData();
+  //   form.append("username", id);
+  //   form.append("password", pw);
+  //   try {
+  //     if (
+  //       await requestLogin(form).then((data) => {
+  //         console.log("login data", data);
+  //         dispatch(setUser({ loginid: data, portfolioid: getPortfolioId() }));
+  //         return data;
+  //       })
+  //     ) {
+  //       console.log("로그인 성공!");
+  //       navigate("/main");
+  //     } else {
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   const login = async () => {
     const form = new FormData();
     form.append("username", id);
     form.append("password", pw);
-    try {
-      if (
-        await requestLogin(form).then((data) => {
-          console.log("login data", data);
-          dispatch(setUser({ loginid: data }));
-          return data;
-        })
-      ) {
-        console.log("로그인 성공!");
-        navigate("/main");
-      } else {
-        console.log("로그인 실패!");
-        setLoginFail(true);
-      }
-    } catch (error) {
-      console.log(error);
+    const res = await requestLogin(form);
+    if (res) {
+      console.log("로그인 성공!");
+      const res2 = await getPortfolios(res);
+      dispatch(setUser({ loginid: res, portfolioid: res2.id }));
+      navigate("/main");
+    } else {
+      console.log("로그인 실패!");
+      setLoginFail(true);
     }
   };
 

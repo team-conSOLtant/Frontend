@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   loginid: null,
+  portfolioid: null,
 };
 
 const userSlice = createSlice({
@@ -10,12 +11,18 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      console.log("action payload : ", action.payload);
       state.loginid = action.payload.loginid;
-      console.log("state.loginid : ", state.loginid);
+      state.portfolioid = action.payload.portfolioid;
     },
+    // setPortfolioId: (state, action) => {
+    //   state.portfolioid = action.payload.portfolioid;
+    // },
+    // setLoginId: (state, action) => {
+    //   state.loginid = action.payload.loginid;
+    // },
     removeUser: (state) => {
       state.loginid = null;
+      state.portfolioid = null;
     },
   },
 });

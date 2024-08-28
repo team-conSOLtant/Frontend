@@ -7,6 +7,9 @@ import CertificationItem from "./CertificationItem";
 import CertificationForm from "./CertificationForm";
 import SectionHeader from "../SectionHeader";
 import { getCertifications } from "../../../apis/Certification";
+import useFormManager from "../../../Hooks/FormManager";
+import CertificationDTO from "../../../dto/CertificationDTO";
+import AwardDTO from "../../../dto/AwardDTO";
 
 const AwardCertificationSectionStyle = styled.div`
   width: 100%;
@@ -118,56 +121,74 @@ const PlusBoxCertButton = styled.div`
   background-color: #c7c7c7;
 `;
 
-function AwardCertificationSection({ isEdit, awardsAndcertifications }) {
-  const [awardData, setAwardData] = useState([]);
-  const [awardNum, setAwardNum] = useState(1);
-  const [certificationData, setCertificationData] = useState([]);
-  const [certificationNum, setCertificationNum] = useState(1);
+function AwardCertificationSection({
+  isEdit,
+  certificationItems,
+  setCertificationItems,
+  awardItems,
+  setAwardItems,
+}) {
+  // console.log("AwardCertificationSection RENDER");
 
-  useEffect(() => {
-    // getAwardData();
-    // getCertificationdData();
-    console.log("awardsAndcertifications", awardsAndcertifications);
-  }, []);
+  useEffect(() => {}, []);
 
-  // const getAwardData = async () => {
-  //   const res = await getAwards();
-  //   // console.log("res", res.award);
-  //   setAwardData(res);
-  // };
+  const [certificationForms, setCertificationForms] = useState([
+    new CertificationDTO(),
+  ]);
+  const addCertificationForm = () => {
+    setCertificationForms([...certificationForms, new CertificationDTO()]);
+  };
+  const updateCertificationForm = (updatedForm) => {
+    setCertificationForms((prevForms) =>
+      prevForms.map((form) =>
+        form.key === updatedForm.key ? updatedForm : form
+      )
+    );
+  };
+  const submitCertificationForm = (newForm) => {
+    setCertificationItems([...certificationItems, newForm]);
+    setCertificationForms(
+      certificationForms.filter((form) => form.key !== newForm.key)
+    );
+  };
 
+  const [awardForms, setAwardForms] = useState([new AwardDTO()]);
   const addAwardForm = () => {
-    console.log(awardNum);
-    setAwardNum(awardNum + 1);
+    setAwardForms([...awardForms, new AwardDTO()]);
   };
-
-  const addCertForm = () => {
-    console.log(certificationNum);
-    setCertificationNum(certificationNum + 1);
+  const updateAwardForm = (updatedForm) => {
+    setAwardForms((prevForms) =>
+      prevForms.map((form) =>
+        form.key === updatedForm.key ? updatedForm : form
+      )
+    );
   };
-
-  // const getCertificationdData = async () => {
-  //   const res = await getCertifications();
-  //   // console.log("res", res);
-  //   setCertificationData(res);
-  // };
+  const submitAwardForm = (newForm) => {
+    console.log("newForm", newForm);
+    setAwardItems([...awardItems, newForm]);
+    setAwardForms(awardForms.filter((form) => form.key !== newForm.key));
+  };
 
   return (
     <AwardCertificationSectionStyle>
       <SectionHeader title={"수상 / 자격증"} image={"/Trophy.svg"} />
       <SectionBody>
         <SubSectionStyle>
-          <SubSectionHeader>
-            수상 ({awardsAndcertifications.awards?.length})
-          </SubSectionHeader>
+          <SubSectionHeader>수상 ({awardItems?.length})</SubSectionHeader>
           <SubSectionBody>
-            {awardsAndcertifications.awards &&
-              awardsAndcertifications.awards.map((data) => (
-                <AwardItem data={data} />
+            {awardItems.length > 0 &&
+              awardItems.map((data) => (
+                <AwardItem key={data.key} data={data} />
               ))}
             {isEdit &&
-              Array.from({ length: awardNum }, (_, index) => (
-                <AwardForm key={index}>Award {index + 1}</AwardForm>
+              awardForms.length > 0 &&
+              awardForms.map((data) => (
+                <AwardForm
+                  key={data.key}
+                  data={data}
+                  updateForm={updateAwardForm}
+                  submitForm={() => submitAwardForm(data)}
+                />
               ))}
             {isEdit && (
               <PlusBoxContainer>
@@ -180,22 +201,26 @@ function AwardCertificationSection({ isEdit, awardsAndcertifications }) {
         </SubSectionStyle>
         <SubSectionStyle>
           <SubSectionHeader>
-            자격증 ({awardsAndcertifications.certifications?.length})
+            자격증 ({certificationItems?.length})
           </SubSectionHeader>
           <SubSectionBody>
-            {awardsAndcertifications.certifications &&
-              awardsAndcertifications.certifications.map((data) => (
-                <CertificationItem data={data} />
+            {certificationItems.length > 0 &&
+              certificationItems.map((data) => (
+                <CertificationItem key={data.key} data={data} />
               ))}
             {isEdit &&
-              Array.from({ length: certificationNum }, (_, index) => (
-                <CertificationForm key={index}>
-                  Award {index + 1}
-                </CertificationForm>
+              certificationForms.length > 0 &&
+              certificationForms.map((data) => (
+                <CertificationForm
+                  key={data.key}
+                  data={data}
+                  updateForm={updateCertificationForm}
+                  submitForm={() => submitCertificationForm(data)}
+                />
               ))}
             {isEdit && (
               <PlusBoxCertContainer>
-                <PlusBoxCertStyle onClick={addCertForm}>
+                <PlusBoxCertStyle onClick={addCertificationForm}>
                   <PlusBoxCertButton>+</PlusBoxCertButton>
                 </PlusBoxCertStyle>
               </PlusBoxCertContainer>

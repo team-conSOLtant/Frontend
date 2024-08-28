@@ -1,3 +1,4 @@
+import ProjectDTO from "../dto/ProjectDTO";
 import { axios } from "./Axios";
 
 export const getProjects = async (portfolioId) => {
@@ -6,7 +7,21 @@ export const getProjects = async (portfolioId) => {
       params: { portfolioId: portfolioId },
     });
     console.log("[IN AXIOS] projects response : ", response.data.result);
-    return response.data.result;
+    return response.data.result.map(
+      (data) =>
+        new ProjectDTO(
+          data.id, // projectId
+          portfolioId, // portfolioId (default to null)
+          data.title,
+          data.language,
+          data.projectUrl,
+          data.description,
+          data.startDate,
+          data.endDate,
+          data.projectUsers,
+          data.contents
+        )
+    );
   } catch (error) {
     console.error("get projects failed:", error);
     throw error;

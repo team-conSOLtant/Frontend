@@ -40,10 +40,10 @@ function CareerItem({ data }) {
   // console.log("career data", data);
   return (
     <CareerFormStyle>
-      <RankInputContainer>{data.company}</RankInputContainer>
-      <RankInputContainer>{data.positionLevel}</RankInputContainer>
+      <RankInputContainer>{data?.company}</RankInputContainer>
+      <RankInputContainer>{data?.positionLevel}</RankInputContainer>
       <InputContainer>
-        {data.startDate} ~ {data.endDate}
+        {data?.startDate} ~ {data?.endDate}
       </InputContainer>
       <SubmitButton></SubmitButton>
     </CareerFormStyle>

@@ -80,7 +80,7 @@ function KeywordSection({ keywords, setPortfolioData }) {
       ...existingData,
       keywords: {
         ...existingData.keywords,
-        financeKeyword: happy,
+        financeKeyword: kor2Eng(happy),
       },
     }));
   };
@@ -88,6 +88,29 @@ function KeywordSection({ keywords, setPortfolioData }) {
   const isSelected = (selectedWord) => {
     console.log("keywords.myKeyword", keywords.myKeyword);
     return keywords.myKeyword.includes(selectedWord);
+  };
+
+  const eng2Kor = (word) => {
+    if (word === "BIG_HAPPINESS") {
+      return "대확행";
+    } else if (word === "MIDDLE_HAPPINESS") {
+      return "중확행";
+    } else if (word === "SMALL_HAPPINESS") {
+      return "소확행";
+    } else {
+      console.log("happiness change ERROR!!!");
+    }
+  };
+  const kor2Eng = (word) => {
+    if (word === "대확행") {
+      return "BIG_HAPPINESS";
+    } else if (word === "중확행") {
+      return "MIDDLE_HAPPINESS";
+    } else if (word === "소확행") {
+      return "SMALL_HAPPINESS";
+    } else {
+      console.log("happiness change ERROR!!!");
+    }
   };
 
   return (
@@ -99,7 +122,7 @@ function KeywordSection({ keywords, setPortfolioData }) {
           <HappinessComponent
             key={happy}
             className="relative group"
-            isSelected={keywords.financeKeyword === happy}
+            isSelected={eng2Kor(keywords.financeKeyword) === happy}
             onClick={() => clickFinanceKeyword(happy)}
           >
             {/* 제목에만 폰트 적용 */}
