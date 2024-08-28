@@ -12,18 +12,28 @@ ChartJS.register(
   Legend
 );
 
-function LineChartExample() {
+function LineChartExample(props) {
+  const labelData = [];
+  const totalData =[];
+  const depositData = [];
+  const savingData = [];
+  const loanData = [];
+  
+  for(var prop in props.graph) {
+    labelData.push(props.graph[prop].age);
+    totalData.push(props.graph[prop].totalAssetValue);
+    depositData.push(props.graph[prop].depositAssetValue);
+    savingData.push(props.graph[prop].savingAssetValue);
+    loanData.push(props.graph[prop].loanAssetValue); 
+  }
 
-  const labelData = ['1년', '2년', '3년', '4년', '5년', '6년'];
-  const savingData = [10, 20, 30, 40, 50, 100];
-  const loanData = [60, 70, 72, 80, 85, 87];
 
   const data = {
     labels: labelData,
     datasets: [
       {
         label: '전체자산',
-        data: [65, 59, 80, 81, 56, 55],
+        data: totalData,
         fill: false,
         backgroundColor:'rgba(0, 0, 0, 0.5)',
         borderColor: 'rgba(0, 0, 0, 0.5)',
@@ -33,7 +43,7 @@ function LineChartExample() {
       },
       {
         label: '예금',
-        data: [65, 59, 80, 10, 56, 55],
+        data: depositData,
         fill: false,
         backgroundColor:'rgb(255, 175, 0.5)',
         borderColor: 'rgb(255, 175, 0.5)',
@@ -87,7 +97,7 @@ function LineChartExample() {
       x: {
         title: {
           display: false,
-          text: '년'
+          text: '나이'
         }
       },
       y: {

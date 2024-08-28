@@ -20,23 +20,22 @@ ChartJS.register(
   Legend
 );
 
-function LineChartExample() {
-  const labelData = [
-    "1년",
-    "2년",
-    "3년",
-    "4년",
-    "5년",
-    "6년",
-    "7년",
-    "8년",
-    "9년",
-  ];
-  const totalData = [110, 120, 130, 140, 150, 660, 770, 880, 1000];
-  const depositData = [65, 59, 80, 10, 56, 55];
-  const savingData = [10, 20, 30, 40, 50, 100, 140, 150, 200];
-  const loanData = [60, 70, 72, 80, 85, 87];
+function LineChartExample({
+  graph,
+}) {
+  const labelData = [];
+  const totalData = [];
+  const depositData = [];
+  const savingData = [];
+  const loanData = [];
 
+  for(var prop in graph) {
+    labelData.push(graph[prop].age);
+    totalData.push(graph[prop].totalAssetValue);
+    depositData.push(graph[prop].depositAssetValue);
+    savingData.push(graph[prop].savingAssetValue);
+    loanData.push(graph[prop].loanAssetValue); 
+  }
   const data = {
     labels: labelData,
     datasets: [
@@ -97,7 +96,7 @@ function LineChartExample() {
 
   const options = {
     responsive: true,
-    aspectRatio: 3,
+    aspectRatio: 2,
     animation: {
       duration: 1000, // 애니메이션 지속 시간 (밀리초)
       easing: "easeInOutQuad", // 애니메이션 효과
@@ -159,9 +158,6 @@ function LineChartExample() {
         title: {
           display: true,
           text: "금액(만원)",
-        },
-        ticks: {
-          stepSize: 200,
         },
       },
     },

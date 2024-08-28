@@ -73,13 +73,15 @@ function RecommendItem({
         </div>
       )}
       <div>
-        <div className="text-base font-semibold">{item.name}</div>
-        <p className="text-sm text-[#8E8E93]">{item.description}</p>
+        <div className="text-sm">{item.bankName}</div>
+        <div className="text-base font-semibold">{item.accountName}</div>
+        <p className="text-sm text-[#8E8E93]">{item.accountDescription}</p>
+        <div className="text-base">구독 기간 : {item.subscriptionPeriod}</div>
       </div>
       <div className="flex justify-end items-baseline">
         <span className="text-sm mr-2 text-sm">12개월 기준</span>
         <span className="text-base text-[#FF0000] font-bold">
-          연 {item.rate}%
+          연 {item.interestRate}%
         </span>
       </div>
     </div>
