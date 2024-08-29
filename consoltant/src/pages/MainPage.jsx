@@ -57,8 +57,10 @@ const MainPage = () => {
 
   const getAllInfos = async () => {
     const res = await getAllInfo();
-    console.log(res.result);
-    setInfos(res.result);
+    if (res) {
+      console.log(res.result);
+      setInfos(res.result);
+    }
   };
 
   const getGraphInfos = async () => {

@@ -5,7 +5,10 @@ function AllinfoCompletePage() {
   return (
     <div>
       {/* 좌측 상단 로고 */}
-      <div className="flex items-center m-[2rem]">
+      <div
+        className="flex items-center m-[2rem] cursor-pointer"
+        onClick={() => navigate("/login")}
+      >
         <img className="w-[2rem]" src="/logo/shinhan_logo_blue.png" alt="" />
         <div className="text-[#5C5C5C] font-OneShinhanBold text-[1.2rem] px-[0.6rem]">
           SOL 학생 로드맵
@@ -13,8 +16,8 @@ function AllinfoCompletePage() {
       </div>
       <div className="h-[80vh] flex flex-col justify-center items-center">
         <div className="border rounded-[0.7rem] border-[#ACACAC] shadow-lg w-[40%] py-[3rem] flex flex-col justify-center items-center">
-          <div className="font-OneShinhanBold text-[1.5rem] text-[#5C5C5C] my-[1rem]">
-            정보 입력 완료
+          <div className="font-OneShinhanBold text-[1.5rem] text-[#5C5C5C] mb-[1.5rem]">
+            모든 준비를 마쳤습니다
           </div>
           <div className="text-center font-OneShinhanLight text-[#5C5C5C] w-[90%]">
             SOL 학생 로드맵 서비스를 이용해보세요
