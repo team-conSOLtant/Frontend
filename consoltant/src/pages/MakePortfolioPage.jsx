@@ -17,9 +17,10 @@ import { getAwards } from "../apis/Award.jsx";
 import { getCareers } from "../apis/Career.jsx";
 import { getUserInfo } from "../apis/Users.jsx";
 import { getPortfolios } from "../apis/Portfolio.jsx";
-import { getActivities } from "../apis/Activity.jsx"
+import { getActivities } from "../apis/Activity.jsx";
 
 import { useSelector } from "react-redux";
+import { getCourses } from "../apis/Course.jsx";
 // 포트폴리오(이력서) 만드는 페이지
 
 const PortfolioPageStyle = styled.div``;
@@ -47,6 +48,7 @@ function MakePortfolioPage() {
   const [awardItems, setAwardItems] = useState([]);
   const [projectItems, setProjectItems] = useState([]);
   const [activityItems, setActivityItems] = useState([]);
+  const [courseItems, setCourseItems] = useState([]);
 
   const [portfolioData, setPortfolioData] = useState({
     userInfo: {
@@ -59,18 +61,16 @@ function MakePortfolioPage() {
       description: null,
     },
     keywords: { financeKeyword: null, myKeyword: [] },
-    educationAndcareer: {
-      education: {
-        university: {
-          id: null,
-          name: null,
-          universityCode: null,
-          isDeleted: null,
-        },
-        totalGpa: null,
-        majorGpa: null,
-        major: null,
+    education: {
+      university: {
+        id: null,
+        name: null,
+        universityCode: null,
+        isDeleted: null,
       },
+      totalGpa: null,
+      majorGpa: null,
+      major: null,
     },
   });
   useEffect(() => {
@@ -86,6 +86,8 @@ function MakePortfolioPage() {
       getCertificationdData();
       getProjectsData();
       getActivitiesData();
+      getCoursesdData();
+
       console.log("after get projects : ", portfolioData);
     }
   }, [portfolioid]);
@@ -106,16 +108,13 @@ function MakePortfolioPage() {
         financeKeyword: newData.financeKeyword, // 새로운 financeKeyword로 업데이트
         myKeyword: newData.myKeyword.split(","), // 새로운 myKeyword로 업데이트
       },
-      educationAndcareer: {
-        ...existingData.educationAndcareer,
-        education: {
-          ...existingData.educationAndcareer.education,
-          totalGpa: newData.totalGpa, // 새로운 totalGpa로 업데이트
-          majorGpa: newData.majorGpa, // 새로운 majorGpa로 업데이트
-          university: {
-            ...existingData.educationAndcareer.education.university,
-            isDeleted: newData.isDeleted, // isDeleted 상태 업데이트
-          },
+      education: {
+        ...existingData.education,
+        totalGpa: newData.totalGpa, // 새로운 totalGpa로 업데이트
+        majorGpa: newData.majorGpa, // 새로운 majorGpa로 업데이트
+        university: {
+          ...existingData.education.university,
+          isDeleted: newData.isDeleted, // isDeleted 상태 업데이트
         },
       },
     }));
@@ -132,20 +131,17 @@ function MakePortfolioPage() {
         age: newData.age,
         phoneNumber: newData.phoneNumber,
       },
-      educationAndcareer: {
-        ...existingData.educationAndcareer,
-        education: {
-          ...existingData.educationAndcareer.education,
-          university: newData.university,
-          major: newData.major,
-        },
+      education: {
+        ...existingData.education,
+        university: newData.university,
+        major: newData.major,
       },
     }));
   };
 
   const getCareersData = async () => {
     console.log("[getCareer function] start");
-    const newData = await getCareers(portfolioid);
+    const newData = await getCareers(loginid);
     setCareerItems(newData);
   };
 
@@ -172,6 +168,12 @@ function MakePortfolioPage() {
     setActivityItems(newData);
   };
 
+  const getCoursesdData = async () => {
+    console.log("[getCourses function] start");
+    const newData = await getCourses(loginid);
+    setCourseItems(newData);
+  };
+
   return (
     <PortfolioPageStyle>
       <Navbar></Navbar>
@@ -182,8 +184,14 @@ function MakePortfolioPage() {
             keywords={portfolioData.keywords}
             setPortfolioData={setPortfolioData}
           /> */}
-          {/* <EducationCareerSection isEdit={true} data={{}} /> */}
-          {/* 추후 변경해야 할 듯 하나도 없을 수도 있으니깐 */}
+          <EducationCareerSection
+            isEdit={true}
+            education={portfolioData.education}
+            careerItems={careerItems}
+            setCareerItems={setCareerItems}
+            courseItems={courseItems}
+            setCourseItems={setCourseItems}
+          />
 
           <AwardCertificationSection
             isEdit={true}
@@ -192,7 +200,6 @@ function MakePortfolioPage() {
             awardItems={awardItems}
             setAwardItems={setAwardItems}
           />
-
           <ProjectSection
             isEdit={true}
             projectItems={projectItems}

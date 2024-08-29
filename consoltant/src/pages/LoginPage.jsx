@@ -53,6 +53,8 @@ function LoginPage() {
       console.log("portfolioId", portfolioId);
       if (portfolioId) {
         dispatch(setUser({ loginid: loginId, portfolioid: portfolioId }));
+        window.localStorage.setItem("userId", loginId);
+        window.localStorage.setItem("portfolioId", portfolioId);
         console.log("로그인 성공!");
         const hasAccount = await checkAccountInsert().then((res) => {
           return res.result;

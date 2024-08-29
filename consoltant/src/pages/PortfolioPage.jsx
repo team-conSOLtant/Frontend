@@ -18,6 +18,7 @@ import { getProjects } from "../apis/Project.jsx";
 import { getCareers } from "../apis/Career.jsx";
 import { setUser, removeUser } from "../feature/user/userSlice";
 import { getActivities } from "../apis/Activity.jsx";
+import { getCourses } from "../apis/Course.jsx";
 
 // 포트폴리오(이력서) 보는 페이지
 
@@ -48,6 +49,7 @@ function PortfolioFormPage() {
   const [awardItems, setAwardItems] = useState([]);
   const [projectItems, setProjectItems] = useState([]);
   const [activityItems, setActivityItems] = useState([]);
+  const [courseItems, setCourseItems] = useState([]);
 
   const [portfolioData, setPortfolioData] = useState({
     userInfo: {
@@ -60,18 +62,16 @@ function PortfolioFormPage() {
       description: null,
     },
     keywords: { financeKeyword: null, myKeyword: [] },
-    educationAndcareer: {
-      education: {
-        university: {
-          id: null,
-          name: null,
-          universityCode: null,
-          isDeleted: null,
-        },
-        totalGpa: null,
-        majorGpa: null,
-        major: null,
+    education: {
+      university: {
+        id: null,
+        name: null,
+        universityCode: null,
+        isDeleted: null,
       },
+      totalGpa: null,
+      majorGpa: null,
+      major: null,
     },
   });
 
@@ -90,6 +90,7 @@ function PortfolioFormPage() {
       getCertificationdData();
       getProjectsData();
       getActivitiesData();
+      getCoursesdData();
       console.log("after get projects : ", portfolioData);
     }
   }, [portfolioid]);
@@ -174,6 +175,12 @@ function PortfolioFormPage() {
     setActivityItems(newData);
   };
 
+  const getCoursesdData = async () => {
+    console.log("[getCourses function] start");
+    const newData = await getCourses(loginid);
+    setCourseItems(newData);
+  };
+
   return (
     <PortfolioPageStyle>
       <Navbar></Navbar>
@@ -189,6 +196,8 @@ function PortfolioFormPage() {
               isEdit={false}
               careerItems={careerItems}
               setCareerItems={setCareerItems}
+              courseItems={courseItems}
+              setCourseItems={setCourseItems}
             />
           )}
           {certificationItems.length > 0 && awardItems.length > 0 && (
@@ -208,7 +217,6 @@ function PortfolioFormPage() {
             />
           )}
           <ActivitySection
-            activities={portfolioData.activities}
             isEdit={false}
             activityItems={activityItems}
             setActivityItems={setActivityItems}

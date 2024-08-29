@@ -4,48 +4,16 @@ import styled from "styled-components";
 const EducationItemStyle = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: flex-start;
   padding: 0 1rem 0.5rem 1rem;
 `;
 
-const InputLabel = styled.label``;
-
-const InputTitle = styled.div`
-  font-size: 0.8rem;
-  font-family: "OneShinhanBold";
-  margin-left: 0.3rem;
-  margin-bottom: 0.1rem;
-`;
-
-const InputContainer = styled.input`
-  border: #c7c7c7 0.1rem solid;
-  border-radius: 0.3rem;
-  background-color: #fbfbfd;
-  height: 2rem;
-  padding-left: 0.3rem;
-  width: 15rem;
-  box-shadow: 0 2px 2px rgb(0, 0, 0, 0.25);
-`;
-
-const GradeInputContainer = styled.input`
-  border: #c7c7c7 0.1rem solid;
-  border-radius: 0.3rem;
-  background-color: #fbfbfd;
-  text-align: center;
-  height: 2rem;
-  padding-left: 0.3rem;
-  width: 7.3rem;
-  margin-right: 0.4rem;
-  box-shadow: 0 2px 2px rgb(0, 0, 0, 0.25);
-`;
-
 const SchoolInfo = styled.div`
   display: flex;
-  flex-direction: column;
-  border-right: 0.1rem solid black;
-  width: 50%;
-  height: 14rem;
+  flex-direction: row;
+  width: 100%;
+  height: 4rem;
   justify-content: center;
   align-items: center;
 `;
@@ -54,53 +22,77 @@ const SchoolName = styled.div``;
 const Duration = styled.div``;
 const MajorAndDegree = styled.div``;
 
-const GradeContainer = styled.div``;
+const GradeContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
 const Grade = styled.div``;
 const TotalGrade = styled.div``;
-
-const MiddleLine = styled.div`
-  border-left: 0.1rem solid black;
-  height: 30vh;
-`;
 
 const CourseInfo = styled.div`
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 100%;
   justify-content: center;
   align-items: center;
   margin-top: 0.5rem;
 `;
 
 const CourseTitle = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   font-family: "OneShinhanBold";
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
 `;
-
 const TagContainer = styled.div`
-  width: 20rem;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-top: 0.3rem;
+  height: 15rem; /* 적절한 높이 설정 */
+  overflow-y: auto; /* 수직 스크롤뷰 활성화 */
+  padding-right: 8px; /* 스크롤바로 인해 내용이 가려지지 않도록 패딩 추가 */
+
+  /* 스크롤바 커스터마이징 */
+  ::-webkit-scrollbar {
+    width: 6px; /* 스크롤바 너비 조정 */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #888; /* 스크롤바 색상 */
+    border-radius: 10px; /* 스크롤바 모서리 둥글게 */
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* 스크롤바 호버 색상 */
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent; /* 트랙 색상 (투명하게 설정) */
+  }
 `;
 
 const Tag = styled.div`
   background-color: #fff8df;
   color: #444444;
   box-shadow: 0 2px 2px rgb(0, 0, 0, 0.25);
-  width: auto;
   height: 1.5rem;
+  width: auto;
   line-height: 1.5rem;
   font-size: 1rem;
   margin: 0.3rem 0.3rem;
-  padding: 0 0.7rem;
   border-radius: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 0 1rem;
 `;
+const TagName = styled.div``;
 
+const TagGrade = styled.div`
+  margin-left: 0.5rem;
+`;
 function EducationItem(props) {
   // console.log("props: ", props);
   return (
@@ -119,8 +111,11 @@ function EducationItem(props) {
       <CourseInfo>
         <CourseTitle>이수과목</CourseTitle>
         <TagContainer>
-          {["운영체제 A", "컴퓨터구조론 A+", "자료구조 A"].map((text) => (
-            <Tag>{text}</Tag>
+          {props.courseItems.map((course) => (
+            <Tag>
+              <TagName>{course.subjectName}</TagName>
+              <TagGrade>{course.grade}</TagGrade>
+            </Tag>
           ))}
         </TagContainer>
       </CourseInfo>
