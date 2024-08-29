@@ -62,7 +62,9 @@ function MyFinanceGraph({ graphInfo, currIndex }) {
       },
       onComplete: function (animation) {
         const chart = animation.chart;
-        const activeIndex = labelData.indexOf(graphInfo.data[currIndex].age);
+        const activeIndex = graphInfo.data[currIndex]
+          ? labelData.indexOf(graphInfo.data[currIndex].age)
+          : 0;
 
         chart.tooltip.setActiveElements(
           [
@@ -88,16 +90,24 @@ function MyFinanceGraph({ graphInfo, currIndex }) {
         backgroundColor: (context) => {
           // 3년차일 때 툴팁 배경 색상을 변경
           const index = context.tooltip.dataPoints[0].dataIndex;
-          return labelData[index] === graphInfo.data[currIndex].age
-            ? "rgba(0, 93, 249, 0.8)"
-            : "rgba(0, 0, 0, 0.8)";
+          if (graphInfo.data[currIndex]) {
+            return labelData[index] === graphInfo.data[currIndex].age
+              ? "rgba(0, 93, 249, 0.8)"
+              : "rgba(0, 0, 0, 0.3)";
+          } else {
+            return "rgba(0, 0, 0, 0.3)";
+          }
         },
         borderColor: (context) => {
           // 3년차일 때 툴팁 보더 색상을 변경
           const index = context.tooltip.dataPoints[0].dataIndex;
-          return labelData[index] === graphInfo.data[currIndex].age
-            ? "rgba(0, 93, 249, 0.8)"
-            : "rgba(0, 0, 0, 0.3)";
+          if (graphInfo.data[currIndex]) {
+            return labelData[index] === graphInfo.data[currIndex].age
+              ? "rgba(0, 93, 249, 0.8)"
+              : "rgba(0, 0, 0, 0.3)";
+          } else {
+            return "rgba(0, 0, 0, 0.3)";
+          }
         },
         titleColor: "#ffffff",
         bodyColor: "#ffffff",

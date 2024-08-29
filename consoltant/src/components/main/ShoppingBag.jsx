@@ -7,11 +7,11 @@ function ShoppingBag({ products }) {
   return (
     <div>
       {/* container scroll */}
-      <div className="border bg-[#EAF3FD] rounded-[0.5rem]">
+      <div className="relative border bg-[#EAF3FD] rounded-[0.5rem] h-[10rem]">
         {/* items */}
-        <div className="h-[7rem] overflow-auto" onWheel={handleWheel}>
-          {products && products.length > 0 ? (
-            <>
+        {products && products.length > 0 ? (
+          <>
+            <div className="h-[7rem] overflow-auto" onWheel={handleWheel}>
               {products.map((product, index) => {
                 return (
                   <div
@@ -44,14 +44,17 @@ function ShoppingBag({ products }) {
                   </div>
                 );
               })}
-            </>
-          ) : (
-            <div className="w-[100%] h-[100%] flex justify-center pt-[2rem] items-center text-[0.9rem]">
+            </div>
+          </>
+        ) : (
+          <div className="w-[100%] h-[100%] flex flex-col justify-center items-center ">
+            <img className="w-[3rem]" src="/main/Wastebasket.svg" alt="" />
+            <div className="text-[0.9rem] font-OneShinhanMedium pt-[0.5rem] ">
               장바구니가 비어있습니다.
             </div>
-          )}
-        </div>
-        <div className="flex justify-end mr-[0.6rem] mb-[0.3rem] mt-[0.7rem]">
+          </div>
+        )}
+        <div className="absolute right-[0.5rem] bottom-[0.5rem]">
           <RoundButton />
         </div>
       </div>

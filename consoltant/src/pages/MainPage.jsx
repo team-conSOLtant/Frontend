@@ -23,10 +23,10 @@ const MainPage = () => {
   const [products, setProducts] = useState();
   const [graphInfo, setGraphInfo] = useState();
 
-  const loginid = useSelector((state) => {
-    console.log("state", state);
-    return state.user.loginid;
-  });
+  // const loginid = useSelector((state) => {
+  //   console.log("state", state);
+  //   return state.user.loginid;
+  // });
 
   useEffect(() => {
     getCommentNotification();
@@ -129,7 +129,7 @@ const MainPage = () => {
         {infos &&
           infos.map((info, index) => {
             const angleStep = Math.PI / 36;
-            const itemAngle = index * angleStep;
+            const itemAngle = (index-infos.length+1) * angleStep;
             const x = (radius + 90) * Math.cos(itemAngle);
             const y = (radius + 90) * Math.sin(itemAngle);
 

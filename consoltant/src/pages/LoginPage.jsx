@@ -58,7 +58,15 @@ function LoginPage() {
           window.localStorage.setItem("portfolioId", res.id);
         });
         console.log("로그인 성공!");
-        navigate("/main");
+        const hasAccount = await checkAccountInsert().then((res) => {
+          return res.result;
+        });
+        console.log(hasAccount);
+        if (hasAccount) {
+          navigate("/main");
+        } else {
+          navigate("/signup-info");
+        }
       } else {
         console.log("로그인 실패!");
         setLoginFail(true);
