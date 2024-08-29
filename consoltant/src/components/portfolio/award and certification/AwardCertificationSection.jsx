@@ -174,7 +174,7 @@ function AwardCertificationSection({
           <SubSectionBody>
             {awardItems.length > 0 &&
               awardItems.map((data) => (
-                <AwardItem key={data.key} data={data} />
+                <AwardItem isEdit={isEdit} key={data.key} data={data} />
               ))}
             {isEdit &&
               awardForms.length > 0 &&

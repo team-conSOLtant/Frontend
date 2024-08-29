@@ -47,25 +47,28 @@ function LoginPage() {
     const form = new FormData();
     form.append("username", id);
     form.append("password", pw);
-    try {
-      const userId = await requestLogin(form).then((data) => {
-        console.log("login data", data);
-        dispatch(setUser({ loginid: data }));
-        window.localStorage.setItem("userId", data);
-        return data;
-      });
-      if (userId) {
-        await getPortfolios(userId).then((res) => {
-          console.log("[IN LOGIN] portfolio data :", res.id);
-          dispatch(setUser({ portfolioid: res.id }));
-          window.localStorage.setItem("portfolioId", res.id);
-        });
+    const loginId = await getLoginId(form);
+    if (loginId) {
+      const portfolioId = await getPortfolioId(loginId);
+      console.log("portfolioId", portfolioId);
+      if (portfolioId) {
+        dispatch(setUser({ loginid: loginId, portfolioid: portfolioId }));
+        window.localStorage.setItem("userId", loginId);
+        window.localStorage.setItem("portfolioId", portfolioId);
         console.log("로그인 성공!");
-        navigate("/main");
+        const hasAccount = await checkAccountInsert().then((res) => {
+          return res.result;
+        });
+        console.log(hasAccount);
+        if (hasAccount) {
+          navigate("/main");
+        } else {
+          navigate("/signup-info");
+        }
+      } else {
+        console.log("로그인 실패!");
+        setLoginFail(true);
       }
-    } catch (e) {
-      console.log(e);
-      setLoginFail(true);
     }
   };
 

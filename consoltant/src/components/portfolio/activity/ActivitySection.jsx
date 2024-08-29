@@ -15,13 +15,20 @@ const SectionBody = styled.div`
   align-items: center;
 `;
 
-function ActivitySection({ isEdit, activities }) {
+function ActivitySection({ isEdit, activityItems, setActivityItem }) {
   return (
     <ActivitySectionStyle>
       <SectionHeader title={"대외활동"} image={"/Community.svg"} />
       <SectionBody>
-        {isEdit && <ActivityForm />}
-        {activities && activities.map((data) => <ActivityItem data={data} />)}
+        {isEdit && (
+          <ActivityForm
+            activityItems={activityItems}
+            setActivityItem={setActivityItem}
+          />
+        )}
+        {activityItems.map((data) => (
+          <ActivityItem data={data} key={data.key} />
+        ))}
       </SectionBody>
     </ActivitySectionStyle>
   );

@@ -222,11 +222,11 @@ function ProjectForm({ data, updateForm, submitForm }) {
             value={data?.title}
             onChange={(e) => _changeKeyword(e.target.value)}
           />
-          <ProjectSelectedKeywordContainer>
+          {/* <ProjectSelectedKeywordContainer>
             {data?.language?.split(",").map((text) => (
               <Tag>{text}</Tag>
             ))}
-          </ProjectSelectedKeywordContainer>
+          </ProjectSelectedKeywordContainer> */}
           <ProjectDescriptionLine>
             <BulletPoint />
             프로젝트 소개

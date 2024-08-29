@@ -148,7 +148,7 @@ function RecommendTabs({ financeProducts, info, age }) {
       </div>
 
       {/* 선택된 탭에 따라 다른 내용 표시 */}
-      <div className="tab-content">
+      <div className="tab-content overflow-scroll h-[25rem]">
         {activeTab === "basicInfo" && (
           <div className="mx-[7%]">
             <div className="flex flex-col text-lg text-[#444444] font-bold">
