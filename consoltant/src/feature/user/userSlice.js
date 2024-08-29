@@ -12,13 +12,8 @@ const userSlice = createSlice({
   reducers: {
     setUser: (state, action) => {
       console.log("action payload : ", action.payload);
-      if (action.payload.loginid) {
-        state.loginid = action.payload.loginid;
-      } else {
-        state.portfolioid = action.payload.portfolioid;
-      }
+      state.loginid = action.payload.loginid;
       console.log("state.loginid : ", state.loginid);
-      console.log("state.portfolioid : ", state.portfolioid);
     },
     removeUser: (state) => {
       state.loginid = null;
