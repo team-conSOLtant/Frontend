@@ -4,7 +4,7 @@ export default class ProjectDTO {
     projectId = null,
     portfolioId = null,
     title = null,
-    language = null,
+    language = [],
     projectUrl = null,
     description = null,
     startDate = null,

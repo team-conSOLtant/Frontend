@@ -107,7 +107,7 @@ function EducationItem(props) {
     <EducationItemStyle>
       <SchoolInfo>
         <SchoolContainer>
-          <SchoolName>{props.education.university.name}</SchoolName>
+          <SchoolName>{props.education.university?.name}</SchoolName>
           <Duration></Duration>
         </SchoolContainer>
         <MajorAndDegree>{props.education.major} / 학사</MajorAndDegree>

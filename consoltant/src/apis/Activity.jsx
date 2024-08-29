@@ -7,7 +7,6 @@ export const getActivities = async (portfolioId) => {
       params: { portfolioId: portfolioId },
     });
     console.log("[IN AXIOS] activities response : ", response.data.result);
-
     return response.data.result.map(
       (data) =>
         new ActivityDTO(

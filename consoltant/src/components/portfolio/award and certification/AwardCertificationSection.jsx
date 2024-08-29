@@ -128,10 +128,6 @@ function AwardCertificationSection({
   awardItems,
   setAwardItems,
 }) {
-  // console.log("AwardCertificationSection RENDER");
-
-  useEffect(() => {}, []);
-
   const [certificationForms, setCertificationForms] = useState([
     new CertificationDTO(),
   ]);

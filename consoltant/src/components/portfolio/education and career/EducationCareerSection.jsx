@@ -85,36 +85,29 @@ const Rank = styled.label``;
 const CareerDuration = styled.label``;
 
 function EducationCareerSection({
+  education,
   isEdit,
-  educationAndcareer,
-  setPortfolioData,
+  careerItems,
+  setCareerItems,
 }) {
-  const { state, addForm, deleteForm, updateForm, submitForm } = useFormManager(
-    new CareerDTO()
-  );
+  const [careerForms, setCareerForms] = useState([new CareerDTO()]);
 
-  const clickSubmit = (key) => {
-    const selectedForm = state.formList.find((form) => form.key === key);
-    if (selectedForm) {
-      setPortfolioData((existingData) => ({
-        ...existingData,
-        educationAndcareer: {
-          ...existingData.educationAndcareer,
-          career: [
-            ...existingData.career,
-            {
-              id: null,
-              company: selectedForm.company,
-              positionLevel: selectedForm.positionLevel,
-              startDate: selectedForm.startDate,
-              endDate: selectedForm.endDate,
-              deleted: false,
-            },
-          ],
-        },
-      }));
-    }
+  const addCareerForm = () => {
+    setCareerForms([...careerForms, new CareerDTO()]);
   };
+  const updateCareerForm = (updatedForm) => {
+    setCareerForms((prevForms) =>
+      prevForms.map((form) =>
+        form.key === updatedForm.key ? updatedForm : form
+      )
+    );
+  };
+  const submitCareerForm = (newForm) => {
+    setCareerItems([...careerItems, newForm]);
+    setCareerForms(careerForms.filter((form) => form.key !== newForm.key));
+  };
+  const editItem = () => {};
+  const deleteItem = () => {};
 
   return (
     <EducationSectionStyle>
@@ -125,21 +118,14 @@ function EducationCareerSection({
           <SubSectionHeader>
             <SubSectionTitleText>학력</SubSectionTitleText>
           </SubSectionHeader>
-
           <SubSectionBody>
-            {isEdit ? (
-              <EducationForm></EducationForm>
-            ) : (
-              <EducationItem
-                education={educationAndcareer?.education}
-              ></EducationItem>
-            )}
+            <EducationItem education={education}></EducationItem>
           </SubSectionBody>
         </SubSectionStyle>
         <SubSectionStyle>
           <SubSectionHeader>
             <SubSectionTitleText>경력</SubSectionTitleText>
-            <PlusButton onClick={addForm}>+</PlusButton>
+            {isEdit && <PlusButton onClick={addCareerForm}>+</PlusButton>}
           </SubSectionHeader>
           <SubSectionBody>
             <TableHeader>
@@ -148,17 +134,22 @@ function EducationCareerSection({
               <InputTitle>기간</InputTitle>
             </TableHeader>
             {isEdit &&
-              state.formList.map((data) => (
+              careerForms.map((data) => (
                 <CareerForm
                   key={data.key}
                   data={data}
-                  submit={() => clickSubmit(data.key)}
+                  submit={() => submitCareerForm(data)}
                 ></CareerForm>
               ))}
-
-            {educationAndcareer.career.length > 0 &&
-              educationAndcareer.career.map((data) => (
-                <CareerItem data={data}></CareerItem>
+            {careerItems.length > 0 &&
+              careerItems.map((data) => (
+                <CareerItem
+                  isEdit={isEdit}
+                  data={data}
+                  key={data.key}
+                  editItem={editItem}
+                  deleteItem={deleteItem}
+                />
               ))}
           </SubSectionBody>
         </SubSectionStyle>

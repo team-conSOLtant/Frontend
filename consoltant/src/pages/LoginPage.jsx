@@ -4,6 +4,7 @@ import { checkAccountInsert, requestLogin } from "../apis/Login";
 import { useDispatch } from "react-redux";
 import { setUser, removeUser } from "../feature/user/userSlice";
 import { getPortfolios } from "../apis/Portfolio";
+import { getUserInfo } from "../apis/Users";
 
 // 로그인 페이지
 function LoginPage() {
@@ -27,13 +28,15 @@ function LoginPage() {
   //     if (
   //       await requestLogin(form).then((data) => {
   //         console.log("login data", data);
-  //         dispatch(setUser({ loginid: data, portfolioid: getPortfolioId() }));
+  //         dispatch(setUser({ loginid: data }));
   //         return data;
   //       })
   //     ) {
   //       console.log("로그인 성공!");
   //       navigate("/main");
   //     } else {
+  //       console.log("로그인 실패!");
+  //       setLoginFail(true);
   //     }
   //   } catch (error) {
   //     console.log(error);
@@ -44,19 +47,12 @@ function LoginPage() {
     const form = new FormData();
     form.append("username", id);
     form.append("password", pw);
-    try {
-      const userId = await requestLogin(form).then((data) => {
-        console.log("login data", data);
-        dispatch(setUser({ loginid: data }));
-        window.localStorage.setItem("userId", data);
-        return data;
-      });
-      if (userId) {
-        await getPortfolios(userId).then((res) => {
-          console.log("[IN LOGIN] portfolio data :", res.id);
-          dispatch(setUser({ portfolioid: res.id }));
-          window.localStorage.setItem("portfolioId", res.id);
-        });
+    const loginId = await getLoginId(form);
+    if (loginId) {
+      const portfolioId = await getPortfolioId(loginId);
+      console.log("portfolioId", portfolioId);
+      if (portfolioId) {
+        dispatch(setUser({ loginid: loginId, portfolioid: portfolioId }));
         console.log("로그인 성공!");
         const hasAccount = await checkAccountInsert().then((res) => {
           return res.result;
@@ -71,9 +67,16 @@ function LoginPage() {
         console.log("로그인 실패!");
         setLoginFail(true);
       }
-    } catch (error) {
-      console.log(error);
     }
+  };
+
+  const getLoginId = async (form) => {
+    const newData = await requestLogin(form);
+    return newData;
+  };
+  const getPortfolioId = async (loginid) => {
+    const newData = await getPortfolios(loginid);
+    return newData.id;
   };
 
   useEffect(() => {}, [loginFail, setLoginFail]);

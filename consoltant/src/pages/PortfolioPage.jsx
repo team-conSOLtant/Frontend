@@ -15,8 +15,9 @@ import { getAwards } from "../apis/Award.jsx";
 import { getUserInfo } from "../apis/Users.jsx";
 import { getCertifications } from "../apis/Certification.jsx";
 import { getProjects } from "../apis/Project.jsx";
-import { getCareer } from "../apis/Career.jsx";
+import { getCareers } from "../apis/Career.jsx";
 import { setUser, removeUser } from "../feature/user/userSlice";
+import { getActivities } from "../apis/Activity.jsx";
 
 // 포트폴리오(이력서) 보는 페이지
 
@@ -46,6 +47,7 @@ function PortfolioFormPage() {
   const [certificationItems, setCertificationItems] = useState([]);
   const [awardItems, setAwardItems] = useState([]);
   const [projectItems, setProjectItems] = useState([]);
+  const [activityItems, setActivityItems] = useState([]);
 
   const [portfolioData, setPortfolioData] = useState({
     userInfo: {
@@ -87,6 +89,7 @@ function PortfolioFormPage() {
       getAwardsData();
       getCertificationdData();
       getProjectsData();
+      getActivitiesData();
       console.log("after get projects : ", portfolioData);
     }
   }, [portfolioid]);
@@ -108,16 +111,12 @@ function PortfolioFormPage() {
         financeKeyword: newData.financeKeyword, // 새로운 financeKeyword로 업데이트
         myKeyword: newData.myKeyword.split(","), // 새로운 myKeyword로 업데이트
       },
-      educationAndcareer: {
-        ...existingData.educationAndcareer,
-        education: {
-          ...existingData.educationAndcareer.education,
-          totalGpa: newData.totalGpa, // 새로운 totalGpa로 업데이트
-          majorGpa: newData.majorGpa, // 새로운 majorGpa로 업데이트
-          university: {
-            ...existingData.educationAndcareer.education.university,
-            isDeleted: newData.isDeleted, // isDeleted 상태 업데이트
-          },
+      education: {
+        ...existingData.education,
+        majorGpa: newData.majorGpa, // 새로운 majorGpa로 업데이트
+        university: {
+          ...existingData.education.university,
+          isDeleted: newData.isDeleted, // isDeleted 상태 업데이트
         },
       },
     }));
@@ -136,20 +135,18 @@ function PortfolioFormPage() {
         phoneNumber: newData.phoneNumber,
         birthDate: newData.birthDate,
       },
-      educationAndcareer: {
-        ...existingData.educationAndcareer,
-        education: {
-          ...existingData.educationAndcareer.education,
-          university: newData.university,
-          major: newData.major,
-        },
+      education: {
+        ...existingData.education,
+        university: newData.university,
+        major: newData.major,
+        totalGpa: newData.totalGpa, // 새로운 totalGpa로 업데이트
       },
     }));
   };
 
   const getCareerData = async () => {
     console.log("[getCareer function] start");
-    const newData = await getCareer(portfolioid);
+    const newData = await getCareers(portfolioid);
     setCareerItems(newData);
   };
 
@@ -170,20 +167,30 @@ function PortfolioFormPage() {
     const newData = await getProjects(portfolioid);
     setProjectItems(newData);
   };
+
+  const getActivitiesData = async () => {
+    console.log("[getActivities function] start");
+    const newData = await getActivities(portfolioid);
+    setActivityItems(newData);
+  };
+
   return (
     <PortfolioPageStyle>
       <Navbar></Navbar>
       <PortfolioBody>
         <PortfolioMain>
-          {/* <ProfileViewSection userInfo={portfolioData.userInfo} /> */}
-          {/* {careerItems.length > 0 && (
+          <ProfileViewSection
+            userInfo={portfolioData.userInfo}
+            keywords={portfolioData.keywords}
+          />
+          {careerItems.length > 0 && (
             <EducationCareerSection
-              data={{}}
+              education={portfolioData.education}
               isEdit={false}
               careerItems={careerItems}
               setCareerItems={setCareerItems}
             />
-          )} */}
+          )}
           {certificationItems.length > 0 && awardItems.length > 0 && (
             <AwardCertificationSection
               isEdit={false}
@@ -200,10 +207,12 @@ function PortfolioFormPage() {
               setProjectItems={setProjectItems}
             />
           )}
-          {/* <ActivitySection
+          <ActivitySection
             activities={portfolioData.activities}
             isEdit={false}
-          /> */}
+            activityItems={activityItems}
+            setActivityItems={setActivityItems}
+          />
         </PortfolioMain>
       </PortfolioBody>
       <PortfolioController isEdit={false}></PortfolioController>

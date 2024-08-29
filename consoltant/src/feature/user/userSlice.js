@@ -11,9 +11,10 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      console.log("action payload : ", action.payload);
+      // console.log("action payload : ", action.payload);
       state.loginid = action.payload.loginid;
-      console.log("state.loginid : ", state.loginid);
+      state.portfolioid = action.payload.portfolioid;
+      // console.log("state.loginid : ", state.loginid);
     },
     removeUser: (state) => {
       state.loginid = null;
