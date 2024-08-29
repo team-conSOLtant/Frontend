@@ -15,6 +15,7 @@ import SignupInfoPage from "./pages/SignupInfoPage.jsx";
 import CheckAccount from "./pages/CheckAccount.jsx";
 import AccountInfoPage from "./pages/AccountInfoPage.jsx";
 import AllinfoCompletePage from "./pages/AllInfoCompletePage.jsx";
+import FollowingFollowerPage from "./pages/FollowingFollowerPage.jsx";
 
 function App() {
   return (
@@ -27,7 +28,7 @@ function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/signup-info" element={<SignupInfoPage />} />
           <Route path="/check-account" element={<CheckAccount />} />
-          <Route path="/complete" element={<SignupCompletePage />} />
+          <Route path="/signup-complete" element={<SignupCompletePage />} />
           <Route path="/all-complete" element={<AllinfoCompletePage />} />
           <Route path="/account-info" element={<AccountInfoPage />} />
           <Route path="/main" element={<MainPage />} />
@@ -36,6 +37,7 @@ function App() {
           <Route path="/recommend" element={<RecommendPage />} />
           <Route path="/finance-mypage" element={<FinanceMyPage />} />
           <Route path="/search" element={<SearchPage />} />
+          <Route path="/follow" element={<FollowingFollowerPage />} />
         </Routes>
       </Router>
     </>

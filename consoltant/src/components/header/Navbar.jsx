@@ -25,7 +25,12 @@ function Navbar() {
   return (
     <div className="bg-[#102FA8] h-[4rem] flex items-center justify-between px-[3rem]">
       <div className="flex items-center cursor-pointer">
-        <div className="flex items-center">
+        <div
+          className="flex items-center cursor-pointer"
+          onClick={() => {
+            navigate("/main");
+          }}
+        >
           <img className="w-[2rem] mx-[0.5rem]" src="/nav/shinhan_logo_white.png" alt="" />
           <div className="text-[1.4rem] text-[#EAF1FF] font-OneShinhanBold">신한은행</div>
         </div>

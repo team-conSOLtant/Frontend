@@ -10,3 +10,4 @@ export const getUserInfo = async () => {
     throw error;
   }
 };
+

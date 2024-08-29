@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { requestLogin } from "../apis/Login";
+import { checkAccountInsert, requestLogin } from "../apis/Login";
 import { useDispatch } from "react-redux";
 import { setUser, removeUser } from "../feature/user/userSlice";
+import { getPortfolios } from "../apis/Portfolio";
 
 // 로그인 페이지
 function LoginPage() {
@@ -23,15 +24,25 @@ function LoginPage() {
     form.append("username", id);
     form.append("password", pw);
     try {
-      if (
-        await requestLogin(form).then((data) => {
-          console.log("login data", data);
-          dispatch(setUser({ loginid: data }));
-          return data;
-        })
-      ) {
+      const userId = await requestLogin(form).then((data) => {
+        console.log("login data", data);
+        dispatch(setUser({ loginid: data }));
+        return data;
+      });
+      if (userId) {
+        await getPortfolios(userId).then((res) => {
+          console.log("[IN LOGIN] portfolio data :", res.id);
+          dispatch(setUser({ portfolioid: res.id }));
+        });
         console.log("로그인 성공!");
-        navigate("/main");
+        const hasAccount = await checkAccountInsert().then((res) => {
+          return res.result;
+        });
+        if (hasAccount) {
+          navigate("/main");
+        } else {
+          navigate("/signup-info");
+        }
       } else {
         console.log("로그인 실패!");
         setLoginFail(true);

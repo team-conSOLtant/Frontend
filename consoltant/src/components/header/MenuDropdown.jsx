@@ -10,7 +10,7 @@ function MenuDropdown({ feed, roadmap }) {
   return (
     <div className="text-[0.8rem] text-[#3F3F3F] bg-indigo-50 absolute right-[3rem] top-[3.5rem] rounded-[0.5rem] p-[1rem] shadow-md flex flex-col items-center">
       <div
-        onClick={() => navigate("/portfolio")}
+        onClick={() => navigate("/follow")}
         className={`py-[0.5rem] cursor-pointer ${feed ? "font-bold" : ""}`}
       >
         포트폴리오 피드{" "}
