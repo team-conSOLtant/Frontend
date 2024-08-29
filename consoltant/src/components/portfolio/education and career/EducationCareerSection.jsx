@@ -46,7 +46,9 @@ const InputTitle = styled.div`
   font-family: "OneShinhanBold";
   margin-left: 0.3rem;
 `;
-const SubSectionTitleText = styled.div``;
+const SubSectionTitleText = styled.div`
+  font-size: 1.2rem;
+`;
 const PlusButton = styled.div`
   background-color: #c7c7c7;
   color: white;
@@ -89,9 +91,11 @@ function EducationCareerSection({
   isEdit,
   careerItems,
   setCareerItems,
+  courseItems,
+  setCourseItems,
 }) {
   const [careerForms, setCareerForms] = useState([new CareerDTO()]);
-
+  console.log("careerFormscareerFormscareerFormscareerForms", careerForms);
   const addCareerForm = () => {
     setCareerForms([...careerForms, new CareerDTO()]);
   };
@@ -102,12 +106,19 @@ function EducationCareerSection({
       )
     );
   };
+
   const submitCareerForm = (newForm) => {
+    console.log("newFornewFormnewFormnewFormnewFormm", newForm);
     setCareerItems([...careerItems, newForm]);
     setCareerForms(careerForms.filter((form) => form.key !== newForm.key));
   };
-  const editItem = () => {};
-  const deleteItem = () => {};
+  const editItem = (data) => {
+    setCareerForms([...careerForms, data]);
+    setCareerItems(careerItems.filter((item) => item.key !== data.key));
+  };
+  const deleteItem = (data) => {
+    setCareerItems(careerItems.filter((item) => item.key !== data.key));
+  };
 
   return (
     <EducationSectionStyle>
@@ -119,7 +130,10 @@ function EducationCareerSection({
             <SubSectionTitleText>학력</SubSectionTitleText>
           </SubSectionHeader>
           <SubSectionBody>
-            <EducationItem education={education}></EducationItem>
+            <EducationItem
+              education={education}
+              courseItems={courseItems}
+            ></EducationItem>
           </SubSectionBody>
         </SubSectionStyle>
         <SubSectionStyle>
@@ -138,7 +152,8 @@ function EducationCareerSection({
                 <CareerForm
                   key={data.key}
                   data={data}
-                  submit={() => submitCareerForm(data)}
+                  updateForm={updateCareerForm}
+                  submitForm={() => submitCareerForm(data)}
                 ></CareerForm>
               ))}
             {careerItems.length > 0 &&
@@ -147,8 +162,8 @@ function EducationCareerSection({
                   isEdit={isEdit}
                   data={data}
                   key={data.key}
-                  editItem={editItem}
-                  deleteItem={deleteItem}
+                  editItem={() => editItem(data)}
+                  deleteItem={() => deleteItem(data)}
                 />
               ))}
           </SubSectionBody>

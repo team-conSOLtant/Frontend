@@ -47,30 +47,32 @@ function LoginPage() {
     const form = new FormData();
     form.append("username", id);
     form.append("password", pw);
-<<<<<<< HEAD
     const loginId = await getLoginId(form);
     if (loginId) {
       const portfolioId = await getPortfolioId(loginId);
       console.log("portfolioId", portfolioId);
       if (portfolioId) {
         dispatch(setUser({ loginid: loginId, portfolioid: portfolioId }));
-=======
-    try {
-      const userId = await requestLogin(form).then((data) => {
-        console.log("login data", data);
-        dispatch(setUser({ loginid: data }));
-        window.localStorage.setItem("userId", data);
-        return data;
-      });
-      if (userId) {
-        await getPortfolios(userId).then((res) => {
-          console.log("[IN LOGIN] portfolio data :", res.id);
-          dispatch(setUser({ portfolioid: res.id }));
-          window.localStorage.setItem("portfolioId", res.id);
-        });
->>>>>>> bf37399dc0366259b7f2b2bfb2fa9f5a46477de9
-        console.log("로그인 성공!");
+        window.localStorage.setItem("userId", loginId);
+        window.localStorage.setItem("portfolioId", portfolioId);
         navigate("/main");
+
+        // try {
+        //   const userId = await requestLogin(form).then((data) => {
+        //     console.log("login data", data);
+        //     dispatch(setUser({ loginid: data }));
+        //     return data;
+        //   });
+        //   if (userId) {
+        //     await getPortfolios(userId).then((res) => {
+        //       console.log("[IN LOGIN] portfolio data :", res.id);
+        //       dispatch(setUser({ portfolioid: res.id }));
+        //       window.localStorage.setItem("portfolioId", res.id);
+        //     });
+        //     console.log("로그인 성공!");
+        //     navigate("/main");
+        //   }
+        // }
       }
     }
   };

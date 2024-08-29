@@ -38,13 +38,41 @@ const SubmitButton = styled.div`
   color: white;
   box-shadow: 0 2px 2px rgb(0, 0, 0, 0.25);
 `;
-function CareerForm({ data }) {
+function CareerForm({ data, updateForm, submitForm }) {
+  const _changeCompany = (value) => {
+    updateForm({ ...data, company: value });
+  };
+  const _changePositionLevel = (value) => {
+    updateForm({ ...data, positionLevel: value });
+  };
+  const _changeStartDate = (value) => {
+    updateForm({ ...data, startDate: value });
+  };
+  const _changeEndDate = (value) => {
+    updateForm({ ...data, endDate: value });
+  };
+
   return (
     <CareerFormStyle>
-      <RankInputContainer></RankInputContainer>
-      <RankInputContainer></RankInputContainer>
-      <InputContainer></InputContainer>
-      <SubmitButton>확인</SubmitButton>
+      <RankInputContainer
+        value={data.company}
+        onChange={(e) => _changeCompany(e.target.value)}
+      />
+      <RankInputContainer
+        value={data.positionLevel}
+        onChange={(e) => _changePositionLevel(e.target.value)}
+      />
+      <InputContainer
+        type="date"
+        value={data.startDate}
+        onChange={(e) => _changeStartDate(e.target.value)}
+      />
+      <InputContainer
+        type="date"
+        value={data.endDate}
+        onChange={(e) => _changeEndDate(e.target.value)}
+      />
+      <SubmitButton onClick={submitForm}>확인</SubmitButton>
     </CareerFormStyle>
   );
 }
