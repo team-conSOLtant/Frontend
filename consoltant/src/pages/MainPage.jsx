@@ -4,7 +4,10 @@ import CurrentMain from "../components/main/CurrentMain";
 import HistoryMain from "../components/main/HistoryMain";
 import ArrowWithTriangle from "../components/main/ArrowWithTriangle";
 import { getAllInfo, getGraphInfo } from "../apis/Main";
-import { getNotifications } from "../apis/Notification";
+import {
+  getCommentNotifications,
+  getMatchingNotifications,
+} from "../apis/Notification";
 import { useSelector } from "react-redux";
 import { getUserInfo } from "../apis/Users";
 import { getCurrentRecommend } from "../apis/Recommend";
@@ -15,7 +18,8 @@ const MainPage = () => {
   const [radius, setRadius] = useState(0); // 반지름을 상태로 관리
   const [userInfos, setUserInfos] = useState(null);
   const [infos, setInfos] = useState();
-  const [notifications, setNotifications] = useState();
+  const [commentNotifications, setCommentNotifications] = useState();
+  const [seniorPortfolio, setSeniorPortfolio] = useState();
   const [products, setProducts] = useState();
   const [graphInfo, setGraphInfo] = useState();
 
@@ -25,7 +29,8 @@ const MainPage = () => {
   });
 
   useEffect(() => {
-    getNotification();
+    getCommentNotification();
+    getSeniorPortfolio();
     getUserInfoData();
     getAllInfos();
     getRecommenedProducts();
@@ -45,9 +50,15 @@ const MainPage = () => {
     }
   };
 
-  const getNotification = async () => {
-    const res = await getNotifications(loginid);
-    await setNotifications(res.result);
+  const getCommentNotification = async () => {
+    const res = await getCommentNotifications();
+    await setCommentNotifications(res.result);
+  };
+
+  const getSeniorPortfolio = async () => {
+    const res = await getMatchingNotifications();
+    // await console.log(res.result);
+    await setSeniorPortfolio(res.result);
   };
 
   const getUserInfoData = async () => {
@@ -60,6 +71,8 @@ const MainPage = () => {
     if (res) {
       console.log(res.result);
       setInfos(res.result);
+      // console.log("마지막 index : ",res.result.length - 1)
+      setItemIndex(res.result.length - 1);
     }
   };
 
@@ -166,7 +179,8 @@ const MainPage = () => {
                 <CurrentMain
                   userInfo={userInfos}
                   totalInfos={infos[itemIndex]}
-                  notification={notifications}
+                  commentInfo={commentNotifications}
+                  seniorInfo={seniorPortfolio}
                   products={products}
                 />
               ) : (
