@@ -73,7 +73,7 @@ function SignupInfo() {
         </div>
       </div>
       {/* 회원정보 입력란 */}
-      <div className="h-[80vh] flex flex-col justify-center items-center">
+      <div className="h-[80vh] flex flex-col justify-center items-center scale-110">
         <div className="h-[1rem] w-[50%] max-w-[25rem] min-w-[20rem] mb-[4rem] flex flex-col items-center">
           <div className="text-[1.5rem] text-[#0046ff] font-OneShinhanMedium">
             고객님의 정보가 필요해요

@@ -47,12 +47,28 @@ function LoginPage() {
     const form = new FormData();
     form.append("username", id);
     form.append("password", pw);
+<<<<<<< HEAD
     const loginId = await getLoginId(form);
     if (loginId) {
       const portfolioId = await getPortfolioId(loginId);
       console.log("portfolioId", portfolioId);
       if (portfolioId) {
         dispatch(setUser({ loginid: loginId, portfolioid: portfolioId }));
+=======
+    try {
+      const userId = await requestLogin(form).then((data) => {
+        console.log("login data", data);
+        dispatch(setUser({ loginid: data }));
+        window.localStorage.setItem("userId", data);
+        return data;
+      });
+      if (userId) {
+        await getPortfolios(userId).then((res) => {
+          console.log("[IN LOGIN] portfolio data :", res.id);
+          dispatch(setUser({ portfolioid: res.id }));
+          window.localStorage.setItem("portfolioId", res.id);
+        });
+>>>>>>> bf37399dc0366259b7f2b2bfb2fa9f5a46477de9
         console.log("로그인 성공!");
         navigate("/main");
       }
@@ -133,7 +149,7 @@ function LoginPage() {
         </div>
         <div
           onClick={login}
-          className="mt-[2rem] py-[0.5rem] font-OneShinhanMedium shadow-md border rounded-[0.5rem] flex justify-center w-[80%] bg-[#0046ff] text-white"
+          className="mt-[2rem] py-[0.5rem] font-OneShinhanMedium shadow-md border rounded-[0.5rem] flex justify-center w-[80%] bg-[#0046ff] text-white cursor-pointer"
         >
           로그인
         </div>

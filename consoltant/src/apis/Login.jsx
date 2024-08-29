@@ -37,11 +37,13 @@ export const register = async (info) => {
         if (error.response) {
           console.log(error.response.data.message);
           console.log(error.response.status);
+          return error.response.status;
         }
       });
     console.log(response);
     if (response) {
-      return response.data;
+      // return response.data;
+      return response;
     } else {
       return false;
     }
