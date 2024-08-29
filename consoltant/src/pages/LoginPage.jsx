@@ -19,6 +19,27 @@ function LoginPage() {
     }
   };
 
+  // const login = async () => {
+  //   const form = new FormData();
+  //   form.append("username", id);
+  //   form.append("password", pw);
+  //   try {
+  //     if (
+  //       await requestLogin(form).then((data) => {
+  //         console.log("login data", data);
+  //         dispatch(setUser({ loginid: data, portfolioid: getPortfolioId() }));
+  //         return data;
+  //       })
+  //     ) {
+  //       console.log("로그인 성공!");
+  //       navigate("/main");
+  //     } else {
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   const login = async () => {
     const form = new FormData();
     form.append("username", id);
@@ -37,14 +58,7 @@ function LoginPage() {
           window.localStorage.setItem("portfolioId", res.id);
         });
         console.log("로그인 성공!");
-        const hasAccount = await checkAccountInsert().then((res) => {
-          return res.result;
-        });
-        if (hasAccount) {
-          navigate("/main");
-        } else {
-          navigate("/signup-info");
-        }
+        navigate("/main");
       } else {
         console.log("로그인 실패!");
         setLoginFail(true);

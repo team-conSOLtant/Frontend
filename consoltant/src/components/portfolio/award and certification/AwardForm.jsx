@@ -90,20 +90,56 @@ const AwardSubmitButton = styled.div`
 `;
 
 // 포트폴리오 옆에서 순서 바꾸게 리모컨 역할 해주는 것
-function AwardForm({ data }) {
+function AwardForm({ data, updateForm, submitForm }) {
+  const _changeTitle = (value) => {
+    updateForm({ ...data, title: value });
+  };
+  const _changeContent = (value) => {
+    updateForm({ ...data, content: value });
+  };
+  const _changeGrade = (value) => {
+    updateForm({ ...data, awardGrade: value });
+  };
+  const _changeOrganization = (value) => {
+    updateForm({ ...data, awardOrganization: value });
+  };
+  const _changeAcquisitionDate = (value) => {
+    updateForm({ ...data, acquisitionDate: value });
+  };
+
   return (
     <AwardItemStyle>
       <AwardItemBody>
         <AwardHeaderStyle>
-          <AwardTitleStyle placeholder="대회명" />
+          <AwardTitleStyle
+            placeholder="대회명"
+            value={data.title}
+            onChange={(e) => _changeTitle(e.target.value)}
+          />
         </AwardHeaderStyle>
-        <AwardContentStyle placeholder="수상내용(100자 이하)" />
+        <AwardContentStyle
+          placeholder="수상내용(100자 이하)"
+          value={data.content}
+          onChange={(e) => _changeContent(e.target.value)}
+        />
       </AwardItemBody>
       <AwardItemFooter>
-        <AwardGradeStyle placeholder="수상명" />
-        <AwardOrganizationStyle placeholder="주최" />
-        <AwardAcqDateStyle placeholder="수상일"></AwardAcqDateStyle>
-        <AwardSubmitButton>제출</AwardSubmitButton>
+        <AwardGradeStyle
+          placeholder="수상명"
+          value={data.awardGrade}
+          onChange={(e) => _changeGrade(e.target.value)}
+        />
+        <AwardOrganizationStyle
+          placeholder="주최"
+          value={data.awardOrganization}
+          onChange={(e) => _changeOrganization(e.target.value)}
+        />
+        <AwardAcqDateStyle
+          placeholder="수상일"
+          value={data.acquisitionDate}
+          onChange={(e) => _changeAcquisitionDate(e.target.value)}
+        ></AwardAcqDateStyle>
+        <AwardSubmitButton onClick={submitForm}>제출</AwardSubmitButton>
       </AwardItemFooter>
     </AwardItemStyle>
   );

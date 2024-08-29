@@ -62,15 +62,15 @@ function AwardItem({ data }) {
   return (
     <AwardItemStyle>
       <AwardItemBody>
-        <AwardTitleStyle>{data.title}</AwardTitleStyle>
-        <AwardContentStyle>{data.content}</AwardContentStyle>
+        <AwardTitleStyle>{data?.title}</AwardTitleStyle>
+        <AwardContentStyle>{data?.content}</AwardContentStyle>
       </AwardItemBody>
       <AwardItemFooter>
-        <AwardGradeStyle>{data.award_grade}</AwardGradeStyle>
+        <AwardGradeStyle>{data?.awardGrade}</AwardGradeStyle>
         <AwardOrganizationStyle>
-          {data.award_organization}
+          {data?.awardOrganization}
         </AwardOrganizationStyle>
-        <AwardAcqDateStyle>{data.acquisition_date}</AwardAcqDateStyle>
+        <AwardAcqDateStyle>{data?.acquisitionDate}</AwardAcqDateStyle>
       </AwardItemFooter>
     </AwardItemStyle>
   );

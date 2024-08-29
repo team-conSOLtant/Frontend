@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const CertificationItemStyle = styled.div`
@@ -55,17 +55,41 @@ const CertificationButton = styled.div`
   color: white;
 `;
 
-// 포트폴리오 옆에서 순서 바꾸게 리모컨 역할 해주는 것
-function CertificationForm({ data }) {
-  const submitForm = () => {};
+function CertificationForm({ data, updateForm, submitForm }) {
+  const _changeTitle = (value) => {
+    updateForm({ ...data, title: value });
+  };
+
+  const _changeOrganization = (value) => {
+    updateForm({ ...data, issuingOrganization: value });
+  };
+
+  const _changeAcquisitionDate = (value) => {
+    updateForm({ ...data, acquisitionDate: value });
+  };
+
   return (
     <CertificationItemStyle>
-      <CertificationTitleStyle placeholder="자격증명" />
+      <CertificationTitleStyle
+        placeholder="자격증명"
+        value={data.title}
+        onChange={(e) => _changeTitle(e.target.value)}
+      />
       <CertificationLabel>
-        주최측 : <CertificationOrganizationStyle placeholder="주최측" />
+        주최측 :
+        <CertificationOrganizationStyle
+          placeholder="주최측"
+          value={data.issuingOrganization}
+          onChange={(e) => _changeOrganization(e.target.value)}
+        />
       </CertificationLabel>
       <CertificationLabel>
-        수상일 : <CertificationAcqDateStyle placeholder="수상일" />
+        수상일 :
+        <CertificationAcqDateStyle
+          placeholder="수상일"
+          value={data.acquisitionDate}
+          onChange={(e) => _changeAcquisitionDate(e.target.value)}
+        />
       </CertificationLabel>
       <CertificationButton onClick={submitForm}>추가</CertificationButton>
     </CertificationItemStyle>
