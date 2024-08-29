@@ -2,10 +2,7 @@ import React, { useState, useEffect } from "react";
 import MyFinanceItem from "./MyFinanceItem.jsx";
 import { useNavigate } from "react-router";
 
-function RecommendTabs({
-    financeProducts,
-    info,
-  }) {
+function RecommendTabs({ financeProducts, info }) {
   // 현재 선택된 탭을 관리하는 상태
   const [activeTab, setActiveTab] = useState("basicInfo");
   const [products, setProducts] = useState([]);
@@ -20,17 +17,17 @@ function RecommendTabs({
     let pfinance = [];
     const productTypes = {
       deposit: "deposit",
-      savings: "saving",
+      saving: "saving",
       loan: "loan",
       savedProduct: "recommend",
     };
 
     if (productTypes[activeTab]) {
+      console.log(activeTab);
       const products = financeProducts[productTypes[activeTab]];
       
       for (let p in products) {
-        const product = products[p].productInfo || products[p];
-        
+        const product = products[p];
         pfinance.push({
           id: product.accountTypeUniqueNo,
           bankName: product.bankName,
@@ -43,10 +40,10 @@ function RecommendTabs({
         });
       }
     }
-
-    const items = pfinance.map((item) => <MyFinanceItem item={item} />);
+    console.log(pfinance);
+    const items = pfinance.map((item) => <MyFinanceItem key={item.id} item={item} />);
     setProducts(items);
-  },[]);
+  }, [activeTab, financeProducts]);
 
   const recommendInfo = {
     salary: info.salary,
@@ -82,11 +79,11 @@ function RecommendTabs({
         </button>
         <button
           className={`px-4 py-2 focus:outline-none ${
-            activeTab === "savings"
+            activeTab === "saving"
               ? "border-b-2 border-blue-500 font-bold"
               : ""
           }`}
-          onClick={() => handleTabClick("savings")}
+          onClick={() => handleTabClick("saving")}
         >
           적금
         </button>
@@ -155,7 +152,7 @@ function RecommendTabs({
               >
                 <img src="/main/chart.png" alt="" className="w-28 mr-5" />
                 <div>
-                  <p className="text-2xl ">
+                  <p className="md:text-2xl lg:text-xl ">
                     로드맵 추천 받으러 가기
                   </p>
                   <p className="text-base font-light my-2 justify-start flex">어려운 자산관리, <br /> 모법 금융 로드맵 알려드릴게요</p>
@@ -171,7 +168,7 @@ function RecommendTabs({
             </div>
           </div>
         )}
-        {activeTab === "savings" && (
+        {activeTab === "saving" && (
           <div>
             <div className="flex flex-col justify-center item-center mx-[5%]">
               {products}
