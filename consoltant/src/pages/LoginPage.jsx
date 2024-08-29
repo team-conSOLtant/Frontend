@@ -55,24 +55,19 @@ function LoginPage() {
         dispatch(setUser({ loginid: loginId, portfolioid: portfolioId }));
         window.localStorage.setItem("userId", loginId);
         window.localStorage.setItem("portfolioId", portfolioId);
-        navigate("/main");
-
-        // try {
-        //   const userId = await requestLogin(form).then((data) => {
-        //     console.log("login data", data);
-        //     dispatch(setUser({ loginid: data }));
-        //     return data;
-        //   });
-        //   if (userId) {
-        //     await getPortfolios(userId).then((res) => {
-        //       console.log("[IN LOGIN] portfolio data :", res.id);
-        //       dispatch(setUser({ portfolioid: res.id }));
-        //       window.localStorage.setItem("portfolioId", res.id);
-        //     });
-        //     console.log("로그인 성공!");
-        //     navigate("/main");
-        //   }
-        // }
+        console.log("로그인 성공!");
+        const hasAccount = await checkAccountInsert().then((res) => {
+          return res.result;
+        });
+        console.log(hasAccount);
+        if (hasAccount) {
+          navigate("/main");
+        } else {
+          navigate("/signup-info");
+        }
+      } else {
+        console.log("로그인 실패!");
+        setLoginFail(true);
       }
     }
   };

@@ -74,7 +74,7 @@ function HistoryMain({ userInfo, totalInfos, graphInfo, index }) {
         <ProductHistory products={accountInfos.assets} />
       </div>
       {/* 아랫줄 */}
-      <div className="flex justify-center w-[100%]">
+      <div className="flex justify-center w-[100%] mt-[1rem]">
         {graphInfo && <MyFinanceGraph graphInfo={graphInfo} currIndex={index} />}
       </div>
     </div>

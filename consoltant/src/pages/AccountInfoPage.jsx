@@ -21,7 +21,7 @@ function AccountInfoPage() {
   const [numTwo, setNumTwo] = useState();
   const [numThree, setNumThree] = useState();
   const [numFour, setNumFour] = useState();
-  const [approved, setApproved] = useState();
+  const [approved, setApproved] = useState(null);
   const [company, setCompany] = useState();
   const [salary, setSalary] = useState();
   const [errorMessage, setErrorMessage] = useState();
@@ -45,6 +45,8 @@ function AccountInfoPage() {
   useEffect(() => {
     if (approved) {
       setIsError(false);
+    } else {
+      setIsError(true);
     }
   }, [setAccountNo, setApproved]);
 
@@ -115,7 +117,12 @@ function AccountInfoPage() {
       authCode: insertNum,
     };
     const response = await checkAccount(checkInfo);
-    await setApproved(response.success);
+    if (response) {
+      await setApproved(response.success);
+    } else {
+      console.log(response);
+      await setApproved(response);
+    }
   };
 
   return (
@@ -223,7 +230,16 @@ function AccountInfoPage() {
                 </button>
               </div>
             </div>
-            {approved &&
+            {/* {approved ? (
+                <div className="text-[0.7rem] text-green-500">
+                  인증되었습니다.
+                </div>
+              ) : (
+                <div className="text-[0.7rem] text-red-500">
+                  인증에 실패 했습니다.
+                </div>
+              )} */}
+            {approved !== null &&
               (approved ? (
                 <div className="text-[0.7rem] text-green-500">
                   인증되었습니다.

@@ -14,12 +14,12 @@ import ActivitySection from "../components/portfolio/activity/ActivitySection.js
 import { getCertifications } from "../apis/Certification.jsx";
 import { getProjects } from "../apis/Project.jsx";
 import { getAwards } from "../apis/Award.jsx";
-import { getCareer, getCareers } from "../apis/Career.jsx";
+import { getCareers } from "../apis/Career.jsx";
 import { getUserInfo } from "../apis/Users.jsx";
 import { getPortfolios } from "../apis/Portfolio.jsx";
+import { getActivities } from "../apis/Activity.jsx";
 
 import { useSelector } from "react-redux";
-import { getActivities } from "../apis/Activity.jsx";
 import { getCourses } from "../apis/Course.jsx";
 // 포트폴리오(이력서) 만드는 페이지
 

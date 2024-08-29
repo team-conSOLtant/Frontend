@@ -14,7 +14,7 @@ function SeniorPortfolio({ seniorPortfolio }) {
         src="/main/Envelope.png"
         alt=""
       />
-      {seniorPortfolio ? (
+      {seniorPortfolio.content ? (
         <div className="text-white text-[1.5rem]">
           선배님의
           <div className="font-OneShinhanBold my-[0.2rem]">

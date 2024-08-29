@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { registerAcademy } from "../apis/Login";
 
@@ -49,7 +49,7 @@ function SignupInfo() {
         });
         if (response.success) {
           // 계좌 여부 확인 페이지로 넘어가기
-          navigate("/check-account", { state: response.result.email });
+          navigate("/check-account");
         } else {
           setErrorMessage("학사정보 등록에 실패했습니다.");
           setIsError(true);

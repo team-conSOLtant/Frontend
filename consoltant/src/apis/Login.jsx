@@ -143,6 +143,10 @@ export const checkAccount = async (checkInfo) => {
       .post(`/auth/check/account`, checkInfo)
       .then((res) => {
         return res.data;
+      })
+      .catch((error) => {
+        console.log("[IN AXIOS] 1원 송금 인증 Error", error);
+        return false;
       });
     return response;
   } catch (error) {
