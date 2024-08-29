@@ -47,14 +47,6 @@ function LoginPage() {
     const form = new FormData();
     form.append("username", id);
     form.append("password", pw);
-<<<<<<< HEAD
-    const loginId = await getLoginId(form);
-    if (loginId) {
-      const portfolioId = await getPortfolioId(loginId);
-      console.log("portfolioId", portfolioId);
-      if (portfolioId) {
-        dispatch(setUser({ loginid: loginId, portfolioid: portfolioId }));
-=======
     try {
       const userId = await requestLogin(form).then((data) => {
         console.log("login data", data);
@@ -68,10 +60,12 @@ function LoginPage() {
           dispatch(setUser({ portfolioid: res.id }));
           window.localStorage.setItem("portfolioId", res.id);
         });
->>>>>>> bf37399dc0366259b7f2b2bfb2fa9f5a46477de9
         console.log("로그인 성공!");
         navigate("/main");
       }
+    } catch (e) {
+      console.log(e);
+      setLoginFail(true);
     }
   };
 
