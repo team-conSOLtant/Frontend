@@ -47,7 +47,7 @@ function RecommendTabs({
       let pfinance = [];
       const productTypes = {
         deposit: "deposit",
-        savings: "saving",
+        saving: "saving",
         loan: "loan",
       };
 
@@ -123,11 +123,11 @@ function RecommendTabs({
         </button>
         <button
           className={`px-4 py-2 focus:outline-none ${
-            activeTab === "savings"
+            activeTab === "saving"
               ? "border-b-2 border-blue-500 font-bold"
               : ""
           }`}
-          onClick={() => handleTabClick("savings")}
+          onClick={() => handleTabClick("saving")}
         >
           적금
         </button>
@@ -185,7 +185,7 @@ function RecommendTabs({
             </div>
           </div>
         )}
-        {["deposit", "savings", "loan"].includes(activeTab) && (
+        {["deposit", "saving", "loan"].includes(activeTab) && (
           <div className="flex flex-col justify-center item-center mx-[5%]">
             {!isKimSsafy && (
               <p className="pb-4 text-sm text-[#0046ff]">

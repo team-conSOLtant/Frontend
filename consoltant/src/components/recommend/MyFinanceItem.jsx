@@ -1,10 +1,11 @@
 import React from "react";
 
 function MyFinanceItem({ item, onClick, isSelected }) {
+  console.log("item", item)
   return (
     <div
       onClick={onClick}
-      className={`flex flex-col 1border p-3 rounded-lg mb-2 text-[#444444] shadow-sm cursor-pointer ${
+      className={`flex flex-col 1border p-3 rounded-lg mb-2 text-[#444444] border-gray-400 shadow-sm cursor-pointer ${
         isSelected ? "bg-blue-700 border-blue-500" : ""
       }`}
     >
