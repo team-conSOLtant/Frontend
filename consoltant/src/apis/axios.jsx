@@ -11,7 +11,7 @@ export const localAxios = Axios.create({
 });
 
 export const axios = Axios.create({
-  baseURL: baseSWlocalURL,
+  baseURL: baseURL,
 });
 
 axios.interceptors.request.use(

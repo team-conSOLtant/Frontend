@@ -46,26 +46,28 @@ function SearchPage() {
   const [maxGpa, setMaxGpa] = useState(null);
   const [last, setLast] = useState();
 
-  const [cursor, setCursor] = useState();
-  const [size, setSize] = useState(3);
+  // const [cursor, setCursor] = useState();
+  const [size, setSize] = useState(2);
 
   const [searchedList, setSearchedList] = useState([]);
 
   // const searchListRef = useRef(null);
 
   // 검색 하면 api 불러오기
-  const goSearch = () => {
-    const search = {
+  const goSearch = async (cursor) => {
+    const search = await {
       keyword: keyword,
       isEmployed: isEmployed,
       minGpa: minGpa,
       maxGpa: maxGpa,
     };
 
-    Search(search);
+    Search(search, cursor);
   };
 
-  const Search = async (search) => {
+  const Search = async (search, cursor) => {
+    await console.log("search info ", search, "cursor : ", cursor);
+
     const response = await getSearch(
       cursor ? cursor : "",
       size ? size : "",
@@ -78,37 +80,34 @@ function SearchPage() {
     setSearchedList((prevList) => [...prevList, ...response.result.content]);
   };
 
-  const onEmploySelect = (e) => {
-    setIsEmployed(e.target.value);
+  const onEmploySelect = async (e) => {
+    setSearchedList([]);
+    await setIsEmployed(e.target.value);
     goSearch();
   };
 
-  const onGpaSelect = (e) => {
+  const onGpaSelect = async (e) => {
     const range = e.target.value.split("~");
     console.log(range);
-    setMinGpa(range[0]);
-    setMaxGpa(range[1]);
+    setSearchedList([]);
+    await setMinGpa(range[0]);
+    await setMaxGpa(range[1]);
     goSearch();
   };
 
-  const activeEnter = (e) => {
+  const activeEnter = async (e) => {
     if (e.key === "Enter") {
+      setSearchedList([]);
       goSearch();
     }
   };
 
-  useEffect(() => {
-    // console.log("하이", searchedList);
-    // console.log("last portfolio", cursor);
-  }, [
+  useEffect(() => {}, [
     setKeyword,
     setIsEmployed,
     setMinGpa,
     setMaxGpa,
     setSearchedList,
-    searchedList,
-    setCursor,
-    cursor,
   ]);
 
   // 무한 스크롤 구현
@@ -118,10 +117,10 @@ function SearchPage() {
     if (inView) {
       console.log(inView, "무한 스크롤 요청");
       const lastIndex = searchedList.length - 1;
-      setCursor(searchedList[lastIndex].portfolioId);
 
       if (!last) {
-        goSearch();
+        console.log("cursor 1 ", searchedList[lastIndex].portfolioId);
+        goSearch(searchedList[lastIndex].portfolioId);
       }
     }
   }, [inView]);
@@ -185,7 +184,7 @@ function SearchPage() {
           </select>
         </div>
       </div>
-      <div className="flex flex-col items-center overflow-auto h-[2rem]">
+      <div className="flex flex-col items-center overflow-auto h-[20rem]">
         {searchedList &&
           searchedList.map((portfolio, index) => {
             return (

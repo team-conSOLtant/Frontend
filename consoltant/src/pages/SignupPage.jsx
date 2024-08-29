@@ -30,7 +30,7 @@ function SignupPage() {
     checkPwd(pwdCheck);
   }, [setIsSamePwd, isSamePwd, setPwdCheck, pwdCheck, password, setPassword]);
 
-  useEffect(() => {}, [setIsError, isError]);
+  useEffect(() => {}, [setIsError, isError, setErrorMessage, errorMessage]);
   const submit = async () => {
     // 빈 정보란 check
     if (
@@ -65,14 +65,19 @@ function SignupPage() {
         birthDate: birth,
       };
       try {
-        const response = await register(info).then((data) => {
-          return data;
-        });
-        console.log(response.success);
-        if (response.success) {
+        const response = await register(info);
+        // .then((data) => {
+        // return data;
+        // });
+        console.log(response);
+        if (response === 400) {
+          setErrorMessage("이미 존재하는 이메일입니다.");
+          setIsError(true);
+          console.log("이미 존재하는 이메일입니다.");
+        } else if (response.data.success) {
+          console.log(response.data.success);
           console.log("회원가입 성공!");
-          console.log(response.result.email);
-          navigate("/signup-complete", { state: response.result.email });
+          navigate("/signup-complete");
         } else {
           setErrorMessage("회원가입 실패");
           setIsError(true);

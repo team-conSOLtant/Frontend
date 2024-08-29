@@ -24,10 +24,10 @@ function AllinfoCompletePage() {
           </div>
           {/* 로그인 */}
           <div
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/main")}
             className="mt-[3rem] py-[0.3rem] w-[40%] cursor-pointer font-OneShinhanMedium shadow-md border rounded-[0.5rem] flex justify-center bg-[#0046ff] text-white"
           >
-            로그인
+            메인으로
           </div>
         </div>
       </div>
