@@ -17,6 +17,7 @@ import { getAwards } from "../apis/Award.jsx";
 import { getCareer } from "../apis/Career.jsx";
 import { getUserInfo } from "../apis/Users.jsx";
 import { getPortfolios } from "../apis/Portfolio.jsx";
+
 import { useSelector } from "react-redux";
 // 포트폴리오(이력서) 만드는 페이지
 
@@ -44,6 +45,7 @@ function MakePortfolioPage() {
   const [certificationItems, setCertificationItems] = useState([]);
   const [awardItems, setAwardItems] = useState([]);
   const [projectItems, setProjectItems] = useState([]);
+  const [activityItems, setActivityItems] = useState([]);
 
   const [portfolioData, setPortfolioData] = useState({
     userInfo: {
@@ -78,10 +80,11 @@ function MakePortfolioPage() {
   useEffect(() => {
     if (portfolioid) {
       getUserData();
-      getCareerData();
+      getCareersData();
       getAwardsData();
       getCertificationdData();
       getProjectsData();
+      getActivitiesData();
       console.log("after get projects : ", portfolioData);
     }
   }, [portfolioid]);
@@ -119,7 +122,6 @@ function MakePortfolioPage() {
 
   const getUserData = async () => {
     const newData = await getUserInfo();
-    // console.log("new Data", newData);
     setPortfolioData((existingData) => ({
       ...existingData,
       userInfo: {
@@ -140,10 +142,9 @@ function MakePortfolioPage() {
     }));
   };
 
-  const getCareerData = async () => {
+  const getCareersData = async () => {
     console.log("[getCareer function] start");
-    const newData = await getCareer(portfolioid);
-
+    const newData = await getCareers(portfolioid);
     setCareerItems(newData);
   };
 
@@ -164,6 +165,12 @@ function MakePortfolioPage() {
     const newData = await getProjects(portfolioid);
     setProjectItems(newData);
   };
+  const getActivitiesData = async () => {
+    console.log("[getActivities function] start");
+    const newData = await getActivities(portfolioid);
+    setActivityItems(newData);
+  };
+
   return (
     <PortfolioPageStyle>
       <Navbar></Navbar>

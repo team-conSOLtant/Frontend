@@ -1,7 +1,7 @@
 import CareerDTO from "../dto/CareerDTO";
 import { axios } from "./Axios";
 
-export const getCareer = async (portfolioId) => {
+export const getCareers = async (portfolioId) => {
   try {
     const response = await axios.get(`/careers`, {
       params: { portfolioId: portfolioId },

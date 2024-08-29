@@ -83,14 +83,14 @@ function ProfileViewSection(props) {
           </ProfileIntroductionTitle>
         </ProfileIntroductionContainer>
         <ProfileSubInfoContainer>
-          <ProfileSubInfo>2001년 9월 7일</ProfileSubInfo>
+          <ProfileSubInfo>{props.userInfo?.birthDate}</ProfileSubInfo>
           <ProfileSubInfo>{props.userInfo?.phoneNumber}</ProfileSubInfo>
           <ProfileSubInfo>{props.userInfo?.email}</ProfileSubInfo>
         </ProfileSubInfoContainer>
         <ProfileKeywordContainer>
-          <Keyword>성실함</Keyword>
-          <Keyword>협업</Keyword>
-          <Keyword>자기주도적</Keyword>
+          {props.keywords.myKeyword.map((word) => (
+            <Keyword>{word}</Keyword>
+          ))}
         </ProfileKeywordContainer>
       </ProfileDescription>
     </ProfileSectionStyle>
