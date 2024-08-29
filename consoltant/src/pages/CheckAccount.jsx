@@ -6,12 +6,14 @@ function CheckAccount() {
   const navigate = useNavigate();
 
   const { state } = useLocation();
-  
 
   return (
     <div>
       {/* 좌측 상단 로고 */}
-      <div className="flex items-center m-[2rem]">
+      <div
+        className="flex items-center m-[2rem] cursor-pointer"
+        onClick={() => navigate("/login")}
+      >
         <img className="w-[2rem]" src="/logo/shinhan_logo_blue.png" alt="" />
         <div className="text-[#5C5C5C] font-OneShinhanBold text-[1.2rem] px-[0.6rem]">
           SOL 학생 로드맵
@@ -22,7 +24,11 @@ function CheckAccount() {
         <div className="w-[550px] flex justify-between">
           <div
             className="group cursor-pointer relative border flex flex-col items-center rounded-[1rem] p-[1rem] w-[250px] h-[325px] shadow bg-[#FBFBFD] hover:bg-[#EBF3FF]"
-            onClick={() => navigate("/account-info", { state: { hasAccount: true, email: state } })}
+            onClick={() =>
+              navigate("/account-info", {
+                state: { hasAccount: true, email: state },
+              })
+            }
           >
             <div className=" text-[1.5rem] mt-[3rem]">
               <div className="my-[0.5rem]">이미</div>
@@ -33,7 +39,9 @@ function CheckAccount() {
                 를
               </div>
               <div className="my-[0.5rem]">
-                <span className="font-OneShinhanBold group-hover:text-[#0046FF]">보유중</span>
+                <span className="font-OneShinhanBold group-hover:text-[#0046FF]">
+                  보유중
+                </span>
                 입니다
               </div>
             </div>
@@ -44,7 +52,9 @@ function CheckAccount() {
           <div
             className="group cursor-pointer relative border flex flex-col items-center rounded-[1rem] p-[1rem] w-[250px] h-[325px] shadow bg-[#FBFBFD] hover:bg-[#EBF3FF]"
             onClick={() =>
-              navigate("/account-info", { state: { hasAccount: false, email: state } })
+              navigate("/account-info", {
+                state: { hasAccount: false, email: state },
+              })
             }
           >
             <div className="text-[1.5rem] mt-[3rem]">
@@ -56,7 +66,9 @@ function CheckAccount() {
                 가
               </div>
               <div className="my-[0.5rem]">
-                <span className="font-OneShinhanBold group-hover:text-[#0046FF]">없습니다</span>
+                <span className="font-OneShinhanBold group-hover:text-[#0046FF]">
+                  없습니다
+                </span>
               </div>
             </div>
             <div className="absolute font-OneShinhanMedium bg-[#F5F5F5] border rounded-[1rem] py-[0.3rem] px-[2rem] bottom-[2rem] group-hover:text-white group-hover:bg-[#0046FF]">

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import RecommendItem from "./RecommendItem.jsx";
 
 function RecommendTabs({
+  financeProducts,
+  info,
   selectedItems,
   onItemClick,
   isKimSsafy,
@@ -30,84 +32,43 @@ function RecommendTabs({
     onCheckboxChange(item, activeTab, checked); // 부모에서 받은 핸들러 호출
   };
 
+  console.log(info);
   const recommendInfo = {
-    career: 500,
-    capitalTendency: "대확행",
-    initialCapital: 1000,
-    currentCapital: 5000000,
-    period: 10,
+    salary: info.salary,
+    financeKeyword: info.financeKeyword,
+    startAsset: info.startAsset,
+    presentAsset: info.presentAsset,
+    period: info.period,
   };
 
   useEffect(() => {
     if (!isKimSsafy) {
       // 추천 로드맵 탭의 경우 상품 목록을 세팅
-      let dddddd = [];
-      if (activeTab === "deposit") {
-        dddddd = [
-          {
-            id: 1,
-            name: "예금 1",
-            description: "이것은 상품 1입니다.",
-            rate: 3.4,
-          },
-          {
-            id: 2,
-            name: "예금 2",
-            description: "이것은 상품 2입니다.",
-            rate: 3.4,
-          },
-          {
-            id: 3,
-            name: "예금 3",
-            description: "이것은 상품 3입니다.",
-            rate: 3.4,
-          },
-        ];
-      } else if (activeTab === "savings") {
-        dddddd = [
-          {
-            id: 1,
-            name: "적금 1",
-            description: "이것은 상품 1입니다.",
-            rate: 3.4,
-          },
-          {
-            id: 2,
-            name: "적금 2",
-            description: "이것은 상품 2입니다.",
-            rate: 3.4,
-          },
-          {
-            id: 3,
-            name: "적금 3",
-            description: "이것은 상품 3입니다.",
-            rate: 3.4,
-          },
-        ];
-      } else if (activeTab === "loan") {
-        dddddd = [
-          {
-            id: 1,
-            name: "대출 1",
-            description: "이것은 상품 1입니다.",
-            rate: 3.4,
-          },
-          {
-            id: 2,
-            name: "대출 2",
-            description: "이것은 상품 2입니다.",
-            rate: 3.4,
-          },
-          {
-            id: 3,
-            name: "대출 3",
-            description: "이것은 상품 3입니다.",
-            rate: 3.4,
-          },
-        ];
+      let pfinance = [];
+      const productTypes = {
+        deposit: "deposit",
+        savings: "saving",
+        loan: "loan",
+      };
+
+      if (productTypes[activeTab]) {
+        const products = financeProducts[productTypes[activeTab]];
+        
+        for (let p in products) {
+          pfinance.push({
+            id: products[p].accountTypeUniqueNo,
+            bankName: products[p].bankName,
+            accountName: products[p].accountName,
+            accountDescription: products[p].accountDescription,
+            interestRate: products[p].interestRate,
+            subscriptionPeriod: products[p].subscriptionPeriod,
+            minSubscriptionBalance: products[p].minSubscriptionBalance || products[p].minLoanBalance,
+            maxSubscriptionBalance: products[p].maxSubscriptionBalance || products[p].maxLoanBalance,
+          });
+        }
       }
 
-      const items = dddddd.map((item) => (
+      const items = pfinance.map((item) => (
         <RecommendItem
           key={item.id}
           item={item}
@@ -190,34 +151,34 @@ function RecommendTabs({
               <div className="flex justify-between mb-3">
                 <div>월급</div>
                 <div>
-                  <span>{recommendInfo.career}</span>
+                  <span>{recommendInfo.salary}{" "}</span>
                   <span className="">만원</span>
                 </div>
               </div>
               <div className="flex justify-between mb-3">
                 <div>성향</div>
                 <div>
-                  <span>{recommendInfo.capitalTendency}</span>
+                  <span>{recommendInfo.financeKeyword}{" "}</span>
                 </div>
               </div>
               <div className="flex justify-between mb-3">
                 <div>초기자본</div>
                 <div>
-                  <span>{recommendInfo.initialCapital}</span>
+                  <span>{recommendInfo.startAsset}{" "}</span>
                   <span>만원</span>
                 </div>
               </div>
               <div className="flex justify-between mb-3">
                 <div>현 자본</div>
                 <div>
-                  <span>{recommendInfo.currentCapital}</span>
+                  <span>{recommendInfo.presentAsset}{" "}</span>
                   <span>만원</span>
                 </div>
               </div>
               <div className="flex justify-between mb-3">
                 <div>기간</div>
                 <div>
-                  <span>10</span>
+                  <span>{recommendInfo.period}{" "}</span>
                   <span>년</span>
                 </div>
               </div>

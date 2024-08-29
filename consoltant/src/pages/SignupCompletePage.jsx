@@ -5,7 +5,10 @@ function SignupCompletePage() {
   return (
     <div>
       {/* 좌측 상단 로고 */}
-      <div className="flex items-center m-[2rem]">
+      <div
+        className="flex items-center m-[2rem] cursor-pointer"
+        onClick={() => navigate("/login")}
+      >
         <img className="w-[2rem]" src="/logo/shinhan_logo_blue.png" alt="" />
         <div className="text-[#5C5C5C] font-OneShinhanBold text-[1.2rem] px-[0.6rem]">
           SOL 학생 로드맵

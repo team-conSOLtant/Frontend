@@ -57,8 +57,10 @@ const MainPage = () => {
 
   const getAllInfos = async () => {
     const res = await getAllInfo();
-    console.log(res.result);
-    setInfos(res.result);
+    if (res) {
+      console.log(res.result);
+      setInfos(res.result);
+    }
   };
 
   const getGraphInfos = async () => {
@@ -172,6 +174,7 @@ const MainPage = () => {
                   userInfo={userInfos}
                   totalInfos={infos[itemIndex]}
                   graphInfo={graphInfo}
+                  index={itemIndex}
                 />
               )}
             </div>
