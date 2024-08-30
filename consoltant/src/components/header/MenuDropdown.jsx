@@ -1,14 +1,18 @@
+import React from "react";
 import { logout } from "../../apis/Login";
 import { useNavigate } from "react-router-dom";
 
-function MenuDropdown({ feed, roadmap }) {
+const MenuDropdown = React.forwardRef(({ feed, roadmap }, ref) => {
   const navigate = useNavigate();
   const handleLogout = async () => {
     await logout();
     navigate("/login");
   };
   return (
-    <div className="text-[0.8rem] text-[#3F3F3F] bg-indigo-50 absolute right-[3rem] top-[3.5rem] rounded-[0.5rem] p-[1rem] shadow-md flex flex-col items-center">
+    <div
+      ref={ref}
+      className="text-[0.8rem] text-[#3F3F3F] bg-indigo-50 absolute right-[3rem] top-[3.5rem] rounded-[0.5rem] p-[1rem] shadow-md flex flex-col items-center"
+    >
       <div
         onClick={() => navigate("/follow")}
         className={`py-[0.5rem] cursor-pointer ${feed ? "font-bold" : ""}`}
@@ -28,5 +32,5 @@ function MenuDropdown({ feed, roadmap }) {
       </div>
     </div>
   );
-}
+});
 export default MenuDropdown;

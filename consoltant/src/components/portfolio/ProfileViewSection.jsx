@@ -25,12 +25,10 @@ const ProfileJob = styled.div`
 const ProfileImage = styled.div`
   display: flex;
   flex-direction: column;
-  width: 12rem;
-  height: 10rem;
   background-color: #f5f5f5;
   border-radius: 0.5rem;
   margin: 1rem;
-  margin-left: 15vw;
+  margin-left: 10vw;
 `;
 
 const ProfileDescription = styled.div`
@@ -77,7 +75,13 @@ function ProfileViewSection(props) {
   );
   return (
     <ProfileSectionStyle bgcolor={props.userInfo?.backgroundColor}>
-      <ProfileImage></ProfileImage>
+      <ProfileImage>
+        <img
+          className="rounded-[0.8rem] w-[12rem]"
+          src={`data:image/jpeg;base64,${props.userInfo?.imageUrl}`}
+          alt=""
+        />
+      </ProfileImage>
       <ProfileDescription>
         <ProfileName>{props.userInfo?.name}</ProfileName>
         <ProfileJob>{props.userInfo?.job}</ProfileJob>
