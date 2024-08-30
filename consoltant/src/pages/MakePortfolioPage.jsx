@@ -180,11 +180,14 @@ function MakePortfolioPage() {
       <Navbar></Navbar>
       <PortfolioBody>
         <PortfolioMain>
-          {/* <ProfileSection userInfo={portfolioData.userInfo} /> */}
-          {/* <KeywordSection
+          <ProfileSection
+            portfolioData={portfolioData}
+            setPortfolioData={setPortfolioData}
+          />
+          <KeywordSection
             keywords={portfolioData.keywords}
             setPortfolioData={setPortfolioData}
-          /> */}
+          />
           <EducationCareerSection
             isEdit={true}
             education={portfolioData.education}
