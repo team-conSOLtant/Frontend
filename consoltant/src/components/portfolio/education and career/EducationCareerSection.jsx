@@ -10,6 +10,7 @@ import CareerDTO from "../../../dto/CareerDTO";
 
 const EducationSectionStyle = styled.div`
   width: 100%;
+  margin-bottom: 3rem;
 `;
 const SectionTitleText = styled.div``;
 
@@ -36,15 +37,15 @@ const SubSectionBody = styled.div`
 `;
 const TableHeader = styled.div`
   width: 100%;
-  justify-content: space-evenly;
+  justify-content: start;
   display: flex;
   flex-direction: row;
   align-items: center;
 `;
 const InputTitle = styled.div`
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-family: "OneShinhanBold";
-  margin-left: 0.3rem;
+  margin: 0 7rem 0.5rem 3rem;
 `;
 const SubSectionTitleText = styled.div`
   font-size: 1.2rem;
@@ -123,7 +124,6 @@ function EducationCareerSection({
   return (
     <EducationSectionStyle>
       <SectionHeader title={"학력 / 경력"} image={"/Briefcase.svg"} />
-
       <SectionBody>
         <SubSectionStyle>
           <SubSectionHeader>
@@ -141,12 +141,13 @@ function EducationCareerSection({
             <SubSectionTitleText>경력</SubSectionTitleText>
             {isEdit && <PlusButton onClick={addCareerForm}>+</PlusButton>}
           </SubSectionHeader>
+          <hr className="border-[#444444] w-[96%] mx-[2%] mb-4" />
           <SubSectionBody>
-            <TableHeader>
+            {/* <TableHeader>
               <InputTitle>회사명</InputTitle>
               <InputTitle>직급</InputTitle>
               <InputTitle>기간</InputTitle>
-            </TableHeader>
+            </TableHeader> */}
             {isEdit &&
               careerForms.map((data) => (
                 <CareerForm

@@ -11,26 +11,26 @@ const CertificationItemStyle = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 0 0.5rem;
+  padding: 0.5rem;
+  color: #444444;
 `;
 
 const CertificationTitleStyle = styled.div`
   font-family: "OneShinhanBold";
-  padding-top: 0.5rem;
 `;
 
 const CertificationOrganizationStyle = styled.div`
   text-align: right;
+  font-size: 0.9rem;
 `;
 
 const CertificationAcqDateStyle = styled.div`
   font-size: 0.7rem;
   text-align: right;
-  font-family: "OneShinhanBold";
+  font-family: "OneShinhanMedium";
 `;
 const Buttons = styled.div`
   display: flex;
-
   flex-direction: row;
   width: 100%;
   justify-content: space-evenly;
@@ -45,6 +45,7 @@ const Button = styled.div`
   line-height: 1rem;
   border-radius: 0.2rem;
 `;
+
 // 포트폴리오 옆에서 순서 바꾸게 리모컨 역할 해주는 것
 function CertificationItem({ data, isEdit, editItem, deleteItem }) {
   return (

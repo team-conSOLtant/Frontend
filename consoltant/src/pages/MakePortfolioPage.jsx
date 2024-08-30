@@ -192,6 +192,7 @@ function MakePortfolioPage() {
             setPortfolioData={setPortfolioData}
           />
           <EducationCareerSection
+            id="educationAndCareer"
             isEdit={true}
             education={portfolioData.education}
             careerItems={careerItems}
@@ -201,6 +202,7 @@ function MakePortfolioPage() {
           />
 
           <AwardCertificationSection
+            id="awardAndCertification"
             isEdit={true}
             certificationItems={certificationItems}
             setCertificationItems={setCertificationItems}

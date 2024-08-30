@@ -8,6 +8,7 @@ const SectionHeaderStyle = styled.div`
   flex-direction: row;
   align-items: center;
   padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
 `;
 const SectionTitleText = styled.div`
   font-family: "OneShinhanBold";

@@ -8,6 +8,8 @@ import { getProjects } from "../../../apis/Project";
 import ProjectDTO from "../../../dto/ProjectDTO";
 const ProjectSectionStyle = styled.div`
   width: 100%;
+  margin-bottom: 3rem;
+  color: #444444;
 `;
 
 const SectionBody = styled.div`
@@ -15,7 +17,7 @@ const SectionBody = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  margin-left: 3rem;
 `;
 
 const SubSectionStyle = styled.div`

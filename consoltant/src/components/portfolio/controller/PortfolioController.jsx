@@ -118,14 +118,23 @@ function PortfolioController({ isEdit, allData }) {
     <PortfolioControllerStyle>
       <PortfolioControllerTitle>포트폴리오 구성</PortfolioControllerTitle>
       {[
-        { title: "대외 활동", image: "/Community.svg" },
-        { title: "학력 / 경력", image: "/Briefcase.svg" },
-        { title: "수상 / 자격증", image: "/Trophy.svg" },
-        { title: "프로젝트", image: "/Folders.svg" },
-      ].map((data, idx) => (
+        { title: "대외 활동", image: "/Community.svg", ref: "#activities" },
+        {
+          title: "학력 / 경력",
+          image: "/Briefcase.svg",
+          ref: "#educationAndCareer",
+        },
+        {
+          title: "수상 / 자격증",
+          image: "/Trophy.svg",
+          ref: "#awardAndCertification",
+        },
+        { title: "프로젝트", image: "/Folders.svg", ref: "#project" },
+      ].map((data) => (
         <PortfolioControllerItem
           text={data.title}
           image={data.image}
+          targetSection={data.ref}
         ></PortfolioControllerItem>
       ))}
       {isEdit && (
