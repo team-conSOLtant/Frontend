@@ -52,7 +52,7 @@ function PortfolioFormPage() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  let portloginid = location.state.portloginid;
+  let portloginid = location.state?.portloginid;
   let { portid } = useParams();
 
   let { loginid, portfolioid } = useSelector((state) => state.user);
