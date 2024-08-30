@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   getProductList,
   createAccount,
@@ -27,9 +29,13 @@ function AccountInfoPage() {
   const [errorMessage, setErrorMessage] = useState();
   const [isError, setIsError] = useState();
 
+  const inputOneRef = useRef(null);
+  const inputTwoRef = useRef(null);
+  const inputThreeRef = useRef(null);
+  const inputFourRef = useRef(null);
+
   const navigate = useNavigate();
   const location = useLocation();
-  // const email = location.state.email;
 
   useEffect(() => {
     setHasAccount(location.state.hasAccount);
@@ -98,7 +104,7 @@ function AccountInfoPage() {
 
       const checkResponse = await checkMessage(accountInfo);
       await console.log(checkResponse.result.transactionSummary);
-      await window.alert(
+      await toast(
         `인증번호 : ${checkResponse.result.transactionSummary.split(" ")[1]}`
       );
 
@@ -125,6 +131,14 @@ function AccountInfoPage() {
     }
   };
 
+  const handleInputChange = (e, setInputFunc, nextRef) => {
+    const value = e.target.value;
+    setInputFunc(value);
+    if (nextRef && value.length === 1 && nextRef.current) {
+      nextRef.current.focus();
+    }
+  };
+
   return (
     <div>
       {/* 좌측 상단 로고 */}
@@ -138,6 +152,7 @@ function AccountInfoPage() {
         </div>
       </div>
       {/* 회원정보 입력란 */}
+      <ToastContainer />
       <div className="h-[80vh] flex flex-col justify-center items-center scale-110">
         <div className="h-[1rem] w-[50%] max-w-[25rem] min-w-[20rem] mb-[4rem] flex flex-col items-center">
           <div className="text-[1.5rem] text-[#0046ff] font-OneShinhanMedium">
@@ -203,22 +218,34 @@ function AccountInfoPage() {
               <div className="w-[30rem] flex justify-between">
                 <input
                   type="text"
-                  onChange={(e) => setNumOne(e.target.value)}
+                  maxLength="1"
+                  ref={inputOneRef}
+                  onChange={(e) => handleInputChange(e, setNumOne, inputTwoRef)}
                   className="border rounded-[0.2rem] w-[2rem] p-[0.2rem] text-[1rem] text-center font-OneShinhanMedium focus:outline-none"
                 />
                 <input
                   type="text"
-                  onChange={(e) => setNumTwo(e.target.value)}
+                  maxLength="1"
+                  ref={inputTwoRef}
+                  onChange={(e) =>
+                    handleInputChange(e, setNumTwo, inputThreeRef)
+                  }
                   className="border rounded-[0.2rem] w-[2rem] p-[0.2rem] text-[1rem] text-center font-OneShinhanMedium focus:outline-none"
                 />
                 <input
                   type="text"
-                  onChange={(e) => setNumThree(e.target.value)}
+                  maxLength="1"
+                  ref={inputThreeRef}
+                  onChange={(e) =>
+                    handleInputChange(e, setNumThree, inputFourRef)
+                  }
                   className="border rounded-[0.2rem] w-[2rem] p-[0.2rem] text-[1rem] text-center font-OneShinhanMedium focus:outline-none"
                 />
                 <input
                   type="text"
-                  onChange={(e) => setNumFour(e.target.value)}
+                  maxLength="1"
+                  ref={inputFourRef}
+                  onChange={(e) => handleInputChange(e, setNumFour, null)}
                   className="border rounded-[0.2rem] w-[2rem] p-[0.2rem] text-[1rem] text-center font-OneShinhanMedium focus:outline-none"
                 />
 

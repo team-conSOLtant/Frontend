@@ -46,6 +46,9 @@ function LoginPage() {
         console.log("로그인 실패!");
         setLoginFail(true);
       }
+    } else {
+      console.log("로그인 실패!");
+      setLoginFail(true);
     }
   };
 
