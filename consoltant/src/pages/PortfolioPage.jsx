@@ -19,6 +19,7 @@ import { getCareers } from "../apis/Career.jsx";
 import { setUser, removeUser } from "../feature/user/userSlice";
 import { getActivities } from "../apis/Activity.jsx";
 import { getCourses } from "../apis/Course.jsx";
+import CommentController from "../components/portfolio/controller/CommentController.jsx";
 
 // 포트폴리오(이력서) 보는 페이지
 
@@ -227,6 +228,9 @@ function PortfolioFormPage() {
         </PortfolioMain>
       </PortfolioBody>
       <PortfolioController isEdit={false}></PortfolioController>
+      <CommentController
+        userName={portfolioData.userInfo.name}
+      ></CommentController>
     </PortfolioPageStyle>
   );
 }

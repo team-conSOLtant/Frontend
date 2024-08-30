@@ -12,7 +12,7 @@ const Buttons = styled.div`
 const Button = styled.div`
   width: 40%;
   height: 2rem;
-  background-color: #ffcc00;
+  background-color: #102fa8;
   text-align: center;
   line-height: 2rem;
   border-radius: 0.2rem;
