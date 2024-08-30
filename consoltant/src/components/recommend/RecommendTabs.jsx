@@ -8,9 +8,13 @@ function RecommendTabs({
   onItemClick,
   isKimSsafy,
   onCheckboxChange,
+  age,
 }) {
   const [activeTab, setActiveTab] = useState("basicInfo");
   const [products, setProducts] = useState([]);
+  const [selectedAge, setSelectedAge] = useState("");
+  const [allAges, setAllAges] = useState([]);
+
   const [checkedItems, setCheckedItems] = useState({
     deposit: {},
     savings: {},
@@ -20,6 +24,14 @@ function RecommendTabs({
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
+
+  const handleAgeChange = (e) => {
+    setSelectedAge(e.target.value); // 선택된 나이 업데이트
+  };
+
+  useEffect(() => {
+    setAllAges(age); // 모든 나이 값을 상태로 설정
+  }, [financeProducts]);
 
   const handleCheckboxChange = (item, checked) => {
     setCheckedItems((prev) => ({
@@ -32,7 +44,6 @@ function RecommendTabs({
     onCheckboxChange(item, activeTab, checked); // 부모에서 받은 핸들러 호출
   };
 
-  console.log(info);
   const recommendInfo = {
     salary: info.salary,
     financeKeyword: info.financeKeyword,
@@ -47,23 +58,43 @@ function RecommendTabs({
       let pfinance = [];
       const productTypes = {
         deposit: "deposit",
-        savings: "saving",
+        saving: "saving",
         loan: "loan",
       };
 
       if (productTypes[activeTab]) {
         const products = financeProducts[productTypes[activeTab]];
-        
+
         for (let p in products) {
+          const product = products[p];
+
           pfinance.push({
-            id: products[p].accountTypeUniqueNo,
-            bankName: products[p].bankName,
-            accountName: products[p].accountName,
-            accountDescription: products[p].accountDescription,
-            interestRate: products[p].interestRate,
-            subscriptionPeriod: products[p].subscriptionPeriod,
-            minSubscriptionBalance: products[p].minSubscriptionBalance || products[p].minLoanBalance,
-            maxSubscriptionBalance: products[p].maxSubscriptionBalance || products[p].maxLoanBalance,
+            id: activeTab + p,
+            accountTypeUniqueNo: product.accountTypeUniqueNo,
+            bankName: product.bankName,
+            accountTypeName : product.accountTypeName,
+            accountName: product.accountName,
+            accountDescription: product.accountDescription,
+            interestRate: product.interestRate,
+            subscriptionPeriod: product.subscriptionPeriod,
+            minSubscriptionBalance:
+              product.minSubscriptionBalance || product.minLoanBalance,
+            maxSubscriptionBalance:
+              product.maxSubscriptionBalance || product.maxLoanBalance,
+            age: product.age,
+            balance: product.balance,
+            startDate:
+              product.startDate.substr(0, 4) +
+              "-" +
+              product.startDate.substr(4, 2) +
+              "-0" +
+              product.startDate.substr(6, 2),
+            endDate:
+              product.endDate.substr(0, 4) +
+              "-" +
+              product.endDate.substr(4, 2) +
+              "-" +
+              product.endDate.substr(6, 2),
           });
         }
       }
@@ -100,6 +131,27 @@ function RecommendTabs({
 
   return (
     <div className="p-4">
+      {/* 나이 선택 드롭다운 */}
+      {!isKimSsafy && (
+        <div className="mb-4">
+          <label htmlFor="ageSelect" className="mr-2">
+            나이 선택:
+          </label>
+          <select
+            id="ageSelect"
+            value={selectedAge}
+            onChange={handleAgeChange}
+            className="border border-gray-300 rounded px-2 py-1"
+          >
+            <option value="">전체</option>
+            {allAges.map((age) => (
+              <option key={age} value={age}>
+                {age}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
       <div className="flex border-b-2 border-gray-200 mb-4">
         <button
           className={`px-4 py-2 focus:outline-none ${
@@ -123,11 +175,9 @@ function RecommendTabs({
         </button>
         <button
           className={`px-4 py-2 focus:outline-none ${
-            activeTab === "savings"
-              ? "border-b-2 border-blue-500 font-bold"
-              : ""
+            activeTab === "saving" ? "border-b-2 border-blue-500 font-bold" : ""
           }`}
-          onClick={() => handleTabClick("savings")}
+          onClick={() => handleTabClick("saving")}
         >
           적금
         </button>
@@ -151,41 +201,41 @@ function RecommendTabs({
               <div className="flex justify-between mb-3">
                 <div>월급</div>
                 <div>
-                  <span>{recommendInfo.salary}{" "}</span>
+                  <span>{recommendInfo.salary} </span>
                   <span className="">만원</span>
                 </div>
               </div>
               <div className="flex justify-between mb-3">
                 <div>성향</div>
                 <div>
-                  <span>{recommendInfo.financeKeyword}{" "}</span>
+                  <span>{recommendInfo.financeKeyword} </span>
                 </div>
               </div>
               <div className="flex justify-between mb-3">
                 <div>초기자본</div>
                 <div>
-                  <span>{recommendInfo.startAsset}{" "}</span>
+                  <span>{recommendInfo.startAsset} </span>
                   <span>만원</span>
                 </div>
               </div>
               <div className="flex justify-between mb-3">
                 <div>현 자본</div>
                 <div>
-                  <span>{recommendInfo.presentAsset}{" "}</span>
+                  <span>{recommendInfo.presentAsset} </span>
                   <span>만원</span>
                 </div>
               </div>
               <div className="flex justify-between mb-3">
                 <div>기간</div>
                 <div>
-                  <span>{recommendInfo.period}{" "}</span>
+                  <span>{recommendInfo.period} </span>
                   <span>년</span>
                 </div>
               </div>
             </div>
           </div>
         )}
-        {["deposit", "savings", "loan"].includes(activeTab) && (
+        {["deposit", "saving", "loan"].includes(activeTab) && (
           <div className="flex flex-col justify-center item-center mx-[5%]">
             {!isKimSsafy && (
               <p className="pb-4 text-sm text-[#0046ff]">
