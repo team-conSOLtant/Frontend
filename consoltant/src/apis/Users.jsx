@@ -11,3 +11,16 @@ export const getUserInfo = async () => {
   }
 };
 
+export const getUserNameByEmail = async (email) => {
+  try {
+    const response = await axios.get(`/users/search/${email}`);
+    console.log(
+      "[IN AXIOS] get UserNameByEmail response : ",
+      response.data.result
+    );
+    return response.data.result;
+  } catch (error) {
+    console.error("get userInfo failed:", error);
+    throw error;
+  }
+};

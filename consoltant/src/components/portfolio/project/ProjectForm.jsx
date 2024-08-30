@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import RangeDatePicker from "../../common/RangeDatePicker";
 import ProjectLanguageDTO from "../../../dto/ProjectLanguageDTO";
 import ProjectContentDTO from "../../../dto/ProjectContentDTO";
+import { getUserNameByEmail } from "../../../apis/Users";
 
 const ProjectTop = styled.div`
   width: 100%;
@@ -94,9 +95,21 @@ const BulletPoint = styled.div`
   margin: 0.3rem;
 `;
 const ProjectSelectedKeywordContainer = styled.div`
-  width: 36rem;
+  width: 100%;
   display: flex;
   flex-direction: row;
+  margin-top: 0.3rem;
+  margin-left: 1.5rem;
+`;
+
+const SearchedUsers = styled.div`
+  width: calc(94% - 1.5rem);
+  /* border: 0.1rem solid #c7c7c7; */
+  padding: 0.2rem 0.1rem;
+  border-radius: 0.2rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   margin-top: 0.3rem;
   margin-left: 1.5rem;
 `;
@@ -126,7 +139,31 @@ const LanguageTagDeleteButton = styled.div`
   margin-left: 0.2rem;
 `;
 
-const Tag = styled.div`
+const UserTagContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  background-color: ${(props) =>
+    props.userid % 3 === 0
+      ? "#DFE4FF"
+      : props.userid % 3 === 1
+      ? "#DFFFE8"
+      : "#FFDFDF"};
+  width: auto;
+  height: 1rem;
+  line-height: 1rem;
+  font-size: 0.5rem;
+  margin: 0.2rem 0.2rem;
+  padding: 0 0.3rem;
+  border-radius: 0.5rem;
+`;
+
+const UserTag = styled.div``;
+
+const UserTagDeletedButton = styled.div`
+  margin-left: 0.4rem;
+`;
+
+const SearchedUserTagContainer = styled.div`
   display: flex;
   flex-direction: row;
   background-color: rgb(185, 213, 255, 0.3);
@@ -134,7 +171,7 @@ const Tag = styled.div`
   height: 1rem;
   line-height: 1rem;
   font-size: 0.5rem;
-  margin: 0 0.2rem;
+  margin: 0.2rem 0.2rem;
   padding: 0 0.3rem;
   border-radius: 0.5rem;
 `;
@@ -173,6 +210,10 @@ function ProjectForm({ data, updateForm, submitForm }) {
   // const [introductionCount, setIntroductionCount] = useState();
   const [languageWord, setlanguageWord] = useState("");
   const [contentForms, setContentForms] = useState([]);
+  const [memberEmail, setMemberEmail] = useState();
+
+  const [searchedUsers, setSearchedUsers] = useState([]);
+  const [selectedUsers, setSelectedUsers] = useState([]);
 
   const _changeTitle = (value) => {
     updateForm({ ...data, title: value });
@@ -246,6 +287,37 @@ function ProjectForm({ data, updateForm, submitForm }) {
       console.error("업데이트 중 오류 발생:", error); // 에러 처리
     }
   };
+
+  const _addTeamMember = () => {
+    console.log(
+      "searchedUsers[0]searchedUsers[0]searchedUsers[0]searchedUsers[0]",
+      searchedUsers[0]
+    );
+    setSelectedUsers([...selectedUsers, searchedUsers[0]]);
+  };
+
+  const findUserByEmail = async (email) => {
+    if (email) {
+      const res = await getUserNameByEmail(email);
+      // console.log("resresresresresresresresres", res);
+      setSearchedUsers(res);
+    }
+  };
+
+  useEffect(() => {
+    findUserByEmail(memberEmail);
+  }, [memberEmail]);
+
+  const _deleteSelectedUser = (selectedUser) => {
+    console.log("selectedUsersselectedUsersselectedUsers", selectedUsers);
+    console.log(selectedUsers[0].id === selectedUser.id);
+    setSelectedUsers(
+      selectedUsers.filter(
+        (user) => String(user.id) !== String(selectedUser.id)
+      )
+    );
+  };
+
   return (
     <ProjectItemStyle>
       <ProjectTop>
@@ -304,11 +376,36 @@ function ProjectForm({ data, updateForm, submitForm }) {
           <ProjectDescriptionLine>
             <BulletPoint />팀 구성
           </ProjectDescriptionLine>
-          <ProjectInputMargin placeholder="팀 구성원을 이메일로 추가해보세요" />
+          <ProjectInputMarginWithButtonContainer>
+            <ProjectInputMarginWithButton
+              placeholder="팀 구성원을 이메일로 추가해보세요"
+              value={memberEmail}
+              onChange={(e) => setMemberEmail(e.target.value)}
+            />
+            <PlusButtonLarge onClick={_addTeamMember}>+</PlusButtonLarge>
+          </ProjectInputMarginWithButtonContainer>
+          <SearchedUsers>
+            {searchedUsers.length > 0 &&
+              searchedUsers.map((user) => (
+                <SearchedUserTagContainer
+                  onClick={() => setMemberEmail(user.email)}
+                >
+                  @{user.name}
+                </SearchedUserTagContainer>
+              ))}
+          </SearchedUsers>
           <ProjectTeamComposition>
-            {["@김준우", "@고다현", "@이동열"].map((text) => (
-              <Tag>{text}</Tag>
-            ))}
+            {selectedUsers.length > 0 &&
+              selectedUsers.map((user) => (
+                <UserTagContainer userid={user.id}>
+                  <UserTag>@{user.name}</UserTag>
+                  <UserTagDeletedButton
+                    onClick={() => _deleteSelectedUser(user)}
+                  >
+                    x
+                  </UserTagDeletedButton>
+                </UserTagContainer>
+              ))}
           </ProjectTeamComposition>
           <ProjectDescriptionLine>
             <BulletPoint />
