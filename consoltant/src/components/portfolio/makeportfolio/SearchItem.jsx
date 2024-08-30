@@ -8,7 +8,7 @@ function SearchItem({ portfolio, index }) {
       {/* <hr className="w-[64%]" /> */}
       <img
         onClick={() => navigate("/portfolio")}
-        className="absolute cursor-pointer w-[1.8rem] right-[8rem] top-[0]"
+        className="absolute cursor-pointer w-[1.8rem] right-[10%] top-[-5%]"
         src="/button/Detail.svg"
         alt=""
       />
@@ -36,7 +36,7 @@ function SearchItem({ portfolio, index }) {
           </div>
           <div className="flex justify-between my-[0.5rem]">
             <div className="w-24 font-semibold">경력</div>
-            <p className="text-end">Google Korea 인턴</p>
+            <p className="text-end">{portfolio.careerTitle}</p>
           </div>
           <div className="flex justify-between">
             <div className="w-24 font-semibold">Keyword</div>

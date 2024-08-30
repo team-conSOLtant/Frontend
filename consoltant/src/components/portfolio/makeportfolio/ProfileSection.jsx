@@ -209,15 +209,15 @@ function ProfileSection({ portfolioData, setPortfolioData }) {
     });
   };
 
-    // console.log(
-    //   "BGCOLORBGCOLORBGCOLORBGCOLORBGCOLORBGCOLOR++++++++++++++++++",
-    //   bgColor
-    // );
-    // console.log(
-    //   "BGCOLORBGCOLORBGCOLORBGCOLORBGCOLORBGCOLOR",
-    //   portfolioData.userInfo.backgroundColor
-    // );
-  };
+  // console.log(
+  //   "BGCOLORBGCOLORBGCOLORBGCOLORBGCOLORBGCOLOR++++++++++++++++++",
+  //   bgColor
+  // );
+  // console.log(
+  //   "BGCOLORBGCOLORBGCOLORBGCOLORBGCOLORBGCOLOR",
+  //   portfolioData.userInfo.backgroundColor
+  // );
+
   const _changeJob = (value) => {};
 
   const _changeDescription = (value) => {

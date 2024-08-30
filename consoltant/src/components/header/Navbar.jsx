@@ -76,7 +76,7 @@ function Navbar() {
               setMenuView(!menuView);
             }}
             ref={profileRef}
-            className="w-[2.5rem] cursor-pointer"
+            className="w-[2rem] cursor-pointer"
             src="/nav/profile_icon.png"
             alt=""
           />

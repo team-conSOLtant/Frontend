@@ -149,7 +149,7 @@ const MainPage = () => {
                   key={index}
                   className={`absolute flex justify-center items-center transition-transform ease-out duration-300`}
                   style={{
-                    width: "9rem",
+                    width: "10rem",
                     height: "3rem",
                     transform: `translate(${x}px, ${y}px) rotate(${itemAngle}rad)`,
                   }}

@@ -165,3 +165,16 @@ export const createAccountInfo = async (info) => {
     console.log("creating account info fail: ", error);
   }
 };
+
+// 기업 로그인 확인
+export const isCompany = async () => {
+  try {
+    const response = await axios.get(`/users/is-company`).then((res) => {
+      return res.data;
+    });
+    console.log("[IN AXIOS] is company response:", response);
+    return response;
+  } catch (error) {
+    console.log("is Company fail : ", error);
+  }
+};

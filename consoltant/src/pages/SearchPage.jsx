@@ -47,7 +47,7 @@ function SearchPage() {
   const [last, setLast] = useState();
 
   // const [cursor, setCursor] = useState();
-  const [size, setSize] = useState(2);
+  const [size, setSize] = useState(4);
 
   const [searchedList, setSearchedList] = useState([]);
 
@@ -102,6 +102,10 @@ function SearchPage() {
     }
   };
 
+  useEffect(() => {
+    goSearch();
+  }, []);
+
   useEffect(() => {}, [
     setKeyword,
     setIsEmployed,
@@ -135,23 +139,23 @@ function SearchPage() {
         </SearchTitleTextDetail>
       </SearchTitle>
 
-      <div className="flex justify-center items-center bg-[#F9FAFB] py-[2rem]">
-        <div className="flex w-[33rem] justify-between">
-          <div className="relative flex items-center">
+      <div className="flex justify-center items-center bg-[#F9FAFB] py-[3rem]">
+        <div className="flex w-[60%] justify-between text-[1.3rem]">
+          <div className="relative w-[60%] flex items-center">
             <input
               type="text"
               id=""
               name=""
               required
               placeholder="원하는 검색어를 입력하세요"
-              className="w-[18rem] h-[2.5rem] border border-[#9C9C9C] rounded px-[0.5rem] focus:outline-none"
+              className="w-[100%] h-[3rem] border border-[#9C9C9C] rounded px-[0.5rem] focus:outline-none"
               onChange={(e) => {
                 setKeyword(e.target.value);
               }}
               onKeyDown={(e) => activeEnter(e)}
             />
             <img
-              className="absolute w-[1.5rem] right-[0.5rem]"
+              className="absolute w-[2rem] right-[0.5rem]"
               src="/button/Search.svg"
               alt=""
             />
@@ -159,7 +163,7 @@ function SearchPage() {
           <select
             name=""
             id=""
-            className="h-[2.5rem] border border-[#9C9C9C] rounded px-[0.5rem] focus:outline-none text-[#8F8F8F]"
+            className="h-[3rem] w-[19.5%] border border-[#9C9C9C] rounded px-[0.5rem] focus:outline-none text-[#8F8F8F]"
             onChange={(e) => onEmploySelect(e)}
           >
             <option value="">취업여부</option>
@@ -169,7 +173,7 @@ function SearchPage() {
           <select
             name=""
             id=""
-            className="h-[2.5rem] border border-[#9C9C9C] rounded px-[0.5rem] focus:outline-none text-[#8F8F8F]"
+            className="h-[3rem] w-[19.5%] border border-[#9C9C9C] rounded px-[0.5rem] focus:outline-none text-[#8F8F8F]"
             onChange={(e) => {
               onGpaSelect(e);
             }}
@@ -184,7 +188,7 @@ function SearchPage() {
           </select>
         </div>
       </div>
-      <div className="flex flex-col items-center overflow-auto h-[20rem]">
+      <div className="flex flex-col items-center overflow-auto h-[25rem]">
         {searchedList &&
           searchedList.map((portfolio, index) => {
             return (
