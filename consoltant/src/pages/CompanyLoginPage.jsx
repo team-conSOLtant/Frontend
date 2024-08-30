@@ -31,7 +31,7 @@ function LoginPage() {
       });
       if (companyRes) {
         console.log("기업 로그인 성공!!!!");
-        navigate("/search");
+        navigate("/company-search");
       } else {
         setErrorMessage("기업 회원이 아닙니다.");
         setLoginFail(true);

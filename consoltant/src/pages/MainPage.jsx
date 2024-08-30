@@ -129,7 +129,7 @@ const MainPage = () => {
         {infos &&
           infos.map((info, index) => {
             const angleStep = Math.PI / 36;
-            const itemAngle = (index-infos.length+1) * angleStep;
+            const itemAngle = (index - infos.length + 1) * angleStep;
             const x = (radius + 90) * Math.cos(itemAngle);
             const y = (radius + 90) * Math.sin(itemAngle);
 
@@ -189,6 +189,7 @@ const MainPage = () => {
                   totalInfos={infos[itemIndex]}
                   graphInfo={graphInfo}
                   index={itemIndex}
+                  color={infos[itemIndex].hex}
                 />
               )}
             </div>

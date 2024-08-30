@@ -20,7 +20,7 @@ ChartJS.register(
   Legend
 );
 
-function MyFinanceGraph({ graphInfo, currIndex }) {
+function MyFinanceGraph({ graphInfo, currIndex, color }) {
   console.log(graphInfo);
 
   const labelData = graphInfo.data.map((item) => item.age);
@@ -34,7 +34,8 @@ function MyFinanceGraph({ graphInfo, currIndex }) {
         data: savingData,
         fill: true, // 선 아래 영역에 색을 채우도록 설정
         backgroundColor: "rgba(0, 70, 225, 0.2)", // 선 아래 색상 설정
-        borderColor: "rgba(0, 70, 225, 1)",
+        // borderColor: "rgba(0, 70, 225, 1)",
+        borderColor: `${color}`,
         borderWidth: 5,
         pointRadius: 5,
         pointBackgroundColor: "rgba(255, 255, 255, 1)", // 포인트 내부 색상
@@ -92,7 +93,7 @@ function MyFinanceGraph({ graphInfo, currIndex }) {
           const index = context.tooltip.dataPoints[0].dataIndex;
           if (graphInfo.data[currIndex]) {
             return labelData[index] === graphInfo.data[currIndex].age
-              ? "rgba(0, 93, 249, 0.8)"
+              ? `${color}`
               : "rgba(0, 0, 0, 0.3)";
           } else {
             return "rgba(0, 0, 0, 0.3)";
@@ -103,7 +104,7 @@ function MyFinanceGraph({ graphInfo, currIndex }) {
           const index = context.tooltip.dataPoints[0].dataIndex;
           if (graphInfo.data[currIndex]) {
             return labelData[index] === graphInfo.data[currIndex].age
-              ? "rgba(0, 93, 249, 0.8)"
+              ? `${color}`
               : "rgba(0, 0, 0, 0.3)";
           } else {
             return "rgba(0, 0, 0, 0.3)";

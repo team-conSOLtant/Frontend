@@ -166,6 +166,8 @@ function ProfileSection({ portfolioData, setPortfolioData }) {
     `data:image/jpeg;base64,${portfolioData.userInfo?.imageUrl}`
   );
 
+
+
   useEffect(() => {}, [setProfileImage]);
 
   // const _changeName = (value) => {
@@ -271,6 +273,17 @@ function ProfileSection({ portfolioData, setPortfolioData }) {
     });
   };
 
+  const deleteImage = async () => {
+    await setProfileImage(null);
+    await setPortfolioData({
+      ...portfolioData,
+      userInfo: {
+        ...portfolioData.userInfo,
+        imageUrl: null,
+      },
+    });
+  };
+
   // console.log(
   //   "BGCOLORBGCOLORBGCOLORBGCOLORBGCOLORBGCOLOR++++++++++++++++++",
   //   bgColor
@@ -303,20 +316,24 @@ function ProfileSection({ portfolioData, setPortfolioData }) {
             />
             <label htmlFor="file" className="fileLabel">
               {profileImage ? (
-                // <img
-                //   className="w-[10rem] rounded-[1rem]"
-                //   src={profileImage}
-                //   alt=""
-                // ></img>
-                <img
-                  className="rounded-[0.8rem] w-[12rem]"
-                  src={`data:image/jpeg;base64,${portfolioData.userInfo?.imageUrl}`}
-                  alt=""
-                />
+                <div className="relative">
+                  <img
+                    className="rounded-[0.8rem] w-[12rem]"
+                    src={`data:image/jpeg;base64,${portfolioData.userInfo?.imageUrl}`}
+                    alt=""
+                  />
+                  {/* <div className="flex justify-end">
+                    <img
+                      onClick={deleteImage()}
+                      className="w-[1.5rem] m-[0.5rem]"
+                      src="/portfolio/Delete.svg"
+                      alt=""
+                    />
+                  </div> */}
+                </div>
               ) : (
                 <div className="flex flex-col items-center">
                   <PlusBoxContainer>
-                    {/* 여기에 onClick 추가 */}
                     <PlusBoxStyle>
                       <PlusBoxButton>+</PlusBoxButton>
                     </PlusBoxStyle>
