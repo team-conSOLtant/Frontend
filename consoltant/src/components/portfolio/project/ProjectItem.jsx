@@ -122,7 +122,6 @@ const ProjectIntroductionRole = styled.input`
 `;
 const Buttons = styled.div`
   display: flex;
-
   flex-direction: row;
   width: 100%;
   justify-content: space-evenly;

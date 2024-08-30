@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import RangeDatePicker from "../../common/RangeDatePicker";
 import ProjectLanguageDTO from "../../../dto/ProjectLanguageDTO";
+import ProjectContentDTO from "../../../dto/ProjectContentDTO";
 
 const ProjectTop = styled.div`
   width: 100%;
@@ -12,7 +13,7 @@ const ProjectLeftTop = styled.div`
   width: 70%;
 `;
 const ProjectRightTop = styled.div`
-  width: 30%;
+  width: 20%;
 `;
 
 const ProjectItemStyle = styled.div`
@@ -20,7 +21,6 @@ const ProjectItemStyle = styled.div`
   flex-direction: row;
   background-color: #ffffff;
   width: 40rem;
-  height: 22rem;
   font-size: 1rem;
   border: #b9d5ff 0.1rem solid;
   border-radius: 0.5rem;
@@ -42,13 +42,13 @@ const ProjectInputMargin = styled.input`
   border-radius: 0.2rem;
   background-color: #fbfbfd;
   padding-left: 0.3rem;
-  width: 100%;
+  width: calc(100% - 1.5rem);
   margin-left: 1.5rem;
 `;
 const ProjectInputMarginWithButtonContainer = styled.div`
   display: flex;
   flex-direction: row;
-  width: 100%;
+  width: calc(100%-1.5rem);
   margin-left: 1.5rem;
   justify-content: space-between;
   align-items: center;
@@ -79,9 +79,11 @@ const ProjectInputLarge = styled.textarea`
   background-color: #fbfbfd;
   padding: 0.1rem 0.5rem;
   align-items: baseline;
-  width: 90%;
+  width: 94%;
   height: 5rem;
   resize: none; /* 크기 조절 비활성화 */
+  margin-left: 1.5rem;
+  font-size: 0.9rem;
 `;
 
 const BulletPoint = styled.div`
@@ -120,7 +122,9 @@ const LanguageTagContainer = styled.div`
   border-radius: 0.5rem;
 `;
 const LanguageTag = styled.div``;
-const LanguageTagDeleteButton = styled.div``;
+const LanguageTagDeleteButton = styled.div`
+  margin-left: 0.2rem;
+`;
 
 const Tag = styled.div`
   display: flex;
@@ -167,16 +171,17 @@ const DatePickerStyle = styled.input``;
 
 function ProjectForm({ data, updateForm, submitForm }) {
   // const [introductionCount, setIntroductionCount] = useState();
-  const [languageWord, setlanguageWord] = useState();
+  const [languageWord, setlanguageWord] = useState("");
+  const [contentForms, setContentForms] = useState([]);
 
   const _changeTitle = (value) => {
     updateForm({ ...data, title: value });
   };
-  const _changeKeyword = (value) => {
-    updateForm({ ...data, content: value });
-  };
+  // const _changeKeyword = (value) => {
+  //   updateForm({ ...data, contents: value });
+  // };
   const _changeDescription = (value) => {
-    updateForm({ ...data, descripttion: value });
+    updateForm({ ...data, description: value });
   };
   const _changeOrganization = (value) => {
     updateForm({ ...data, awardOrganization: value });
@@ -190,10 +195,11 @@ function ProjectForm({ data, updateForm, submitForm }) {
   const _changeEndDate = (value) => {
     updateForm({ ...data, endDate: value });
   };
+
   const _addLanguageWord = () => {
     console.log(
-      "languagelanguagelanguagelanguagelanguagelanguage",
-      languageWord
+      " data.language data.language data.language data.language data.language data.language",
+      [...data.language, new ProjectLanguageDTO(languageWord)]
     );
     updateForm({
       ...data,
@@ -201,12 +207,45 @@ function ProjectForm({ data, updateForm, submitForm }) {
     });
     setlanguageWord();
   };
-  // const addDescription = () => {
-  //   setDescription({
-  //     title: description.title,
-  //     contents: ["", ...description.contents],
-  //   });
-  // };
+
+  const _deleteWordTag = (key) => {
+    console.log(key);
+    console.log(data.language);
+    updateForm({
+      ...data,
+      language: data.language.filter((dto) => dto.key !== key),
+    });
+  };
+  const _addContent = () => {
+    // setDescription({
+    //   title: description.title,
+    //   contents: ["", ...description.contents],
+    // });
+    setContentForms([...contentForms, new ProjectContentDTO()]);
+  };
+  const _changeContent = (dto, newContent) => {
+    setContentForms((prevForms) =>
+      prevForms.map((form) =>
+        dto.key === form.key
+          ? { ...form, content: newContent } // updatedForm을 직접 정의하여 content 값 수정
+          : form
+      )
+    );
+    console.log("contentFormscontentFormscontentForms", contentForms);
+  };
+  const handleUpdateAndSubmit = async () => {
+    try {
+      // updateForm이 프로미스를 반환한다고 가정
+      console.log("datadatadatadatadatadatadata", data);
+
+      console.log(contentForms);
+      await updateForm({ ...data, contents: contentForms }); // updateForm이 완료될 때까지 기다림
+      console.log("datadatadatadatadatadatadata", data);
+      submitForm(); // updateForm이 완료된 후 submitForm 실행
+    } catch (error) {
+      console.error("업데이트 중 오류 발생:", error); // 에러 처리
+    }
+  };
   return (
     <ProjectItemStyle>
       <ProjectTop>
@@ -233,10 +272,14 @@ function ProjectForm({ data, updateForm, submitForm }) {
             <PlusButtonLarge onClick={_addLanguageWord}>+</PlusButtonLarge>
           </ProjectInputMarginWithButtonContainer>
           <ProjectSelectedKeywordContainer>
-            {data.language?.map((text) => (
+            {data.language?.map((wordDTO) => (
               <LanguageTagContainer>
-                <LanguageTag>{text}</LanguageTag>
-                <LanguageTagDeleteButton>x</LanguageTagDeleteButton>
+                <LanguageTag>{wordDTO.word}</LanguageTag>
+                <LanguageTagDeleteButton
+                  onClick={() => _deleteWordTag(wordDTO.key)}
+                >
+                  x
+                </LanguageTagDeleteButton>
               </LanguageTagContainer>
             ))}
           </ProjectSelectedKeywordContainer>
@@ -244,25 +287,20 @@ function ProjectForm({ data, updateForm, submitForm }) {
           <ProjectDescriptionLine>
             <BulletPoint />
             프로젝트 소개
+            <PlusButtonLarge onClick={_addContent}>+</PlusButtonLarge>
           </ProjectDescriptionLine>
           <ProjectInputMargin
             placeholder="소개 제목을 입력해주세요"
             value={data?.description}
             onChange={(e) => _changeDescription(e.target.value)}
           />
-          {/* {description.title &&
-            description.contents.map((content, index) => (
-              <ProjectInputLargeContainer>
-                <BulletPoint />
-                <ProjectInputLarge
-                  placeholder="자신의 역할 및 한 일에 대해서 작성해주세요"
-                  value={content}
-                />
-                {index === 0 && (
-                  <PlusButton onClick={addDescription}>+</PlusButton>
-                )}
-              </ProjectInputLargeContainer>
-            ))} */}
+          {contentForms.map((dto) => (
+            <ProjectInputLarge
+              placeholder="소개 상세내용을 입력해주세요"
+              value={dto.content}
+              onChange={(e) => _changeContent(dto, e.target.value)}
+            />
+          ))}
           <ProjectDescriptionLine>
             <BulletPoint />팀 구성
           </ProjectDescriptionLine>
@@ -310,7 +348,7 @@ function ProjectForm({ data, updateForm, submitForm }) {
       <ProjectLabelStyle></ProjectLabelStyle>
 
       <ProjectLabelStyle></ProjectLabelStyle>
-      <SubmitButton onClick={submitForm}>제출</SubmitButton>
+      <SubmitButton onClick={handleUpdateAndSubmit}>제출</SubmitButton>
     </ProjectItemStyle>
   );
 }

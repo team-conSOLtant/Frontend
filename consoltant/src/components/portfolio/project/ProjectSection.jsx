@@ -65,17 +65,26 @@ const PlusBoxButton = styled.div`
 
 function ProjectSection({ isEdit, projectItems, setProjectItems }) {
   const [projectForms, setProjectForms] = useState([new ProjectDTO()]);
+
   const addProjectForm = () => {
     setProjectForms([...projectForms, new ProjectDTO()]);
   };
+
   const updateProjectForm = (updatedForm) => {
-    setProjectForms((prevForms) =>
-      prevForms.map((form) =>
+    console.log("updatedForm", updatedForm);
+    console.log("projectForms", projectForms);
+
+    setProjectForms((prevForms) => {
+      const newForms = prevForms.map((form) =>
         form.key === updatedForm.key ? updatedForm : form
-      )
-    );
+      );
+
+      console.log("newForms after update", newForms);
+      return newForms;
+    });
   };
-  const submitProjectForm = (newForm) => {
+
+  const submitProjectForm = (newForm, contentForms) => {
     console.log(newForm);
     setProjectItems([...projectItems, newForm]);
     setProjectForms(projectForms.filter((form) => form.key !== newForm.key));
@@ -105,7 +114,9 @@ function ProjectSection({ isEdit, projectItems, setProjectItems }) {
               key={data.key}
               data={data}
               updateForm={updateProjectForm}
-              submitForm={() => submitProjectForm(data)}
+              submitForm={(contentForms) =>
+                submitProjectForm(data, contentForms)
+              }
             />
           ))}
         {projectItems.length > 0 &&

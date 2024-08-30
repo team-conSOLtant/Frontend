@@ -211,10 +211,11 @@ function MakePortfolioPage() {
             projectItems={projectItems}
             setProjectItems={setProjectItems}
           />
-          {/* <ActivitySection
+          <ActivitySection
             isEdit={true}
-            activities={portfolioData.activities}
-          /> */}
+            activityItems={activityItems}
+            setActivityItems={setActivityItems}
+          />
         </PortfolioMain>
         <PortfolioController
           isEdit={true}

@@ -121,16 +121,16 @@ export const postSaveAll = async (loginid, portfolioid, allData) => {
       .join("\n"),
   };
   console.log("{{{ SAVE_ALL_FORMAT }}}", SAVE_ALL_FORMAT);
-  // try {
-  //   const response = await axios.post(`/portfolios/save-all`, SAVE_ALL_FORMAT);
-  //   if (response) {
-  //     console.log("저장 완료", response);
-  //   }
-  //   return response.data;
-  // } catch (error) {
-  //   console.error("post portfolios failed:", error);
-  //   throw error;
-  // }
+  try {
+    const response = await axios.post(`/portfolios/save-all`, SAVE_ALL_FORMAT);
+    if (response) {
+      console.log("저장 완료", response);
+    }
+    return response.data;
+  } catch (error) {
+    console.error("post portfolios failed:", error);
+    throw error;
+  }
 };
 
 export const uploadImage = async (portfolioid, image) => {

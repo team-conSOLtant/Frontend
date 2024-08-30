@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import ActivityFormDetail from "./ActivityFormDetail.jsx";
 
-function ActivityForm() {
+function ActivityForm({ submitForm }) {
   const [details, setDetails] = useState([{ role: "", description: "" }]);
 
-  const addDetail = () => {
-    setDetails([...details, { role: "", description: "" }]);
-  };
+  // const addDetail = () => {
+  //   setDetails([...details, { role: "", description: "" }]);
+  // };
 
   const removeDetail = (index) => {
     const newDetails = details.filter((_, i) => i !== index);
@@ -51,13 +51,7 @@ function ActivityForm() {
               </button>
             </div>
           ))}
-          <button
-            type="button"
-            className="mt-4 p-2 bg-blue-500 text-white rounded-xl"
-            onClick={addDetail}
-          >
-            추가
-          </button>
+
           <div className="flex flex-col mt-4">
             <span className="text-sm font-semibold mb-1">대외활동 기간</span>
             <div>
@@ -72,6 +66,13 @@ function ActivityForm() {
               />
             </div>
           </div>
+          <button
+            type="button"
+            className="mt-4 p-2 bg-blue-500 text-white rounded-xl"
+            onClick={submitForm}
+          >
+            제출
+          </button>
         </div>
       </div>
     </div>
