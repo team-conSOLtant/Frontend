@@ -148,6 +148,19 @@ function AwardCertificationSection({
     );
   };
 
+  const editCertificationItem = (data) => {
+    setCertificationForms([...certificationForms, data]);
+    setCertificationItems(
+      certificationItems.filter((item) => item.key !== data.key)
+    );
+  };
+
+  const deleteCertificationItem = (data) => {
+    setCertificationItems(
+      certificationItems.filter((item) => item.key !== data.key)
+    );
+  };
+
   const [awardForms, setAwardForms] = useState([new AwardDTO()]);
   const addAwardForm = () => {
     setAwardForms([...awardForms, new AwardDTO()]);
@@ -164,6 +177,13 @@ function AwardCertificationSection({
     setAwardItems([...awardItems, newForm]);
     setAwardForms(awardForms.filter((form) => form.key !== newForm.key));
   };
+  const editAwardItem = (data) => {
+    setAwardForms([...awardForms, data]);
+    setAwardItems(awardItems.filter((item) => item.key !== data.key));
+  };
+  const deleteAwardItem = (data) => {
+    setAwardItems(awardItems.filter((item) => item.key !== data.key));
+  };
 
   return (
     <AwardCertificationSectionStyle>
@@ -174,7 +194,13 @@ function AwardCertificationSection({
           <SubSectionBody>
             {awardItems.length > 0 &&
               awardItems.map((data) => (
-                <AwardItem isEdit={isEdit} key={data.key} data={data} />
+                <AwardItem
+                  isEdit={isEdit}
+                  key={data.key}
+                  data={data}
+                  editItem={() => editAwardItem(data)}
+                  deleteItem={() => deleteAwardItem(data)}
+                />
               ))}
             {isEdit &&
               awardForms.length > 0 &&
@@ -202,7 +228,13 @@ function AwardCertificationSection({
           <SubSectionBody>
             {certificationItems.length > 0 &&
               certificationItems.map((data) => (
-                <CertificationItem key={data.key} data={data} />
+                <CertificationItem
+                  key={data.key}
+                  data={data}
+                  isEdit={isEdit}
+                  editItem={() => editCertificationItem(data)}
+                  deleteItem={() => deleteCertificationItem(data)}
+                />
               ))}
             {isEdit &&
               certificationForms.length > 0 &&
