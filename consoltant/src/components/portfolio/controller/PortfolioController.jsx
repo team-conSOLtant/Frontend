@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 const PortfolioControllerStyle = styled.div`
   position: fixed;
   right: 1rem;
-  top: 20vh;
+  top: 30vh;
   width: 15%;
   border: 0.1rem solid #f5f5f5;
   border-radius: 0.5rem;

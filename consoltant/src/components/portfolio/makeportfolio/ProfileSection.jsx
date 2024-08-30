@@ -162,9 +162,71 @@ const PlusBoxButton = styled.div`
 `;
 
 function ProfileSection({ portfolioData, setPortfolioData }) {
-  const [profileImage, setProfileImage] = useState();
+  const [profileImage, setProfileImage] = useState(
+    `data:image/jpeg;base64,${portfolioData.userInfo?.imageUrl}`
+  );
 
   useEffect(() => {}, [setProfileImage]);
+
+  // const _changeName = (value) => {
+  //   setPortfolioData({
+  //     ...portfolioData,
+  //     userInfo: {
+  //       ...portfolioData.userInfo,
+  //       name: value,
+  //     },
+  //   });
+  // };
+
+  const _changeJob = (value) => {
+    setPortfolioData({
+      ...portfolioData,
+      userInfo: {
+        ...portfolioData.userInfo,
+        job: value,
+      },
+    });
+  };
+
+  const changeDescription = (value) => {
+    setPortfolioData({
+      ...portfolioData,
+      userInfo: {
+        ...portfolioData.userInfo,
+        description: value,
+      },
+    });
+  };
+
+  // const changeBirthDate = (value) => {
+  //   setPortfolioData({
+  //     ...portfolioData,
+  //     userInfo: {
+  //       ...portfolioData.userInfo,
+  //       birthDate: value,
+  //     },
+  //   });
+  // };
+
+  // const _changePhoneNumber = (value) => {
+  //   setPortfolioData({
+  //     ...portfolioData,
+  //     userInfo: {
+  //       ...portfolioData.userInfo,
+  //       phoneNumber: value,
+  //     },
+  //   });
+  // };
+
+  // const changeEmail = (value) => {
+  //   setPortfolioData({
+  //     ...portfolioData,
+  //     userInfo: {
+  //       ...portfolioData.userInfo,
+  //       email: value,
+  //     },
+  //   });
+  // };
 
   const _changeBgColor = (bgColor) => {
     setPortfolioData({
@@ -209,30 +271,14 @@ function ProfileSection({ portfolioData, setPortfolioData }) {
     });
   };
 
-    // console.log(
-    //   "BGCOLORBGCOLORBGCOLORBGCOLORBGCOLORBGCOLOR++++++++++++++++++",
-    //   bgColor
-    // );
-    // console.log(
-    //   "BGCOLORBGCOLORBGCOLORBGCOLORBGCOLORBGCOLOR",
-    //   portfolioData.userInfo.backgroundColor
-    // );
-  };
-  const _changeJob = (value) => {};
-
-  const _changeDescription = (value) => {
-    console.log(
-      "_changeDescription_changeDescription_changeDescription_changeDescription",
-      value
-    );
-    setPortfolioData({
-      ...portfolioData,
-      userInfo: {
-        ...portfolioData.userInfo,
-        description: value,
-      },
-    });
-  };
+  // console.log(
+  //   "BGCOLORBGCOLORBGCOLORBGCOLORBGCOLORBGCOLOR++++++++++++++++++",
+  //   bgColor
+  // );
+  // console.log(
+  //   "BGCOLORBGCOLORBGCOLORBGCOLORBGCOLORBGCOLOR",
+  //   portfolioData.userInfo.backgroundColor
+  // );
 
   return (
     <ProfileSectionStyle>
@@ -257,11 +303,16 @@ function ProfileSection({ portfolioData, setPortfolioData }) {
             />
             <label htmlFor="file" className="fileLabel">
               {profileImage ? (
+                // <img
+                //   className="w-[10rem] rounded-[1rem]"
+                //   src={profileImage}
+                //   alt=""
+                // ></img>
                 <img
-                  className="w-[10rem] rounded-[1rem]"
-                  src={profileImage}
+                  className="rounded-[0.8rem] w-[12rem]"
+                  src={`data:image/jpeg;base64,${portfolioData.userInfo?.imageUrl}`}
                   alt=""
-                ></img>
+                />
               ) : (
                 <div className="flex flex-col items-center">
                   <PlusBoxContainer>
@@ -292,11 +343,13 @@ function ProfileSection({ portfolioData, setPortfolioData }) {
           <NameInput
             placeholder="이름을 입력해주세요"
             value={portfolioData.userInfo.name}
+            disabled
+            // onChange={(e) => _changeName(e.target.value)}
           ></NameInput>
           <JobInput
             placeholder="직업을 입력해주세요(ex - 백엔드 개발자)"
             value={portfolioData.userInfo.job}
-            onChange={() => _changeJob(portfolioData.userInfo.job)}
+            onChange={(e) => _changeJob(e.target.value)}
           ></JobInput>
           <ProfileIntroductionContainer>
             <ProfileIntroductionTitle>
@@ -305,26 +358,33 @@ function ProfileSection({ portfolioData, setPortfolioData }) {
             <ProfileIntroductionInput
               placeholder="채용 담당자에게 특별한 인상을 줄 수 있는 소개 글을 작성해보세요."
               value={portfolioData.userInfo.description}
-              onChange={(e) => _changeDescription(e.target.value)}
+              onChange={(e) => changeDescription(e.target.value)}
             ></ProfileIntroductionInput>
           </ProfileIntroductionContainer>
           <ProfileAdditionalInfo>
             <InputLabel>
               <InputTitle>생년월일</InputTitle>
               <InputContainer
+                type="date"
                 value={portfolioData.userInfo.birthDate}
+                disabled
+                // onChange={(e) => changeBirthDate(e.target.value)}
               ></InputContainer>
             </InputLabel>
             <InputLabel>
               <InputTitle>전화번호</InputTitle>
               <InputContainer
                 value={portfolioData.userInfo.phoneNumber}
+                disabled
+                // onChange={(e) => _changePhoneNumber(e.target.value)}
               ></InputContainer>
             </InputLabel>
             <InputLabel>
               <InputTitle>이메일</InputTitle>
               <InputContainer
                 value={portfolioData.userInfo.email}
+                disabled
+                // onChange={(e) => changeEmail(e.target.value)}
               ></InputContainer>
             </InputLabel>
           </ProfileAdditionalInfo>
@@ -333,5 +393,4 @@ function ProfileSection({ portfolioData, setPortfolioData }) {
     </ProfileSectionStyle>
   );
 }
-
 export default ProfileSection;
