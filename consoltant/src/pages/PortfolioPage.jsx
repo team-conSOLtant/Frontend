@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Routes, Route, Router } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Router,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 import PortfolioController from "../components/portfolio/controller/PortfolioController.jsx";
 import styled from "styled-components";
 import Navbar from "../components/header/Navbar.jsx";
@@ -20,6 +26,7 @@ import { setUser, removeUser } from "../feature/user/userSlice";
 import { getActivities } from "../apis/Activity.jsx";
 import { getCourses } from "../apis/Course.jsx";
 import CommentController from "../components/portfolio/controller/CommentController.jsx";
+import { useParams } from "react-router-dom";
 
 // 포트폴리오(이력서) 보는 페이지
 
@@ -42,8 +49,24 @@ const PortfolioMain = styled.div`
 
 function PortfolioFormPage() {
   console.log("PortfolioFormPage RENDER");
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  let portloginid = location.state.portloginid;
+  let { portid } = useParams();
+
   let { loginid, portfolioid } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
+  const isBlur = !(portid === portfolioid);
+  // console.log(
+  //   "????????????????????????????????????????????????????????????????"
+  // );
+  // console.log(portloginid);
+  // console.log(portid);
+
+  // if (isBlur) {
+  //   portloginid
+
+  // }
 
   const [careerItems, setCareerItems] = useState([]);
   const [certificationItems, setCertificationItems] = useState([]);
@@ -82,7 +105,7 @@ function PortfolioFormPage() {
   }, []);
 
   useEffect(() => {
-    console.log("portfolioid : : ", portfolioid);
+    // console.log("portfolioid : : ", portfolioid);
     if (portfolioid) {
       // 나중에 병렬처리 하기
       getUserData();
@@ -99,7 +122,7 @@ function PortfolioFormPage() {
   const getProfileData = async () => {
     // console.log("profile : loginid", loginid);
     const newData = await getPortfolios(loginid);
-    dispatch(setUser({ loginid: loginid, portfolioid: portfolioid }));
+    // dispatch(setUser({ loginid: loginid, portfolioid: portfolioid }));
     setPortfolioData((existingData) => ({
       ...existingData,
       userInfo: {
