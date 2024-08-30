@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/header/Navbar.jsx";
 import RecommendGraph from "../components/recommend/RecommendGraph.jsx";
 import RecommendTabs from "../components/recommend/RecommendTabs.jsx";
-import {getBestRoadMap, getExpectedRoadMap, getPresentRoadMap} from "../apis/RoadMap.jsx";
+import {getBestRoadMap, postExpectedRoadMap, getPresentRoadMap} from "../apis/RoadMap.jsx";
 
 function RecommendPage() {
   const [bestRoadMapGraph, setBestRoadMapGraph] = useState();
@@ -11,22 +11,20 @@ function RecommendPage() {
   const [expectedRoadMapGraph, setExpectedRoadMapGraph] = useState();
   const [expectedRoadMapProducts, setExpectedRoadMapProducts] = useState();
   const [expectedRoadMapInfo, setExpectedRoadMapInfo] = useState();
-  const [presentRoadMapGraph, setPresentRoadMapGraph] = useState();
-  const [presentRoadMapProducts, setPresentRoadMapProducts] = useState();
-  const [presentRoadMapInfo, setPresentRoadMapInfo] = useState();
 
   useEffect(() => {
     getBest();
-    getExpected();
-    getPresent();
+    postExpected();
   }, []);
 
+  // 넣은 상품
   const [selectedItems, setSelectedItems] = useState({
     deposit: [],
     savings: [],
     loan: [],
   });
 
+  // 담아둔 상품
   const [checkedItems, setCheckedItems] = useState({
     deposit: [],
     savings: [],
@@ -81,20 +79,12 @@ function RecommendPage() {
     await setBestRoadMapProducts(res.result.product);
   }
 
-  const getExpected = async () =>{
-    const res = await getExpectedRoadMap();
-    console.log("res", res.result.data);
+  const postExpected = async () =>{ 
+    const res = await postExpectedRoadMap(selectedItems);
+    console.log("expected res", res.result);
     await setExpectedRoadMapGraph(res.result.data);
     await setExpectedRoadMapInfo(res.result.info);
     await setExpectedRoadMapProducts(res.result.product);
-  }
-
-  const getPresent = async () =>{
-    const res = await getPresentRoadMap();
-    console.log("res", res.result);
-    await setPresentRoadMapGraph(res.result.data);
-    await setPresentRoadMapInfo(res.result.info);
-    await setPresentRoadMapProducts(res.result.product);
   }
 
   return (
@@ -108,7 +98,7 @@ function RecommendPage() {
                 추천 로드맵
               </div>
               <div className="text-sm">
-                {presentRoadMapInfo.name}고객님의 포트폴리오 학생 데이터를 활용하여 추천한 선배님들의 모범
+                {expectedRoadMapGraph.name}고객님의 포트폴리오 학생 데이터를 활용하여 추천한 선배님들의 모범
                 금융 로드맵 입니다.
               </div>
             </div>
@@ -128,11 +118,11 @@ function RecommendPage() {
             </div>
           </div>
         )}
-        { presentRoadMapGraph && presentRoadMapInfo && presentRoadMapProducts && (
+        { expectedRoadMapGraph && expectedRoadMapInfo && expectedRoadMapProducts && (
           <div className="flex flex-col">
             <div className="flex flex-col mb-10">
                 <div className="text-2xl mb-2 text-[#0046ff] font-semibold">
-                  {presentRoadMapInfo.name}님의 예상 로드맵
+                  {expectedRoadMapGraph.name}님의 예상 로드맵
                 </div>
                 <div className="text-sm">
                   추천 로드맵의 금융 상품 중 신한은행 금융 상품과 유사한 상품을
@@ -141,13 +131,13 @@ function RecommendPage() {
               </div>
               <div className="mb-4">
                 <RecommendGraph 
-                  graph={presentRoadMapGraph}
+                  graph={expectedRoadMapGraph}
                 />
               </div>
               <div>
                 <RecommendTabs
-                  financeProducts = {presentRoadMapProducts}
-                  info={presentRoadMapInfo}
+                  financeProducts = {expectedRoadMapProducts}
+                  info={expectedRoadMapInfo}
                   selectedItems={selectedItems}
                   onItemClick={handleItemClick}
                   onCheckboxChange={handleCheckboxChange} // 체크박스 상태 변경 핸들러 전달

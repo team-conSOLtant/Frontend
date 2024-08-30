@@ -13,6 +13,7 @@ function FinanceMyPage() {
   const [presentRoadMapGraph, setPresentRoadMapGraph] = useState();
   const [presentRoadMapProducts, setPresentRoadMapProducts] = useState();
   const [presentRoadMapInfo, setPresentRoadMapInfo] = useState();
+  const [age, setAge] = useState();
 
   useEffect(() => {
     getPresent();
@@ -27,6 +28,7 @@ function FinanceMyPage() {
     await setPresentRoadMapGraph(res.result.data);
     await setPresentRoadMapInfo(res.result.info);
     await setPresentRoadMapProducts(res.result.product);
+    await setAge(res.result.data.map(item => item.age).filter(age => age));
   }
 
   return (
@@ -65,6 +67,7 @@ function FinanceMyPage() {
                   <MyFinanceTabs
                     financeProducts={presentRoadMapProducts}
                     info={presentRoadMapInfo}
+                    age = {age}
                   />
                 </div>
               </div>

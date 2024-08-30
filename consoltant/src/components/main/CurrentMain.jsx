@@ -6,19 +6,14 @@ import MyPortfolio from "./MyPortFolio";
 import SearchPortfolio from "./SearchPortfolio";
 import FinanceRoadMap from "./FinanceRoadMap";
 
-function CurrentMain(props) {
-  let userInfo = props.userInfo;
-  let totalInfos = props.totalInfos;
-  let products = props.products;
-  let notification = props.notification;
-
-  const notificationNum = notification.filter(
-    (item) => item.notificationType === "PORTFOLIO_COMMENT"
-  ).length;
-
-  const seniorPortfolio = notification.filter(
-    (item) => item.notificationType === "PORTFOLIO_MATCHING"
-  );
+function CurrentMain({
+  userInfo,
+  totalInfos,
+  products,
+  commentInfo,
+  seniorInfo,
+}) {
+  const notificationNum = commentInfo.length;
 
   const accountInfos = {
     accountName: totalInfos.accountName,
@@ -87,7 +82,7 @@ function CurrentMain(props) {
       {/* 아랫줄 */}
       <div className="grid grid-cols-3 gap-2 mt-[2rem]">
         {/* SeniorPortfolio */}
-        <SeniorPortfolio seniorPortfolio={seniorPortfolio[0]} />
+        <SeniorPortfolio seniorPortfolio={seniorInfo} />
 
         {/* mid container */}
         <div className="flex flex-col justify-between">

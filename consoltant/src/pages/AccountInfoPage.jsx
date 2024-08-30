@@ -21,7 +21,7 @@ function AccountInfoPage() {
   const [numTwo, setNumTwo] = useState();
   const [numThree, setNumThree] = useState();
   const [numFour, setNumFour] = useState();
-  const [approved, setApproved] = useState();
+  const [approved, setApproved] = useState(null);
   const [company, setCompany] = useState();
   const [salary, setSalary] = useState();
   const [errorMessage, setErrorMessage] = useState();
@@ -45,6 +45,8 @@ function AccountInfoPage() {
   useEffect(() => {
     if (approved) {
       setIsError(false);
+    } else {
+      setIsError(true);
     }
   }, [setAccountNo, setApproved]);
 
@@ -96,6 +98,9 @@ function AccountInfoPage() {
 
       const checkResponse = await checkMessage(accountInfo);
       await console.log(checkResponse.result.transactionSummary);
+      await window.alert(
+        `인증번호 : ${checkResponse.result.transactionSummary.split(" ")[1]}`
+      );
 
       // await setCheckNoAnswer(checkResponse.result.transactionSummary);
     } catch (error) {
@@ -112,7 +117,12 @@ function AccountInfoPage() {
       authCode: insertNum,
     };
     const response = await checkAccount(checkInfo);
-    await setApproved(response.success);
+    if (response) {
+      await setApproved(response.success);
+    } else {
+      console.log(response);
+      await setApproved(response);
+    }
   };
 
   return (
@@ -128,7 +138,7 @@ function AccountInfoPage() {
         </div>
       </div>
       {/* 회원정보 입력란 */}
-      <div className="h-[80vh] flex flex-col justify-center items-center">
+      <div className="h-[80vh] flex flex-col justify-center items-center scale-110">
         <div className="h-[1rem] w-[50%] max-w-[25rem] min-w-[20rem] mb-[4rem] flex flex-col items-center">
           <div className="text-[1.5rem] text-[#0046ff] font-OneShinhanMedium">
             {hasAccount ? "계좌 연결이 필요해요" : "통장 개설이 필요해요"}
@@ -220,7 +230,16 @@ function AccountInfoPage() {
                 </button>
               </div>
             </div>
-            {approved &&
+            {/* {approved ? (
+                <div className="text-[0.7rem] text-green-500">
+                  인증되었습니다.
+                </div>
+              ) : (
+                <div className="text-[0.7rem] text-red-500">
+                  인증에 실패 했습니다.
+                </div>
+              )} */}
+            {approved !== null &&
               (approved ? (
                 <div className="text-[0.7rem] text-green-500">
                   인증되었습니다.

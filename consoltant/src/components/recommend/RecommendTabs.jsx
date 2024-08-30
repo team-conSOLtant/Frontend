@@ -8,9 +8,13 @@ function RecommendTabs({
   onItemClick,
   isKimSsafy,
   onCheckboxChange,
+  age,
 }) {
   const [activeTab, setActiveTab] = useState("basicInfo");
   const [products, setProducts] = useState([]);
+  const [selectedAge, setSelectedAge] = useState("");
+  const [allAges, setAllAges] = useState([]);
+
   const [checkedItems, setCheckedItems] = useState({
     deposit: {},
     savings: {},
@@ -20,6 +24,14 @@ function RecommendTabs({
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
+
+  const handleAgeChange = (e) => {
+    setSelectedAge(e.target.value); // 선택된 나이 업데이트
+  };
+
+  useEffect(() => {
+    setAllAges(age); // 모든 나이 값을 상태로 설정
+  }, [financeProducts]);
 
   const handleCheckboxChange = (item, checked) => {
     setCheckedItems((prev) => ({
@@ -55,15 +67,21 @@ function RecommendTabs({
         const products = financeProducts[productTypes[activeTab]];
         
         for (let p in products) {
+          const product = products[p];
+
           pfinance.push({
-            id: products[p].accountTypeUniqueNo,
-            bankName: products[p].bankName,
-            accountName: products[p].accountName,
-            accountDescription: products[p].accountDescription,
-            interestRate: products[p].interestRate,
-            subscriptionPeriod: products[p].subscriptionPeriod,
-            minSubscriptionBalance: products[p].minSubscriptionBalance || products[p].minLoanBalance,
-            maxSubscriptionBalance: products[p].maxSubscriptionBalance || products[p].maxLoanBalance,
+            id: product.accountTypeUniqueNo,
+            bankName: product.bankName,
+            accountName: product.accountName,
+            accountDescription: product.accountDescription,
+            interestRate: product.interestRate,
+            subscriptionPeriod: product.subscriptionPeriod,
+            minSubscriptionBalance: product.minSubscriptionBalance || product.minLoanBalance,
+            maxSubscriptionBalance: product.maxSubscriptionBalance || product.maxLoanBalance,
+            age: product.age,
+            balance: product.balance,
+            startDate: product.startDate,
+            endDate: product.endDate,
           });
         }
       }
@@ -100,6 +118,25 @@ function RecommendTabs({
 
   return (
     <div className="p-4">
+      {/* 나이 선택 드롭다운 */}
+      <div className="mb-4">
+        <label htmlFor="ageSelect" className="mr-2">
+          나이 선택:
+        </label>
+        <select
+          id="ageSelect"
+          value={selectedAge}
+          onChange={handleAgeChange}
+          className="border border-gray-300 rounded px-2 py-1"
+        >
+          <option value="">전체</option>
+          {allAges.map((age) => (
+            <option key={age} value={age}>
+              {age}
+            </option>
+          ))}
+        </select>
+      </div>
       <div className="flex border-b-2 border-gray-200 mb-4">
         <button
           className={`px-4 py-2 focus:outline-none ${

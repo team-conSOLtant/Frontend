@@ -15,7 +15,11 @@ import { getAwards } from "../apis/Award.jsx";
 import { getUserInfo } from "../apis/Users.jsx";
 import { getCertifications } from "../apis/Certification.jsx";
 import { getProjects } from "../apis/Project.jsx";
-import { getCareer } from "../apis/Career.jsx";
+import { getCareers } from "../apis/Career.jsx";
+import { setUser, removeUser } from "../feature/user/userSlice";
+import { getActivities } from "../apis/Activity.jsx";
+import { getCourses } from "../apis/Course.jsx";
+
 // 포트폴리오(이력서) 보는 페이지
 
 const PortfolioPageStyle = styled.div``;
@@ -36,7 +40,16 @@ const PortfolioMain = styled.div`
 `;
 
 function PortfolioFormPage() {
-  const loginid = useSelector((state) => state.user.loginid);
+  console.log("PortfolioFormPage RENDER");
+  let { loginid, portfolioid } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  const [careerItems, setCareerItems] = useState([]);
+  const [certificationItems, setCertificationItems] = useState([]);
+  const [awardItems, setAwardItems] = useState([]);
+  const [projectItems, setProjectItems] = useState([]);
+  const [activityItems, setActivityItems] = useState([]);
+  const [courseItems, setCourseItems] = useState([]);
 
   const [portfolioData, setPortfolioData] = useState({
     userInfo: {
@@ -47,26 +60,19 @@ function PortfolioFormPage() {
       phoneNumber: null,
       imageUrl: null,
       description: null,
-      portfolioId: null,
     },
-    keywords: { financeKeyword: null, myKeyword: null },
-    educationAndcareer: {
-      education: {
-        university: {
-          id: null,
-          name: null,
-          universityCode: null,
-          isDeleted: null,
-        },
-        totalGpa: null,
-        majorGpa: null,
-        major: null,
+    keywords: { financeKeyword: null, myKeyword: [] },
+    education: {
+      university: {
+        id: null,
+        name: null,
+        universityCode: null,
+        isDeleted: null,
       },
-      career: [],
+      totalGpa: null,
+      majorGpa: null,
+      major: null,
     },
-    awardsAndcertifications: { awards: [], certifications: [] },
-    projects: [],
-    activities: [],
   });
 
   useEffect(() => {
@@ -75,19 +81,24 @@ function PortfolioFormPage() {
   }, []);
 
   useEffect(() => {
-    if (portfolioData.userInfo.portfolioId) {
+    console.log("portfolioid : : ", portfolioid);
+    if (portfolioid) {
+      // 나중에 병렬처리 하기
       getUserData();
       getCareerData();
       getAwardsData();
       getCertificationdData();
       getProjectsData();
+      getActivitiesData();
+      getCoursesdData();
       console.log("after get projects : ", portfolioData);
     }
-  }, [portfolioData.userInfo.portfolioId]);
+  }, [portfolioid]);
 
   const getProfileData = async () => {
     // console.log("profile : loginid", loginid);
     const newData = await getPortfolios(loginid);
+    dispatch(setUser({ loginid: loginid, portfolioid: portfolioid }));
     setPortfolioData((existingData) => ({
       ...existingData,
       userInfo: {
@@ -95,23 +106,18 @@ function PortfolioFormPage() {
         job: newData.job, // Backend Engineer로 업데이트
         imageUrl: newData.imageUrl, // 새로운 이미지 URL로 업데이트
         description: newData.description, // 새로운 설명으로 업데이트
-        portfolioId: newData.id,
       },
       keywords: {
         ...existingData.keywords,
         financeKeyword: newData.financeKeyword, // 새로운 financeKeyword로 업데이트
         myKeyword: newData.myKeyword.split(","), // 새로운 myKeyword로 업데이트
       },
-      educationAndcareer: {
-        ...existingData.educationAndcareer,
-        education: {
-          ...existingData.educationAndcareer.education,
-          totalGpa: newData.totalGpa, // 새로운 totalGpa로 업데이트
-          majorGpa: newData.majorGpa, // 새로운 majorGpa로 업데이트
-          university: {
-            ...existingData.educationAndcareer.education.university,
-            isDeleted: newData.isDeleted, // isDeleted 상태 업데이트
-          },
+      education: {
+        ...existingData.education,
+        majorGpa: newData.majorGpa, // 새로운 majorGpa로 업데이트
+        university: {
+          ...existingData.education.university,
+          isDeleted: newData.isDeleted, // isDeleted 상태 업데이트
         },
       },
     }));
@@ -130,79 +136,90 @@ function PortfolioFormPage() {
         phoneNumber: newData.phoneNumber,
         birthDate: newData.birthDate,
       },
-      educationAndcareer: {
-        ...existingData.educationAndcareer,
-        education: {
-          ...existingData.educationAndcareer.education,
-          university: newData.university,
-          major: newData.major,
-        },
+      education: {
+        ...existingData.education,
+        university: newData.university,
+        major: newData.major,
+        totalGpa: newData.totalGpa, // 새로운 totalGpa로 업데이트
       },
     }));
   };
 
   const getCareerData = async () => {
     console.log("[getCareer function] start");
-    const newData = await getCareer(portfolioData.userInfo.portfolioId);
-    setPortfolioData((existingData) => ({
-      ...existingData,
-      educationAndcareer: {
-        ...existingData.educationAndcareer,
-        career: newData,
-      },
-    }));
+    const newData = await getCareers(portfolioid);
+    setCareerItems(newData);
   };
 
   const getAwardsData = async () => {
     console.log("[getAwards function] start");
-    const newData = await getAwards(portfolioData.userInfo.portfolioId);
-    setPortfolioData((existingData) => ({
-      ...existingData,
-      awardsAndcertifications: {
-        ...existingData.awardsAndcertifications,
-        awards: newData,
-      },
-    }));
+    const newData = await getAwards(portfolioid);
+    setAwardItems(newData);
   };
 
   const getCertificationdData = async () => {
     console.log("[getCertification function] start");
-    const newData = await getCertifications(portfolioData.userInfo.portfolioId);
-    setPortfolioData((existingData) => ({
-      ...existingData,
-      awardsAndcertifications: {
-        ...existingData.awardsAndcertifications,
-        certifications: newData,
-      },
-    }));
+    const newData = await getCertifications(portfolioid);
+    setCertificationItems(newData);
   };
 
   const getProjectsData = async () => {
     console.log("[getProjects function] start");
-    const newData = await getProjects(portfolioData.userInfo.portfolioId);
-    setPortfolioData((existingData) => ({
-      ...existingData,
-      projects: newData,
-    }));
+    const newData = await getProjects(portfolioid);
+    setProjectItems(newData);
   };
+
+  const getActivitiesData = async () => {
+    console.log("[getActivities function] start");
+    const newData = await getActivities(portfolioid);
+    setActivityItems(newData);
+  };
+
+  const getCoursesdData = async () => {
+    console.log("[getCourses function] start");
+    const newData = await getCourses(loginid);
+    setCourseItems(newData);
+  };
+
   return (
     <PortfolioPageStyle>
       <Navbar></Navbar>
       <PortfolioBody>
         <PortfolioMain>
-          <ProfileViewSection userInfo={portfolioData.userInfo} />
-          <EducationCareerSection
-            educationAndcareer={portfolioData.educationAndcareer}
-            isEdit={false}
+          <ProfileViewSection
+            userInfo={portfolioData.userInfo}
+            keywords={portfolioData.keywords}
           />
-          <AwardCertificationSection
-            awardsAndcertifications={portfolioData.awardsAndcertifications}
-            isEdit={false}
-          />
-          <ProjectSection projects={portfolioData.projects} isEdit={false} />
+          {careerItems.length > 0 && (
+            <EducationCareerSection
+              education={portfolioData.education}
+              isEdit={false}
+              careerItems={careerItems}
+              setCareerItems={setCareerItems}
+              courseItems={courseItems}
+              setCourseItems={setCourseItems}
+            />
+          )}
+          {certificationItems.length > 0 && awardItems.length > 0 && (
+            <AwardCertificationSection
+              isEdit={false}
+              certificationItems={certificationItems}
+              setCertificationItems={setCertificationItems}
+              awardItems={awardItems}
+              setAwardItems={setAwardItems}
+            />
+          )}
+          {projectItems.length > 0 && (
+            <ProjectSection
+              isEdit={false}
+              projectItems={projectItems}
+              setProjectItems={setProjectItems}
+            />
+          )}
           <ActivitySection
-            activities={portfolioData.activities}
             isEdit={false}
+            activityItems={activityItems}
+            setActivityItems={setActivityItems}
           />
         </PortfolioMain>
       </PortfolioBody>

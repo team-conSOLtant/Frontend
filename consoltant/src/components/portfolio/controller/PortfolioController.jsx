@@ -101,6 +101,8 @@ function PortfolioController({ isEdit }) {
     );
   }, []);
 
+  const _savePortfolio = async () => {};
+
   return (
     <PortfolioControllerStyle>
       <PortfolioControllerTitle>포트폴리오 구성</PortfolioControllerTitle>
@@ -115,7 +117,9 @@ function PortfolioController({ isEdit }) {
           image={data.image}
         ></PortfolioControllerItem>
       ))}
-      <SaveButton>포트폴리오 저장</SaveButton>
+      {isEdit && (
+        <SaveButton onClick={_savePortfolio}>포트폴리오 저장</SaveButton>
+      )}
       {!isEdit && (
         <EditButton onClick={() => navigate("/make-portfolio")}>
           포트폴리오 편집

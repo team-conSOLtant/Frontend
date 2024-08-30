@@ -4,6 +4,7 @@ import { checkAccountInsert, requestLogin } from "../apis/Login";
 import { useDispatch } from "react-redux";
 import { setUser, removeUser } from "../feature/user/userSlice";
 import { getPortfolios } from "../apis/Portfolio";
+import { getUserInfo } from "../apis/Users";
 
 // 로그인 페이지
 function LoginPage() {
@@ -19,25 +20,46 @@ function LoginPage() {
     }
   };
 
+  // const login = async () => {
+  //   const form = new FormData();
+  //   form.append("username", id);
+  //   form.append("password", pw);
+  //   try {
+  //     if (
+  //       await requestLogin(form).then((data) => {
+  //         console.log("login data", data);
+  //         dispatch(setUser({ loginid: data }));
+  //         return data;
+  //       })
+  //     ) {
+  //       console.log("로그인 성공!");
+  //       navigate("/main");
+  //     } else {
+  //       console.log("로그인 실패!");
+  //       setLoginFail(true);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   const login = async () => {
     const form = new FormData();
     form.append("username", id);
     form.append("password", pw);
-    try {
-      const userId = await requestLogin(form).then((data) => {
-        console.log("login data", data);
-        dispatch(setUser({ loginid: data }));
-        return data;
-      });
-      if (userId) {
-        await getPortfolios(userId).then((res) => {
-          console.log("[IN LOGIN] portfolio data :", res.id);
-          dispatch(setUser({ portfolioid: res.id }));
-        });
+    const loginId = await getLoginId(form);
+    if (loginId) {
+      const portfolioId = await getPortfolioId(loginId);
+      console.log("portfolioId", portfolioId);
+      if (portfolioId) {
+        dispatch(setUser({ loginid: loginId, portfolioid: portfolioId }));
+        window.localStorage.setItem("userId", loginId);
+        window.localStorage.setItem("portfolioId", portfolioId);
         console.log("로그인 성공!");
         const hasAccount = await checkAccountInsert().then((res) => {
           return res.result;
         });
+        console.log(hasAccount);
         if (hasAccount) {
           navigate("/main");
         } else {
@@ -47,9 +69,16 @@ function LoginPage() {
         console.log("로그인 실패!");
         setLoginFail(true);
       }
-    } catch (error) {
-      console.log(error);
     }
+  };
+
+  const getLoginId = async (form) => {
+    const newData = await requestLogin(form);
+    return newData;
+  };
+  const getPortfolioId = async (loginid) => {
+    const newData = await getPortfolios(loginid);
+    return newData.id;
   };
 
   useEffect(() => {}, [loginFail, setLoginFail]);
@@ -117,7 +146,7 @@ function LoginPage() {
         </div>
         <div
           onClick={login}
-          className="mt-[2rem] py-[0.5rem] font-OneShinhanMedium shadow-md border rounded-[0.5rem] flex justify-center w-[80%] bg-[#0046ff] text-white"
+          className="mt-[2rem] py-[0.5rem] font-OneShinhanMedium shadow-md border rounded-[0.5rem] flex justify-center w-[80%] bg-[#0046ff] text-white cursor-pointer"
         >
           로그인
         </div>

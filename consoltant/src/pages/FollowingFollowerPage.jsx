@@ -34,15 +34,8 @@ function FollowingFollowerPage() {
   const [followingList, setFollowingList] = useState();
   const [followerList, setFollowerList] = useState();
 
-  const loginid = useSelector((state) => {
-    console.log("state", state);
-    return state.user.loginid;
-  });
-
-  const portfolioid = useSelector((state) => {
-    console.log("state", state);
-    return state.user.portfolioid;
-  });
+  const loginid = window.localStorage.getItem("userId");
+  const portfolioid = window.localStorage.getItem("portfolioId");
 
   useEffect(() => {}, [setFollowing]);
 

@@ -14,10 +14,13 @@ import ActivitySection from "../components/portfolio/activity/ActivitySection.js
 import { getCertifications } from "../apis/Certification.jsx";
 import { getProjects } from "../apis/Project.jsx";
 import { getAwards } from "../apis/Award.jsx";
-import { getCareer } from "../apis/Career.jsx";
+import { getCareers } from "../apis/Career.jsx";
 import { getUserInfo } from "../apis/Users.jsx";
 import { getPortfolios } from "../apis/Portfolio.jsx";
+import { getActivities } from "../apis/Activity.jsx";
+
 import { useSelector } from "react-redux";
+import { getCourses } from "../apis/Course.jsx";
 // 포트폴리오(이력서) 만드는 페이지
 
 const PortfolioPageStyle = styled.div``;
@@ -38,7 +41,14 @@ const PortfolioBody = styled.div`
 `;
 
 function MakePortfolioPage() {
-  const loginid = useSelector((state) => state.user.loginid);
+  let { loginid, portfolioid } = useSelector((state) => state.user);
+
+  const [careerItems, setCareerItems] = useState([]);
+  const [certificationItems, setCertificationItems] = useState([]);
+  const [awardItems, setAwardItems] = useState([]);
+  const [projectItems, setProjectItems] = useState([]);
+  const [activityItems, setActivityItems] = useState([]);
+  const [courseItems, setCourseItems] = useState([]);
 
   const [portfolioData, setPortfolioData] = useState({
     userInfo: {
@@ -49,26 +59,19 @@ function MakePortfolioPage() {
       phoneNumber: null,
       imageUrl: null,
       description: null,
-      portfolioId: null,
     },
     keywords: { financeKeyword: null, myKeyword: [] },
-    educationAndcareer: {
-      education: {
-        university: {
-          id: null,
-          name: null,
-          universityCode: null,
-          isDeleted: null,
-        },
-        totalGpa: null,
-        majorGpa: null,
-        major: null,
+    education: {
+      university: {
+        id: null,
+        name: null,
+        universityCode: null,
+        isDeleted: null,
       },
-      career: [],
+      totalGpa: null,
+      majorGpa: null,
+      major: null,
     },
-    awardsAndcertifications: { awards: [], certifications: [] },
-    projects: [],
-    activities: [],
   });
   useEffect(() => {
     console.log("this is portfolio page - - - - - - - - - - - - - - - - -");
@@ -76,15 +79,18 @@ function MakePortfolioPage() {
   }, []);
 
   useEffect(() => {
-    if (portfolioData.userInfo.portfolioId) {
+    if (portfolioid) {
       getUserData();
       getCareerData();
       getAwardsData();
       getCertificationdData();
       getProjectsData();
+      getActivitiesData();
+      getCoursesdData();
+
       console.log("after get projects : ", portfolioData);
     }
-  }, [portfolioData.userInfo.portfolioId]);
+  }, [portfolioid]);
 
   const getProfileData = async () => {
     const newData = await getPortfolios(loginid);
@@ -102,16 +108,13 @@ function MakePortfolioPage() {
         financeKeyword: newData.financeKeyword, // 새로운 financeKeyword로 업데이트
         myKeyword: newData.myKeyword.split(","), // 새로운 myKeyword로 업데이트
       },
-      educationAndcareer: {
-        ...existingData.educationAndcareer,
-        education: {
-          ...existingData.educationAndcareer.education,
-          totalGpa: newData.totalGpa, // 새로운 totalGpa로 업데이트
-          majorGpa: newData.majorGpa, // 새로운 majorGpa로 업데이트
-          university: {
-            ...existingData.educationAndcareer.education.university,
-            isDeleted: newData.isDeleted, // isDeleted 상태 업데이트
-          },
+      education: {
+        ...existingData.education,
+        totalGpa: newData.totalGpa, // 새로운 totalGpa로 업데이트
+        majorGpa: newData.majorGpa, // 새로운 majorGpa로 업데이트
+        university: {
+          ...existingData.education.university,
+          isDeleted: newData.isDeleted, // isDeleted 상태 업데이트
         },
       },
     }));
@@ -129,84 +132,84 @@ function MakePortfolioPage() {
         age: newData.age,
         phoneNumber: newData.phoneNumber,
       },
-      educationAndcareer: {
-        ...existingData.educationAndcareer,
-        education: {
-          ...existingData.educationAndcareer.education,
-          university: newData.university,
-          major: newData.major,
-        },
+      education: {
+        ...existingData.education,
+        university: newData.university,
+        major: newData.major,
       },
     }));
   };
 
   const getCareerData = async () => {
     console.log("[getCareer function] start");
-    const newData = await getCareer(portfolioData.userInfo.portfolioId);
-    setPortfolioData((existingData) => ({
-      ...existingData,
-      educationAndcareer: {
-        ...existingData.educationAndcareer,
-        career: newData,
-      },
-    }));
+    const newData = await getCareers(loginid);
+    setCareerItems(newData);
   };
 
   const getAwardsData = async () => {
     console.log("[getAwards function] start");
-    const newData = await getAwards(portfolioData.userInfo.portfolioId);
-    setPortfolioData((existingData) => ({
-      ...existingData,
-      awardsAndcertifications: {
-        ...existingData.awardsAndcertifications,
-        awards: newData,
-      },
-    }));
+    const newData = await getAwards(portfolioid);
+    setAwardItems(newData);
   };
 
   const getCertificationdData = async () => {
     console.log("[getCertification function] start");
-    const newData = await getCertifications(portfolioData.userInfo.portfolioId);
-    setPortfolioData((existingData) => ({
-      ...existingData,
-      awardsAndcertifications: {
-        ...existingData.awardsAndcertifications,
-        certifications: newData,
-      },
-    }));
+    const newData = await getCertifications(portfolioid);
+    setCertificationItems(newData);
   };
 
   const getProjectsData = async () => {
     console.log("[getProjects function] start");
-    const newData = await getProjects(portfolioData.userInfo.portfolioId);
-    setPortfolioData((existingData) => ({
-      ...existingData,
-      projects: newData,
-    }));
+    const newData = await getProjects(portfolioid);
+    setProjectItems(newData);
   };
+  const getActivitiesData = async () => {
+    console.log("[getActivities function] start");
+    const newData = await getActivities(portfolioid);
+    setActivityItems(newData);
+  };
+
+  const getCoursesdData = async () => {
+    console.log("[getCourses function] start");
+    const newData = await getCourses(loginid);
+    setCourseItems(newData);
+  };
+
   return (
     <PortfolioPageStyle>
       <Navbar></Navbar>
       <PortfolioBody>
         <PortfolioMain>
-          <ProfileSection userInfo={portfolioData.userInfo} />
-          <KeywordSection
+          {/* <ProfileSection userInfo={portfolioData.userInfo} /> */}
+          {/* <KeywordSection
             keywords={portfolioData.keywords}
             setPortfolioData={setPortfolioData}
-          />
+          /> */}
           <EducationCareerSection
             isEdit={true}
-            educationAndcareer={portfolioData.educationAndcareer}
+            education={portfolioData.education}
+            careerItems={careerItems}
+            setCareerItems={setCareerItems}
+            courseItems={courseItems}
+            setCourseItems={setCourseItems}
           />
+
           <AwardCertificationSection
             isEdit={true}
-            awardsAndcertifications={portfolioData.awardsAndcertifications}
+            certificationItems={certificationItems}
+            setCertificationItems={setCertificationItems}
+            awardItems={awardItems}
+            setAwardItems={setAwardItems}
           />
-          <ProjectSection isEdit={true} projects={portfolioData.projects} />
-          <ActivitySection
+          <ProjectSection
+            isEdit={true}
+            projectItems={projectItems}
+            setProjectItems={setProjectItems}
+          />
+          {/* <ActivitySection
             isEdit={true}
             activities={portfolioData.activities}
-          />
+          /> */}
         </PortfolioMain>
         <PortfolioController isEdit={true} />
       </PortfolioBody>

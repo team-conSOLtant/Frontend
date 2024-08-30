@@ -18,6 +18,7 @@ function MenuDropdown({ feed, roadmap }) {
       <hr className="w-[5rem] border-[#B5B5B5]" />
       <div
         className={`py-[0.5rem] cursor-pointer ${roadmap ? "font-bold" : ""}`}
+        onClick={() => navigate("/portfolio")}
       >
         내 로드맵
       </div>

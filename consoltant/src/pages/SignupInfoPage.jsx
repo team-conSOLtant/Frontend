@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { registerAcademy } from "../apis/Login";
 
@@ -49,7 +49,7 @@ function SignupInfo() {
         });
         if (response.success) {
           // 계좌 여부 확인 페이지로 넘어가기
-          navigate("/check-account", { state: response.result.email });
+          navigate("/check-account");
         } else {
           setErrorMessage("학사정보 등록에 실패했습니다.");
           setIsError(true);
@@ -73,7 +73,7 @@ function SignupInfo() {
         </div>
       </div>
       {/* 회원정보 입력란 */}
-      <div className="h-[80vh] flex flex-col justify-center items-center">
+      <div className="h-[80vh] flex flex-col justify-center items-center scale-110">
         <div className="h-[1rem] w-[50%] max-w-[25rem] min-w-[20rem] mb-[4rem] flex flex-col items-center">
           <div className="text-[1.5rem] text-[#0046ff] font-OneShinhanMedium">
             고객님의 정보가 필요해요

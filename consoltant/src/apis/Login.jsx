@@ -37,11 +37,13 @@ export const register = async (info) => {
         if (error.response) {
           console.log(error.response.data.message);
           console.log(error.response.status);
+          return error.response.status;
         }
       });
     console.log(response);
     if (response) {
-      return response.data;
+      // return response.data;
+      return response;
     } else {
       return false;
     }
@@ -141,6 +143,10 @@ export const checkAccount = async (checkInfo) => {
       .post(`/auth/check/account`, checkInfo)
       .then((res) => {
         return res.data;
+      })
+      .catch((error) => {
+        console.log("[IN AXIOS] 1원 송금 인증 Error", error);
+        return false;
       });
     return response;
   } catch (error) {
