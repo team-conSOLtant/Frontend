@@ -59,7 +59,6 @@ const EditButton = styled.div`
 
 function PortfolioController({ isEdit, allData }) {
   let { loginid, portfolioid } = useSelector((state) => state.user);
-
   // 아이템들의 순서를 상태로 관리
   const navigate = useNavigate();
 
@@ -107,6 +106,7 @@ function PortfolioController({ isEdit, allData }) {
 
   const _savePortfolio = async (allData) => {
     await postSaveAll(loginid, portfolioid, allData);
+    navigate("/portfolio");
   };
 
   return (

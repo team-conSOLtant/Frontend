@@ -50,7 +50,7 @@ const ProfileContainer = styled.div`
   margin-top: 1rem;
   margin-left: 15vw;
   width: 100vw;
-  background-color: ${(props) => props.bgcolor.hex};
+  background-color: ${(props) => props.bgcolor};
 `;
 
 const ProfileImage = styled.div`
@@ -85,7 +85,7 @@ const ProfileSectionLeft = styled.div`
 `;
 const ColorPickerContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   width: 12rem;
 `;
 
@@ -122,10 +122,25 @@ const InputContainer = styled.input`
   padding-left: 0.3rem;
   width: 15rem;
 `;
+const ColorCircle = styled.div`
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background-color: ${(props) => props.bgColor};
+  border: ${(props) =>
+    props.isSelectd ? "0.1rem solid rgb(44, 44, 44, 0.3)" : null};
+`;
 
-function ProfileSection({ userInfo }) {
-  const [bgcolor, setBgcolor] = useState({ hex: "#FFFFFF" });
-  console.log("");
+function ProfileSection({ portfolioData, setPortfolioData }) {
+  const _changeBgColor = (bgColor) => {
+    setPortfolioData({
+      ...portfolioData,
+      userInfo: {
+        ...portfolioData.userInfo,
+        backgroundColor: bgColor,
+      },
+    });
+  };
   return (
     <ProfileSectionStyle>
       <ProfileTitleContainer>
@@ -136,27 +151,29 @@ function ProfileSection({ userInfo }) {
         </ProfileSubTitle>
       </ProfileTitleContainer>
 
-      <ProfileContainer bgcolor={bgcolor}>
+      <ProfileContainer bgcolor={portfolioData.userInfo.backgroundColor}>
         <ProfileSectionLeft>
           <ProfileImage></ProfileImage>
           <ColorPickerContainer>
-            <SliderPicker
-              color={bgcolor}
-              onChangeComplete={(bgcolor) => {
-                console.log("bg color : ", bgcolor);
-                return setBgcolor(bgcolor);
-              }}
-            />
+            {["#DFE4FF", "#FFDFDF", "#E9FFDF", "#DFF0FF", "#FFF8DF"].map(
+              (bgColor) => (
+                <ColorCircle
+                  bgColor={bgColor}
+                  isSelectd={portfolioData.userInfo.backgroundColor === bgColor}
+                  onClick={() => _changeBgColor(bgColor)}
+                />
+              )
+            )}
           </ColorPickerContainer>
         </ProfileSectionLeft>
         <ProfileDescription>
           <NameInput
             placeholder="이름을 입력해주세요"
-            value={userInfo.name}
+            value={portfolioData.userInfo.name}
           ></NameInput>
           <JobInput
             placeholder="직업을 입력해주세요(ex - 백엔드 개발자)"
-            value={userInfo.job}
+            value={portfolioData.userInfo.job}
           ></JobInput>
           <ProfileIntroductionContainer>
             <ProfileIntroductionTitle>
@@ -164,21 +181,27 @@ function ProfileSection({ userInfo }) {
             </ProfileIntroductionTitle>
             <ProfileIntroductionInput
               placeholder="채용 담당자에게 특별한 인상을 줄 수 있는 소개 글을 작성해보세요."
-              value={userInfo.description}
+              value={portfolioData.userInfo.description}
             ></ProfileIntroductionInput>
           </ProfileIntroductionContainer>
           <ProfileAdditionalInfo>
             <InputLabel>
               <InputTitle>생년월일</InputTitle>
-              <InputContainer value={userInfo.birthDate}></InputContainer>
+              <InputContainer
+                value={portfolioData.userInfo.birthDate}
+              ></InputContainer>
             </InputLabel>
             <InputLabel>
               <InputTitle>전화번호</InputTitle>
-              <InputContainer value={userInfo.phoneNumber}></InputContainer>
+              <InputContainer
+                value={portfolioData.userInfo.phoneNumber}
+              ></InputContainer>
             </InputLabel>
             <InputLabel>
               <InputTitle>이메일</InputTitle>
-              <InputContainer value={userInfo.email}></InputContainer>
+              <InputContainer
+                value={portfolioData.userInfo.email}
+              ></InputContainer>
             </InputLabel>
           </ProfileAdditionalInfo>
         </ProfileDescription>
