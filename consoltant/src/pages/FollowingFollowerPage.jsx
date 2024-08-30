@@ -46,16 +46,15 @@ function FollowingFollowerPage() {
 
   // 팔로잉 목록 불러오기
   const getFollowingList = async () => {
-    console.log("여기 오니?");
     const response = await getFollowing(loginid);
-    await console.log(response.result);
+    // await console.log("following List : ", response.result);
     await setFollowingList(response.result);
   };
 
   // 팔로워 목록 불러오기
   const getFollowerList = async () => {
     const response = await getFollower(portfolioid);
-    await console.log("follower List : ", response.result);
+    // await console.log("follower List : ", response.result);
     await setFollowerList(response.result);
   };
 
