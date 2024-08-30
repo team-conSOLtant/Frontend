@@ -65,37 +65,31 @@ function RecommendTabs({
       if (productTypes[activeTab]) {
         const products = financeProducts[productTypes[activeTab]];
 
+        console.log(selectedAge);
+
         for (let p in products) {
           const product = products[p];
-
-          pfinance.push({
-            id: activeTab + p,
-            accountTypeUniqueNo: product.accountTypeUniqueNo,
-            bankName: product.bankName,
-            accountTypeName : product.accountTypeName,
-            accountName: product.accountName,
-            accountDescription: product.accountDescription,
-            interestRate: product.interestRate,
-            subscriptionPeriod: product.subscriptionPeriod,
-            minSubscriptionBalance:
-              product.minSubscriptionBalance || product.minLoanBalance,
-            maxSubscriptionBalance:
-              product.maxSubscriptionBalance || product.maxLoanBalance,
-            age: product.age,
-            balance: product.balance,
-            startDate:
-              product.startDate.substr(0, 4) +
-              "-" +
-              product.startDate.substr(4, 2) +
-              "-0" +
-              product.startDate.substr(6, 2),
-            endDate:
-              product.endDate.substr(0, 4) +
-              "-" +
-              product.endDate.substr(4, 2) +
-              "-" +
-              product.endDate.substr(6, 2),
-          });
+          console.log(product);
+          if (product.age == selectedAge || selectedAge === "") {
+            pfinance.push({
+              id: activeTab + p,
+              accountTypeUniqueNo: product.accountTypeUniqueNo,
+              bankName: product.bankName,
+              accountTypeName: product.accountTypeName,
+              accountName: product.accountName,
+              accountDescription: product.accountDescription,
+              interestRate: product.interestRate,
+              subscriptionPeriod: product.subscriptionPeriod,
+              minSubscriptionBalance:
+                product.minSubscriptionBalance || product.minLoanBalance,
+              maxSubscriptionBalance:
+                product.maxSubscriptionBalance || product.maxLoanBalance,
+              age: product.age,
+              balance: product.balance,
+              startDate: product.startDate,
+              endDate: product.endDate,
+            });
+          }
         }
       }
 
@@ -127,31 +121,31 @@ function RecommendTabs({
       ));
       setProducts(items || []);
     }
-  }, [activeTab, selectedItems, isKimSsafy, checkedItems]);
+  }, [activeTab, selectedItems, isKimSsafy, checkedItems, selectedAge]);
 
   return (
     <div className="p-4">
       {/* 나이 선택 드롭다운 */}
-      {!isKimSsafy && (
-        <div className="mb-4">
-          <label htmlFor="ageSelect" className="mr-2">
-            나이 선택:
-          </label>
-          <select
-            id="ageSelect"
-            value={selectedAge}
-            onChange={handleAgeChange}
-            className="border border-gray-300 rounded px-2 py-1"
-          >
-            <option value="">전체</option>
-            {allAges.map((age) => (
-              <option key={age} value={age}>
-                {age}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
+
+      <div className="mb-4">
+        <label htmlFor="ageSelect" className="mr-2">
+          나이 선택:
+        </label>
+        <select
+          id="ageSelect"
+          value={selectedAge}
+          onChange={handleAgeChange}
+          className="border border-gray-300 rounded px-2 py-1"
+        >
+          <option value="">전체</option>
+          {allAges.map((age) => (
+            <option key={age} value={age}>
+              {age}
+            </option>
+          ))}
+        </select>
+      </div>
+
       <div className="flex border-b-2 border-gray-200 mb-4">
         <button
           className={`px-4 py-2 focus:outline-none ${
@@ -191,43 +185,57 @@ function RecommendTabs({
         </button>
       </div>
 
-      <div className="tab-content">
+      <div className="tab-content overflow-scroll h-[23rem]">
         {activeTab === "basicInfo" && (
           <div className="mx-[5%]">
-            <p className="text-[#0046FF] text-sm">
-              다음은 선배님들의 평균 값 입니다.
+            <p className="text-[#0046FF] text-[#444444] font-OneShinhanMedium text-sm py-2 px-4 mb-2 bg-slate-200 rounded-xl">
+              {!isKimSsafy
+                ? "동문 선배님의 모범 로드맵 기본 정보 입니다."
+                : "고객님의 로드맵 기본 정보 입니다."}
             </p>
-            <div className="flex flex-col ">
+            <div className="flex flex-col text-lg text-[#444444] font-bold">
               <div className="flex justify-between mb-3">
-                <div>월급</div>
-                <div>
-                  <span>{recommendInfo.salary} </span>
-                  <span className="">만원</span>
+                <div className="font-bold text-[#444444]">월급</div>
+                <div className="text-[#656F77]">
+                  <span>
+                    {recommendInfo.salary
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+                  </span>
+                  <span className="">원</span>
                 </div>
               </div>
               <div className="flex justify-between mb-3">
-                <div>성향</div>
-                <div>
+                <div className="font-bold text-[#444444]">성향</div>
+                <div className="text-[#444444] py-1 px-3 rounded-lg bg-indigo-200">
                   <span>{recommendInfo.financeKeyword} </span>
                 </div>
               </div>
               <div className="flex justify-between mb-3">
-                <div>초기자본</div>
-                <div>
-                  <span>{recommendInfo.startAsset} </span>
+                <div className="font-bold text-[#444444]">초기자본</div>
+                <div className="text-[#656F77]">
+                  <span>
+                    {recommendInfo.startAsset
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+                  </span>
                   <span>만원</span>
                 </div>
               </div>
               <div className="flex justify-between mb-3">
-                <div>현 자본</div>
-                <div>
-                  <span>{recommendInfo.presentAsset} </span>
+                <div className="font-bold text-[#444444]">현 자본</div>
+                <div className="text-[#656F77]">
+                  <span>
+                    {recommendInfo.presentAsset
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+                  </span>
                   <span>만원</span>
                 </div>
               </div>
               <div className="flex justify-between mb-3">
-                <div>기간</div>
-                <div>
+                <div className="font-bold text-[#444444]">기간</div>
+                <div className="text-[#656F77]">
                   <span>{recommendInfo.period} </span>
                   <span>년</span>
                 </div>
@@ -236,10 +244,10 @@ function RecommendTabs({
           </div>
         )}
         {["deposit", "saving", "loan"].includes(activeTab) && (
-          <div className="flex flex-col justify-center item-center mx-[5%]">
+          <div className="flex flex-col justify-center item-center mx-[5%] ">
             {!isKimSsafy && (
-              <p className="pb-4 text-sm text-[#0046ff]">
-                상품 클릭 시 고객님의 로드맵에 적용할 수 있습니다.
+              <p className="px-4 py-2 rounded-xl mb-2 text-sm text-[#444444] font-OneShinhanMedium bg-slate-200">
+                ❗상품 클릭 시 고객님의 로드맵에 적용할 수 있습니다.
               </p>
             )}
             {products}
