@@ -7,7 +7,7 @@ function SearchItem({ portfolio, index }) {
     <div className="scale-90 relative flex flex-col justify-center items-center text-[#444444] w-[100%]">
       {/* <hr className="w-[64%]" /> */}
       <img
-        onClick={() => navigate("/portfolio")}
+        onClick={() => navigate(`/portfolio/${portfolio.portfolioId}`)}
         className="absolute cursor-pointer w-[1.8rem] right-[10%] top-[-5%]"
         src="/button/Detail.svg"
         alt=""

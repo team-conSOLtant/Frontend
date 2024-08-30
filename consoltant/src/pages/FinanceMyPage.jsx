@@ -3,8 +3,9 @@ import { Routes, Route, Router } from "react-router-dom";
 import MyFinanceTabs from "../components/recommend/MyFinanceTabs.jsx";
 import MyAllFinanceGraph from "../components/recommend/MyAllFinanceGraph.jsx";
 import Navbar from "../components/header/Navbar.jsx";
-import Footer from "../components/footer/Footer.jsx";
 import { getPresentRoadMap } from "../apis/RoadMap.jsx";
+import FeedbackChatbot from "../components/recommend/FeedbackChatbot.jsx";
+import Footer from "../components/footer/Footer.jsx";
 
 // 금융 상품 추천 페이지
 // 일단 한 개만 만들어놨는데 추후 금융 상품 추천에 대한 계획이 구체화되면 늘릴 수도 있음
@@ -15,10 +16,13 @@ function FinanceMyPage() {
   const [presentRoadMapInfo, setPresentRoadMapInfo] = useState();
   const [presentRoadMapRecommend, setPresentRoadMapRecommend] = useState();
   const [age, setAge] = useState();
+  const [openChatbot, setOpenChatbot] = useState(false);
 
   useEffect(() => {
     getPresent();
   }, []);
+
+  useEffect(() => {}, [setOpenChatbot]);
 
   var userName;
 
@@ -52,8 +56,9 @@ function FinanceMyPage() {
                 <div className="flex">
                   <div className="h-full w-[4px] bg-[#5d5d5d] mr-5 rounded"></div>
                   <div className="text-xl text-[#444444] flex items-center">
-                    안녕하세요.
+                    안녕하세요.{" "}
                     <span className="font-OneShinhanMedium">
+                      {" "}
                       {presentRoadMapInfo.name}
                     </span>
                     님의 금융 키워드는{" "}
@@ -69,19 +74,29 @@ function FinanceMyPage() {
                   {/* 그래프 */}
                   <MyAllFinanceGraph graph={presentRoadMapGraph} />
                 </div>
-                <div className="mb-4 lg:w-[40%] md:w-full">
-                  {/* 기본정보, 예금, 적금, 대출, 담아두기 */}
-                  <MyFinanceTabs
-                    financeProducts={presentRoadMapProducts}
-                    info={presentRoadMapInfo}
-                    age={age}
-                  />
+                <div className="relative mb-4 lg:w-[40%] md:w-full">
+                  <button
+                    onClick={() => {
+                      setOpenChatbot(!openChatbot);
+                    }}
+                    className="absolute right-[0.8rem] top-[0.8rem] border rounded-[1rem] p-[0.5rem] bg-[#EAF3FD] hover:bg-[#0046ff] hover:text-white"
+                  >
+                    {openChatbot ? "내 금융상품 보기" : "피드백 받아보기"}
+                  </button>
+                  {openChatbot ? (
+                    <FeedbackChatbot />
+                  ) : (
+                    <MyFinanceTabs
+                      financeProducts={presentRoadMapProducts}
+                      info={presentRoadMapInfo}
+                      age={age}
+                    />
+                  )}
                 </div>
               </div>
             </div>
           )}
       </div>
-      <Footer />
     </div>
   );
 }

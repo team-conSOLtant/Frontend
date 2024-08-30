@@ -15,11 +15,11 @@ export const requestLogin = async (form) => {
       return response.headers.loginid;
     } else {
       console.error("로그인 실패: accessToken이 없습니다.");
-      return null;
+      return false;
     }
   } catch (error) {
     console.error("login failed:", error);
-    return null;
+    return false;
   }
 };
 

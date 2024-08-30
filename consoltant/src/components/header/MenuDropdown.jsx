@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const MenuDropdown = React.forwardRef(({ feed, roadmap }, ref) => {
   const navigate = useNavigate();
+  const portfolioid = window.localStorage.getItem("portfolioId");
   const handleLogout = async () => {
     await logout();
     navigate("/login");
@@ -22,7 +23,7 @@ const MenuDropdown = React.forwardRef(({ feed, roadmap }, ref) => {
       <hr className="w-[5rem] border-[#B5B5B5]" />
       <div
         className={`py-[0.5rem] cursor-pointer ${roadmap ? "font-bold" : ""}`}
-        onClick={() => navigate("/portfolio")}
+        onClick={() => navigate(`/portfolio/${portfolioid}`)}
       >
         내 로드맵
       </div>

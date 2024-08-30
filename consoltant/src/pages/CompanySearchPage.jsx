@@ -133,10 +133,7 @@ function CompanySearchPage() {
     <div>
       <Navbar />
       <SearchTitle>
-        <SearchTitleTextDetail>
-          기업용 포트폴리오 검색
-          {/* <SearchTitleUniv>신은대학교</SearchTitleUniv> */}
-        </SearchTitleTextDetail>
+        <SearchTitleTextDetail>기업용 포트폴리오 검색</SearchTitleTextDetail>
       </SearchTitle>
 
       <div className="flex justify-center items-center bg-[#F9FAFB] py-[3rem]">

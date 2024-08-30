@@ -31,13 +31,8 @@ function ShoppingBag({ products }) {
                       <span>
                         {/* ({product.productInfo.duration}개월 기준) */}
                         ??개월 기준
-                        <span className="text-[#005DF9]">
-                          {/* 연 {product.productInfo.minInterest}% ~ */}연 ??%
-                          ~
-                          <span className="font-OneShinhanMedium text-[0.8rem]">
-                            {/* {product.productInfo.maxInterest}% */}
-                            ??%
-                          </span>
+                        <span className="font-OneShinhanMedium text-[0.8rem] text-[#005DF9]">
+                          연 {product.productInfo.interestRate}%
                         </span>
                       </span>
                     </div>
