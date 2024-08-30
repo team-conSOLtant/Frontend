@@ -4,6 +4,8 @@ import { Card } from "../makeportfolio/Card";
 import styled from "styled-components";
 import PortfolioControllerItem from "./PortfolioControllerItem";
 import { useNavigate } from "react-router";
+import { postSaveAll } from "../../../apis/Portfolio";
+import { useSelector } from "react-redux";
 
 // 포트폴리오 아이템을 드래그하여 순서를 변경하는 컴포넌트
 
@@ -55,7 +57,9 @@ const EditButton = styled.div`
   font-size: 0.9rem;
 `;
 
-function PortfolioController({ isEdit }) {
+function PortfolioController({ isEdit, allData }) {
+  let { loginid, portfolioid } = useSelector((state) => state.user);
+
   // 아이템들의 순서를 상태로 관리
   const navigate = useNavigate();
 
@@ -101,7 +105,9 @@ function PortfolioController({ isEdit }) {
     );
   }, []);
 
-  const _savePortfolio = async () => {};
+  const _savePortfolio = async (allData) => {
+    await postSaveAll(loginid, portfolioid, allData);
+  };
 
   return (
     <PortfolioControllerStyle>
@@ -118,7 +124,9 @@ function PortfolioController({ isEdit }) {
         ></PortfolioControllerItem>
       ))}
       {isEdit && (
-        <SaveButton onClick={_savePortfolio}>포트폴리오 저장</SaveButton>
+        <SaveButton onClick={() => _savePortfolio(allData)}>
+          포트폴리오 저장
+        </SaveButton>
       )}
       {!isEdit && (
         <EditButton onClick={() => navigate("/make-portfolio")}>

@@ -142,7 +142,7 @@ function ProjectItem({ data }) {
         </ProjectDateStyle>
       </ProjectHeader>
       <TagContainer>
-        {data?.language?.split(",").map((text) => (
+        {data?.language?.map((text) => (
           <Tag>{text}</Tag>
         ))}
       </TagContainer>

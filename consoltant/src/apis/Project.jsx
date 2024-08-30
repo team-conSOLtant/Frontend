@@ -13,7 +13,7 @@ export const getProjects = async (portfolioId) => {
           data.id, // projectId
           portfolioId, // portfolioId (default to null)
           data.title,
-          data.language,
+          data.language.split(","),
           data.projectUrl,
           data.description,
           data.startDate,
