@@ -1,5 +1,4 @@
 function PersonalInfo({ userInfos }) {
-
   return (
     <div>
       <hr className="mb-[0.5rem]" />
@@ -8,7 +7,13 @@ function PersonalInfo({ userInfos }) {
         {userInfos.university.name}
       </div>
       <div className="text-[0.8rem]">
-        <span className="font-OneShinhanMedium">{userInfos.major}</span> 재학 중
+        <span className="font-OneShinhanMedium">{userInfos.major}</span>{" "}
+        {userInfos.currentJourneyType === "THIRTIES" ||
+        userInfos.currentJourneyType === "FORTIES" ||
+        userInfos.currentJourneyType === "FIFTIES" ||
+        userInfos.currentJourneyType === "RETIRED"
+          ? "졸업"
+          : "재학 중"}
         <span className="">
           {" "}
           ({userInfos.age}세)

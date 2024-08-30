@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import MenuDropdown from "./MenuDropdown";
 import { useNavigate } from "react-router";
+import { isCompany } from "../../apis/Login";
 
 // 상단바
 function Navbar() {
@@ -8,6 +9,7 @@ function Navbar() {
 
   // 메뉴 드롭다운 관리
   const [menuView, setMenuView] = useState();
+  const [company, setCompany] = useState();
   const profileRef = useRef(null);
   const menuRef = useRef(null);
 
@@ -26,7 +28,18 @@ function Navbar() {
     }
   }, [isLogin]);
 
+  const checkCompany = async () => {
+    const companyRes = await isCompany().then((res) => {
+      return res.return;
+    });
+    console.log("너 기업이니ㅣㅣㅣㅣ???!?!", companyRes);
+    setCompany(companyRes);
+  };
+
+  useEffect(() => {}, [setCompany]);
+
   useEffect(() => {
+    checkCompany();
     // 메뉴 외부를 클릭했을 때 드롭다운을 닫는 함수
     const handleClickOutside = (event) => {
       if (
@@ -76,7 +89,7 @@ function Navbar() {
               setMenuView(!menuView);
             }}
             ref={profileRef}
-            className="w-[2.5rem] cursor-pointer"
+            className="w-[2rem] cursor-pointer"
             src="/nav/profile_icon.png"
             alt=""
           />

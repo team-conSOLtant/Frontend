@@ -39,7 +39,7 @@ const SearchTitleUniv = styled.div`
   font-family: "OneShinhanBold";
 `;
 
-function SearchPage() {
+function CompanySearchPage() {
   const [keyword, setKeyword] = useState(null);
   const [isEmployed, setIsEmployed] = useState(null);
   const [minGpa, setMinGpa] = useState(null);
@@ -134,8 +134,8 @@ function SearchPage() {
       <Navbar />
       <SearchTitle>
         <SearchTitleTextDetail>
-          선후배 포트폴리오 검색_
-          <SearchTitleUniv>신은대학교</SearchTitleUniv>
+          기업용 포트폴리오 검색
+          {/* <SearchTitleUniv>신은대학교</SearchTitleUniv> */}
         </SearchTitleTextDetail>
       </SearchTitle>
 
@@ -201,4 +201,4 @@ function SearchPage() {
   );
 }
 
-export default SearchPage;
+export default CompanySearchPage;

@@ -81,7 +81,7 @@ function MakePortfolioPage() {
   useEffect(() => {
     if (portfolioid) {
       getUserData();
-      getCareersData();
+      getCareerData();
       getAwardsData();
       getCertificationdData();
       getProjectsData();
@@ -123,6 +123,7 @@ function MakePortfolioPage() {
 
   const getUserData = async () => {
     const newData = await getUserInfo();
+    // console.log("new Data", newData);
     setPortfolioData((existingData) => ({
       ...existingData,
       userInfo: {
@@ -142,7 +143,7 @@ function MakePortfolioPage() {
     }));
   };
 
-  const getCareersData = async () => {
+  const getCareerData = async () => {
     console.log("[getCareer function] start");
     const newData = await getCareers(loginid);
     setCareerItems(newData);
