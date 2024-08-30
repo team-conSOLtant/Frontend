@@ -7,13 +7,14 @@ import ActivityDTO from "../../../dto/ActivityDTO";
 
 const ActivitySectionStyle = styled.div`
   width: 100%;
+  margin-bottom: 3rem;
 `;
 
 const SectionBody = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  margin-left: 3rem;
 `;
 
 const PlusBoxContainer = styled.div`

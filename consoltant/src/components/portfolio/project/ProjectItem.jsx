@@ -8,20 +8,22 @@ const ProjectItemStyle = styled.div`
   font-size: 1rem;
   border: #b9d5ff 0.1rem solid;
   border-radius: 0.5rem;
-  margin: 0.3rem 0.3rem;
+  margin: 0.3rem 0.3rem 1rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 0 0.5rem;
+  padding: 1rem;
+  color: #444444;
 `;
 
 const ProjectHeader = styled.div`
   display: flex;
   flex-direction: row;
   text-align: center;
-  padding-top: 0.5rem;
   padding-left: 0.3rem;
   align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
 `;
 
 const ProjectTitleStyle = styled.div`
@@ -40,6 +42,7 @@ const ProjectDateStyle = styled.div`
 const TagContainer = styled.div`
   display: flex;
   flex-direction: row;
+  margin-bottom: 0.5rem;
 `;
 
 const Tag = styled.div`
@@ -70,6 +73,7 @@ const ProjectDescriptionLine = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-bottom: 0.2rem;
 `;
 
 const BulletPoint = styled.div`

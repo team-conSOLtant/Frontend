@@ -4,27 +4,34 @@ import styled from "styled-components";
 const EducationItemStyle = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-start;
   padding: 0 1rem 0.5rem 1rem;
 `;
 
 const SchoolInfo = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
-  height: 4rem;
-  justify-content: center;
-  align-items: center;
+  height: 10rem;
+  padding-left: 3rem;
+  border-right: 1px solid #5c5c5c;
+  margin-right: 2rem;
 `;
-const SchoolContainer = styled.div``;
-const SchoolName = styled.div``;
+const SchoolContainer = styled.div`
+  margin: 0.5rem 0;
+`;
+const SchoolName = styled.div`
+  font-size: 1.3rem;
+  font-family: "OneShinhanBold";
+`;
 const Duration = styled.div``;
 const MajorAndDegree = styled.div``;
 
 const GradeContainer = styled.div`
   display: flex;
   flex-direction: row;
+  margin: 0.5rem 0;
 `;
 const Grade = styled.div``;
 const TotalGrade = styled.div``;
@@ -50,7 +57,7 @@ const TagContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  height: 15rem; /* 적절한 높이 설정 */
+  height: 7rem; /* 적절한 높이 설정 */
   overflow-y: auto; /* 수직 스크롤뷰 활성화 */
   padding-right: 8px; /* 스크롤바로 인해 내용이 가려지지 않도록 패딩 추가 */
 

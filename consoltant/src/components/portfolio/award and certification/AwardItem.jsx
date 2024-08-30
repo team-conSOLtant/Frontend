@@ -11,7 +11,10 @@ const AwardItemStyle = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 0 0.5rem;
+  padding: 0 0.5rem 0.5rem 0.5rem;
+  color: #444444;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 const AwardItemBody = styled.div``;
 
@@ -24,7 +27,7 @@ const AwardTitleStyle = styled.div`
 `;
 
 const AwardContentStyle = styled.div`
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   margin-top: 0.4rem;
 `;
 const AwardItemFooter = styled.div``;
