@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 // 포트폴리오 옆에서 순서 바꾸게 리모컨 역할 해주는 것
 
-const PortfolioControllerItemStyle = styled.div`
+const PortfolioControllerItemStyle = styled.a`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -44,7 +44,10 @@ const PortfolioControllerItemHandler = styled.img`
 
 function PortfolioControllerItem(props) {
   return (
-    <PortfolioControllerItemStyle>
+    <PortfolioControllerItemStyle
+      // href={props.targetSection}
+      href="#awardAndCertification"
+    >
       <PortfolioControllerItemLeft>
         <IconContainer>
           <PortfolioControllerItemIcon

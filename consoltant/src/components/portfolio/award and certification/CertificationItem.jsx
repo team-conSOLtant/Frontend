@@ -45,6 +45,7 @@ const Button = styled.div`
   line-height: 1rem;
   border-radius: 0.2rem;
 `;
+
 // 포트폴리오 옆에서 순서 바꾸게 리모컨 역할 해주는 것
 function CertificationItem({ data, isEdit, editItem, deleteItem }) {
   return (
