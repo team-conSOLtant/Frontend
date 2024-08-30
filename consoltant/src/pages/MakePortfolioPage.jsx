@@ -102,6 +102,7 @@ function MakePortfolioPage() {
         imageUrl: newData.imageUrl, // 새로운 이미지 URL로 업데이트
         description: newData.description, // 새로운 설명으로 업데이트
         portfolioId: newData.id,
+        backgroundColor: newData.backgroundColor,
       },
       keywords: {
         ...existingData.keywords,
@@ -180,11 +181,14 @@ function MakePortfolioPage() {
       <Navbar></Navbar>
       <PortfolioBody>
         <PortfolioMain>
-          {/* <ProfileSection userInfo={portfolioData.userInfo} /> */}
-          {/* <KeywordSection
+          <ProfileSection
+            portfolioData={portfolioData}
+            setPortfolioData={setPortfolioData}
+          />
+          <KeywordSection
             keywords={portfolioData.keywords}
             setPortfolioData={setPortfolioData}
-          /> */}
+          />
           <EducationCareerSection
             isEdit={true}
             education={portfolioData.education}
@@ -211,7 +215,18 @@ function MakePortfolioPage() {
             activities={portfolioData.activities}
           /> */}
         </PortfolioMain>
-        <PortfolioController isEdit={true} />
+        <PortfolioController
+          isEdit={true}
+          allData={{
+            portfolioData,
+            awardItems,
+            activityItems,
+            projectItems,
+            courseItems,
+            certificationItems,
+            careerItems,
+          }}
+        />
       </PortfolioBody>
     </PortfolioPageStyle>
   );

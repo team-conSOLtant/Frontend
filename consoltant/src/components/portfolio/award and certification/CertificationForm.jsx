@@ -86,6 +86,7 @@ function CertificationForm({ data, updateForm, submitForm }) {
       <CertificationLabel>
         수상일 :
         <CertificationAcqDateStyle
+          type="date"
           placeholder="수상일"
           value={data.acquisitionDate}
           onChange={(e) => _changeAcquisitionDate(e.target.value)}

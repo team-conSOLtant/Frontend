@@ -135,10 +135,11 @@ function AwardForm({ data, updateForm, submitForm }) {
           onChange={(e) => _changeOrganization(e.target.value)}
         />
         <AwardAcqDateStyle
+          type="date"
           placeholder="수상일"
           value={data.acquisitionDate}
           onChange={(e) => _changeAcquisitionDate(e.target.value)}
-        ></AwardAcqDateStyle>
+        />
         <AwardSubmitButton onClick={submitForm}>제출</AwardSubmitButton>
       </AwardItemFooter>
     </AwardItemStyle>
