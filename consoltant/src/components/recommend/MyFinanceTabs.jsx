@@ -36,9 +36,7 @@ function RecommendTabs({ financeProducts, info, age }) {
       console.log(selectedAge);
       for (let p in products) {
         const product = products[p];
-        console.log(product);
         if (product.age == selectedAge || selectedAge === "") {
-          console.log("in");
           // 나이에 따른 필터링
           pfinance.push({
             id: activeTab + p,
@@ -148,7 +146,7 @@ function RecommendTabs({ financeProducts, info, age }) {
       </div>
 
       {/* 선택된 탭에 따라 다른 내용 표시 */}
-      <div className="tab-content overflow-scroll h-[25rem]">
+      <div className="tab-content overflow-scroll h-[23rem]">
         {activeTab === "basicInfo" && (
           <div className="mx-[7%]">
             <div className="flex flex-col text-lg text-[#444444] font-bold">
@@ -156,27 +154,27 @@ function RecommendTabs({ financeProducts, info, age }) {
               <div className="flex justify-between mb-3">
                 <div className="font-bold text-[#444444]">월급</div>
                 <div className="text-[#656F77]">
-                  <span>{recommendInfo.salary} </span>
+                  <span>{recommendInfo.salary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} </span>
                   <span className="">원</span>
                 </div>
               </div>
               <div className="flex justify-between mb-3 items-center">
                 <div className="font-bold text-[#444444]">성향</div>
                 <div className="text-[#444444] py-1 px-3 rounded-lg bg-indigo-200">
-                  <span>{recommendInfo.financeKeyword} </span>
+                  <span>{recommendInfo.financeKeyword.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} </span>
                 </div>
               </div>
               <div className="flex justify-between mb-3">
                 <div className="font-bold text-[#444444]">초기자본</div>
                 <div className="text-[#656F77]">
-                  <span>{recommendInfo.startAsset} </span>
+                  <span>{recommendInfo.startAsset.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} </span>
                   <span>원</span>
                 </div>
               </div>
               <div className="flex justify-between mb-3">
                 <div className="font-bold text-[#444444]">현 자본</div>
                 <div className="text-[#656F77]">
-                  <span>{recommendInfo.presentAsset} </span>
+                  <span>{recommendInfo.presentAsset.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} </span>
                   <span>원</span>
                 </div>
               </div>
@@ -188,12 +186,12 @@ function RecommendTabs({ financeProducts, info, age }) {
                 </div>
               </div>
               <div
-                className="mt-10 text-[#444444] bg-[#f9f9f9] w-full h-[10rem] rounded-2xl shadow-xl flex items-center justify-start pl-6 cursor-pointer hover:bg-[#0046ff] hover:text-[#f9f9f9]"
+                className="mt-3 text-[#444444] bg-[#f9f9f9] w-full h-[7.5rem] rounded-2xl shadow-xl flex items-center justify-start pl-6 cursor-pointer hover:bg-[#0046ff] hover:text-[#f9f9f9]"
                 onClick={() => {
                   navigate("/recommend");
                 }}
               >
-                <img src="/main/chart.png" alt="" className="w-28 mr-5" />
+                <img src="/main/chart.png" alt="" className="w-24 mr-4" />
                 <div>
                   <p className="md:text-2xl lg:text-xl ">
                     로드맵 추천 받으러 가기

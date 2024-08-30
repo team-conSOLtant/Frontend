@@ -14,10 +14,11 @@ export const getBestRoadMap = async () => {
 
 export const postExpectedRoadMap = async (data) => {
   try {
-    console.log("postExpectedRoadMap data: ", data);
-    const result = await axios.post("/roadmaps/expect", data).then((res) => {
-      return res.data;
-    });
+    const result = await axios
+      .post("/roadmaps/expect", { product: data })
+      .then((res) => {
+        return res.data;
+      });
     return result;
   } catch (error) {
     console.error("getExpectedRoadMap failed:", error);
