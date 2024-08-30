@@ -8,7 +8,6 @@ const ProfileSectionStyle = styled.div`
   width: 100vw;
   display: flex;
   flex-direction: row;
-  margin-top: 1rem;
   background-color: ${(props) => props.bgcolor};
 `;
 
@@ -32,9 +31,11 @@ const ProfileImage = styled.div`
 `;
 
 const ProfileDescription = styled.div`
+  justify-content: center;
   display: flex;
   flex-direction: column;
   width: 100%;
+  padding-left: 1.5rem;
 `;
 
 const ProfileIntroductionContainer = styled.div``;
@@ -42,7 +43,7 @@ const ProfileIntroductionTitle = styled.div``;
 
 const ProfileSubInfoContainer = styled.div`
   display: flex;
-  flex-direction: row;
+  justify-content: between;
 `;
 
 const ProfileKeywordContainer = styled.div`
@@ -51,21 +52,23 @@ const ProfileKeywordContainer = styled.div`
 `;
 
 const ProfileSubInfo = styled.div`
-  font-size: 0.8rem;
-  font-family: "OneShinhanBold";
-  margin-left: 0.3rem;
+  font-size: 0.9rem;
+  font-family: "OneShinhanMedium";
+  margin-right: 1rem;
   margin-bottom: 0.1rem;
+  margin-top: 0.2rem;
 `;
 
 const Keyword = styled.div`
   background-color: #ffde59;
   width: auto;
   height: 1rem;
-  line-height: 1rem;
-  font-size: 0.5rem;
+  line-height: 0.1rem;
+  font-size: 0.8rem;
   margin: 0 0.2rem;
-  padding: 0 0.3rem;
-  border-radius: 0.3rem;
+  padding: 0.8rem;
+  border-radius: 0.7rem;
+  font-weight: bold;
 `;
 
 function ProfileViewSection(props) {
@@ -74,34 +77,40 @@ function ProfileViewSection(props) {
     props
   );
   return (
-    <ProfileSectionStyle bgcolor={props.userInfo?.backgroundColor}>
-      <ProfileImage>
-        <img
-          className="rounded-[0.8rem] w-[12rem]"
-          src={`data:image/jpeg;base64,${props.userInfo?.imageUrl}`}
-          alt=""
-        />
-      </ProfileImage>
-      <ProfileDescription>
-        <ProfileName>{props.userInfo?.name}</ProfileName>
-        <ProfileJob>{props.userInfo?.job}</ProfileJob>
-        <ProfileIntroductionContainer>
-          <ProfileIntroductionTitle>
-            {props.userInfo?.description}
-          </ProfileIntroductionTitle>
-        </ProfileIntroductionContainer>
-        <ProfileSubInfoContainer>
-          <ProfileSubInfo>{props.userInfo?.birthDate}</ProfileSubInfo>
-          <ProfileSubInfo>{props.userInfo?.phoneNumber}</ProfileSubInfo>
-          <ProfileSubInfo>{props.userInfo?.email}</ProfileSubInfo>
-        </ProfileSubInfoContainer>
-        <ProfileKeywordContainer>
-          {props.keywords.myKeyword.map((word) => (
-            <Keyword>{word}</Keyword>
-          ))}
-        </ProfileKeywordContainer>
-      </ProfileDescription>
-    </ProfileSectionStyle>
+    <div className="text-[#444444] mb-10">
+      <ProfileSectionStyle bgcolor={props.userInfo?.backgroundColor}>
+        <ProfileImage>
+          <img
+            className="rounded-[0.8rem] w-[12rem]"
+            src={`data:image/jpeg;base64,${props.userInfo?.imageUrl}`}
+            alt=""
+          />
+        </ProfileImage>
+        <ProfileDescription>
+          <div className="mb-4">
+            <ProfileName>{props.userInfo?.name}</ProfileName>
+            <ProfileJob>{props.userInfo?.job}</ProfileJob>
+          </div>
+          <div className="mb-4">
+            <ProfileIntroductionContainer>
+              <ProfileIntroductionTitle>
+                {props.userInfo?.description}
+              </ProfileIntroductionTitle>
+            </ProfileIntroductionContainer>
+            <ProfileSubInfoContainer>
+              <ProfileSubInfo>{props.userInfo?.birthDate}</ProfileSubInfo>
+              <ProfileSubInfo>{props.userInfo?.phoneNumber}</ProfileSubInfo>
+              <ProfileSubInfo>{props.userInfo?.email}</ProfileSubInfo>
+            </ProfileSubInfoContainer>
+          </div>
+          <ProfileKeywordContainer>
+            {props.keywords.myKeyword.map((word) => (
+              <Keyword>{word}</Keyword>
+            ))}
+          </ProfileKeywordContainer>
+        </ProfileDescription>
+      </ProfileSectionStyle>
+    </div>
   );
 }
 

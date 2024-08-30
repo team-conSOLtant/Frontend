@@ -10,24 +10,23 @@ const CareerFormStyle = styled.div`
 `;
 
 const InputContainer = styled.input`
-  border: #c7c7c7 0.1rem solid;
+  border: none;
+  background-color: #ffffff;
   border-radius: 0.3rem;
-  background-color: #fbfbfd;
   text-align: center;
   height: 2rem;
   padding-left: 0.3rem;
   width: 15rem;
-  box-shadow: 0 2px 2px rgb(0, 0, 0, 0.25);
 `;
 
 const RankInputContainer = styled.div`
-  border: #c7c7c7 0.1rem solid;
+  border: none;
+  background-color: #ffffff;
   border-radius: 0.3rem;
-  background-color: #fbfbfd;
   height: 2rem;
   padding-left: 0.3rem;
   width: 10rem;
-  box-shadow: 0 2px 2px rgb(0, 0, 0, 0.25);
+  font-weight: bold;
 `;
 // const SubmitButton = styled.div`
 //   background-color: white;
@@ -52,8 +51,11 @@ function CareerItem({ data, isEdit, editItem, deleteItem }) {
     <CareerFormStyle>
       <RankInputContainer>{data?.company}</RankInputContainer>
       <RankInputContainer>{data?.positionLevel}</RankInputContainer>
-      <InputContainer disabled type="date" value={data?.startDate} />
-      <InputContainer disabled type="date" value={data?.endDate} />
+      <div>
+        {data?.startDate} ~ {data?.endDate}
+      </div>
+      {/* <InputContainer disabled type="date" value={data?.startDate} />
+      <InputContainer disabled type="date" value={data?.endDate} /> */}
       {isEdit && (
         <Buttons>
           <Button onClick={editItem}>수정</Button>

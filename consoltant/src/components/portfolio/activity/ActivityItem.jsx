@@ -30,7 +30,7 @@ function ActivityItem({ isEdit, data, editItem, deleteItem }) {
   };
 
   return (
-    <div className="text-[#444444] flex flex-col w-[60%]">
+    <div className="text-[#444444] flex flex-col w-[100%]">
       <div className="relative flex items-start">
         <div className="absolute left-[10px] top-0 h-full w-1 bg-[#B9D5FF]"></div>
         <div className="relative flex flex-col items-center mr-4">
@@ -67,20 +67,8 @@ function ActivityItem({ isEdit, data, editItem, deleteItem }) {
           </div>
           <div className="flex flex-col mt-2">
             <span className="text-sm font-semibold mb-1">대외활동 기간</span>
-            <div className="text-base w-full">
-              <input
-                type="date"
-                className="w-40 py-1 px-2 rounded-xl bg-transparent"
-                value={data.startDate}
-                disabled
-              />{" "}
-              ~{" "}
-              <input
-                type="date"
-                className="w-40 py-1 px-2 rounded-xl bg-transparent"
-                value={data.endDate}
-                disabled
-              />
+            <div className="text-sm w-full">
+              {data.startDate} ~ {data.endDate}
             </div>
             {isEdit && (
               <Buttons>

@@ -173,11 +173,13 @@ function RecommendTabs({ financeProducts, info, age }) {
               <div className="flex justify-between mb-3">
                 <div className="font-bold text-[#444444]">월급</div>
                 <div className="text-[#656F77]">
-                  <span>
-                    {recommendInfo.salary
-                      .toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
-                  </span>
+                  {!recommendInfo.salary == null && (
+                    <span>
+                      {recommendInfo.salary
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+                    </span>
+                  )}
                   <span className="">원</span>
                 </div>
               </div>

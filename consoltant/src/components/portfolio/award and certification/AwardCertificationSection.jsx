@@ -13,6 +13,7 @@ import AwardDTO from "../../../dto/AwardDTO";
 
 const AwardCertificationSectionStyle = styled.div`
   width: 100%;
+  margin-bottom: 3rem;
 `;
 
 const SectionTitleText = styled.div`
@@ -25,7 +26,6 @@ const SectionTitleIcon = styled.img`
 
 const SectionBody = styled.div`
   width: 100%;
-
   height: auto;
 `;
 
@@ -46,7 +46,8 @@ const SubSectionBody = styled.div`
   width: 100%;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
+  padding-left: 3rem;
+  padding-bottom: 1rem;
 `;
 
 const SubSectionTitleText = styled.div`
