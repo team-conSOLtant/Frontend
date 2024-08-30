@@ -3,7 +3,7 @@ import AccountHistory from "./AccountHistory";
 import ProductHistory from "./ProductHistory";
 import MyFinanceGraph from "./MyFinanceGraph";
 
-function HistoryMain({ userInfo, totalInfos, graphInfo, index }) {
+function HistoryMain({ userInfo, totalInfos, graphInfo, index, color }) {
   console.log("graphinfo!!!!", graphInfo);
 
   const accountInfos = {
@@ -75,7 +75,7 @@ function HistoryMain({ userInfo, totalInfos, graphInfo, index }) {
       </div>
       {/* 아랫줄 */}
       <div className="flex justify-center w-[100%] mt-[1rem]">
-        {graphInfo && <MyFinanceGraph graphInfo={graphInfo} currIndex={index} />}
+        {graphInfo && <MyFinanceGraph graphInfo={graphInfo} currIndex={index} color={color}/>}
       </div>
     </div>
   );

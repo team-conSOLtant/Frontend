@@ -1,20 +1,58 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router";
+import { useState } from "react";
+import { requestLogin, isCompany } from "../apis/Login";
 
 // 로그인 페이지
 function LoginPage() {
   const navigate = useNavigate();
+  const [id, setId] = useState();
+  const [pw, setPw] = useState();
+  const [loginFail, setLoginFail] = useState();
+  const [errorMessage, setErrorMessage] = useState();
+  const [company, setCompany] = useState();
+
+  const activeEnter = (e) => {
+    if (e.key === "Enter") {
+      login();
+    }
+  };
+
+  useEffect(() => {}, [setLoginFail, setErrorMessage]);
+
+  const login = async () => {
+    const form = new FormData();
+    form.append("username", id);
+    form.append("password", pw);
+    const loginResponse = await requestLogin(form);
+    if (loginResponse) {
+      const companyRes = await isCompany().then((res) => {
+        return res.result;
+      });
+      if (companyRes) {
+        console.log("기업 로그인 성공!!!!");
+        navigate("/company-search");
+      } else {
+        setErrorMessage("기업 회원이 아닙니다.");
+        setLoginFail(true);
+      }
+    } else {
+      setErrorMessage("아이디 혹은 보안코드를 확인해주세요.");
+      setLoginFail(true);
+    }
+  };
+
   return (
     <div className="flex flex-col justify-center items-center h-[100vh]">
       <div className="flex items-center mb-5">
         <img className="w-[2.5rem]" src="/logo/shinhan_logo_blue.png" alt="" />
-        <div className="text-[#5C5C5C] text-[1.4rem] px-[1rem]">
+        <div className="font-OneShinhanBold text-[#5C5C5C] text-[1.4rem] px-[1rem]">
           SOL 학생 로드맵(기업용)
         </div>
       </div>
       <div className="w-[40%] max-w-[27rem] font-OneShinhanLight border border-[#ACACAC] shadow-lg rounded-[0.7rem] flex flex-col items-center p-5">
         <div className="w-[80%] mt-[1.5rem]">
-          <div className="border text-[0.8rem] rounded-t-[10px] flex items-center py-2 pl-2">
+          <div className="border text-[0.9rem] rounded-t-[10px] flex items-center py-2 pl-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -26,9 +64,17 @@ function LoginPage() {
                 clip-rule="evenodd"
               />
             </svg>
-            <input className="pl-6 focus:outline-none" type="text" placeholder="아이디" />
+            <input
+              className="pl-6 focus:outline-none"
+              type="text"
+              placeholder="아이디"
+              onChange={(e) => {
+                setId(e.target.value);
+              }}
+              onKeyDown={(e) => activeEnter(e)}
+            />
           </div>
-          <div className="border text-[0.8rem] rounded-b-[10px] flex items-center py-2 pl-2">
+          <div className="border text-[0.9rem] rounded-b-[10px] flex items-center py-2 pl-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -41,27 +87,45 @@ function LoginPage() {
               />
             </svg>
 
-            <input className="pl-6 focus:outline-none" type="text" placeholder="보안코드" />
+            <input
+              className="pl-6 focus:outline-none"
+              type="password"
+              placeholder="보안코드"
+              onChange={(e) => {
+                setPw(e.target.value);
+              }}
+              onKeyDown={(e) => activeEnter(e)}
+            />
           </div>
-          <div className="flex mt-[0.5rem] text-[0.8rem] ">
-            <input type="checkbox" className="mr-[0.5rem]" />
-            <div className="text-[#8F8F8F]">로그인 상태 유지</div>
-          </div>
+          {loginFail && (
+            <div className="text-red-500 text-[0.7rem] mt-[0.5rem] ml-[0.4rem]">
+              {errorMessage}
+            </div>
+          )}
         </div>
-        <div className="mt-[3rem] py-[0.5rem] font-OneShinhanMedium shadow-md border rounded-[0.5rem] flex justify-center w-[80%] bg-[#0046ff] text-white">
+        <div
+          onClick={login}
+          className="mt-[2rem] py-[0.5rem] font-OneShinhanMedium shadow-md border rounded-[0.5rem] flex justify-center w-[80%] bg-[#0046ff] text-white"
+        >
           로그인
         </div>
       </div>
       <div className="mt-[1rem] flex flex-col items-center font-OneShinhanLight">
         <div className="flex text-[0.8rem]">
           <div className="text-[#525252]">아직 회원이 아니신가요?</div>
-          <div className="mx-1 text-[#0046ff] cursor-pointer" onClick={() => navigate("/signup")}>
+          <div
+            className="mx-1 text-[#0046ff] cursor-pointer"
+            onClick={() => navigate("/signup")}
+          >
             회원가입
           </div>
         </div>
         <div className="flex text-[0.8rem]">
           <div className="text-[#525252]">혹시 학생 회원이신가요?</div>
-          <div className="mx-1 text-[#0046ff] cursor-pointer" onClick={() => navigate("/login")}>
+          <div
+            className="mx-1 text-[#0046ff] cursor-pointer"
+            onClick={() => navigate("/login")}
+          >
             학생 로그인
           </div>
         </div>

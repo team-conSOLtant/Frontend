@@ -8,6 +8,7 @@ import PortfolioPage from "./pages/PortfolioPage";
 import RecommendPage from "./pages/RecommendPage.jsx";
 import FinanceMyPage from "./pages/FinanceMyPage.jsx";
 import SearchPage from "./pages/SearchPage.jsx";
+import CompanySearchPage from "./pages/CompanySearchPage.jsx";
 import CompanyLoginPage from "./pages/CompanyLoginPage.jsx";
 import SignupPage from "./pages/SignupPage.jsx";
 import SignupCompletePage from "./pages/SignupCompletePage.jsx";
@@ -37,6 +38,7 @@ function App() {
           <Route path="/recommend" element={<RecommendPage />} />
           <Route path="/finance-mypage" element={<FinanceMyPage />} />
           <Route path="/search" element={<SearchPage />} />
+          <Route path="/company-search" element={<CompanySearchPage />} />
           <Route path="/follow" element={<FollowingFollowerPage />} />
         </Routes>
       </Router>
