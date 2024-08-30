@@ -102,6 +102,7 @@ function MakePortfolioPage() {
         imageUrl: newData.imageUrl, // 새로운 이미지 URL로 업데이트
         description: newData.description, // 새로운 설명으로 업데이트
         portfolioId: newData.id,
+        backgroundColor: newData.backgroundColor,
       },
       keywords: {
         ...existingData.keywords,
@@ -210,7 +211,18 @@ function MakePortfolioPage() {
             activities={portfolioData.activities}
           /> */}
         </PortfolioMain>
-        <PortfolioController isEdit={true} />
+        <PortfolioController
+          isEdit={true}
+          allData={{
+            portfolioData,
+            awardItems,
+            activityItems,
+            projectItems,
+            courseItems,
+            certificationItems,
+            careerItems,
+          }}
+        />
       </PortfolioBody>
     </PortfolioPageStyle>
   );

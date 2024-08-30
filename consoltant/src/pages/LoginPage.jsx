@@ -76,6 +76,7 @@ function LoginPage() {
     const newData = await requestLogin(form);
     return newData;
   };
+
   const getPortfolioId = async (loginid) => {
     const newData = await getPortfolios(loginid);
     return newData.id;
