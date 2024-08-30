@@ -38,3 +38,15 @@ export const getPresentRoadMap = async () => {
     throw error;
   }
 };
+
+export const getFeedback = async (input) => {
+  try {
+    const result = await axios.post("/roadmaps/feedback", input).then((res) => {
+      return res.data;
+    });
+    console.log("[IN AXIOS] feedback result : ", result);
+    return result;
+  } catch (error) {
+    console.error("get Feedback failed:", error);
+  }
+};

@@ -166,8 +166,6 @@ function ProfileSection({ portfolioData, setPortfolioData }) {
     `data:image/jpeg;base64,${portfolioData.userInfo?.imageUrl}`
   );
 
-
-
   useEffect(() => {}, [setProfileImage]);
 
   // const _changeName = (value) => {
@@ -283,15 +281,6 @@ function ProfileSection({ portfolioData, setPortfolioData }) {
       },
     });
   };
-
-  // console.log(
-  //   "BGCOLORBGCOLORBGCOLORBGCOLORBGCOLORBGCOLOR++++++++++++++++++",
-  //   bgColor
-  // );
-  // console.log(
-  //   "BGCOLORBGCOLORBGCOLORBGCOLORBGCOLORBGCOLOR",
-  //   portfolioData.userInfo.backgroundColor
-  // );
 
   return (
     <ProfileSectionStyle>

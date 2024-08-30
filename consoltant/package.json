@@ -24,6 +24,8 @@
     "react-router": "^6.26.1",
     "react-router-dom": "^6.26.1",
     "react-scripts": "5.0.1",
+    "react-spinners": "^0.14.1",
+    "react-toastify": "^10.0.5",
     "request": "^2.88.2",
     "styled-components": "^6.1.12",
     "tailwind-scrollbar-hide": "^1.1.7",

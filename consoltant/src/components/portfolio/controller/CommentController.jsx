@@ -14,7 +14,7 @@ import {
 const CommentComtrollerStyle = styled.div`
   position: fixed;
   right: 1rem;
-  top: 40vh;
+  top: 60vh;
   width: 15%;
   border: 0.1rem solid #f5f5f5;
   border-radius: 0.5rem;
@@ -74,6 +74,8 @@ const CommentDeleteButton = styled.div`
 `;
 
 function CommentController({ userName }) {
+  const navigate = useNavigate();
+
   let { loginid, portfolioid } = useSelector((state) => state.user);
   const [comments, setComments] = useState([]);
   const [CommentInputValue, setCommentInputValue] = useState();
@@ -94,10 +96,6 @@ function CommentController({ userName }) {
 
   const getAllComment = async () => {
     const newData = await getComments(portfolioid);
-    // console.log(
-    //   "ccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
-    //   newData
-    // );
     setComments(newData);
   };
 
@@ -123,7 +121,15 @@ function CommentController({ userName }) {
     <CommentComtrollerStyle>
       {comments.map((dto) => (
         <CommentItem>
-          <CommentWriterName>{dto.userName}</CommentWriterName>
+          <CommentWriterName
+            onClick={() =>
+              navigate(`/portfolio/${dto.id}`, {
+                state: { portloginid: dto.userId },
+              })
+            }
+          >
+            {dto.userName}
+          </CommentWriterName>
           {clickedComment !== dto.id ? (
             <CommentContent onClick={() => setClickedComment(dto.id)}>
               {dto.comment}
