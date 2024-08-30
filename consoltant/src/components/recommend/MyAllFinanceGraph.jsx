@@ -20,21 +20,19 @@ ChartJS.register(
   Legend
 );
 
-function LineChartExample({
-  graph,
-}) {
+function LineChartExample({ graph }) {
   const labelData = [];
   const totalData = [];
   const depositData = [];
   const savingData = [];
   const loanData = [];
 
-  for(var prop in graph) {
-    labelData.push(graph[prop].age);
+  for (var prop in graph) {
+    labelData.push(graph[prop].age + "세");
     totalData.push(graph[prop].totalAssetValue);
     depositData.push(graph[prop].depositAssetValue);
     savingData.push(graph[prop].savingAssetValue);
-    loanData.push(graph[prop].loanAssetValue); 
+    loanData.push(graph[prop].loanAssetValue);
   }
   const data = {
     labels: labelData,
