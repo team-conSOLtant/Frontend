@@ -197,7 +197,16 @@ function ProfileSection({ portfolioData, setPortfolioData }) {
 
     console.log("프로필 이미지 업로드!!!!", file);
     const img = await base64Encoder(file);
+    const basse64Img = img.split(",")[1];
+    console.log(basse64Img);
     await setProfileImage(img);
+    await setPortfolioData({
+      ...portfolioData,
+      userInfo: {
+        ...portfolioData.userInfo,
+        imageUrl: basse64Img,
+      },
+    });
   };
 
   return (
