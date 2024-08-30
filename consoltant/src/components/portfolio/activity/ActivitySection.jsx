@@ -72,6 +72,15 @@ function ActivitySection({ isEdit, activityItems, setActivityItems }) {
     setActivityItems(activityItems.filter((item) => item.key !== data.key));
   };
 
+  // const editCertificationItem = (data) => {
+  //   setActivityForms([...activityForms, data]);
+  //   setActivityItems(activityItems.filter((item) => item.key !== data.key));
+  // };
+
+  // const deleteCertificationItem = (data) => {
+  //   setActivityItems(activityItems.filter((item) => item.key !== data.key));
+  // };
+
   return (
     <ActivitySectionStyle>
       <SectionHeader title={"대외활동"} image={"/Community.svg"} />
@@ -87,13 +96,20 @@ function ActivitySection({ isEdit, activityItems, setActivityItems }) {
           activityForms.length > 0 &&
           activityForms.map((data) => (
             <ActivityForm
-              activityItems={activityItems}
-              setActivityItem={setActivityItems}
-              submitForm={submitActivityForm}
+              key={data.key}
+              data={data}
+              updateForm={updateActivityForm}
+              submitForm={() => submitActivityForm(data)}
             />
           ))}
         {activityItems.map((data) => (
-          <ActivityItem data={data} key={data.key} />
+          <ActivityItem
+            isEdit={isEdit}
+            data={data}
+            key={data.key}
+            editItem={() => editActivityItem(data)}
+            deleteItem={() => deleteActivityItem(data)}
+          />
         ))}
       </SectionBody>
     </ActivitySectionStyle>
