@@ -45,14 +45,8 @@ function RecommendPage() {
         // 이미 선택된 아이템이 있을 경우, startDate와 endDate만 업데이트
         return {
           ...prevItems,
-          [tab]: itemsInTab.map((selectedItem) =>
-            selectedItem.id === item.id
-              ? {
-                  ...selectedItem,
-                  startDate: newStartDate,
-                  endDate: newEndDate,
-                }
-              : selectedItem
+          [tab]: itemsInTab.filter(
+            (selectedItem) => selectedItem.id !== item.id
           ),
         };
       } else {

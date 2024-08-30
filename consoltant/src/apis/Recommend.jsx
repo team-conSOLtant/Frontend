@@ -12,13 +12,15 @@ export const getCurrentRecommend = async () => {
   }
 };
 
-export const postRecommendList = async(data)=>{
-  try{
-    const result = await axios.post("/recommends/list", data ).then((res)=>{
-      return res.data;
-    })
+export const postRecommendList = async (data) => {
+  try {
+    const result = await axios
+      .post("/recommends/list", { recommend: data })
+      .then((res) => {
+        return res.data;
+      });
     return result;
-  }catch(error){
+  } catch (error) {
     console.log("post recommendList failed:", error);
   }
-}
+};

@@ -72,6 +72,7 @@ function RecommendTabs({
             id: activeTab + p,
             accountTypeUniqueNo: product.accountTypeUniqueNo,
             bankName: product.bankName,
+            accountTypeName : product.accountTypeName,
             accountName: product.accountName,
             accountDescription: product.accountDescription,
             interestRate: product.interestRate,
@@ -82,8 +83,18 @@ function RecommendTabs({
               product.maxSubscriptionBalance || product.maxLoanBalance,
             age: product.age,
             balance: product.balance,
-            startDate: product.startDate,
-            endDate: product.endDate,
+            startDate:
+              product.startDate.substr(0, 4) +
+              "-" +
+              product.startDate.substr(4, 2) +
+              "-0" +
+              product.startDate.substr(6, 2),
+            endDate:
+              product.endDate.substr(0, 4) +
+              "-" +
+              product.endDate.substr(4, 2) +
+              "-" +
+              product.endDate.substr(6, 2),
           });
         }
       }

@@ -13,6 +13,7 @@ function FinanceMyPage() {
   const [presentRoadMapGraph, setPresentRoadMapGraph] = useState();
   const [presentRoadMapProducts, setPresentRoadMapProducts] = useState();
   const [presentRoadMapInfo, setPresentRoadMapInfo] = useState();
+  const [presentRoadMapRecommend, setPresentRoadMapRecommend] = useState();
   const [age, setAge] = useState();
 
   useEffect(() => {
@@ -25,9 +26,14 @@ function FinanceMyPage() {
     console.log("Present");
     const res = await getPresentRoadMap();
     console.log("res", res);
+    const productWithRecommend = {
+      ...res.result.product,
+      recommend: res.result.recommend,
+    };
+
     await setPresentRoadMapGraph(res.result.data);
     await setPresentRoadMapInfo(res.result.info);
-    await setPresentRoadMapProducts(res.result.product);
+    await setPresentRoadMapProducts(productWithRecommend);
     await setAge(res.result.data.map((item) => item.age).filter((age) => age));
   };
 
