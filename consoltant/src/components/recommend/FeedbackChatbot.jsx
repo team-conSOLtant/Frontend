@@ -1,31 +1,48 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { getFeedback } from "../../apis/RoadMap";
 import SyncLoader from "react-spinners/SyncLoader";
 
 function FeedbackChatbot() {
   const [inputText, setInputText] = useState();
   const [messageList, setMessageList] = useState([]);
-  const [wating, setWating] = useState(false);
+  const [waiting, setWaiting] = useState(false);
+
+  const chatBoxRef = useRef(null);
+
+  const scrollToBottom = () => {
+    if (chatBoxRef.current) {
+      chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+    }
+  };
+  useEffect(() => {
+    scrollToBottom();
+  }, [messageList]);
 
   const activeEnter = (e) => {
     if (e.key === "Enter") {
       Send();
     }
   };
+
   const Send = () => {
+    if (!inputText.trim()) return; // 빈 입력 방지
     // messages에 추가
     const inputForm = {
       id: "me",
       msg: inputText,
     };
-    setMessageList([...messageList, inputForm]);
+
+    setMessageList((prevMessage) => [...prevMessage, inputForm]);
+
     // api 보내기
     const input = {
       prompt: inputText,
     };
     //챗봇 대답 이미지
-    setWating(true);
+    setWaiting(true);
     sendInput(input);
+    // 입력창 초기화
+    setInputText("");
   };
 
   const sendInput = async (input) => {
@@ -37,15 +54,14 @@ function FeedbackChatbot() {
       msg: response,
     };
     //챗봇 대답 이미지
-    setWating(false);
-    setMessageList([...messageList, msgForm]);
-  };
+    setWaiting(false);
 
-  useEffect(() => {}, [setMessageList]);
+    setMessageList((prevMessage) => [...prevMessage, msgForm]);
+  };
 
   return (
     <div className="mt-[4rem] ml-[3rem] mr-[0.8rem] w-[88%] border rounded-[1rem] shadow p-[0.8rem] min-h-[75%] max-h-[30rem]">
-      <div className="overflow-auto h-[19rem]">
+      <div className="overflow-auto h-[19rem] px-[0.5rem]" ref={chatBoxRef}>
         {messageList.length > 0 &&
           messageList.map((message, index) => {
             return (
@@ -59,14 +75,6 @@ function FeedbackChatbot() {
                   <div className="bg-[#0046ff] max-w-[70%] px-[0.5rem] py-[0.4rem] rounded-[1rem] text-white">
                     {message.msg}
                   </div>
-                ) : wating ? (
-                  <div>
-                    <SyncLoader
-                      size="8"
-                      speedMultiplier="0.6"
-                      color="#C4C4C4"
-                    ></SyncLoader>
-                  </div>
                 ) : (
                   <div className="bg-[#e8e8e8] max-w-[70%] px-[0.5rem] py-[0.4rem] rounded-[1rem] text-black">
                     {message.msg}
@@ -75,11 +83,23 @@ function FeedbackChatbot() {
               </div>
             );
           })}
+        <div>
+          {waiting ? (
+            <SyncLoader
+              size="8"
+              speedMultiplier="0.6"
+              color="#C4C4C4"
+            ></SyncLoader>
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
       <div className="relative w-[100%] flex items-center">
         <input
-          className="border rounded-[1rem] w-[100%] h-[2.5rem] px-[0.8rem] py-[0.3rem] my-[0.7rem]"
+          className="border rounded-[1rem] w-[100%] h-[2.5rem] px-[0.8rem] py-[0.3rem] my-[0.7rem] focus:outline-none"
           type="text"
+          value={inputText}
           placeholder="질문을 입력해주세요."
           onChange={(e) => {
             setInputText(e.target.value);
