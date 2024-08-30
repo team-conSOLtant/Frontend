@@ -86,7 +86,7 @@ function KeywordSection({ keywords, setPortfolioData }) {
   };
 
   const isSelected = (selectedWord) => {
-    console.log("keywords.myKeyword", keywords.myKeyword);
+    // console.log("keywords.myKeyword", keywords.myKeyword);
     return keywords.myKeyword.includes(selectedWord);
   };
 

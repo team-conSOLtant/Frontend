@@ -59,7 +59,6 @@ export const postSaveAll = async (loginid, portfolioid, allData) => {
       financeKeyword: allData.portfolioData.keywords.financeKeyword,
       myKeyword: allData.portfolioData.keywords.myKeyword.join(","),
       job: allData.portfolioData.userInfo.job,
-      imageUrl: allData.portfolioData.userInfo.imageUrl,
       description: allData.portfolioData.userInfo.description,
       backgroundColor: allData.portfolioData.userInfo.backgroundColor,
     },
@@ -131,5 +130,21 @@ export const postSaveAll = async (loginid, portfolioid, allData) => {
   } catch (error) {
     console.error("post portfolios failed:", error);
     throw error;
+  }
+};
+
+export const uploadImage = async (portfolioid, image) => {
+  const imageFile = {
+    imageUrl: image,
+  };
+  try {
+    const response = await axios
+      .post(`/portfolios/upload-image/${portfolioid}`, imageFile)
+      .then((res) => {
+        return res.data;
+      });
+    console.log("[IN AXIOS] portfolio image upload response : ", response);
+  } catch (error) {
+    console.log("image upload failed : ", error);
   }
 };

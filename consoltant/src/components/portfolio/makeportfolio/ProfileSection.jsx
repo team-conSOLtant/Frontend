@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SliderPicker } from "react-color";
 import styled from "styled-components";
 
@@ -54,12 +54,12 @@ const ProfileContainer = styled.div`
 `;
 
 const ProfileImage = styled.div`
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   width: 12rem;
   height: 10rem;
   background-color: #f5f5f5;
-  border-radius: 0.5rem;
+  border-radius: 0.5rem; */
   /* margin: 2rem 2rem 5rem; */
 `;
 
@@ -131,7 +131,41 @@ const ColorCircle = styled.div`
     props.isSelectd ? "0.1rem solid rgb(44, 44, 44, 0.3)" : null};
 `;
 
+const PlusBoxContainer = styled.div`
+  width: 12rem;
+  height: 14.4rem;
+  display: flex;
+  flex-wrap: "wrap";
+  justify-content: center;
+  align-items: center;
+`;
+
+const PlusBoxStyle = styled.div`
+  height: 80%;
+  width: 80%;
+  background-color: #f5f5f5;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const PlusBoxButton = styled.div`
+  --ball-size: 5rem;
+  height: var(--ball-size);
+  width: var(--ball-size);
+  border-radius: 3rem;
+  font-size: 3rem;
+  color: white;
+  text-align: center;
+  line-height: 5rem;
+  background-color: #c7c7c7;
+`;
+
 function ProfileSection({ portfolioData, setPortfolioData }) {
+  const [profileImage, setProfileImage] = useState();
+
+  useEffect(() => {}, [setProfileImage]);
+
   const _changeBgColor = (bgColor) => {
     setPortfolioData({
       ...portfolioData,
@@ -141,6 +175,40 @@ function ProfileSection({ portfolioData, setPortfolioData }) {
       },
     });
   };
+
+  const base64Encoder = (file) => {
+    return new Promise((resolve) => {
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        // console.log(e.target.result);
+        resolve(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const profileImageUpload = async (e) => {
+    // 파일이 존재하는지 확인
+    const file = e.target.files[0];
+    if (!file) {
+      console.log("No file selected");
+      return; // 파일이 없으면 함수 종료
+    }
+
+    console.log("프로필 이미지 업로드!!!!", file);
+    const img = await base64Encoder(file);
+    const basse64Img = img.split(",")[1];
+    console.log(basse64Img);
+    await setProfileImage(img);
+    await setPortfolioData({
+      ...portfolioData,
+      userInfo: {
+        ...portfolioData.userInfo,
+        imageUrl: basse64Img,
+      },
+    });
+  };
+
   return (
     <ProfileSectionStyle>
       <ProfileTitleContainer>
@@ -153,7 +221,34 @@ function ProfileSection({ portfolioData, setPortfolioData }) {
 
       <ProfileContainer bgcolor={portfolioData.userInfo.backgroundColor}>
         <ProfileSectionLeft>
-          <ProfileImage></ProfileImage>
+          <ProfileImage>
+            <input
+              type="file"
+              name="file"
+              className="hidden"
+              id="file"
+              accept="image/*"
+              onChange={(e) => profileImageUpload(e)}
+            />
+            <label htmlFor="file" className="fileLabel">
+              {profileImage ? (
+                <img
+                  className="w-[10rem] rounded-[1rem]"
+                  src={profileImage}
+                  alt=""
+                ></img>
+              ) : (
+                <div className="flex flex-col items-center">
+                  <PlusBoxContainer>
+                    {/* 여기에 onClick 추가 */}
+                    <PlusBoxStyle>
+                      <PlusBoxButton>+</PlusBoxButton>
+                    </PlusBoxStyle>
+                  </PlusBoxContainer>
+                </div>
+              )}
+            </label>
+          </ProfileImage>
           <ColorPickerContainer>
             {["#DFE4FF", "#FFDFDF", "#E9FFDF", "#DFF0FF", "#FFF8DF"].map(
               (bgColor) => (
