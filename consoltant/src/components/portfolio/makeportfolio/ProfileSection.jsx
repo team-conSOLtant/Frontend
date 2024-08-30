@@ -128,7 +128,7 @@ const ColorCircle = styled.div`
   border-radius: 50%;
   background-color: ${(props) => props.bgColor};
   border: ${(props) =>
-    props.isSelectd ? "0.1rem solid rgb(44, 44, 44, 0.3)" : null};
+    props.isSelected ? "0.1rem solid rgb(44, 44, 44, 0.3)" : null};
 `;
 
 function ProfileSection({ portfolioData, setPortfolioData }) {
@@ -140,7 +140,31 @@ function ProfileSection({ portfolioData, setPortfolioData }) {
         backgroundColor: bgColor,
       },
     });
+    // console.log(
+    //   "BGCOLORBGCOLORBGCOLORBGCOLORBGCOLORBGCOLOR++++++++++++++++++",
+    //   bgColor
+    // );
+    // console.log(
+    //   "BGCOLORBGCOLORBGCOLORBGCOLORBGCOLORBGCOLOR",
+    //   portfolioData.userInfo.backgroundColor
+    // );
   };
+  const _changeJob = (value) => {};
+
+  const _changeDescription = (value) => {
+    console.log(
+      "_changeDescription_changeDescription_changeDescription_changeDescription",
+      value
+    );
+    setPortfolioData({
+      ...portfolioData,
+      userInfo: {
+        ...portfolioData.userInfo,
+        description: value,
+      },
+    });
+  };
+
   return (
     <ProfileSectionStyle>
       <ProfileTitleContainer>
@@ -159,7 +183,9 @@ function ProfileSection({ portfolioData, setPortfolioData }) {
               (bgColor) => (
                 <ColorCircle
                   bgColor={bgColor}
-                  isSelectd={portfolioData.userInfo.backgroundColor === bgColor}
+                  isSelected={
+                    portfolioData.userInfo.backgroundColor === bgColor
+                  }
                   onClick={() => _changeBgColor(bgColor)}
                 />
               )
@@ -174,6 +200,7 @@ function ProfileSection({ portfolioData, setPortfolioData }) {
           <JobInput
             placeholder="직업을 입력해주세요(ex - 백엔드 개발자)"
             value={portfolioData.userInfo.job}
+            onChange={() => _changeJob(portfolioData.userInfo.job)}
           ></JobInput>
           <ProfileIntroductionContainer>
             <ProfileIntroductionTitle>
@@ -182,6 +209,7 @@ function ProfileSection({ portfolioData, setPortfolioData }) {
             <ProfileIntroductionInput
               placeholder="채용 담당자에게 특별한 인상을 줄 수 있는 소개 글을 작성해보세요."
               value={portfolioData.userInfo.description}
+              onChange={(e) => _changeDescription(e.target.value)}
             ></ProfileIntroductionInput>
           </ProfileIntroductionContainer>
           <ProfileAdditionalInfo>

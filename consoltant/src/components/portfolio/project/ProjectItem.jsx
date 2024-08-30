@@ -120,7 +120,23 @@ const ProjectIntroductionRole = styled.input`
   background-color: #fbfbfd;
   padding-left: 0.3rem;
 `;
+const Buttons = styled.div`
+  display: flex;
 
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-evenly;
+  color: white;
+`;
+
+const Button = styled.div`
+  width: 40%;
+  height: 1rem;
+  background-color: #b9d5ff;
+  text-align: center;
+  line-height: 1rem;
+  border-radius: 0.2rem;
+`;
 const ProjectTeamComposition = styled.input``;
 
 const ProjectURL = styled.input``;
@@ -132,7 +148,7 @@ const ProjectURL = styled.input``;
 // const ProjectIntroduction = styled.div``;
 
 // 포트폴리오 옆에서 순서 바꾸게 리모컨 역할 해주는 것
-function ProjectItem({ data }) {
+function ProjectItem({ data, isEdit, editItem, deleteItem }) {
   return (
     <ProjectItemStyle>
       <ProjectHeader>
@@ -142,16 +158,16 @@ function ProjectItem({ data }) {
         </ProjectDateStyle>
       </ProjectHeader>
       <TagContainer>
-        {data?.language?.map((text) => (
-          <Tag>{text}</Tag>
+        {data?.language?.map((dto) => (
+          <Tag>{dto.word}</Tag>
         ))}
       </TagContainer>
       <ProjectDescriptionLine>
         <BulletPoint />
         <ProjectDescriptionText>{data?.description}</ProjectDescriptionText>
       </ProjectDescriptionLine>
-      {data?.contents.map((content) => (
-        <ProjectSubDescriptionLine>{content}</ProjectSubDescriptionLine>
+      {data?.contents.map((dto) => (
+        <ProjectSubDescriptionLine>{dto.content}</ProjectSubDescriptionLine>
       ))}
       <ProjectDescriptionLine>
         <BulletPoint />
@@ -160,8 +176,8 @@ function ProjectItem({ data }) {
         </ProjectDescriptionText>
       </ProjectDescriptionLine>
       <TagContainer>
-        {data?.projectUsers.map((userData, index) => (
-          <Tag key={index}>{userData.name}</Tag>
+        {data?.projectUsers.map((dto, index) => (
+          <Tag key={index}>{dto.name}</Tag>
         ))}
       </TagContainer>
       <ProjectDescriptionLine>
@@ -170,6 +186,12 @@ function ProjectItem({ data }) {
           URL : {data?.projectUrl}
         </ProjectDescriptionText>
       </ProjectDescriptionLine>
+      {isEdit && (
+        <Buttons>
+          <Button onClick={editItem}>수정</Button>
+          <Button onClick={deleteItem}>삭제</Button>
+        </Buttons>
+      )}
     </ProjectItemStyle>
   );
 }

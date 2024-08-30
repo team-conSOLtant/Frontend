@@ -80,7 +80,13 @@ function ProjectSection({ isEdit, projectItems, setProjectItems }) {
     setProjectItems([...projectItems, newForm]);
     setProjectForms(projectForms.filter((form) => form.key !== newForm.key));
   };
-
+  const editProjectItem = (data) => {
+    setProjectForms([...projectForms, data]);
+    setProjectItems(projectItems.filter((item) => item.key !== data.key));
+  };
+  const deleteProjectItem = (data) => {
+    setProjectItems(projectItems.filter((item) => item.key !== data.key));
+  };
   return (
     <ProjectSectionStyle>
       <SectionHeader title={"프로젝트"} image={"/Folders.svg"} />
@@ -104,7 +110,13 @@ function ProjectSection({ isEdit, projectItems, setProjectItems }) {
           ))}
         {projectItems.length > 0 &&
           projectItems.map((data) => (
-            <ProjectItem key={data.key} data={data} />
+            <ProjectItem
+              key={data.key}
+              data={data}
+              isEdit={isEdit}
+              editItem={() => editProjectItem(data)}
+              deleteItem={() => deleteProjectItem(data)}
+            />
           ))}
       </SectionBody>
     </ProjectSectionStyle>

@@ -71,6 +71,10 @@ const Keyword = styled.div`
 `;
 
 function ProfileViewSection(props) {
+  console.log(
+    "ProfileViewSectionProfileViewSectionProfileViewSectionProfileViewSection",
+    props
+  );
   return (
     <ProfileSectionStyle bgcolor={props.userInfo?.backgroundColor}>
       <ProfileImage></ProfileImage>

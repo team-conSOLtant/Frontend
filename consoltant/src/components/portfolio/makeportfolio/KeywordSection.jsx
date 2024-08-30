@@ -53,7 +53,6 @@ const HappinessComponent = styled.div`
 `;
 
 function KeywordSection({ keywords, setPortfolioData }) {
-  // console.log("keeeeeeeeeee", keywords);
   const clickKeyword = (selectedWord) => {
     if (isSelected(selectedWord)) {
       setPortfolioData((existingData) => ({
@@ -86,7 +85,7 @@ function KeywordSection({ keywords, setPortfolioData }) {
   };
 
   const isSelected = (selectedWord) => {
-    console.log("keywords.myKeyword", keywords.myKeyword);
+    // console.log("keywords.myKeyword", keywords.myKeyword);
     return keywords.myKeyword.includes(selectedWord);
   };
 

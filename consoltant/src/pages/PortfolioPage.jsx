@@ -106,6 +106,8 @@ function PortfolioFormPage() {
         job: newData.job, // Backend Engineer로 업데이트
         imageUrl: newData.imageUrl, // 새로운 이미지 URL로 업데이트
         description: newData.description, // 새로운 설명으로 업데이트
+        portfolioId: newData.id,
+        backgroundColor: newData.backgroundColor,
       },
       keywords: {
         ...existingData.keywords,
@@ -114,6 +116,7 @@ function PortfolioFormPage() {
       },
       education: {
         ...existingData.education,
+        totalGpa: newData.totalGpa, // 새로운 totalGpa로 업데이트
         majorGpa: newData.majorGpa, // 새로운 majorGpa로 업데이트
         university: {
           ...existingData.education.university,

@@ -1,4 +1,7 @@
 import ProjectDTO from "../dto/ProjectDTO";
+import ProjectLanguageDTO from "../dto/ProjectLanguageDTO";
+import ProjectUserDTO from "../dto/ProjectUserDTO";
+import ProjectContentDTO from "../dto/ProjectContentDTO";
 import { axios } from "./Axios";
 
 export const getProjects = async (portfolioId) => {
@@ -13,13 +16,13 @@ export const getProjects = async (portfolioId) => {
           data.id, // projectId
           portfolioId, // portfolioId (default to null)
           data.title,
-          data.language.split(","),
+          data.language.split(",").map((word) => new ProjectLanguageDTO(word)),
           data.projectUrl,
           data.description,
           data.startDate,
           data.endDate,
-          data.projectUsers,
-          data.contents
+          data.projectUsers.map((name) => new ProjectUserDTO(name)),
+          data.contents.map((content) => new ProjectContentDTO(content))
         )
     );
   } catch (error) {

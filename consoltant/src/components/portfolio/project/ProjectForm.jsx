@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import RangeDatePicker from "../../common/RangeDatePicker";
+import ProjectLanguageDTO from "../../../dto/ProjectLanguageDTO";
 
 const ProjectTop = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: row;
 `;
 const ProjectLeftTop = styled.div`
   width: 70%;
@@ -25,7 +28,7 @@ const ProjectItemStyle = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 0 0.5rem;
+  padding: 0.5rem 0.5rem 0;
 `;
 
 const ProjectLabelStyle = styled.label`
@@ -33,73 +36,41 @@ const ProjectLabelStyle = styled.label`
   flex-direction: column;
   width: 70%;
 `;
-const ProjectDatePickerLabelStyle = styled.div`
-  width: 20%;
-`;
-
-const ProjectHeader = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
-const ProjectTitleStyle = styled.input`
-  font-family: "OneShinhanBold";
-  padding-top: 0.5rem;
-  border: #c7c7c7 1px solid;
-  border-radius: 0.2rem;
-  background-color: #fbfbfd;
-  padding-left: 0.3rem;
-`;
-const ProjectDatePicker = styled.div``;
-
-const ProjectAcqDateStyle = styled.div`
-  font-size: 0.7rem;
-  text-align: right;
-  font-family: "OneShinhanBold";
-`;
-
-const ProjectIntroduction = styled.div`
-  width: 36rem;
-`;
-
-const ProjectIntroductionTitle = styled.div``;
-const ProjectIntroductionContentContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-`;
-
-const ProjectInputContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin: 0.2rem 0;
-`;
-
-const ProjectInputLargeContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  /* align-items: center; */
-  margin: 0.2rem 0;
-`;
-
-const ProjectInput = styled.input`
-  border: #c7c7c7 1px solid;
-  border-radius: 0.2rem;
-  background-color: #fbfbfd;
-  padding-left: 0.3rem;
-  width: 90%;
-`;
 
 const ProjectInputMargin = styled.input`
   border: #c7c7c7 1px solid;
   border-radius: 0.2rem;
   background-color: #fbfbfd;
   padding-left: 0.3rem;
-  width: 90%;
+  width: 100%;
   margin-left: 1.5rem;
+`;
+const ProjectInputMarginWithButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-left: 1.5rem;
+  justify-content: space-between;
+  align-items: center;
+`;
+const ProjectInputMarginWithButton = styled.input`
+  border: #c7c7c7 1px solid;
+  border-radius: 0.2rem;
+  background-color: #fbfbfd;
+
+  padding-left: 0.3rem;
+  width: 94%;
+`;
+const PlusButtonLarge = styled.div`
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 50%;
+  background-color: #c7c7c7;
+  color: white;
+  text-align: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  line-height: 1.2rem;
 `;
 
 const ProjectInputLarge = styled.textarea`
@@ -125,6 +96,7 @@ const ProjectSelectedKeywordContainer = styled.div`
   display: flex;
   flex-direction: row;
   margin-top: 0.3rem;
+  margin-left: 1.5rem;
 `;
 
 const ProjectTeamComposition = styled.div`
@@ -135,7 +107,24 @@ const ProjectTeamComposition = styled.div`
   margin-left: 1.5rem;
 `;
 
+const LanguageTagContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(185, 213, 255, 0.3);
+  width: auto;
+  height: 1rem;
+  line-height: 1rem;
+  font-size: 0.5rem;
+  margin: 0 0.2rem;
+  padding: 0 0.3rem;
+  border-radius: 0.5rem;
+`;
+const LanguageTag = styled.div``;
+const LanguageTagDeleteButton = styled.div``;
+
 const Tag = styled.div`
+  display: flex;
+  flex-direction: row;
   background-color: rgb(185, 213, 255, 0.3);
   width: auto;
   height: 1rem;
@@ -174,9 +163,11 @@ const ProjectDescriptionLine = styled.div`
   align-items: center;
 `;
 
+const DatePickerStyle = styled.input``;
+
 function ProjectForm({ data, updateForm, submitForm }) {
-  const [introductionCount, setIntroductionCount] = useState();
-  const [description, setDescription] = useState({ title: null, contents: [] });
+  // const [introductionCount, setIntroductionCount] = useState();
+  const [languageWord, setlanguageWord] = useState();
 
   const _changeTitle = (value) => {
     updateForm({ ...data, title: value });
@@ -184,8 +175,8 @@ function ProjectForm({ data, updateForm, submitForm }) {
   const _changeKeyword = (value) => {
     updateForm({ ...data, content: value });
   };
-  const _changeGrade = (value) => {
-    updateForm({ ...data, awardGrade: value });
+  const _changeDescription = (value) => {
+    updateForm({ ...data, descripttion: value });
   };
   const _changeOrganization = (value) => {
     updateForm({ ...data, awardOrganization: value });
@@ -193,13 +184,29 @@ function ProjectForm({ data, updateForm, submitForm }) {
   const _changeProjectUrl = (value) => {
     updateForm({ ...data, projectUrl: value });
   };
-
-  const addDescription = () => {
-    setDescription({
-      title: description.title,
-      contents: ["", ...description.contents],
-    });
+  const _changeStartDate = (value) => {
+    updateForm({ ...data, startDate: value });
   };
+  const _changeEndDate = (value) => {
+    updateForm({ ...data, endDate: value });
+  };
+  const _addLanguageWord = () => {
+    console.log(
+      "languagelanguagelanguagelanguagelanguagelanguage",
+      languageWord
+    );
+    updateForm({
+      ...data,
+      language: [...data.language, new ProjectLanguageDTO(languageWord)],
+    });
+    setlanguageWord();
+  };
+  // const addDescription = () => {
+  //   setDescription({
+  //     title: description.title,
+  //     contents: ["", ...description.contents],
+  //   });
+  // };
   return (
     <ProjectItemStyle>
       <ProjectTop>
@@ -217,26 +224,33 @@ function ProjectForm({ data, updateForm, submitForm }) {
             <BulletPoint />
             키워드
           </ProjectDescriptionLine>
-          <ProjectInputMargin
-            placeholder="키워드를 입력해주세요"
-            value={data?.title}
-            onChange={(e) => _changeKeyword(e.target.value)}
-          />
-          {/* <ProjectSelectedKeywordContainer>
-            {data?.language?.split(",").map((text) => (
-              <Tag>{text}</Tag>
+          <ProjectInputMarginWithButtonContainer>
+            <ProjectInputMarginWithButton
+              placeholder="키워드를 입력해주세요"
+              value={languageWord}
+              onChange={(e) => setlanguageWord(e.target.value)}
+            />
+            <PlusButtonLarge onClick={_addLanguageWord}>+</PlusButtonLarge>
+          </ProjectInputMarginWithButtonContainer>
+          <ProjectSelectedKeywordContainer>
+            {data.language?.map((text) => (
+              <LanguageTagContainer>
+                <LanguageTag>{text}</LanguageTag>
+                <LanguageTagDeleteButton>x</LanguageTagDeleteButton>
+              </LanguageTagContainer>
             ))}
-          </ProjectSelectedKeywordContainer> */}
+          </ProjectSelectedKeywordContainer>
+
           <ProjectDescriptionLine>
             <BulletPoint />
             프로젝트 소개
           </ProjectDescriptionLine>
           <ProjectInputMargin
             placeholder="소개 제목을 입력해주세요"
-            value={data?.title}
-            onChange={(e) => _changeTitle(e.target.value)}
+            value={data?.description}
+            onChange={(e) => _changeDescription(e.target.value)}
           />
-          {description.title &&
+          {/* {description.title &&
             description.contents.map((content, index) => (
               <ProjectInputLargeContainer>
                 <BulletPoint />
@@ -248,7 +262,7 @@ function ProjectForm({ data, updateForm, submitForm }) {
                   <PlusButton onClick={addDescription}>+</PlusButton>
                 )}
               </ProjectInputLargeContainer>
-            ))}
+            ))} */}
           <ProjectDescriptionLine>
             <BulletPoint />팀 구성
           </ProjectDescriptionLine>
@@ -268,7 +282,18 @@ function ProjectForm({ data, updateForm, submitForm }) {
             onChange={(e) => _changeProjectUrl(e.target.value)}
           />
         </ProjectLeftTop>
-        <ProjectRightTop></ProjectRightTop>
+        <ProjectRightTop>
+          <DatePickerStyle
+            type="date"
+            value={data.startDate}
+            onChange={(e) => _changeStartDate(e.target.value)}
+          ></DatePickerStyle>
+          <DatePickerStyle
+            type="date"
+            value={data.endDate}
+            onChange={(e) => _changeEndDate(e.target.value)}
+          ></DatePickerStyle>
+        </ProjectRightTop>
       </ProjectTop>
       {/* <ProjectIntroduction>
         <ProjectIntroductionTitle>프로젝트 소개</ProjectIntroductionTitle>
