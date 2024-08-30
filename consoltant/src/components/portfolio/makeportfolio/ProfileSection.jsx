@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SliderPicker } from "react-color";
 import styled from "styled-components";
 
@@ -54,12 +54,12 @@ const ProfileContainer = styled.div`
 `;
 
 const ProfileImage = styled.div`
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   width: 12rem;
   height: 10rem;
   background-color: #f5f5f5;
-  border-radius: 0.5rem;
+  border-radius: 0.5rem; */
   /* margin: 2rem 2rem 5rem; */
 `;
 
@@ -128,10 +128,108 @@ const ColorCircle = styled.div`
   border-radius: 50%;
   background-color: ${(props) => props.bgColor};
   border: ${(props) =>
-    props.isSelectd ? "0.1rem solid rgb(44, 44, 44, 0.3)" : null};
+    props.isSelected ? "0.1rem solid rgb(44, 44, 44, 0.3)" : null};
+`;
+
+const PlusBoxContainer = styled.div`
+  width: 12rem;
+  height: 14.4rem;
+  display: flex;
+  flex-wrap: "wrap";
+  justify-content: center;
+  align-items: center;
+`;
+
+const PlusBoxStyle = styled.div`
+  height: 80%;
+  width: 80%;
+  background-color: #f5f5f5;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const PlusBoxButton = styled.div`
+  --ball-size: 5rem;
+  height: var(--ball-size);
+  width: var(--ball-size);
+  border-radius: 3rem;
+  font-size: 3rem;
+  color: white;
+  text-align: center;
+  line-height: 5rem;
+  background-color: #c7c7c7;
 `;
 
 function ProfileSection({ portfolioData, setPortfolioData }) {
+  const [profileImage, setProfileImage] = useState(
+    `data:image/jpeg;base64,${portfolioData.userInfo?.imageUrl}`
+  );
+
+
+
+  useEffect(() => {}, [setProfileImage]);
+
+  // const _changeName = (value) => {
+  //   setPortfolioData({
+  //     ...portfolioData,
+  //     userInfo: {
+  //       ...portfolioData.userInfo,
+  //       name: value,
+  //     },
+  //   });
+  // };
+
+  const _changeJob = (value) => {
+    setPortfolioData({
+      ...portfolioData,
+      userInfo: {
+        ...portfolioData.userInfo,
+        job: value,
+      },
+    });
+  };
+
+  const changeDescription = (value) => {
+    setPortfolioData({
+      ...portfolioData,
+      userInfo: {
+        ...portfolioData.userInfo,
+        description: value,
+      },
+    });
+  };
+
+  // const changeBirthDate = (value) => {
+  //   setPortfolioData({
+  //     ...portfolioData,
+  //     userInfo: {
+  //       ...portfolioData.userInfo,
+  //       birthDate: value,
+  //     },
+  //   });
+  // };
+
+  // const _changePhoneNumber = (value) => {
+  //   setPortfolioData({
+  //     ...portfolioData,
+  //     userInfo: {
+  //       ...portfolioData.userInfo,
+  //       phoneNumber: value,
+  //     },
+  //   });
+  // };
+
+  // const changeEmail = (value) => {
+  //   setPortfolioData({
+  //     ...portfolioData,
+  //     userInfo: {
+  //       ...portfolioData.userInfo,
+  //       email: value,
+  //     },
+  //   });
+  // };
+
   const _changeBgColor = (bgColor) => {
     setPortfolioData({
       ...portfolioData,
@@ -141,6 +239,60 @@ function ProfileSection({ portfolioData, setPortfolioData }) {
       },
     });
   };
+
+  const base64Encoder = (file) => {
+    return new Promise((resolve) => {
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        // console.log(e.target.result);
+        resolve(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const profileImageUpload = async (e) => {
+    // 파일이 존재하는지 확인
+    const file = e.target.files[0];
+    if (!file) {
+      console.log("No file selected");
+      return; // 파일이 없으면 함수 종료
+    }
+
+    console.log("프로필 이미지 업로드!!!!", file);
+    const img = await base64Encoder(file);
+    const basse64Img = img.split(",")[1];
+    console.log(basse64Img);
+    await setProfileImage(img);
+    await setPortfolioData({
+      ...portfolioData,
+      userInfo: {
+        ...portfolioData.userInfo,
+        imageUrl: basse64Img,
+      },
+    });
+  };
+
+  const deleteImage = async () => {
+    await setProfileImage(null);
+    await setPortfolioData({
+      ...portfolioData,
+      userInfo: {
+        ...portfolioData.userInfo,
+        imageUrl: null,
+      },
+    });
+  };
+
+  // console.log(
+  //   "BGCOLORBGCOLORBGCOLORBGCOLORBGCOLORBGCOLOR++++++++++++++++++",
+  //   bgColor
+  // );
+  // console.log(
+  //   "BGCOLORBGCOLORBGCOLORBGCOLORBGCOLORBGCOLOR",
+  //   portfolioData.userInfo.backgroundColor
+  // );
+
   return (
     <ProfileSectionStyle>
       <ProfileTitleContainer>
@@ -153,13 +305,51 @@ function ProfileSection({ portfolioData, setPortfolioData }) {
 
       <ProfileContainer bgcolor={portfolioData.userInfo.backgroundColor}>
         <ProfileSectionLeft>
-          <ProfileImage></ProfileImage>
+          <ProfileImage>
+            <input
+              type="file"
+              name="file"
+              className="hidden"
+              id="file"
+              accept="image/*"
+              onChange={(e) => profileImageUpload(e)}
+            />
+            <label htmlFor="file" className="fileLabel">
+              {profileImage ? (
+                <div className="relative">
+                  <img
+                    className="rounded-[0.8rem] w-[12rem]"
+                    src={`data:image/jpeg;base64,${portfolioData.userInfo?.imageUrl}`}
+                    alt=""
+                  />
+                  {/* <div className="flex justify-end">
+                    <img
+                      onClick={deleteImage()}
+                      className="w-[1.5rem] m-[0.5rem]"
+                      src="/portfolio/Delete.svg"
+                      alt=""
+                    />
+                  </div> */}
+                </div>
+              ) : (
+                <div className="flex flex-col items-center">
+                  <PlusBoxContainer>
+                    <PlusBoxStyle>
+                      <PlusBoxButton>+</PlusBoxButton>
+                    </PlusBoxStyle>
+                  </PlusBoxContainer>
+                </div>
+              )}
+            </label>
+          </ProfileImage>
           <ColorPickerContainer>
             {["#DFE4FF", "#FFDFDF", "#E9FFDF", "#DFF0FF", "#FFF8DF"].map(
               (bgColor) => (
                 <ColorCircle
                   bgColor={bgColor}
-                  isSelectd={portfolioData.userInfo.backgroundColor === bgColor}
+                  isSelected={
+                    portfolioData.userInfo.backgroundColor === bgColor
+                  }
                   onClick={() => _changeBgColor(bgColor)}
                 />
               )
@@ -170,10 +360,13 @@ function ProfileSection({ portfolioData, setPortfolioData }) {
           <NameInput
             placeholder="이름을 입력해주세요"
             value={portfolioData.userInfo.name}
+            disabled
+            // onChange={(e) => _changeName(e.target.value)}
           ></NameInput>
           <JobInput
             placeholder="직업을 입력해주세요(ex - 백엔드 개발자)"
             value={portfolioData.userInfo.job}
+            onChange={(e) => _changeJob(e.target.value)}
           ></JobInput>
           <ProfileIntroductionContainer>
             <ProfileIntroductionTitle>
@@ -182,25 +375,33 @@ function ProfileSection({ portfolioData, setPortfolioData }) {
             <ProfileIntroductionInput
               placeholder="채용 담당자에게 특별한 인상을 줄 수 있는 소개 글을 작성해보세요."
               value={portfolioData.userInfo.description}
+              onChange={(e) => changeDescription(e.target.value)}
             ></ProfileIntroductionInput>
           </ProfileIntroductionContainer>
           <ProfileAdditionalInfo>
             <InputLabel>
               <InputTitle>생년월일</InputTitle>
               <InputContainer
+                type="date"
                 value={portfolioData.userInfo.birthDate}
+                disabled
+                // onChange={(e) => changeBirthDate(e.target.value)}
               ></InputContainer>
             </InputLabel>
             <InputLabel>
               <InputTitle>전화번호</InputTitle>
               <InputContainer
                 value={portfolioData.userInfo.phoneNumber}
+                disabled
+                // onChange={(e) => _changePhoneNumber(e.target.value)}
               ></InputContainer>
             </InputLabel>
             <InputLabel>
               <InputTitle>이메일</InputTitle>
               <InputContainer
                 value={portfolioData.userInfo.email}
+                disabled
+                // onChange={(e) => changeEmail(e.target.value)}
               ></InputContainer>
             </InputLabel>
           </ProfileAdditionalInfo>
@@ -209,5 +410,4 @@ function ProfileSection({ portfolioData, setPortfolioData }) {
     </ProfileSectionStyle>
   );
 }
-
 export default ProfileSection;

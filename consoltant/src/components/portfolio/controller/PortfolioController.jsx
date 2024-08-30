@@ -4,7 +4,7 @@ import { Card } from "../makeportfolio/Card";
 import styled from "styled-components";
 import PortfolioControllerItem from "./PortfolioControllerItem";
 import { useNavigate } from "react-router";
-import { postSaveAll } from "../../../apis/Portfolio";
+import { postSaveAll, uploadImage } from "../../../apis/Portfolio";
 import { useSelector } from "react-redux";
 
 // 포트폴리오 아이템을 드래그하여 순서를 변경하는 컴포넌트
@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 const PortfolioControllerStyle = styled.div`
   position: fixed;
   right: 1rem;
-  top: 20vh;
+  top: 30vh;
   width: 15%;
   border: 0.1rem solid #f5f5f5;
   border-radius: 0.5rem;
@@ -106,6 +106,11 @@ function PortfolioController({ isEdit, allData }) {
 
   const _savePortfolio = async (allData) => {
     await postSaveAll(loginid, portfolioid, allData);
+    // console.log(
+    //   "이미지 업로드 여기까지 드러오니ㅣㅣㅣㅣㅣㅣ",
+    //   allData.portfolioData.userInfo.imageUrl
+    // );
+    await uploadImage(portfolioid, allData.portfolioData.userInfo.imageUrl);
     navigate("/portfolio");
   };
 

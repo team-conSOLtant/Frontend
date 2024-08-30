@@ -1,25 +1,21 @@
 import React, { useState } from "react";
-import ActivityFormDetail from "./ActivityFormDetail.jsx";
 
-function ActivityForm() {
-  const [details, setDetails] = useState([{ role: "", description: "" }]);
-
-  const addDetail = () => {
-    setDetails([...details, { role: "", description: "" }]);
+function ActivityForm({ data, submitForm, updateForm }) {
+  const _changeTitle = (value) => {
+    updateForm({ ...data, title: value });
   };
-
-  const removeDetail = (index) => {
-    const newDetails = details.filter((_, i) => i !== index);
-    setDetails(newDetails);
+  const _changeContent = (value) => {
+    updateForm({ ...data, content: value });
   };
-
-  const updateDetail = (index, newDetail) => {
-    const newDetails = [...details];
-    newDetails[index] = newDetail;
-    setDetails(newDetails);
+  const _changeContentTitle = (value) => {
+    updateForm({ ...data, contentTitle: value });
   };
-
-  console.log(details);
+  const _changeStartDate = (value) => {
+    updateForm({ ...data, startDate: value });
+  };
+  const _changeEndDate = (value) => {
+    updateForm({ ...data, endDate: value });
+  };
 
   return (
     <div className="text-[#444444] flex flex-col w-[60%]">
@@ -33,45 +29,57 @@ function ActivityForm() {
             type="text"
             placeholder="대외활동 명을 작성해주세요."
             className="bg-gray-100 py-1 px-2 rounded-xl"
+            value={data.title}
+            onChange={(e) => _changeTitle(e.target.value)}
           />
-          {details.map((detail, index) => (
-            <div key={index} className="flex items-center mt-4">
-              <div className="flex-grow">
-                <ActivityFormDetail
-                  detail={detail}
-                  onDetailChange={(newDetail) => updateDetail(index, newDetail)}
-                />
+          <div className="flex items-center mt-4">
+            <div className="flex-grow">
+              <div className="flex my-2">
+                <div className="w-5 h-5 flex justify-center items-center bg-[#D9D9D9] rounded-[5px] m-2"></div>
+                <div className="flex flex-col w-full">
+                  <input
+                    type="text"
+                    placeholder="대외활동에 대한 설명을 적어주세요"
+                    className="w-full py-1 px-2 rounded-xl bg-gray-100"
+                    value={data.contentTitle}
+                    onChange={(e) => _changeContentTitle(e.target.value)}
+                  />
+                  <input
+                    type="text"
+                    placeholder="자신이 한일에 대해서 자세히 작성해주세요"
+                    className="w-full py-1 px-2 rounded-xl mt-2 bg-gray-100"
+                    value={data.content}
+                    onChange={(e) => _changeContent(e.target.value)}
+                  />
+                </div>
               </div>
-              <button
-                type="button"
-                className="ml-2 p-1 text-red-500 bg-gray-100 rounded-lg"
-                onClick={() => removeDetail(index)}
-              >
-                삭제
-              </button>
             </div>
-          ))}
-          <button
-            type="button"
-            className="mt-4 p-2 bg-blue-500 text-white rounded-xl"
-            onClick={addDetail}
-          >
-            추가
-          </button>
+          </div>
           <div className="flex flex-col mt-4">
             <span className="text-sm font-semibold mb-1">대외활동 기간</span>
             <div>
               <input
                 type="date"
                 className="bg-gray-100 w-40 py-1 px-2 rounded-xl"
+                value={data.startDate}
+                onChange={(e) => _changeStartDate(e.target.value)}
               />{" "}
               ~{" "}
               <input
                 type="date"
                 className="bg-gray-100 w-40 py-1 px-2 rounded-xl"
+                value={data.endDate}
+                onChange={(e) => _changeEndDate(e.target.value)}
               />
             </div>
           </div>
+          <button
+            type="button"
+            className="mt-4 p-2 bg-blue-500 text-white rounded-xl"
+            onClick={submitForm}
+          >
+            제출
+          </button>
         </div>
       </div>
     </div>

@@ -132,11 +132,13 @@ function MakePortfolioPage() {
         email: newData.email,
         age: newData.age,
         phoneNumber: newData.phoneNumber,
+        birthDate: newData.birthDate,
       },
       education: {
         ...existingData.education,
         university: newData.university,
         major: newData.major,
+        totalGpa: newData.totalGpa, // 새로운 totalGpa로 업데이트
       },
     }));
   };
@@ -210,10 +212,11 @@ function MakePortfolioPage() {
             projectItems={projectItems}
             setProjectItems={setProjectItems}
           />
-          {/* <ActivitySection
+          <ActivitySection
             isEdit={true}
-            activities={portfolioData.activities}
-          /> */}
+            activityItems={activityItems}
+            setActivityItems={setActivityItems}
+          />
         </PortfolioMain>
         <PortfolioController
           isEdit={true}
