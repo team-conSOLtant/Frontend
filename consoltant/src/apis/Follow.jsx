@@ -27,3 +27,27 @@ export const getFollower = async (portfolioId) => {
     console.log("get Follower fail: ", error);
   }
 };
+
+export const postFollows = async (userId, portfolioId) => {
+  try {
+    const response = await axios.post(`/follows`, { userId, portfolioId });
+    console.log(
+      "POST FOLLOWS POST FOLLOWS POST FOLLOWS POST FOLLOWS POST FOLLOWS POST FOLLOWS",
+      response.data
+    );
+    return response.data;
+  } catch (error) {
+    console.error("post follows failed:", error);
+    throw error;
+  }
+};
+
+export const deleteFollows = async (followId) => {
+  try {
+    const response = await axios.post(`/follows/${followId}`);
+    return response.data;
+  } catch (error) {
+    console.error("delete follows failed:", error);
+    throw error;
+  }
+};

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import update from "immutability-helper";
 import { Card } from "../makeportfolio/Card";
 import styled from "styled-components";
@@ -6,6 +6,7 @@ import PortfolioControllerItem from "./PortfolioControllerItem";
 import { useNavigate } from "react-router";
 import { postSaveAll, uploadImage } from "../../../apis/Portfolio";
 import { useSelector } from "react-redux";
+import { deleteFollows, getFollowing, postFollows } from "../../../apis/Follow";
 
 // 포트폴리오 아이템을 드래그하여 순서를 변경하는 컴포넌트
 
@@ -57,10 +58,49 @@ const EditButton = styled.div`
   font-size: 0.9rem;
 `;
 
-function PortfolioController({ isEdit, allData }) {
+function PortfolioController({ isEdit, isBlur, allData, portid, portloginid }) {
   let { loginid, portfolioid } = useSelector((state) => state.user);
   // 아이템들의 순서를 상태로 관리
   const navigate = useNavigate();
+
+  const [followingList, setFollowingList] = useState([]);
+
+  useEffect(() => {
+    getFollowingList();
+  }, []);
+
+  const getFollowingList = async () => {
+    const res = await getFollowing(loginid);
+    console.log("foloooooooooooooooooooooooooooooooo", res.result);
+    setFollowingList(res.result);
+  };
+
+  const isFollowed = (portid) => {
+    return (
+      followingList?.filter(
+        (following) => String(following.portfolioId) === String(portid)
+      ).length > 0
+    );
+  };
+
+  const getFollowId = (portid) => {
+    console.log(
+      "???????????????????????????????????????????????",
+      followingList?.filter(
+        (following) => String(following.portfolioId) === String(portid)
+      )[0]
+    );
+    return followingList?.filter(
+      (following) => String(following.portfolioId) === String(portid)
+    )[0].id;
+  };
+
+  useEffect(() => {
+    console.log(
+      "followingListfollowingListfollowingListfollowingList",
+      followingList
+    );
+  }, [followingList]);
 
   const [cards, setCards] = useState([
     {
@@ -114,6 +154,21 @@ function PortfolioController({ isEdit, allData }) {
     navigate("/portfolio");
   };
 
+  const _follow = async (loginid, portfolioid) => {
+    await postFollows(loginid, portfolioid);
+    getFollowingList();
+  };
+
+  const _unfollow = async (followId) => {
+    console.log("followIDfollowIDfollowIDfollowID", followId);
+    console.log(
+      "followingListfollowingListfollowingListfollowingList",
+      followingList
+    );
+    await deleteFollows(followId);
+    getFollowingList();
+  };
+
   return (
     <PortfolioControllerStyle>
       <PortfolioControllerTitle>포트폴리오 구성</PortfolioControllerTitle>
@@ -142,9 +197,17 @@ function PortfolioController({ isEdit, allData }) {
           포트폴리오 저장
         </SaveButton>
       )}
-      {!isEdit && (
+      {!isEdit && !isBlur && (
         <EditButton onClick={() => navigate("/make-portfolio")}>
           포트폴리오 편집
+        </EditButton>
+      )}
+      {!isEdit && isBlur && followingList.length > 0 && !isFollowed(portid) && (
+        <EditButton onClick={() => _follow(loginid, portid)}>팔로우</EditButton>
+      )}
+      {!isEdit && isBlur && followingList.length > 0 && isFollowed(portid) && (
+        <EditButton onClick={() => _unfollow(getFollowId(portid))}>
+          팔로잉
         </EditButton>
       )}
     </PortfolioControllerStyle>
