@@ -63,7 +63,7 @@ function PortfolioFormPage() {
   // );
   // console.log(portloginid);
   // console.log(portid);
-  console.log(loginid, isBlur);
+  console.log("isBlurisBlurisBlurisBlurisBlurisBlurisBlurisBlurisBlur", isBlur);
   if (!isBlur) {
     portloginid = loginid;
     portid = portfolioid;
