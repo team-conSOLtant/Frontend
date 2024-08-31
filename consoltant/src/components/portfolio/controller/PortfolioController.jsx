@@ -6,7 +6,11 @@ import PortfolioControllerItem from "./PortfolioControllerItem";
 import { useNavigate } from "react-router";
 import { postSaveAll, uploadImage } from "../../../apis/Portfolio";
 import { useSelector } from "react-redux";
-import { deleteFollows, getFollowing, postFollows } from "../../../apis/Follow";
+import {
+  deleteFollows,
+  getFollowingList,
+  postFollows,
+} from "../../../apis/Follow";
 
 // 포트폴리오 아이템을 드래그하여 순서를 변경하는 컴포넌트
 
@@ -64,18 +68,19 @@ function PortfolioController({ isEdit, isBlur, allData, portid, portloginid }) {
   const navigate = useNavigate();
 
   const [followingList, setFollowingList] = useState([]);
+  const [isFollowed, setIsFollowed] = useState();
 
   useEffect(() => {
-    getFollowingList();
+    getFollowings();
   }, []);
 
-  const getFollowingList = async () => {
-    const res = await getFollowing(loginid);
+  const getFollowings = async () => {
+    const res = await getFollowingList(loginid);
     console.log("foloooooooooooooooooooooooooooooooo", res.result);
     setFollowingList(res.result);
   };
 
-  const isFollowed = (portid) => {
+  const _isFollowed = (portid) => {
     return (
       followingList?.filter(
         (following) => String(following.portfolioId) === String(portid)
@@ -100,6 +105,7 @@ function PortfolioController({ isEdit, isBlur, allData, portid, portloginid }) {
       "followingListfollowingListfollowingListfollowingList",
       followingList
     );
+    setIsFollowed(_isFollowed(portid));
   }, [followingList]);
 
   const [cards, setCards] = useState([
@@ -151,22 +157,18 @@ function PortfolioController({ isEdit, isBlur, allData, portid, portloginid }) {
     //   allData.portfolioData.userInfo.imageUrl
     // );
     await uploadImage(portfolioid, allData.portfolioData.userInfo.imageUrl);
-    navigate("/portfolio");
+    navigate(`/portfolio/${portfolioid}`);
   };
 
   const _follow = async (loginid, portfolioid) => {
     await postFollows(loginid, portfolioid);
-    getFollowingList();
+    getFollowings();
   };
 
   const _unfollow = async (followId) => {
     console.log("followIDfollowIDfollowIDfollowID", followId);
-    console.log(
-      "followingListfollowingListfollowingListfollowingList",
-      followingList
-    );
     await deleteFollows(followId);
-    getFollowingList();
+    getFollowings();
   };
 
   return (
@@ -202,14 +204,21 @@ function PortfolioController({ isEdit, isBlur, allData, portid, portloginid }) {
           포트폴리오 편집
         </EditButton>
       )}
-      {!isEdit && isBlur && followingList.length > 0 && !isFollowed(portid) && (
-        <EditButton onClick={() => _follow(loginid, portid)}>팔로우</EditButton>
-      )}
-      {!isEdit && isBlur && followingList.length > 0 && isFollowed(portid) && (
-        <EditButton onClick={() => _unfollow(getFollowId(portid))}>
-          팔로잉
-        </EditButton>
-      )}
+      {!isEdit &&
+        isBlur &&
+        followingList.length > 0 &&
+        (!isFollowed ? (
+          <EditButton
+            style={{ backgroundColor: "#77a5ff", color: "white" }}
+            onClick={() => _follow(loginid, portid)}
+          >
+            팔로우
+          </EditButton>
+        ) : (
+          <EditButton onClick={() => _unfollow(getFollowId(portid))}>
+            팔로잉
+          </EditButton>
+        ))}
     </PortfolioControllerStyle>
   );
 }

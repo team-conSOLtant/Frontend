@@ -16,7 +16,10 @@ import AwardCertificationSection from "../components/portfolio/award and certifi
 import ProjectSection from "../components/portfolio/project/ProjectSection.jsx";
 import ActivitySection from "../components/portfolio/activity/ActivitySection.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import { getPortfolios } from "../apis/Portfolio.jsx";
+import {
+  getPortfolios,
+  getPortfoliosByPortfolioId,
+} from "../apis/Portfolio.jsx";
 import { getAwards } from "../apis/Award.jsx";
 import { getUserInfo } from "../apis/Users.jsx";
 import { getCertifications } from "../apis/Certification.jsx";
@@ -63,7 +66,7 @@ function PortfolioFormPage() {
   // );
   // console.log(portloginid);
   // console.log(portid);
-  console.log(loginid, isBlur);
+  console.log("isBlurisBlurisBlurisBlurisBlurisBlurisBlurisBlurisBlur", isBlur);
   if (!isBlur) {
     portloginid = loginid;
     portid = portfolioid;
@@ -114,7 +117,11 @@ function PortfolioFormPage() {
     // console.log("portfolioid : : ", portfolioid);
     if (portid) {
       // 나중에 병렬처리 하기
-      getUserData();
+      if (!isBlur) {
+        getUserData();
+      } else {
+        getPortfoliosByPortfolio();
+      }
       getCareerData();
       getAwardsData();
       getCertificationdData();
@@ -164,6 +171,25 @@ function PortfolioFormPage() {
       userInfo: {
         ...existingData.userInfo,
         name: newData.name,
+        email: newData.email,
+        age: newData.age,
+        phoneNumber: newData.phoneNumber,
+        birthDate: newData.birthDate,
+      },
+      education: {
+        ...existingData.education,
+        university: newData.university,
+        major: newData.major,
+      },
+    }));
+  };
+  const getPortfoliosByPortfolio = async () => {
+    const newData = await getPortfoliosByPortfolioId(portid);
+    setPortfolioData((existingData) => ({
+      ...existingData,
+      userInfo: {
+        ...existingData.userInfo,
+        name: newData.userName,
         email: newData.email,
         age: newData.age,
         phoneNumber: newData.phoneNumber,
@@ -263,6 +289,8 @@ function PortfolioFormPage() {
       ></PortfolioController>
       <CommentController
         userName={portfolioData.userInfo.name}
+        portid={portid}
+        portloginid={portloginid}
       ></CommentController>
     </PortfolioPageStyle>
   );

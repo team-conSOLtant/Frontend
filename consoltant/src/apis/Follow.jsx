@@ -44,10 +44,24 @@ export const postFollows = async (userId, portfolioId) => {
 
 export const deleteFollows = async (followId) => {
   try {
-    const response = await axios.post(`/follows/${followId}`);
+    const response = await axios.delete(`/follows/${followId}`);
     return response.data;
   } catch (error) {
     console.error("delete follows failed:", error);
     throw error;
+  }
+};
+
+export const getFollowingList = async (userId) => {
+  try {
+    const response = await axios
+      .get(`/follows/following/list?userId=${userId}`)
+      .then((res) => {
+        return res.data;
+      });
+    console.log("[IN AXIOS] get following list response: ", response);
+    return response;
+  } catch (error) {
+    console.log("get Following fail: ", error);
   }
 };
