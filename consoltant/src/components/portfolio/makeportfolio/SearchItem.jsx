@@ -20,7 +20,7 @@ function SearchItem({ portfolio, index }) {
           <div className="text-xl relative">{portfolio.job}</div>
           <div className="flex absolute bottom-0">{index + 1}.</div>
         </div>
-        <div className="w-[40%] mr-10 justify-arounds">
+        <div className="w-[50%] mr-10 justify-arounds">
           <div className="flex justify-between">
             <div className="w-24 font-semibold">학력</div>
             <p className="flex flex-col text-end">
