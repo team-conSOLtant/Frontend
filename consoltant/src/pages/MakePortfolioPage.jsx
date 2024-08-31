@@ -41,8 +41,9 @@ const PortfolioBody = styled.div`
 `;
 
 function MakePortfolioPage() {
-  let { loginid, portfolioid } = useSelector((state) => state.user);
-
+  // let { loginid, portfolioid } = useSelector((state) => state.user);
+  const loginid = window.localStorage.getItem("userId");
+  const portfolioid = window.localStorage.getItem("portfolioId");
   const [careerItems, setCareerItems] = useState([]);
   const [certificationItems, setCertificationItems] = useState([]);
   const [awardItems, setAwardItems] = useState([]);
