@@ -161,6 +161,7 @@ function PortfolioController({ isEdit, isBlur, allData, portid, portloginid }) {
   };
 
   const _follow = async (loginid, portfolioid) => {
+    console.log("@@@@@@@@@@@@@@@@@@@@@@@@", loginid, portfolioid);
     await postFollows(loginid, portfolioid);
     getFollowings();
   };

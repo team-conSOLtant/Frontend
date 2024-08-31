@@ -118,12 +118,14 @@ function EducationItem(props) {
       <CourseInfo>
         <CourseTitle>이수과목</CourseTitle>
         <TagContainer>
-          {props.courseItems.map((course) => (
-            <Tag>
-              <TagName>{course.subjectName}</TagName>
-              <TagGrade>{course.grade}</TagGrade>
-            </Tag>
-          ))}
+          {props.courseItems
+            .filter((course) => course.isSelected)
+            .map((course) => (
+              <Tag>
+                <TagName>{course.subjectName}</TagName>
+                <TagGrade>{course.grade}</TagGrade>
+              </Tag>
+            ))}
         </TagContainer>
       </CourseInfo>
     </EducationItemStyle>

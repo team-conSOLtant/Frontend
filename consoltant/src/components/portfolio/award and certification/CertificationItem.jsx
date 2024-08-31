@@ -11,7 +11,7 @@ const CertificationItemStyle = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 0.5rem;
+  padding: 0.5rem 0.5rem 0.2rem;
   color: #444444;
   box-shadow: 2px 2px 2px 1px rgb(185 213 255 / 60%);
 `;
@@ -39,12 +39,13 @@ const Buttons = styled.div`
 `;
 
 const Button = styled.div`
-  width: 40%;
-  height: 1rem;
+  width: 45%;
+  height: 1.2rem;
   background-color: #b9d5ff;
   text-align: center;
-  line-height: 1rem;
+  line-height: 1.2rem;
   border-radius: 0.2rem;
+  font-size: 0.8rem;
 `;
 
 // 포트폴리오 옆에서 순서 바꾸게 리모컨 역할 해주는 것

@@ -4,7 +4,7 @@ import styled from "styled-components";
 const CertificationItemStyle = styled.div`
   background-color: #ffffff;
   width: 12rem;
-  height: 6rem;
+  /* height: 6rem; */
   font-size: 1rem;
   border: #b9d5ff 0.1rem solid;
   border-radius: 0.5rem;
@@ -12,8 +12,7 @@ const CertificationItemStyle = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 0 0.5rem;
-  padding-top: 0.2rem;
+  padding: 0.5rem 0.5rem 0.2rem;
 `;
 
 const CertificationTitleStyle = styled.input`
@@ -53,6 +52,7 @@ const CertificationButton = styled.div`
   line-height: 1.2rem;
   font-size: 0.8rem;
   color: white;
+  margin: 0.2rem 0;
 `;
 
 function CertificationForm({ data, updateForm, submitForm }) {

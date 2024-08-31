@@ -9,15 +9,15 @@ const CareerFormStyle = styled.div`
   margin-bottom: 0.7rem;
 `;
 
-const InputContainer = styled.input`
-  border: none;
-  background-color: #ffffff;
-  border-radius: 0.3rem;
-  text-align: center;
-  height: 2rem;
-  padding-left: 0.3rem;
-  width: 15rem;
-`;
+// const InputContainer = styled.input`
+//   border: none;
+//   background-color: #ffffff;
+//   border-radius: 0.3rem;
+//   text-align: center;
+//   height: 2rem;
+//   padding-left: 0.3rem;
+//   width: 15rem;
+// `;
 
 const RankInputContainer = styled.div`
   border: none;
@@ -27,6 +27,7 @@ const RankInputContainer = styled.div`
   padding-left: 0.3rem;
   width: 10rem;
   font-weight: bold;
+  text-align: center;
 `;
 const RankInputPosition = styled.div`
   border: none;
@@ -47,10 +48,20 @@ const RankInputPosition = styled.div`
 const Buttons = styled.div`
   display: flex;
   flex-direction: row;
+  width: 15%;
+  justify-content: space-evenly;
+  color: white;
 `;
 
 const Button = styled.div`
-  margin: 0 0.2rem;
+  width: 45%;
+  height: 1.2rem;
+  background-color: #b9d5ff;
+  text-align: center;
+  line-height: 1.2rem;
+  border-radius: 0.2rem;
+  font-size: 0.8rem;
+  color: white;
 `;
 
 function CareerItem({ data, isEdit, editItem, deleteItem, key }) {

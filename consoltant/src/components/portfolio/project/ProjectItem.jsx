@@ -133,15 +133,12 @@ const Buttons = styled.div`
 `;
 
 const Button = styled.div`
-  width: 40%;
+  width: 49%;
   height: 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   background-color: #b9d5ff;
   text-align: center;
+  line-height: 1rem;
   border-radius: 0.2rem;
-  margin-top: 0.3rem;
 `;
 const ProjectTeamComposition = styled.input``;
 
