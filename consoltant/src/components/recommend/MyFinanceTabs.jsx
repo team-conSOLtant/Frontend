@@ -56,22 +56,8 @@ function RecommendTabs({ financeProducts, info, age }) {
               product.maxSubscriptionBalance || product.maxLoanBalance,
             age: product.age,
             balance: product.balance,
-            startDate:
-              activeTab === "recommend"
-                ? product.startDate
-                : product.startDate.substr(0, 4) +
-                  "-" +
-                  product.startDate.substr(4, 2) +
-                  "-0" +
-                  product.startDate.substr(6, 2),
-            endDate:
-              activeTab === "recommend"
-                ? product.endDate
-                : product.endDate.substr(0, 4) +
-                  "-" +
-                  product.endDate.substr(4, 2) +
-                  "-" +
-                  product.endDate.substr(6, 2),
+            startDate: product.startDate,
+            endDate: product.endDate,
           });
         }
       }
