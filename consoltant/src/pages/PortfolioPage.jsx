@@ -56,17 +56,23 @@ function PortfolioFormPage() {
   let { portid } = useParams();
 
   let { loginid, portfolioid } = useSelector((state) => state.user);
-  const isBlur = !(portid === portfolioid);
+  console.log(portid, portfolioid);
+  const isBlur = !(String(portid) === String(portfolioid));
   // console.log(
   //   "????????????????????????????????????????????????????????????????"
   // );
   // console.log(portloginid);
   // console.log(portid);
-
-  // if (isBlur) {
-  //   portloginid
-
-  // }
+  console.log("isBlurisBlurisBlurisBlurisBlurisBlurisBlurisBlurisBlur", isBlur);
+  if (!isBlur) {
+    portloginid = loginid;
+    portid = portfolioid;
+  }
+  console.log(
+    "///////////////////////////////////////////////////////////",
+    portloginid,
+    portid
+  );
 
   const [careerItems, setCareerItems] = useState([]);
   const [certificationItems, setCertificationItems] = useState([]);
@@ -106,7 +112,7 @@ function PortfolioFormPage() {
 
   useEffect(() => {
     // console.log("portfolioid : : ", portfolioid);
-    if (portfolioid) {
+    if (portid) {
       // 나중에 병렬처리 하기
       getUserData();
       getCareerData();
@@ -117,11 +123,11 @@ function PortfolioFormPage() {
       getCoursesdData();
       console.log("after get projects : ", portfolioData);
     }
-  }, [portfolioid]);
+  }, [portid]);
 
   const getProfileData = async () => {
     // console.log("profile : loginid", loginid);
-    const newData = await getPortfolios(loginid);
+    const newData = await getPortfolios(portloginid);
     // dispatch(setUser({ loginid: loginid, portfolioid: portfolioid }));
     setPortfolioData((existingData) => ({
       ...existingData,
@@ -167,44 +173,43 @@ function PortfolioFormPage() {
         ...existingData.education,
         university: newData.university,
         major: newData.major,
-        totalGpa: newData.totalGpa, // 새로운 totalGpa로 업데이트
       },
     }));
   };
 
   const getCareerData = async () => {
     console.log("[getCareer function] start");
-    const newData = await getCareers(portfolioid);
+    const newData = await getCareers(portid);
     setCareerItems(newData);
   };
 
   const getAwardsData = async () => {
     console.log("[getAwards function] start");
-    const newData = await getAwards(portfolioid);
+    const newData = await getAwards(portid);
     setAwardItems(newData);
   };
 
   const getCertificationdData = async () => {
     console.log("[getCertification function] start");
-    const newData = await getCertifications(portfolioid);
+    const newData = await getCertifications(portid);
     setCertificationItems(newData);
   };
 
   const getProjectsData = async () => {
     console.log("[getProjects function] start");
-    const newData = await getProjects(portfolioid);
+    const newData = await getProjects(portid);
     setProjectItems(newData);
   };
 
   const getActivitiesData = async () => {
     console.log("[getActivities function] start");
-    const newData = await getActivities(portfolioid);
+    const newData = await getActivities(portid);
     setActivityItems(newData);
   };
 
   const getCoursesdData = async () => {
     console.log("[getCourses function] start");
-    const newData = await getCourses(loginid);
+    const newData = await getCourses(portloginid);
     setCourseItems(newData);
   };
 
@@ -250,7 +255,12 @@ function PortfolioFormPage() {
           />
         </PortfolioMain>
       </PortfolioBody>
-      <PortfolioController isEdit={false}></PortfolioController>
+      <PortfolioController
+        isBlur={isBlur}
+        isEdit={false}
+        portid={portid}
+        portloginid={portloginid}
+      ></PortfolioController>
       <CommentController
         userName={portfolioData.userInfo.name}
       ></CommentController>

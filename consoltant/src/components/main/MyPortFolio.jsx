@@ -4,11 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { readComment } from "../../apis/Notification";
 
 function MyPortfolio({ notification }) {
+  const portfolioid = window.localStorage.getItem("portfolioId");
+
   const navigate = useNavigate();
 
   const goPortfolio = () => {
     readComment();
-    navigate("/portfolio");
+    navigate(`/portfolio/${portfolioid}`);
   };
 
   return (
@@ -16,7 +18,11 @@ function MyPortfolio({ notification }) {
       <div className=" text-[0.7rem]">내 포트폴리오</div>
       <div className="font-OneShinhanBold text-[1.2rem]">My Portfolio</div>
       <div className="absolute left-[4rem] w-[5rem]">
-        <ExploreButton onClick={() => {(goPortfolio())}} />
+        <ExploreButton
+          onClick={() => {
+            goPortfolio();
+          }}
+        />
         <div className="absolute right-[-2rem] top-[-0.5rem]">
           <Alert num={notification} />
         </div>

@@ -13,11 +13,12 @@ function RecommendPage() {
   const [expectedRoadMapGraph, setExpectedRoadMapGraph] = useState();
   const [expectedRoadMapProducts, setExpectedRoadMapProducts] = useState();
   const [expectedRoadMapInfo, setExpectedRoadMapInfo] = useState();
-  const [expectedRoadMapPreRecommend, setExpectedRoadMapPreRecommend] =
-    useState();
+  const [expectedRoadMapPreRecommend, setExpectedRoadMapPreRecommend] = useState();
   const [expectedRoadMapRecommend, setExpectedRoadMapRecommend] = useState();
   const [age, setAge] = useState();
   const navigate = useNavigate();
+
+  const year = new Date().getFullYear();
 
   useEffect(() => {
     getBest();
@@ -47,9 +48,7 @@ function RecommendPage() {
         // 이미 선택된 아이템이 있을 경우, startDate와 endDate만 업데이트
         return {
           ...prevItems,
-          [tab]: itemsInTab.filter(
-            (selectedItem) => selectedItem.id !== item.id
-          ),
+          [tab]: itemsInTab.filter((selectedItem) => selectedItem.id !== item.id),
         };
       } else {
         // 아이템이 없을 경우 추가
@@ -130,12 +129,10 @@ function RecommendPage() {
         {bestRoadMapGraph && bestRoadMapProducts && bestRoadMapInfo && age && (
           <div className="flex flex-col mr-24">
             <div className="flex flex-col mb-10">
-              <div className="text-2xl mb-2 text-[#0046ff] font-semibold">
-                추천 로드맵
-              </div>
+              <div className="text-2xl mb-2 text-[#0046ff] font-semibold">추천 로드맵</div>
               <div className="text-sm">
-                고객님의 포트폴리오 학생 데이터를 활용하여 추천한 선배님들의
-                모범 금융 로드맵 입니다.
+                고객님의 포트폴리오 학생 데이터를 활용하여 추천한 선배님들의 모범 금융 로드맵
+                입니다.
               </div>
             </div>
             <div className="mb-4">
@@ -153,44 +150,41 @@ function RecommendPage() {
             </div>
           </div>
         )}
-        {expectedRoadMapGraph &&
-          expectedRoadMapInfo &&
-          expectedRoadMapProducts &&
-          age && (
-            <div className="flex flex-col relative mb-10">
-              <div className="flex flex-col mb-10">
-                <div className="text-2xl mb-2 text-[#0046ff] font-semibold">
-                  {expectedRoadMapInfo.name}님의 예상 로드맵
-                </div>
-                <div className="text-sm">
-                  추천 로드맵의 금융 상품 중 신한은행 금융 상품과 유사한 상품을
-                  매칭하여 제공해드립니다.
-                </div>
+        {expectedRoadMapGraph && expectedRoadMapInfo && expectedRoadMapProducts && age && (
+          <div className="flex flex-col relative mb-10">
+            <div className="flex flex-col mb-10">
+              <div className="text-2xl mb-2 text-[#0046ff] font-semibold">
+                {expectedRoadMapInfo.name}님의 예상 로드맵
               </div>
-              <div className="mb-4">
-                <RecommendGraph graph={expectedRoadMapGraph} />
-              </div>
-              <div className="border-[#dddddd] border-[2px] shadow-lg rounded-3xl">
-                <RecommendTabs
-                  financeProducts={expectedRoadMapPreRecommend}
-                  info={expectedRoadMapInfo}
-                  selectedItems={selectedItems}
-                  onItemClick={handleItemClick}
-                  onCheckboxChange={handleCheckboxChange} // 체크박스 상태 변경 핸들러 전달
-                  isKimSsafy={true}
-                  age={age}
-                />
-              </div>
-              <div className="flex justify-end pr-[10%]">
-                <button
-                  className="absolute bottom-[28.5rem] right-[1.5rem] text-sm bg-[#0046ff] text-white font-semibold p-2 rounded-lg hover:bg-gray-400"
-                  onClick={handleSave} // 담아두기 버튼 클릭 시 함수 호출
-                >
-                  담아두기
-                </button>
+              <div className="text-sm">
+                추천 로드맵의 금융 상품 중 신한은행 금융 상품과 유사한 상품을 매칭하여
+                제공해드립니다.
               </div>
             </div>
-          )}
+            <div className="mb-4">
+              <RecommendGraph graph={expectedRoadMapGraph} />
+            </div>
+            <div className="border-[#dddddd] border-[2px] shadow-lg rounded-3xl">
+              <RecommendTabs
+                financeProducts={expectedRoadMapPreRecommend}
+                info={expectedRoadMapInfo}
+                selectedItems={selectedItems}
+                onItemClick={handleItemClick}
+                onCheckboxChange={handleCheckboxChange} // 체크박스 상태 변경 핸들러 전달
+                isKimSsafy={true}
+                age={age}
+              />
+            </div>
+            <div className="flex justify-end pr-[10%]">
+              <button
+                className="absolute bottom-[28.5rem] right-[1.5rem] text-sm bg-[#0046ff] text-white font-semibold p-2 rounded-lg hover:bg-gray-400"
+                onClick={handleSave} // 담아두기 버튼 클릭 시 함수 호출
+              >
+                담아두기
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
