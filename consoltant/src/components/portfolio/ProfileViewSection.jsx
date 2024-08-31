@@ -21,13 +21,16 @@ const ProfileJob = styled.div`
   font-family: "OneShinhanBold";
 `;
 
-const ProfileImage = styled.div`
+const ProfileImage = styled.img`
   display: flex;
   flex-direction: column;
   background-color: #f5f5f5;
   border-radius: 0.5rem;
   margin: 1rem;
   margin-left: 10vw;
+  min-width: 10rem;
+  max-width: 10rem;
+  object-fit: cover;
 `;
 
 const ProfileDescription = styled.div`
@@ -70,7 +73,12 @@ const Keyword = styled.div`
   border-radius: 0.7rem;
   font-weight: bold;
 `;
-
+const UserImage = styled.img`
+  background-color: #f5f5f5;
+  border-radius: 0.8rem;
+  margin: 1rem;
+  object-fit: cover;
+`;
 function ProfileViewSection(props) {
   console.log(
     "ProfileViewSectionProfileViewSectionProfileViewSectionProfileViewSection",
@@ -79,12 +87,10 @@ function ProfileViewSection(props) {
   return (
     <div className="text-[#444444] mb-10">
       <ProfileSectionStyle bgcolor={props.userInfo?.backgroundColor}>
-        <ProfileImage>
-          <img
-            className="rounded-[0.8rem] w-[12rem]"
-            src={`data:image/jpeg;base64,${props.userInfo?.imageUrl}`}
-            alt=""
-          />
+        <ProfileImage
+          src={`data:image/jpeg;base64,${props.userInfo?.imageUrl}`}
+        >
+          {/* <UserImage /> */}
         </ProfileImage>
         <ProfileDescription>
           <div className="mb-4">

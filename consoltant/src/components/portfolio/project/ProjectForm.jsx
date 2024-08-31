@@ -195,7 +195,7 @@ const SubmitButton = styled.div`
   justify-content: center;
   align-items: center;
   height: 2rem;
-  margin-bottom: 0.3rem;
+  margin: 0.5rem 0;
 `;
 
 const ProjectDescriptionLine = styled.div`

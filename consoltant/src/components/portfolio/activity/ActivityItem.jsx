@@ -4,18 +4,19 @@ import styled from "styled-components";
 const Buttons = styled.div`
   display: flex;
   flex-direction: row;
-  width: 100%;
-  justify-content: space-evenly;
+  width: 60%;
+  justify-content: space-between;
   color: white;
+  margin-top: 0.5rem;
 `;
 
 const Button = styled.div`
-  width: 40%;
+  width: 49%;
   height: 2rem;
-  background-color: #102fa8;
+  background-color: #b9d5ff;
   text-align: center;
   line-height: 2rem;
-  border-radius: 0.2rem;
+  border-radius: 0.8rem;
 `;
 function ActivityItem({ isEdit, data, editItem, deleteItem }) {
   const [details, setDetails] = useState([{}]);

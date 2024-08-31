@@ -133,12 +133,12 @@ const Buttons = styled.div`
 `;
 
 const Button = styled.div`
-  width: 40%;
-  height: 1rem;
+  width: 49%;
+  height: 2rem;
   background-color: #b9d5ff;
   text-align: center;
-  line-height: 1rem;
-  border-radius: 0.2rem;
+  line-height: 2rem;
+  border-radius: 0.5rem;
 `;
 const ProjectTeamComposition = styled.input``;
 

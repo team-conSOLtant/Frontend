@@ -75,7 +75,7 @@ function ActivityForm({ data, submitForm, updateForm }) {
           </div>
           <button
             type="button"
-            className="mt-4 p-2 bg-blue-500 text-white rounded-xl"
+            className="mt-4 p-1  bg-[#b9d5ff] text-white rounded-xl"
             onClick={submitForm}
           >
             제출
