@@ -77,7 +77,7 @@ const CommentDeleteButton = styled.div`
   justify-content: center;
 `;
 
-function CommentController({ userName }) {
+function CommentController({ userName, portid, portloginid }) {
   const navigate = useNavigate();
 
   let { loginid, portfolioid } = useSelector((state) => state.user);
@@ -99,12 +99,12 @@ function CommentController({ userName }) {
   }, [clickedComment]);
 
   const getAllComment = async () => {
-    const newData = await getComments(portfolioid);
+    const newData = await getComments(portid);
     setComments(newData);
   };
 
   const submitComment = async (comment) => {
-    await postComment(portfolioid, loginid, userName, comment);
+    await postComment(portid, loginid, userName, comment);
     getAllComment();
   };
 

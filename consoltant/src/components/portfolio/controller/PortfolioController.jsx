@@ -157,7 +157,7 @@ function PortfolioController({ isEdit, isBlur, allData, portid, portloginid }) {
     //   allData.portfolioData.userInfo.imageUrl
     // );
     await uploadImage(portfolioid, allData.portfolioData.userInfo.imageUrl);
-    navigate("/portfolio");
+    navigate(`/portfolio/${portfolioid}`);
   };
 
   const _follow = async (loginid, portfolioid) => {
@@ -167,10 +167,6 @@ function PortfolioController({ isEdit, isBlur, allData, portid, portloginid }) {
 
   const _unfollow = async (followId) => {
     console.log("followIDfollowIDfollowIDfollowID", followId);
-    console.log(
-      "followingListfollowingListfollowingListfollowingList",
-      followingList
-    );
     await deleteFollows(followId);
     getFollowings();
   };

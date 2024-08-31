@@ -1,13 +1,27 @@
 import { axios } from "./Axios";
 
 export const getPortfolios = async (userId) => {
-  console.log("userId ::::", userId);
+  // console.log("userId ::::", userId);
 
   try {
     const response = await axios.get("/portfolios", {
       params: { userId: userId },
     });
     console.log("[IN AXIOS] portfolios response : ", response.data.result);
+    return response.data.result;
+  } catch (error) {
+    console.error("get portfolios failed:", error);
+    throw error;
+  }
+};
+
+export const getPortfoliosByPortfolioId = async (portfolioId) => {
+  try {
+    const response = await axios.get(`/portfolios/${portfolioId}`);
+    console.log(
+      "[IN AXIOS] portfolios by portfolioid response : ",
+      response.data.result
+    );
     return response.data.result;
   } catch (error) {
     console.error("get portfolios failed:", error);
