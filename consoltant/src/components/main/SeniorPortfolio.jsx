@@ -15,7 +15,7 @@ function SeniorPortfolio({ seniorPortfolio }) {
         <RoundButton
           onClick={() =>
             navigate(`/portfolio/${seniorId}`, {
-              state: { portloginid: seniorId },
+              state: { portloginid: seniorPortfolio.userId },
             })
           }
         />
