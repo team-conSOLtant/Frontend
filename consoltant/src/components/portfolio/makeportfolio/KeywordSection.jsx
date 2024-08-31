@@ -126,7 +126,7 @@ function KeywordSection({ keywords, setPortfolioData }) {
           >
             {/* 제목에만 폰트 적용 */}
             <span className="font-OneShinhanBold">{happy}</span>
-            <span className="absolute top-[2.3rem] left-0 flex flex-col items-start bg-white border-[0.1rem] border-[#D9D9D9] rounded-[0.5rem] w-fill px-[0.3rem] text-[0.6rem] opacity-0 group-hover:opacity-100 z-30 shadow-lg transition-opacity duration-300">
+            <span className="absolute top-[2.3rem] left-0 flex flex-col items-start bg-white border-[0.1rem] border-[#D9D9D9] rounded-[0.5rem] w-fill px-[0.3rem] text-[1rem] opacity-0 group-hover:opacity-100 z-30 shadow-lg transition-opacity duration-300">
               <div className="absolute left-[0.8rem] top-[-0.5rem] w-0 h-0 border-l-[0.4rem] border-l-transparent border-r-[0.4rem] border-r-transparent border-b-[0.4rem] border-b-white"></div>
               <div className="absolute left-[0.8rem] top-[-0.6rem] w-0 h-0 border-l-[0.5rem] border-l-transparent border-r-[0.5rem] border-r-transparent border-b-[0.5rem] border-b-[#D9D9D9] shadow-lg"></div>
               <div className="mr-[0.2rem] w-[0.3rem] h-[0.3rem] rounded-full"></div>

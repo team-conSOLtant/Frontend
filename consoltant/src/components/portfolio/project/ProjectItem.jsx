@@ -4,7 +4,7 @@ import RangeDatePicker from "../../common/RangeDatePicker";
 
 const ProjectItemStyle = styled.div`
   background-color: #ffffff;
-  width: 40rem;
+  width: 70%;
   font-size: 1rem;
   border: #b9d5ff 0.1rem solid;
   border-radius: 0.5rem;
@@ -137,8 +137,8 @@ const Button = styled.div`
   height: 2rem;
   background-color: #b9d5ff;
   text-align: center;
-  line-height: 2rem;
-  border-radius: 0.5rem;
+  line-height: 1rem;
+  border-radius: 0.2rem;
 `;
 const ProjectTeamComposition = styled.input``;
 

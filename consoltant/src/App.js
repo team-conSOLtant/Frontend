@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
+import { Routes, Route, BrowserRouter as Router, Navigate } from "react-router-dom";
 import MakePortfolioPage from "./pages/MakePortfolioPage.jsx";
 import LandingPage from "./pages/LandingPage.jsx";
 import MainPage from "./pages/MainPage.jsx";
@@ -23,7 +23,7 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<LandingPage />} />
+          <Route path="/" element={<Navigate to="/login" />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/complogin" element={<CompanyLoginPage />} />
           <Route path="/signup" element={<SignupPage />} />

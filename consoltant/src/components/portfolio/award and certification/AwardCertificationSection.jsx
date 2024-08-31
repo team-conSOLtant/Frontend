@@ -14,6 +14,7 @@ import AwardDTO from "../../../dto/AwardDTO";
 const AwardCertificationSectionStyle = styled.div`
   width: 100%;
   margin-bottom: 3rem;
+  
 `;
 
 const SectionTitleText = styled.div`

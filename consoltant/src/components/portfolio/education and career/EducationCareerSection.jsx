@@ -149,20 +149,20 @@ function EducationCareerSection({
               <InputTitle>기간</InputTitle>
             </TableHeader> */}
             {isEdit &&
-              careerForms.map((data) => (
+              careerForms.map((data, index) => (
                 <CareerForm
-                  key={data.key}
+                  key={index}
                   data={data}
                   updateForm={updateCareerForm}
                   submitForm={() => submitCareerForm(data)}
                 ></CareerForm>
               ))}
             {careerItems.length > 0 &&
-              careerItems.map((data) => (
+              careerItems.map((data, index) => (
                 <CareerItem
                   isEdit={isEdit}
                   data={data}
-                  key={data.key}
+                  key={index}
                   editItem={() => editItem(data)}
                   deleteItem={() => deleteItem(data)}
                 />
