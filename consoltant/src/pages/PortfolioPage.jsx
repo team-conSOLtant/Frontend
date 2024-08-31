@@ -58,7 +58,9 @@ function PortfolioFormPage() {
   let portloginid = location.state?.portloginid;
   let { portid } = useParams();
 
-  let { loginid, portfolioid } = useSelector((state) => state.user);
+  // let { loginid, portfolioid } = useSelector((state) => state.user);
+  const loginid = window.localStorage.getItem("userId");
+  const portfolioid = window.localStorage.getItem("portfolioId");
   console.log(portid, portfolioid);
   const isBlur = !(String(portid) === String(portfolioid));
   // console.log(
