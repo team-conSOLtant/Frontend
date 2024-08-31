@@ -76,8 +76,15 @@ function FeedbackChatbot() {
                     {message.msg}
                   </div>
                 ) : (
-                  <div className="bg-[#e8e8e8] max-w-[70%] px-[0.5rem] py-[0.4rem] rounded-[1rem] text-black">
-                    {message.msg}
+                  <div>
+                    <img
+                      className="h-[1.4rem] mb-[0.4rem]"
+                      src="/logo/gemini.svg"
+                      alt=""
+                    />
+                    <div className="bg-[#e8e8e8] max-w-[70%] px-[0.5rem] py-[0.4rem] rounded-[1rem] text-black">
+                      {message.msg}
+                    </div>
                   </div>
                 )}
               </div>

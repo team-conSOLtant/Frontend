@@ -29,10 +29,14 @@ function ShoppingBag({ products }) {
                     </div>
                     <div className="text-[0.7rem]">
                       <span>
-                        {/* ({product.productInfo.duration}개월 기준) */}
-                        ??개월 기준
+                        {/* ({new Date(product.startDate)}개월 기준) */}
+                        {Number(product.endDate.split("-")[1]) -
+                          Number(product.startDate.split("-")[1]) +
+                          1}
+                        개월 기준
                         <span className="font-OneShinhanMedium text-[0.8rem] text-[#005DF9]">
-                          연 {product.productInfo.interestRate}%
+                          {" "}
+                          연 {product.interestRate}%
                         </span>
                       </span>
                     </div>
