@@ -34,7 +34,7 @@ function App() {
           <Route path="/account-info" element={<AccountInfoPage />} />
           <Route path="/main" element={<MainPage />} />
           <Route path="/make-portfolio" element={<MakePortfolioPage />} />
-          <Route path="/portfolio/:id" element={<PortfolioPage />} />
+          <Route path="/portfolio/:portid" element={<PortfolioPage />} />
           <Route path="/recommend" element={<RecommendPage />} />
           <Route path="/finance-mypage" element={<FinanceMyPage />} />
           <Route path="/search" element={<SearchPage />} />
