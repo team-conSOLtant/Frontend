@@ -10,7 +10,13 @@ function SeniorPortfolio({ seniorPortfolio }) {
   return (
     <div className="relative px-[1rem] pt-[2rem] pb-[1rem] border bg-[#005DF9] rounded-[1rem] h-[13rem] shadow">
       <div className="absolute top-[0.5rem] right-[0.5rem]">
-        <RoundButton onClick={() => navigate(`/portfolio/${seniorId}`)} />
+        <RoundButton
+          onClick={() =>
+            navigate(`/portfolio/${seniorId}`, {
+              state: { portloginid: seniorId },
+            })
+          }
+        />
       </div>
       <img
         className="absolute w-[5rem] right-[2rem]"
