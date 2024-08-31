@@ -13,7 +13,7 @@ import { deleteFollows, getFollowing, postFollows } from "../../../apis/Follow";
 const PortfolioControllerStyle = styled.div`
   position: fixed;
   right: 1rem;
-  top: 30vh;
+  top: 28vh;
   width: 15%;
   border: 0.1rem solid #f5f5f5;
   border-radius: 0.5rem;

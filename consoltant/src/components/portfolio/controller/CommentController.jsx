@@ -18,8 +18,9 @@ import {
 const CommentComtrollerStyle = styled.div`
   position: fixed;
   right: 1rem;
-  top: 60vh;
+  top: 65vh;
   width: 15%;
+  height: 30vh;
   border: 0.1rem solid #f5f5f5;
   border-radius: 0.5rem;
   background-color: white;
@@ -29,21 +30,34 @@ const CommentComtrollerStyle = styled.div`
   box-shadow: 0 4px 4px rgb(0, 0, 0, 0.25);
   padding: 1rem 1rem;
 `;
+const CommentMessegeStyle = styled.div`
+  width: 100%;
+  height: 25vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: scroll;
+`;
 const CommentItem = styled.div`
   width: 100%;
   margin-top: 0.5rem;
 `;
 
-const CommentWriterName = styled.div``;
-const CommentContent = styled.div`
+const CommentWriterName = styled.div`
   font-size: 0.8rem;
+  cursor: pointer;
+  &:hover {
+    color: #0046ff; /* hover 시 글자 색상 변경 */
+  }
+`;
+const CommentContent = styled.div`
+  font-size: 0.9rem;
 `;
 
 const CommentInputContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
-  margin-top: 1rem;
 `;
 const CommentInput = styled.input`
   width: 85%;
@@ -134,35 +148,39 @@ function CommentController({ userName }) {
 
   return (
     <CommentComtrollerStyle>
-      {comments.map((dto) => (
-        <CommentItem>
-          <CommentWriterName onClick={() => handlePortfolioId(dto)}>
-            {dto.userName}
-          </CommentWriterName>
-          {clickedComment !== dto.id ? (
-            <CommentContent onClick={() => setClickedComment(dto.id)}>
-              {dto.comment}
-            </CommentContent>
-          ) : (
-            <CommentInputContainer>
-              <CommentInput
-                value={changedComment}
-                onChange={(e) => setChangedComment(e.target.value)}
-              ></CommentInput>
-              <CommentInputSubmit
-                onClick={() => resubmitComment(changedComment)}
-              >
-                ^
-              </CommentInputSubmit>
-              {String(dto.userId) === String(loginid) && (
-                <CommentDeleteButton onClick={_deleteComment}>
-                  x
-                </CommentDeleteButton>
-              )}
-            </CommentInputContainer>
-          )}
-        </CommentItem>
-      ))}
+      <div className="flex justify-start w-[100%]">댓글</div>
+      <hr className="w-[100%] border border-[0.1rem]" />
+      <CommentMessegeStyle>
+        {comments.map((dto) => (
+          <CommentItem>
+            <CommentWriterName onClick={() => handlePortfolioId(dto)}>
+              {dto.userName}
+            </CommentWriterName>
+            {clickedComment !== dto.id ? (
+              <CommentContent onClick={() => setClickedComment(dto.id)}>
+                {dto.comment}
+              </CommentContent>
+            ) : (
+              <CommentInputContainer>
+                <CommentInput
+                  value={changedComment}
+                  onChange={(e) => setChangedComment(e.target.value)}
+                ></CommentInput>
+                <CommentInputSubmit
+                  onClick={() => resubmitComment(changedComment)}
+                >
+                  ^
+                </CommentInputSubmit>
+                {String(dto.userId) === String(loginid) && (
+                  <CommentDeleteButton onClick={_deleteComment}>
+                    x
+                  </CommentDeleteButton>
+                )}
+              </CommentInputContainer>
+            )}
+          </CommentItem>
+        ))}
+      </CommentMessegeStyle>
       <CommentInputContainer>
         <CommentInput
           value={CommentInputValue}

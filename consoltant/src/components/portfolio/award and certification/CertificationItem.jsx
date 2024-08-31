@@ -13,6 +13,7 @@ const CertificationItemStyle = styled.div`
   justify-content: space-between;
   padding: 0.5rem;
   color: #444444;
+  box-shadow: 2px 2px 2px 1px rgb(185 213 255 / 60%);
 `;
 
 const CertificationTitleStyle = styled.div`

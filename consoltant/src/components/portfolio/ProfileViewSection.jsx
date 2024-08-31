@@ -17,7 +17,7 @@ const ProfileName = styled.div`
 `;
 
 const ProfileJob = styled.div`
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   font-family: "OneShinhanBold";
 `;
 
@@ -39,7 +39,9 @@ const ProfileDescription = styled.div`
 `;
 
 const ProfileIntroductionContainer = styled.div``;
-const ProfileIntroductionTitle = styled.div``;
+const ProfileIntroductionTitle = styled.div`
+  font-size: 1.2rem;
+`;
 
 const ProfileSubInfoContainer = styled.div`
   display: flex;
@@ -53,7 +55,7 @@ const ProfileKeywordContainer = styled.div`
 
 const ProfileSubInfo = styled.div`
   font-size: 0.9rem;
-  font-family: "OneShinhanMedium";
+  font-family: "OneShinhanLight";
   margin-right: 1rem;
   margin-bottom: 0.1rem;
   margin-top: 0.2rem;
@@ -67,7 +69,7 @@ const Keyword = styled.div`
   font-size: 0.8rem;
   margin: 0 0.2rem;
   padding: 0.8rem;
-  border-radius: 0.7rem;
+  border-radius: 0.4rem;
   font-weight: bold;
 `;
 
@@ -81,7 +83,7 @@ function ProfileViewSection(props) {
       <ProfileSectionStyle bgcolor={props.userInfo?.backgroundColor}>
         <ProfileImage>
           <img
-            className="rounded-[0.8rem] w-[12rem]"
+            className="rounded-[0.8rem] w-[10rem] h-[12rem] shadow-lg"
             src={`data:image/jpeg;base64,${props.userInfo?.imageUrl}`}
             alt=""
           />
