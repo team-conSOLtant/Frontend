@@ -21,7 +21,7 @@ const ProjectItemStyle = styled.div`
   display: flex;
   flex-direction: row;
   background-color: #ffffff;
-  width: 40rem;
+  width: 70%;
   font-size: 1rem;
   border: #b9d5ff 0.1rem solid;
   border-radius: 0.5rem;

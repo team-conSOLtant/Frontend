@@ -28,6 +28,14 @@ const RankInputContainer = styled.div`
   width: 10rem;
   font-weight: bold;
 `;
+const RankInputPosition = styled.div`
+  border: none;
+  background-color: #ffffff;
+  border-radius: 0.3rem;
+  height: 2rem;
+  padding-left: 0.3rem;
+  width: 10rem;
+`;
 // const SubmitButton = styled.div`
 //   background-color: white;
 //   border-radius: 0.3rem;
@@ -45,12 +53,14 @@ const Button = styled.div`
   margin: 0 0.2rem;
 `;
 
-function CareerItem({ data, isEdit, editItem, deleteItem }) {
+function CareerItem({ data, isEdit, editItem, deleteItem, key }) {
   console.log("in career item", data);
+  console.log("key : ", key);
   return (
     <CareerFormStyle>
+      {/* <RankInputContainer>{key}.</RankInputContainer> */}
       <RankInputContainer>{data?.company}</RankInputContainer>
-      <RankInputContainer>{data?.positionLevel}</RankInputContainer>
+      <RankInputPosition>{data?.positionLevel}</RankInputPosition>
       <div>
         {data?.startDate} ~ {data?.endDate}
       </div>
