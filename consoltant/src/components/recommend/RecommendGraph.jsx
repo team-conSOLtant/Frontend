@@ -31,7 +31,7 @@ function CombinedChartExample(props) {
   const depositDemandData = [];
 
   for (var prop in props.graph) {
-    labelData.push(props.graph[prop].age);
+    labelData.push(props.graph[prop].age + '세');
     totalData.push(props.graph[prop].totalAssetValue);
     depositData.push(props.graph[prop].depositAssetValue);
     savingData.push(props.graph[prop].savingAssetValue);
