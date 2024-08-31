@@ -108,7 +108,7 @@ function MakePortfolioPage() {
       keywords: {
         ...existingData.keywords,
         financeKeyword: newData.financeKeyword, // 새로운 financeKeyword로 업데이트
-        myKeyword: newData.myKeyword.split(","), // 새로운 myKeyword로 업데이트
+        myKeyword: newData.myKeyword?.split(",") || [], // 새로운 myKeyword로 업데이트
       },
       education: {
         ...existingData.education,
