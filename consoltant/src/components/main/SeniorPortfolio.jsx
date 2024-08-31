@@ -6,7 +6,9 @@ function SeniorPortfolio({ seniorPortfolio }) {
   // const seniorCompany = seniorPortfolio.content.split(",")[0];
 
   const navigate = useNavigate();
-  const seniorId = seniorPortfolio ? seniorPortfolio.content.split(",")[1] : 1;
+  const seniorId = seniorPortfolio.content
+    ? seniorPortfolio.content.split(",")[1]
+    : 1;
   return (
     <div className="relative px-[1rem] pt-[2rem] pb-[1rem] border bg-[#005DF9] rounded-[1rem] h-[13rem] shadow">
       <div className="absolute top-[0.5rem] right-[0.5rem]">
