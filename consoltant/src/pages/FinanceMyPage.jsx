@@ -79,9 +79,14 @@ function FinanceMyPage() {
                     onClick={() => {
                       setOpenChatbot(!openChatbot);
                     }}
-                    className="absolute right-[0.8rem] top-[0.8rem] border rounded-[1rem] p-[0.5rem] bg-[#EAF3FD] hover:bg-[#0046ff] hover:text-white"
+                    className="absolute shadow-lg right-[0.8rem] top-[0.8rem] border rounded-[1rem] p-[0.5rem] font-OneShinhanMedium hover:bg-[#0046ff] text-white"
+                    style={{
+                      background: openChatbot
+                        ? "#0046ff"
+                        : "linear-gradient(90deg, rgba(71,150,227,1) 0%, rgba(143,119,200,1) 100%)",
+                    }}
                   >
-                    {openChatbot ? "내 금융상품 보기" : "피드백 받아보기"}
+                    {openChatbot ? "내 금융상품 보기" : "AI 피드백"}
                   </button>
                   {openChatbot ? (
                     <FeedbackChatbot />

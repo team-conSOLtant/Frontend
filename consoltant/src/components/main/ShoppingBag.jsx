@@ -36,7 +36,7 @@ function ShoppingBag({ products }) {
                         개월 기준
                         <span className="font-OneShinhanMedium text-[0.8rem] text-[#005DF9]">
                           {" "}
-                          연 {product.productInfo.interestRate}%
+                          연 {product.interestRate}%
                         </span>
                       </span>
                     </div>
