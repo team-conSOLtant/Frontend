@@ -1,0 +1,30 @@
+### FE 기술 스택
+
+- **@reduxjs/toolkit**: `^2.2.7`
+- **@testing-library/jest-dom**: `^5.17.0`
+- **@testing-library/react**: `^13.4.0`
+- **@testing-library/user-event**: `^13.5.0`
+- **axios**: `^1.7.4`
+- **chart.js**: `^4.4.3`
+- **dnd-core**: `^16.0.1`
+- **immutability-helper**: `^3.1.1`
+- **react**: `^18.3.1`
+- **react-chartjs-2**: `^5.2.0`
+- **react-color**: `^2.19.3`
+- **react-datepicker**: `^7.3.0`
+- **react-dnd**: `^16.0.1`
+- **react-dnd-html5-backend**: `^16.0.1`
+- **react-dom**: `^18.3.1`
+- **react-draggable**: `^4.4.6`
+- **react-intersection-observer**: `^9.13.0`
+- **react-redux**: `^9.1.2`
+- **react-router**: `^6.26.1`
+- **react-router-dom**: `^6.26.1`
+- **react-scripts**: `5.0.1`
+- **react-spinners**: `^0.14.1`
+- **react-toastify**: `^10.0.5`
+- **request**: `^2.88.2`
+- **styled-components**: `^6.1.12`
+- **tailwind-scrollbar-hide**: `^1.1.7`
+- **web-vitals**: `^2.1.4`
+- **tailwindcss**: `^3.4.10`

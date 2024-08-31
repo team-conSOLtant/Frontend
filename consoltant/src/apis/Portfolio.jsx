@@ -114,7 +114,7 @@ export const postSaveAll = async (loginid, portfolioid, allData) => {
       projectId: null,
       portfolioId: projectDTO.portfolioId,
       title: projectDTO.title,
-      language: projectDTO.language.join(","),
+      language: projectDTO.language.map((dto) => dto.word).join(","),
       projectUrl: projectDTO.projectUrl,
       description: projectDTO.description,
       startDate: projectDTO.startDate,
