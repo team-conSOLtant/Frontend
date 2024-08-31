@@ -17,3 +17,12 @@
 - **styled-components**: `^6.1.12`
 
 - **tailwindcss**: `^3.4.10`
+
+### 빌드 및 실행 방법
+
+서비스는 [https://consoltant.site](https://consoltant.site/) 에 배포되어 있습니다.
+
+```
+npm install
+npm start
+```
