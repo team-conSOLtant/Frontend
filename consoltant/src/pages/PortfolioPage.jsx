@@ -155,8 +155,7 @@ function PortfolioFormPage() {
       },
       education: {
         ...existingData.education,
-        totalGpa: newData.totalGpa, // 새로운 totalGpa로 업데이트
-        majorGpa: newData.majorGpa, // 새로운 majorGpa로 업데이트
+
         university: {
           ...existingData.education.university,
           isDeleted: newData.isDeleted, // isDeleted 상태 업데이트
@@ -180,6 +179,9 @@ function PortfolioFormPage() {
       },
       education: {
         ...existingData.education,
+        totalGpa: newData.totalGpa, // 새로운 totalGpa로 업데이트
+        majorGpa: newData.majorGpa, // 새로운 majorGpa로 업데이트
+        maxGpa: newData.maxGpa, // 새로운 majorGpa로 업데이트
         university: newData.university,
         major: newData.major,
       },
