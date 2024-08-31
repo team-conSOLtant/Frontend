@@ -112,7 +112,7 @@ function EducationItem(props) {
         <MajorAndDegree>{props.education.major} / 학사</MajorAndDegree>
         <GradeContainer>
           <Grade>{props.education.totalGpa}</Grade>
-          <TotalGrade>/ {"4.5"}</TotalGrade>
+          <TotalGrade>/ {props.education.maxGpa}</TotalGrade>
         </GradeContainer>
       </SchoolInfo>
       <CourseInfo>
