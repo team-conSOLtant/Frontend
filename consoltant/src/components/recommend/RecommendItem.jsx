@@ -16,7 +16,7 @@ function RecommendItem({
     >
       {isSelected && !isKimSsafy && (
         <div className=" parent inset-0 flex items-center justify-center text-sm text-red-500 opacity-0 group-hover:opacity-100 bg-gray-200 bg-opacity-50">
-          <span className="absolute z-20 justify-center items-center">
+          <span className="relative z-20 justify-center items-center">
             다시 클릭 하시면 선택이 취소 됩니다.
           </span>
         </div>
