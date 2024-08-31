@@ -2,7 +2,11 @@ import React, { useCallback, useEffect, useState } from "react";
 
 import styled from "styled-components";
 import { useNavigate } from "react-router";
-import { postSaveAll, uploadImage } from "../../../apis/Portfolio";
+import {
+  getPortfolios,
+  postSaveAll,
+  uploadImage,
+} from "../../../apis/Portfolio";
 import { useSelector } from "react-redux";
 import {
   deleteComment,
@@ -116,18 +120,23 @@ function CommentController({ userName }) {
     getAllComment();
   };
 
-  // const getAllComment =
+  const handlePortfolioId = async (dto) => {
+    const portId = await getPortfolioId(dto.userId);
+    navigate(`/portfolio/${portId}`, {
+      state: { portloginid: dto.userId },
+    });
+  };
+
+  const getPortfolioId = async (loginid) => {
+    const newData = await getPortfolios(loginid);
+    return newData.id;
+  };
+
   return (
     <CommentComtrollerStyle>
       {comments.map((dto) => (
         <CommentItem>
-          <CommentWriterName
-            onClick={() =>
-              navigate(`/portfolio/${dto.id}`, {
-                state: { portloginid: dto.userId },
-              })
-            }
-          >
+          <CommentWriterName onClick={() => handlePortfolioId(dto)}>
             {dto.userName}
           </CommentWriterName>
           {clickedComment !== dto.id ? (
