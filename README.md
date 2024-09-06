@@ -8,7 +8,7 @@
 학생/선후배 life 여정 Data 기반으로 포트폴리오와 모범 금융 로드맵을 제공하는 고객 락인(Lock-in) 금융 플랫폼
 <br />
 
-- [회원가입 시 계좌 생성 및 1원 인증]()
+- [회원가입 시 계좌 생성 및 1원 인증](https://github.com/team-conSOLtant/Frontend/tree/main#1-%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85-%EC%8B%9C-%EA%B3%84%EC%A2%8C-%EC%83%9D%EC%84%B1-%EB%B0%8F-1%EC%9B%90-%EC%9D%B8%EC%A6%9D)
 - [메인화면 원형 스크롤](https://github.com/team-conSOLtant/Frontend/blob/main/README.md#1-%EB%A9%94%EC%9D%B8%ED%99%94%EB%A9%B4-%EC%9B%90%ED%98%95-%EC%8A%A4%ED%81%AC%EB%A1%A4)
 - [컴포넌트 재활용](https://github.com/team-conSOLtant/Frontend#2-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EC%9E%AC%ED%99%9C%EC%9A%A9)
 
