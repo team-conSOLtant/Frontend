@@ -1,11 +1,11 @@
 # 📈 SOL 학생 로드맵 - Front-end
 
+💡 선후배 연결을 통한 고객의 취업과 재산 관리를 해주는 SOL 학생 로드맵 서비스 입니다.
+
 ```git
 ⚡ 2024.08.16 ~ 2024.08.31
 ```
 
-&nbsp;&nbsp; <strong>SOL 학생 로드맵: </strong>
-학생/선후배 life 여정 Data 기반으로 포트폴리오와 모범 금융 로드맵을 제공하는 고객 락인(Lock-in) 금융 플랫폼
 <br />
 
 - [메인화면 원형 스크롤](https://github.com/team-conSOLtant/Frontend?tab=readme-ov-file#1-%EB%A9%94%EC%9D%B8%ED%99%94%EB%A9%B4-%EC%9B%90%ED%98%95-%EC%8A%A4%ED%81%AC%EB%A1%A4)
@@ -16,7 +16,7 @@
 ## ⭐ Using Stacks <br/>
 
 ```git
-📌 React, Redux, chart.js, Gemini API, Vite, HTML, CSS, Tailwind, Styled Components, JavaScript, axios
+📌 React, Redux, chart.js, Vite, Tailwind, Styled Components, JavaScript, axios
 ```
 
 ### 빌드 및 실행 방법
@@ -44,7 +44,7 @@ npm start
 ## 1. 메인화면 원형 스크롤
 
 <div align="center">
-      <img src="https://github.com/user-attachments/assets/c643ce22-04f8-4997-b53e-c531ff18df21"  width="700" >
+      <img src="https://github.com/user-attachments/assets/c643ce22-04f8-4997-b53e-c531ff18df21"  width="600" >
 </div>
 <br />
 
@@ -81,11 +81,10 @@ const updateRadius = () => {
 <br />
 
 > 원 지름에 따른 메뉴 위치 설정
+> 불러온 메뉴 목록의 길이로 각 메뉴 아이템의 위치 각도 계산
+> 메뉴 아이템의 위치는 화면 크기에 따라 계산된 원의 지름과 아이템별 위치 각도를 사용하여 코사인/사인 값으로 x, y 좌표 걔산하여 설정
 
 ```js
-{
-  /* 원형 스크롤 구현 */
-}
 {
   infos &&
     infos.map((info, index) => {
@@ -93,31 +92,7 @@ const updateRadius = () => {
       const itemAngle = (index - infos.length + 1) * angleStep;
       const x = (radius + 90) * Math.cos(itemAngle);
       const y = (radius + 90) * Math.sin(itemAngle);
-
-      return (
-        <div
-          key={index}
-          className={`absolute rounded-full bg-white shadow-lg flex justify-center items-center transition-transform ease-out duration-300`}
-          style={{
-            width: `${radius * 2}px`, // radius를 기준으로 width 설정
-            height: `${radius * 2}px`, // radius를 기준으로 height 설정
-            transform: `rotate(${angle}deg)`,
-            left: "-25rem", // 원래 중심 위치로 유지
-            boxShadow: `0px 0px 15px ${infos[itemIndex].rgba}`, // 현재 인덱스에 따른 그림자 색상 적용
-          }}
-        >
-          <div
-            key={index}
-            className={`absolute flex justify-center items-center transition-transform ease-out duration-300`}
-            style={{
-              width: "10rem",
-              height: "3rem",
-              transform: `translate(${x}px, ${y}px) rotate(${itemAngle}rad)`,
-            }}
-          ></div>
-        </div>
-      );
-    });
+      }
 }
 ```
 
@@ -126,15 +101,6 @@ const updateRadius = () => {
 > 스크롤 이벤트 감지에 따라 index값 변경
 
 ```js
-const handleScroll = (event) => {
-  // infos가 존재하지 않으면 handleScroll 실행 안 함
-  if (!infos || !infos.length) return;
-
-  const scrollableDiv = document.querySelector(".scrollable-container");
-  if (scrollableDiv && scrollableDiv.contains(event.target)) {
-    return; // 스크롤이 특정 컨테이너 내에서 발생하면, 부모의 스크롤 이벤트를 무시
-  }
-
   if (event.deltaY > 0) {
     // Scroll down (upward movement in UI)
     if (itemIndex > 0) {
@@ -148,14 +114,7 @@ const handleScroll = (event) => {
       setItemIndex((prevIndex) => prevIndex + 1);
     }
   }
-};
 
-useEffect(() => {
-  window.addEventListener("wheel", handleScroll);
-  return () => {
-    window.removeEventListener("wheel", handleScroll);
-  };
-}, [itemIndex, infos]);
 ```
 
 <br/>
@@ -307,7 +266,7 @@ export default SectionHeader;
 ## 4. 검색
 
 <div align="center">
-      <img src="https://github.com/user-attachments/assets/e50985c3-cbd0-4dca-bb31-3cf224c56ff9"  width="700" >
+      <img src="https://github.com/user-attachments/assets/e50985c3-cbd0-4dca-bb31-3cf224c56ff9"  width="600" >
 </div>
 
 <br />
@@ -321,32 +280,7 @@ export default SectionHeader;
 
 > 키보드 이벤트 감지하여 state update 후 값 전달하여 axios 실행
 
-```js
-const fetchSearchResults = useCallback(
-  async (cursor = "") => {
-    const searchParams = {
-      keyword,
-      isEmployed,
-      minGpa,
-      maxGpa,
-    };
-    const response = await getSearch(cursor, size, searchParams);
-    if (response && response.result) {
-      setLast(response.result.last);
-      setSearchedList((prevList) => [...prevList, ...response.result.content]);
-    }
-  },
-  [keyword, isEmployed, minGpa, maxGpa, size]
-);
-
-useEffect(() => {
-  fetchSearchResults();
-}, [fetchSearchResults]);
-```
-
-<br />
-
-> scroll 화면의 마지막 부분 감지하며 검색결과 최종 item인지(last) 확인 후 최종 item이 아니라면 가작 마지막으로 불러온 item id로 검색 api 불러오기
+> scroll 화면의 마지막 부분 감지하며 검색결과 최종 item인지(last) 확인 후 최종 item이 아니라면 가장 마지막으로 불러온 item id로 검색 api 불러옴
 
 ```js
 const [ref, inView] = useInView();
@@ -387,12 +321,7 @@ return(
 ```js
 const fetchSearchResults = useCallback(
   async (cursor = "") => {
-    const searchParams = {
-      keyword,
-      isEmployed,
-      minGpa,
-      maxGpa,
-    };
+    const searchParams = { keyword, isEmployed, minGpa, maxGpa,};
     const response = await getSearch(cursor, size, searchParams);
     if (response && response.result) {
       setLast(response.result.last);
