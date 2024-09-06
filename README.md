@@ -27,8 +27,8 @@
 npm install
 npm start
 ```
-
 <br />
+
 ### &nbsp;&nbsp; React 사용 이유<br />
 
 > ▪️ SPA(Single Page Applicatione)로 구조가 가벼운 반응형 시스템 제공 <br/>
@@ -43,7 +43,7 @@ npm start
 ## 1. 메인화면 원형 스크롤
 
 <div align="center">
-      <img src="https://github.com/user-attachments/assets/fb31a3cc-a99c-497a-8ec8-56568c99a678"  width="600" >
+      <img src="https://github.com/user-attachments/assets/c643ce22-04f8-4997-b53e-c531ff18df21"  width="700" >
 </div>
 <br />
 
@@ -316,7 +316,7 @@ export default class AwardDTO {
 ## 4. 검색
 
 <div align="center">
-      <img src="https://github.com/user-attachments/assets/fb31a3cc-a99c-497a-8ec8-56568c99a678"  width="600" >
+      <img src="https://github.com/user-attachments/assets/e50985c3-cbd0-4dca-bb31-3cf224c56ff9"  width="700" >
 </div>
 
 <br />
