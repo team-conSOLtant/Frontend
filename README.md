@@ -39,96 +39,96 @@
 
 ### 구현방법 :
 > 화면 크기에 따른 원 지름(Radius) 계산 및 설정
-   ``` js
-      const [radius, setRadius] = useState(0); // 반지름을 상태로 관리
-      
-      useEffect(() => {
-          updateRadius(); // 초기 반지름 설정
-          window.addEventListener("resize", updateRadius); // 화면 크기 변경 시 반지름 업데이트
-          return () => window.removeEventListener("resize", updateRadius);
-        }, []);
-      
-      const updateRadius = () => {
-          const newRadius = window.innerWidth * 0.57; // 화면 크기에 맞게 반지름 설정
-          console.log("Calculated radius:", newRadius); // radius 값을 확인하기 위해 로그 추가
-          if (newRadius < 675) {
-            setRadius(675);
-          } else {
-            setRadius(newRadius);
-          }
-        };
-   ```
+``` js
+const [radius, setRadius] = useState(0); // 반지름을 상태로 관리
+
+useEffect(() => {
+    updateRadius(); // 초기 반지름 설정
+    window.addEventListener("resize", updateRadius); // 화면 크기 변경 시 반지름 업데이트
+    return () => window.removeEventListener("resize", updateRadius);
+  }, []);
+
+const updateRadius = () => {
+    const newRadius = window.innerWidth * 0.57; // 화면 크기에 맞게 반지름 설정
+    console.log("Calculated radius:", newRadius); // radius 값을 확인하기 위해 로그 추가
+    if (newRadius < 675) {
+      setRadius(675);
+    } else {
+      setRadius(newRadius);
+    }
+  };
+```
 <br />
 > 원 지름에 따른 메뉴 위치 설정
-```js
-      {/* 원형 스크롤 구현 */}
-        {infos &&
-          infos.map((info, index) => {
-            const angleStep = Math.PI / 36;
-            const itemAngle = (index - infos.length + 1) * angleStep;
-            const x = (radius + 90) * Math.cos(itemAngle);
-            const y = (radius + 90) * Math.sin(itemAngle);
+``` js
+{/* 원형 스크롤 구현 */}
+  {infos &&
+    infos.map((info, index) => {
+      const angleStep = Math.PI / 36;
+      const itemAngle = (index - infos.length + 1) * angleStep;
+      const x = (radius + 90) * Math.cos(itemAngle);
+      const y = (radius + 90) * Math.sin(itemAngle);
 
-            return (
-              <div
-                key={index}
-                className={`absolute rounded-full bg-white shadow-lg flex justify-center items-center transition-transform ease-out duration-300`}
-                style={{
-                  width: `${radius * 2}px`, // radius를 기준으로 width 설정
-                  height: `${radius * 2}px`, // radius를 기준으로 height 설정
-                  transform: `rotate(${angle}deg)`,
-                  left: "-25rem", // 원래 중심 위치로 유지
-                  boxShadow: `0px 0px 15px ${infos[itemIndex].rgba}`, // 현재 인덱스에 따른 그림자 색상 적용
-                }}
-              >
-                <div
-                  key={index}
-                  className={`absolute flex justify-center items-center transition-transform ease-out duration-300`}
-                  style={{
-                    width: "10rem",
-                    height: "3rem",
-                    transform: `translate(${x}px, ${y}px) rotate(${itemAngle}rad)`,
-                  }}
-                >
-                </div>
-              </div>
-            );
-          })}
+      return (
+        <div
+          key={index}
+          className={`absolute rounded-full bg-white shadow-lg flex justify-center items-center transition-transform ease-out duration-300`}
+          style={{
+            width: `${radius * 2}px`, // radius를 기준으로 width 설정
+            height: `${radius * 2}px`, // radius를 기준으로 height 설정
+            transform: `rotate(${angle}deg)`,
+            left: "-25rem", // 원래 중심 위치로 유지
+            boxShadow: `0px 0px 15px ${infos[itemIndex].rgba}`, // 현재 인덱스에 따른 그림자 색상 적용
+          }}
+        >
+          <div
+            key={index}
+            className={`absolute flex justify-center items-center transition-transform ease-out duration-300`}
+            style={{
+              width: "10rem",
+              height: "3rem",
+              transform: `translate(${x}px, ${y}px) rotate(${itemAngle}rad)`,
+            }}
+          >
+          </div>
+        </div>
+      );
+    })}
 ```
 
 > 스크롤 이벤트 감지에 따라 index값 변경
-   ```js
-      const handleScroll = (event) => {
-            // infos가 존재하지 않으면 handleScroll 실행 안 함
-            if (!infos || !infos.length) return;
-            
-            const scrollableDiv = document.querySelector(".scrollable-container");
-            if (scrollableDiv && scrollableDiv.contains(event.target)) {
-                  return; // 스크롤이 특정 컨테이너 내에서 발생하면, 부모의 스크롤 이벤트를 무시
-            }
-            
-            if (event.deltaY > 0) {
-                  // Scroll down (upward movement in UI)
-                  if (itemIndex > 0) {
-                    setAngle((prevAngle) => prevAngle + 5);
-                    setItemIndex((prevIndex) => prevIndex - 1);
-                  }
-            } else {
-                  // Scroll up (downward movement in UI)
-                  if (itemIndex < infos.length - 1) {
-                    setAngle((prevAngle) => prevAngle - 5);
-                    setItemIndex((prevIndex) => prevIndex + 1);
-                  }
-            }
-      };
+``` js
+const handleScroll = (event) => {
+      // infos가 존재하지 않으면 handleScroll 실행 안 함
+      if (!infos || !infos.length) return;
       
-      useEffect(() => {
-            window.addEventListener("wheel", handleScroll);
-            return () => {
-                  window.removeEventListener("wheel", handleScroll);
-            };
-      }, [itemIndex, infos]);
-   ```
+      const scrollableDiv = document.querySelector(".scrollable-container");
+      if (scrollableDiv && scrollableDiv.contains(event.target)) {
+            return; // 스크롤이 특정 컨테이너 내에서 발생하면, 부모의 스크롤 이벤트를 무시
+      }
+      
+      if (event.deltaY > 0) {
+            // Scroll down (upward movement in UI)
+            if (itemIndex > 0) {
+              setAngle((prevAngle) => prevAngle + 5);
+              setItemIndex((prevIndex) => prevIndex - 1);
+            }
+      } else {
+            // Scroll up (downward movement in UI)
+            if (itemIndex < infos.length - 1) {
+              setAngle((prevAngle) => prevAngle - 5);
+              setItemIndex((prevIndex) => prevIndex + 1);
+            }
+      }
+};
+
+useEffect(() => {
+      window.addEventListener("wheel", handleScroll);
+      return () => {
+            window.removeEventListener("wheel", handleScroll);
+      };
+}, [itemIndex, infos]);
+```
 <br/>
 
 
