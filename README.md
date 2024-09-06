@@ -16,7 +16,7 @@
 ## ⭐ Using Stacks <br/>
 
 ```git
-📌 React, Redux, chart.js, Gemini API, Vite, HTML, CSS, Tailwind, Styled Components,JavaScript, axios
+📌 React, Redux, chart.js, Gemini API, Vite, HTML, CSS, Tailwind, Styled Components, JavaScript, axios
 ```
 
 ### 빌드 및 실행 방법
