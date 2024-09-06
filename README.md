@@ -31,9 +31,7 @@
 
 ## 1. 회원가입 시 계좌 생성 및 1원 인증
 
-
 ## 2. 메인화면 원형 스크롤
-
 
 <div align="center">
       <img src="https://github.com/user-attachments/assets/fb31a3cc-a99c-497a-8ec8-56568c99a678"  width="600" >
@@ -112,6 +110,7 @@ const updateRadius = () => {
     });
 }
 ```
+
 <br />
 
 > 스크롤 이벤트 감지에 따라 index값 변경
@@ -152,36 +151,87 @@ useEffect(() => {
 <br/>
 
 ### Trouble Shooting
+
 > 메인화면 전체의 ScrollEvent 감지로 인해 하위 컴포넌트 요소였던 장바구니 내의 ScrollEvent가 감지되지 않는 문제 발생
 
 ### Solution
+
 > event.stopPropagation()으로 ScrollEvent의 상속을 끊어줌
 
 ```js
 const handleWheel = (event) => {
-    event.stopPropagation();
-  };
+  event.stopPropagation();
+};
 ```
+
 ### Insight
+
 > event도 상속이 된다는 것을 배웠으며 같은 페이지 내에 event 충돌에 대해 유의 해서 코드를 작성해야한다는 것을 배움
-<br />
+> <br />
 
 ## 3. 컴포넌트 재활용
 
-- 각 Section 내의 Item, Form 컴포넌트를 재활용하여 코드 유지보수성을 높였습니다.
+**3.1.** MakePortfolioPage와 PortfolioPage의 화면 구성이 비슷하기 때문에 각 Section을 구분하여 양 페이지에 사용하였습니다.
 
-### PortfolioPage.jsx
+- /pages/PortfolioPage.jsx
 
-![alt text](image-1.png)
+```js
+<AwardCertificationSection
+  isEdit={false}
+  certificationItems={certificationItems}
+  setCertificationItems={setCertificationItems}
+  awardItems={awardItems}
+  setAwardItems={setAwardItems}
+/>
+```
 
-### MakePortfolioPage.jsx
+- /pages/MakePortfolioPage.jsx
 
-![alt text](image-2.png)
+```js
+<AwardCertificationSection
+  id="awardAndCertification"
+  isEdit={true}
+  certificationItems={certificationItems}
+  setCertificationItems={setCertificationItems}
+  awardItems={awardItems}
+  setAwardItems={setAwardItems}
+/>
+```
 
-## 3. DTO를 이용한 어댑터 패턴 구현
+> 이를 통해 유지 보수를 용이하게 개발하였습니다.
 
-- DTO를 이용한 데이터 양식을 일관화하였습니다.
-- 이를 통해 코드 읽기에 용이하고, 추후 유지 보수에도 도움이 될 것으로 예측됩니다.
+**3.2.** Section의 Header가 모두 동일한 양식이었기에 SectionHeader를 따로 컴포넌트로 구분하였습니다.
+
+- /components/portfolio/project/SectionHeader.jsx
+
+```js
+function SectionHeader(props) {
+  return (
+    <SectionHeaderStyle>
+      <SectionTitleText>{props.title}</SectionTitleText>
+      <SectionTitleIcon src={props.image} />
+    </SectionHeaderStyle>
+  );
+}
+export default SectionHeader;
+```
+
+### PortfolioPage.jsx & MakePortfolioPage.jsx
+
+<div style="display: flex; justify-content: space-between;">
+  <div>
+    <img src="image-1.png" alt="Image 1" style="width: 90%;">
+  </div>
+  <div>
+    <img src="image-2.png" alt="Image 2" style="width: 95%;">
+  </div>
+</div>
+
+- 위와 같이 AwardItem, AwardForm 등을 Portfolio 페이지와 MakePortfolioPage에서 모두 사용하여
+
+## 3. DTO를 이용한 데이터 양식 일관화
+
+- DTO를 이용하여 데이터 양식을 일관화하였습니다.
 
 ### DTO 파일 구조
 
