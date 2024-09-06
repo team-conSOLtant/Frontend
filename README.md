@@ -8,10 +8,10 @@
 학생/선후배 life 여정 Data 기반으로 포트폴리오와 모범 금융 로드맵을 제공하는 고객 락인(Lock-in) 금융 플랫폼
 <br />
 
-- [메인화면 원형 스크롤](https://github.com/team-conSOLtant/Frontend/tree/main?tab=readme-ov-file#2-%EB%A9%94%EC%9D%B8%ED%99%94%EB%A9%B4-%EC%9B%90%ED%98%95-%EC%8A%A4%ED%81%AC%EB%A1%A4)
-- [컴포넌트 재활용](https://github.com/team-conSOLtant/Frontend?tab=readme-ov-file#3-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EC%9E%AC%ED%99%9C%EC%9A%A9)
-- [DTO를 이용한 어댑터 패턴 구현]()
-- [검색]()
+- [메인화면 원형 스크롤](https://github.com/team-conSOLtant/Frontend?tab=readme-ov-file#1-%EB%A9%94%EC%9D%B8%ED%99%94%EB%A9%B4-%EC%9B%90%ED%98%95-%EC%8A%A4%ED%81%AC%EB%A1%A4)
+- [컴포넌트 재활용](https://github.com/team-conSOLtant/Frontend?tab=readme-ov-file#2-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EC%9E%AC%ED%99%9C%EC%9A%A9)
+- [DTO를 이용한 어댑터 패턴 구현](https://github.com/team-conSOLtant/Frontend?tab=readme-ov-file#3-dto%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%96%B4%EB%8C%91%ED%84%B0-%ED%8C%A8%ED%84%B4-%EA%B5%AC%ED%98%84)
+- [검색](https://github.com/team-conSOLtant/Frontend?tab=readme-ov-file#4-%EA%B2%80%EC%83%89)
 
 ## ⭐ Using Stacks <br/>
 
@@ -273,6 +273,7 @@ export default class AwardDTO {
 
 ### 구현방법:
 > 키보드 이벤트 감지하여 state update 후 값 전달하여 axios 실행
+
 ```js
  const fetchSearchResults = useCallback(
     async (cursor = "") => {
@@ -300,7 +301,9 @@ export default class AwardDTO {
 
 ```
 <br />
+
 > scroll 화면의 마지막 부분 감지하며 검색결과 최종 item인지(last) 확인 후 최종 item이 아니라면 가작 마지막으로 불러온 item id로 검색 api 불러오기
+
 ```js
 const [ref, inView] = useInView();
 
@@ -327,6 +330,7 @@ return(
 
 ```
 <br />
+
 ### Trouble Shooting
 > 검색 api를 호출 할 때마다 이전 입력 값이 반영되면서 검색 데이터가 한템포 밀리는 현상 발생
 
