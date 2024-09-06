@@ -79,13 +79,12 @@ const updateRadius = () => {
 
 ```js
 {
-  infos &&
-    infos.map((info, index) => {
+  infos && infos.map((info, index) => {
       const angleStep = Math.PI / 36;
       const itemAngle = (index - infos.length + 1) * angleStep;
       const x = (radius + 90) * Math.cos(itemAngle);
       const y = (radius + 90) * Math.sin(itemAngle);
-      }
+  }
 }
 ```
 
@@ -94,14 +93,12 @@ const updateRadius = () => {
 > 스크롤 이벤트 감지에 따라 index값 변경
 
 ```js
-  if (event.deltaY > 0) {
-    // Scroll down (upward movement in UI)
+  if (event.deltaY > 0) {// Scroll down
     if (itemIndex > 0) {
       setAngle((prevAngle) => prevAngle + 5);
       setItemIndex((prevIndex) => prevIndex - 1);
     }
-  } else {
-    // Scroll up (downward movement in UI)
+  } else {// Scroll up
     if (itemIndex < infos.length - 1) {
       setAngle((prevAngle) => prevAngle - 5);
       setItemIndex((prevIndex) => prevIndex + 1);
@@ -109,8 +106,6 @@ const updateRadius = () => {
   }
 
 ```
-
-<br/>
 
 ### Trouble Shooting
 
@@ -272,21 +267,21 @@ export default SectionHeader;
 
 ### 구현방법:
 
-> scroll 화면의 마지막 부분 감지하며 검색 결과 최종 item인지(last) 확인했습니다.
+> scroll 화면의 마지막 부분 감지하며 검색 결과 최종 item인지(last) 확인했습니다. <br />
 > 최종 item이 아니라면 가장 마지막으로 불러온 item id로 검색 api를 불러왔습니다.
 
 ```js
 const [ref, inView] = useInView();
 
-  useEffect(() => {
+useEffect(() => {
     if (inView && !last && searchedList.length > 0) {
       const lastIndex = searchedList.length - 1;
       fetchSearchResults(searchedList[lastIndex].portfolioId);
     }
-  }, [inView, last, searchedList, fetchSearchResults]);
+}, [inView, last, searchedList, fetchSearchResults]);
 
 return(
-      {searchedList &&searchedList.map((portfolio, index) => {
+      {searchedList && searchedList.map((portfolio, index) => {
             return (<SearchItem key={index} portfolio={portfolio} index={index} />);
       `})}
       {searchedList.length > 0 && <div ref={ref}></div>}
