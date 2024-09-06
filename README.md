@@ -40,10 +40,6 @@ npm start
 
 <br />
 
-## 1. 회원가입 시 계좌 생성 및 1원 인증
-
-## 2. 메인화면 원형 스크롤
-
 ## 1. 메인화면 원형 스크롤
 
 <div align="center">
@@ -182,9 +178,9 @@ const handleWheel = (event) => {
 > event도 상속이 된다는 것을 배웠으며 같은 페이지 내에 event 충돌에 대해 유의 해서 코드를 작성해야한다는 것을 배움
 > <br />
 
-## 3. 컴포넌트 재활용
+## 2. 컴포넌트 재활용
 
-**3.1.** MakePortfolioPage와 PortfolioPage의 화면 구성이 비슷하기 때문에 각 Section을 구분하여 양 페이지에 사용하였습니다.
+**2.1.** MakePortfolioPage와 PortfolioPage의 화면 구성이 비슷하기 때문에 각 Section을 구분하여 양 페이지에 사용하였습니다.
 
 - /pages/PortfolioPage.jsx
 
@@ -213,7 +209,7 @@ const handleWheel = (event) => {
 
 > 이를 통해 유지 보수를 용이하게 개발하였습니다.
 
-**3.2.** Section의 Header가 모두 동일한 양식이었기에 SectionHeader를 따로 컴포넌트로 구분하였습니다.
+**2햣 ㅔㅕ.2.** Section의 Header가 모두 동일한 양식이었기에 SectionHeader를 따로 컴포넌트로 구분하였습니다.
 
 - /components/portfolio/project/SectionHeader.jsx
 
