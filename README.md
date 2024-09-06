@@ -148,6 +148,8 @@ useEffect(() => {
 
 ## 2. 컴포넌트 재활용
 
+- 각 Section 내의 Item, Form 컴포넌트를 재활용하여 코드 유지보수성을 높였습니다.
+
 ### PortfolioPage.jsx
 
 ![alt text](image-1.png)
