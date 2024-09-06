@@ -1,11 +1,11 @@
 # 📈 SOL 학생 로드맵 - Front-end
 
+💡 선후배 연결을 통한 고객의 취업과 재산 관리를 해주는 SOL 학생 로드맵 서비스 입니다.
+
 ```git
 ⚡ 2024.08.16 ~ 2024.08.31
 ```
 
-&nbsp;&nbsp; <strong>SOL 학생 로드맵: </strong>
-학생/선후배 life 여정 Data 기반으로 포트폴리오와 모범 금융 로드맵을 제공하는 고객 락인(Lock-in) 금융 플랫폼
 <br />
 
 - [메인화면 원형 스크롤](https://github.com/team-conSOLtant/Frontend?tab=readme-ov-file#1-%EB%A9%94%EC%9D%B8%ED%99%94%EB%A9%B4-%EC%9B%90%ED%98%95-%EC%8A%A4%ED%81%AC%EB%A1%A4)
@@ -113,7 +113,7 @@ const updateRadius = () => {
       setItemIndex((prevIndex) => prevIndex + 1);
     }
   }
-};
+
 ```
 
 <br/>
