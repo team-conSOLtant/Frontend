@@ -21,4 +21,3 @@ export default class ActivityDTO {
     this.contentTitle = contentTitle;
   }
 }
-// activity;
