@@ -209,7 +209,7 @@ const handleWheel = (event) => {
 
 > 이를 통해 유지 보수를 용이하게 개발하였습니다.
 
-**2햣 ㅔㅕ.2.** Section의 Header가 모두 동일한 양식이었기에 SectionHeader를 따로 컴포넌트로 구분하였습니다.
+**2.2.** Section의 Header가 모두 동일한 양식이었기에 SectionHeader를 따로 컴포넌트로 구분하였습니다.
 
 - /components/portfolio/project/SectionHeader.jsx
 
@@ -236,7 +236,7 @@ export default SectionHeader;
   </div>
 </div>
 
-- 위와 같이 AwardItem, AwardForm 등을 Portfolio 페이지와 MakePortfolioPage에서 모두 사용하여
+> 위와 같이 AwardSection을 양 페이지에 모두 사용하였습니다.
 
 ## 3. DTO를 이용한 데이터 양식 일관화
 
@@ -258,34 +258,6 @@ export default SectionHeader;
 ```
 
 ### 예시
-
-#### ActivityDTO
-
-```js
-export default class ActivityDTO {
-  static lastKey = 0;
-  constructor(
-    activityId = null,
-    portfolioId = null,
-    title = null,
-    content = null,
-    startDate = null,
-    endDate = null,
-    activityType = null,
-    contentTitle = null
-  ) {
-    this.key = ActivityDTO.lastKey++;
-    this.activityId = activityId;
-    this.portfolioId = portfolioId;
-    this.title = title;
-    this.content = content;
-    this.startDate = startDate;
-    this.endDate = endDate;
-    this.activityType = activityType;
-    this.contentTitle = contentTitle;
-  }
-}
-```
 
 #### AwardDTO
 
@@ -311,6 +283,25 @@ export default class AwardDTO {
     this.acquisitionDate = acquisitionDate;
   }
 }
+```
+
+</br>
+
+> axios를 통해 데이터를 받아온 후 DTO 양식에 맞춰 변경하여 사용하였습니다.
+
+```js
+return response.data.result.map(
+  (data) =>
+    new AwardDTO(
+      data.id, // awardId
+      portfolioId, // portfolioId (default to null)
+      data.title,
+      data.content,
+      data.awardGrade,
+      data.awardOrganization,
+      data.acquisitionDate
+    )
+);
 ```
 
 ## 4. 검색
