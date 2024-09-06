@@ -8,21 +8,15 @@
 
 
 
-- [Gemini, Tmap API 활용 여행지 추천](https://github.com/TongueTripVogue/Tongue_Front?tab=readme-ov-file#1-gemini-tmap-api-%ED%99%9C%EC%9A%A9-%EC%97%AC%ED%96%89%EC%A7%80-%EC%B6%94%EC%B2%9C)
+- [메인화면 원형 스크롤](https://github.com/team-conSOLtant/Frontend/edit/main/README.md#1-%EB%A9%94%EC%9D%B8%ED%99%94%EB%A9%B4-%EC%9B%90%ED%98%95-%EC%8A%A4%ED%81%AC%EB%A1%A4)
 
-
-<div align="center">
-   <img src="https://github.com/TongueTripVogue/Tongue_Front/assets/101400650/3e934931-9925-4c00-8963-e4309671611d"  width="600" >
-      <br />
-      <a href="https://youtu.be/30pMGAV7OHY?si=3gT0Z4cGARxQhAgo">서비스 시연 영상</a>
-</div>
 
 ## ⭐ Using Stacks <br/>
 ```git
-📌 Vue, Gemini API, Tmap API, Vite, HTML, CSS, Tailwind, JavaScript, axios
+📌 React, Redux, chart.js, Gemini API, Vite, HTML, CSS, Tailwind, Styled Components,JavaScript, axios
 ```
 
-### &nbsp;&nbsp; Vue 사용 이유<br />
+### &nbsp;&nbsp; React 사용 이유<br />
 > ▪️ SPA(Single Page Applicatione)로 구조가 가벼운 반응형 시스템 제공 <br/>
 > ▪️ 사용자 경험을 향상시키고 애플리케이션의 성능 개선의 장점이 존재
 
@@ -31,7 +25,7 @@
 
 <br />
 
-## 1. Gemini, Tmap API 활용 여행지 추천
+## 1. 메인화면 원형 스크롤
 >
 <div align="center">
       <img src="https://github.com/TongueTripVogue/Tongue_Front/assets/101400650/e6929108-f669-4651-9278-9e118c996aec"  width="600" >
@@ -111,25 +105,7 @@
    ```
 <br/>
 
-### FE 기술 스택
 
-- **react**: `^18.3.1`
-
-- **@reduxjs/toolkit**: `^2.2.7`
-
-- **react-redux**: `^9.1.2`
-
-- **axios**: `^1.7.4`
-
-- **chart.js**: `^4.4.3`
-
-- **react-router**: `^6.26.1`
-
-- **react-router-dom**: `^6.26.1`
-
-- **styled-components**: `^6.1.12`
-
-- **tailwindcss**: `^3.4.10`
 
 ### 빌드 및 실행 방법
 
