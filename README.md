@@ -18,10 +18,10 @@
 
 ### &nbsp;&nbsp; React 사용 이유<br />
 > ▪️ SPA(Single Page Applicatione)로 구조가 가벼운 반응형 시스템 제공 <br/>
-> ▪️ 사용자 경험을 향상시키고 애플리케이션의 성능 개선의 장점이 존재
+> ▪️ JSX를 사용하여 컴포넌트 커스터마이징이나 자유도 면에서 Vue의 템플릿보다 확장성이 좋음
 
-### &nbsp;&nbsp; Gemini API 사용 이유<br />
-> ▪️ Google 엔진 검색 기반인 Gemini API를 활용하여 최신 정보와 사용자 정보를 실시간으로 최적화 일정 결과 제공
+### &nbsp;&nbsp; Chart.js 사용 이유<br />
+> ▪️ 
 
 <br />
 
@@ -33,38 +33,32 @@
 <br />
 
 ### 기능 
-- Gemini로 `사용자 정보(일정, 예산, 장소, 이동 수단 등)` 고려하여 일정 추천
-- Tmap API로 실시간 경유지 제공 및 해당 반경 호텔, 편의점 등 정보 제공
-- 실시간 일정 `drag & drop`으로 추가 및 수정 가능
+- 마우스 스크롤 이벤트로 원형 메뉴 자동 이동 기능
+- 메뉴 이동에 따라 다른 페이지 렌더링
+- 메뉴 이동에 따라 전체 메인 페이지 테마 색 적용
 
 ### 구현방법 :
-> Gemini prompt, 사용자 일정 json 형태로 제공 받는 prompt
+> 화면 크기에 따른 원 지름(Radius) 계산 및 설정
    ``` js
-      const genAI = new GoogleGenerativeAI(VITE_GEMINI_SERVICEKEY);
-      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-   
-      async function run() {
-        let prompt = "";
-        prompt += `${demand.location} ${demand.days - 1}박${demand.days}일 여행 코스 알려줘.`;
-        prompt += `일정은 최대 3개씩 하루에 두 번, ${demand.days * 3}총 개만 알려줘.`;
-        prompt += "걷기 다니기 좋은 곳 출발 지점과 도착지점을 함께 추천해줘.";
-        prompt += "각 일정에는 날짜(1), 장소, 이동 수단(버스, 도보, 차량) 중 하나, 장소 간단한 설명, 예상 비용(1000).";
-        prompt += "json format으로 추천해줘, 컬럼명은 영어, value는 한국어로 제공해줘";
-        prompt += `컬럼명는 다음과 같아, 날짜는 "day",장소는 "loc", 이동 수단은 "transport", 도착 장소에 대한 간단한 설명은 "des".`;
-        const result = await model.generateContent(prompt);
-        const response = await result.response;
-        const text = response.text();
-         
-        console.log(text);
-        const jsonData = text.split("```")[1].split("json")[1];
-        console.log(JSON.parse(jsonData));
-        return JSON.parse(jsonData);
-      }
+const [radius, setRadius] = useState(0); // 반지름을 상태로 관리
+useEffect(() => {
+    updateRadius(); // 초기 반지름 설정
+    window.addEventListener("resize", updateRadius); // 화면 크기 변경 시 반지름 업데이트
+    return () => window.removeEventListener("resize", updateRadius);
+  }, []);
+const updateRadius = () => {
+    const newRadius = window.innerWidth * 0.57; // 화면 크기에 맞게 반지름 설정
+    console.log("Calculated radius:", newRadius); // radius 값을 확인하기 위해 로그 추가
+    if (newRadius < 675) {
+      setRadius(675);
+    } else {
+      setRadius(newRadius);
+    }
+  };
    ```
-
 <br />
 
-> js 생성자 활용하여 일관된 정보를 back server에 post 전송
+> 스크롤 이벤트 감지에 따라 index값 변경
    ```js
    // 생성자
    class Plan {
