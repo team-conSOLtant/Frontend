@@ -8,7 +8,7 @@
 학생/선후배 life 여정 Data 기반으로 포트폴리오와 모범 금융 로드맵을 제공하는 고객 락인(Lock-in) 금융 플랫폼
 <br />
 
-- [메인화면 원형 스크롤](https://github.com/team-conSOLtant/Frontend/edit/main/README.md#1-%EB%A9%94%EC%9D%B8%ED%99%94%EB%A9%B4-%EC%9B%90%ED%98%95-%EC%8A%A4%ED%81%AC%EB%A1%A4)
+- [메인화면 원형 스크롤](https://github.com/team-conSOLtant/Frontend/blob/main/README.md#1-%EB%A9%94%EC%9D%B8%ED%99%94%EB%A9%B4-%EC%9B%90%ED%98%95-%EC%8A%A4%ED%81%AC%EB%A1%A4)
 
 ## ⭐ Using Stacks <br/>
 
@@ -19,11 +19,11 @@
 ### &nbsp;&nbsp; React 사용 이유<br />
 
 > ▪️ SPA(Single Page Applicatione)로 구조가 가벼운 반응형 시스템 제공 <br/>
-> ▪️ 사용자 경험을 향상시키고 애플리케이션의 성능 개선의 장점이 존재
+> ▪️ JSX를 사용하여 컴포넌트 커스터마이징이나 자유도 면에서 Vue의 템플릿보다 확장성이 좋음
 
-### &nbsp;&nbsp; Gemini API 사용 이유<br />
+### &nbsp;&nbsp; Chart.js 사용 이유<br />
 
-> ▪️ Google 엔진 검색 기반인 Gemini API를 활용하여 최신 정보와 사용자 정보를 실시간으로 최적화 일정 결과 제공
+> ▪️
 
 <br />
 
@@ -32,88 +32,116 @@
 >
 
 <div align="center">
-      <img src="https://github.com/TongueTripVogue/Tongue_Front/assets/101400650/e6929108-f669-4651-9278-9e118c996aec"  width="600" >
+      <img src="https://github.com/user-attachments/assets/fb31a3cc-a99c-497a-8ec8-56568c99a678"  width="600" >
 </div>
 <br />
 
 ### 기능
 
-- Gemini로 `사용자 정보(일정, 예산, 장소, 이동 수단 등)` 고려하여 일정 추천
-- Tmap API로 실시간 경유지 제공 및 해당 반경 호텔, 편의점 등 정보 제공
-- 실시간 일정 `drag & drop`으로 추가 및 수정 가능
+- 마우스 스크롤 이벤트로 원형 메뉴 자동 이동 기능
+- 메뉴 이동에 따라 다른 페이지 렌더링
+- 메뉴 이동에 따라 전체 메인 페이지 테마 색 적용
 
 ### 구현방법 :
 
-> Gemini prompt, 사용자 일정 json 형태로 제공 받는 prompt
+> 화면 크기에 따른 원 지름(Radius) 계산 및 설정
 
-````js
-const genAI = new GoogleGenerativeAI(VITE_GEMINI_SERVICEKEY);
-const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+```js
+const [radius, setRadius] = useState(0); // 반지름을 상태로 관리
 
-async function run() {
-  let prompt = "";
-  prompt += `${demand.location} ${demand.days - 1}박${
-    demand.days
-  }일 여행 코스 알려줘.`;
-  prompt += `일정은 최대 3개씩 하루에 두 번, ${demand.days * 3}총 개만 알려줘.`;
-  prompt += "걷기 다니기 좋은 곳 출발 지점과 도착지점을 함께 추천해줘.";
-  prompt +=
-    "각 일정에는 날짜(1), 장소, 이동 수단(버스, 도보, 차량) 중 하나, 장소 간단한 설명, 예상 비용(1000).";
-  prompt +=
-    "json format으로 추천해줘, 컬럼명은 영어, value는 한국어로 제공해줘";
-  prompt += `컬럼명는 다음과 같아, 날짜는 "day",장소는 "loc", 이동 수단은 "transport", 도착 장소에 대한 간단한 설명은 "des".`;
-  const result = await model.generateContent(prompt);
-  const response = await result.response;
-  const text = response.text();
+useEffect(() => {
+  updateRadius(); // 초기 반지름 설정
+  window.addEventListener("resize", updateRadius); // 화면 크기 변경 시 반지름 업데이트
+  return () => window.removeEventListener("resize", updateRadius);
+}, []);
 
-  console.log(text);
-  const jsonData = text.split("```")[1].split("json")[1];
-  console.log(JSON.parse(jsonData));
-  return JSON.parse(jsonData);
-}
-````
+const updateRadius = () => {
+  const newRadius = window.innerWidth * 0.57; // 화면 크기에 맞게 반지름 설정
+  console.log("Calculated radius:", newRadius); // radius 값을 확인하기 위해 로그 추가
+  if (newRadius < 675) {
+    setRadius(675);
+  } else {
+    setRadius(newRadius);
+  }
+};
+```
 
 <br />
 
-> js 생성자 활용하여 일관된 정보를 back server에 post 전송
+> 원 지름에 따른 메뉴 위치 설정
 
 ```js
-// 생성자
-class Plan {
-  day;
-  loc;
-  transport;
-  des;
-  cost;
-  lat;
-  lon;
-  address;
-  id;
-
-  constructor(day, loc, transport, des, cost) {
-    this.day = day;
-    ...
-    if (cost == null) {this.cost = 0;
-    } else {this.cost = cost;}
-  }
+{
+  /* 원형 스크롤 구현 */
 }
+{
+  infos &&
+    infos.map((info, index) => {
+      const angleStep = Math.PI / 36;
+      const itemAngle = (index - infos.length + 1) * angleStep;
+      const x = (radius + 90) * Math.cos(itemAngle);
+      const y = (radius + 90) * Math.sin(itemAngle);
 
-// 계획 저장
-const sendPlanList = () => {
-  instance.defaults.headers.common["Authorization"] = sessionStorage.getItem("userToken");
-  ...
-
-  instance
-    .post("/travel/regist", planList.value, {
-      params: sendParams,
-    })
-    .then((res) => {
-      router.push({ name: "mypage" });
-    })
-    .catch((err) => {
-      console.log(err);
+      return (
+        <div
+          key={index}
+          className={`absolute rounded-full bg-white shadow-lg flex justify-center items-center transition-transform ease-out duration-300`}
+          style={{
+            width: `${radius * 2}px`, // radius를 기준으로 width 설정
+            height: `${radius * 2}px`, // radius를 기준으로 height 설정
+            transform: `rotate(${angle}deg)`,
+            left: "-25rem", // 원래 중심 위치로 유지
+            boxShadow: `0px 0px 15px ${infos[itemIndex].rgba}`, // 현재 인덱스에 따른 그림자 색상 적용
+          }}
+        >
+          <div
+            key={index}
+            className={`absolute flex justify-center items-center transition-transform ease-out duration-300`}
+            style={{
+              width: "10rem",
+              height: "3rem",
+              transform: `translate(${x}px, ${y}px) rotate(${itemAngle}rad)`,
+            }}
+          ></div>
+        </div>
+      );
     });
+}
+```
+
+> 스크롤 이벤트 감지에 따라 index값 변경
+
+```js
+const handleScroll = (event) => {
+  // infos가 존재하지 않으면 handleScroll 실행 안 함
+  if (!infos || !infos.length) return;
+
+  const scrollableDiv = document.querySelector(".scrollable-container");
+  if (scrollableDiv && scrollableDiv.contains(event.target)) {
+    return; // 스크롤이 특정 컨테이너 내에서 발생하면, 부모의 스크롤 이벤트를 무시
+  }
+
+  if (event.deltaY > 0) {
+    // Scroll down (upward movement in UI)
+    if (itemIndex > 0) {
+      setAngle((prevAngle) => prevAngle + 5);
+      setItemIndex((prevIndex) => prevIndex - 1);
+    }
+  } else {
+    // Scroll up (downward movement in UI)
+    if (itemIndex < infos.length - 1) {
+      setAngle((prevAngle) => prevAngle - 5);
+      setItemIndex((prevIndex) => prevIndex + 1);
+    }
+  }
 };
+
+useEffect(() => {
+  window.addEventListener("wheel", handleScroll);
+  return () => {
+    window.removeEventListener("wheel", handleScroll);
+  };
+}, [itemIndex, infos]);
 ```
 
 <br/>
