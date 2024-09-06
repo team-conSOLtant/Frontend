@@ -28,7 +28,7 @@
 ## 1. 메인화면 원형 스크롤
 >
 <div align="center">
-      <img src="https://github.com/TongueTripVogue/Tongue_Front/assets/101400650/e6929108-f669-4651-9278-9e118c996aec"  width="600" >
+      <img src="https://github.com/user-attachments/assets/fb31a3cc-a99c-497a-8ec8-56568c99a678"  width="600" >
 </div>
 <br />
 
@@ -59,6 +59,7 @@ const updateRadius = () => {
   };
 ```
 <br />
+
 > 원 지름에 따른 메뉴 위치 설정
 ``` js
 {/* 원형 스크롤 구현 */}
