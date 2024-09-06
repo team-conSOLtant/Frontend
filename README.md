@@ -8,7 +8,9 @@
 학생/선후배 life 여정 Data 기반으로 포트폴리오와 모범 금융 로드맵을 제공하는 고객 락인(Lock-in) 금융 플랫폼
 <br />
 
+- [회원가입 시 계좌 생성 및 1원 인증]()
 - [메인화면 원형 스크롤](https://github.com/team-conSOLtant/Frontend/blob/main/README.md#1-%EB%A9%94%EC%9D%B8%ED%99%94%EB%A9%B4-%EC%9B%90%ED%98%95-%EC%8A%A4%ED%81%AC%EB%A1%A4)
+- [컴포넌트 재활용](https://github.com/team-conSOLtant/Frontend#2-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EC%9E%AC%ED%99%9C%EC%9A%A9)
 
 ## ⭐ Using Stacks <br/>
 
@@ -27,9 +29,11 @@
 
 <br />
 
-## 1. 메인화면 원형 스크롤
+## 1. 회원가입 시 계좌 생성 및 1원 인증
 
->
+
+## 2. 메인화면 원형 스크롤
+
 
 <div align="center">
       <img src="https://github.com/user-attachments/assets/fb31a3cc-a99c-497a-8ec8-56568c99a678"  width="600" >
@@ -108,6 +112,7 @@ const updateRadius = () => {
     });
 }
 ```
+<br />
 
 > 스크롤 이벤트 감지에 따라 index값 변경
 
@@ -146,7 +151,22 @@ useEffect(() => {
 
 <br/>
 
-## 2. 컴포넌트 재활용
+### Trouble Shooting
+> 메인화면 전체의 ScrollEvent 감지로 인해 하위 컴포넌트 요소였던 장바구니 내의 ScrollEvent가 감지되지 않는 문제 발생
+
+### Solution
+> event.stopPropagation()으로 ScrollEvent의 상속을 끊어줌
+
+```js
+const handleWheel = (event) => {
+    event.stopPropagation();
+  };
+```
+### Insight
+> event도 상속이 된다는 것을 배웠으며 같은 페이지 내에 event 충돌에 대해 유의 해서 코드를 작성해야한다는 것을 배움
+<br />
+
+## 3. 컴포넌트 재활용
 
 - 각 Section 내의 Item, Form 컴포넌트를 재활용하여 코드 유지보수성을 높였습니다.
 
