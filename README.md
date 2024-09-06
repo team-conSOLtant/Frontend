@@ -69,20 +69,15 @@ useEffect(() => {
 
 const updateRadius = () => {
   const newRadius = window.innerWidth * 0.57; // 화면 크기에 맞게 반지름 설정
-  console.log("Calculated radius:", newRadius); // radius 값을 확인하기 위해 로그 추가
-  if (newRadius < 675) {
-    setRadius(675);
-  } else {
-    setRadius(newRadius);
-  }
+  setRadius(newRadius);
 };
 ```
 
 <br />
 
-> 원 지름에 따른 메뉴 위치 설정
-> 불러온 메뉴 목록의 길이로 각 메뉴 아이템의 위치 각도 계산
-> 메뉴 아이템의 위치는 화면 크기에 따라 계산된 원의 지름과 아이템별 위치 각도를 사용하여 코사인/사인 값으로 x, y 좌표 걔산하여 설정
+> 원 지름에 따른 메뉴 위치 설정 <br />
+> 불러온 메뉴 목록의 길이로 각 메뉴 아이템의 위치 각도 계산 <br />
+> 화면 크기에 따라 계산된 원의 지름과 아이템별 위치 각도를 사용하여 cos/sin 값으로 x, y 좌표 계산하여 설정
 
 ```js
 {
@@ -136,7 +131,8 @@ const handleWheel = (event) => {
 ### Insight
 
 > event도 상속이 된다는 것을 배웠으며 같은 페이지 내에 event 충돌에 대해 유의 해서 코드를 작성해야한다는 것을 배움
-> <br />
+
+<br />
 
 ## 2. 컴포넌트 재활용
 
@@ -263,6 +259,8 @@ export default SectionHeader;
   └── ProjectUserDTO.js
 ```
 
+<br />
+
 ## 4. 검색
 
 <div align="center">
@@ -272,15 +270,12 @@ export default SectionHeader;
 <br />
 
 ### 기능
-
-- 검색란 입력시 자동 검색
 - 무한 스크롤
 
 ### 구현방법:
 
-> 키보드 이벤트 감지하여 state update 후 값 전달하여 axios 실행
-
-> scroll 화면의 마지막 부분 감지하며 검색결과 최종 item인지(last) 확인 후 최종 item이 아니라면 가장 마지막으로 불러온 item id로 검색 api 불러옴
+> scroll 화면의 마지막 부분 감지하며 검색 결과 최종 item인지(last) 확인
+> 최종 item이 아니라면 가장 마지막으로 불러온 item id로 검색 api 불러옴
 
 ```js
 const [ref, inView] = useInView();
@@ -292,23 +287,14 @@ const [ref, inView] = useInView();
     }
   }, [inView, last, searchedList, fetchSearchResults]);
 
-  useEffect(() => {
-    fetchSearchResults(); // 상태가 변경될 때마다 새로운 검색 결과를 가져옴
-  }, [keyword, isEmployed, minGpa, maxGpa]);
-
 return(
-      {searchedList &&
-          searchedList.map((portfolio, index) => {
-            return (
-              <SearchItem key={index} portfolio={portfolio} index={index} />
-            );
-          })}
-        {searchedList.length > 0 && <div ref={ref}></div>}
+      {searchedList &&searchedList.map((portfolio, index) => {
+            return (<SearchItem key={index} portfolio={portfolio} index={index} />);
+      `})}
+      {searchedList.length > 0 && <div ref={ref}></div>}
 )
 
 ```
-
-<br />
 
 ### Trouble Shooting
 
@@ -334,5 +320,7 @@ const fetchSearchResults = useCallback(
 
 ### Insight
 
-> 상태변화가 다양하게 일어나고 비동기 렌더링으로 인해 원하는 순서대로 데이터 반영이 되지 않음을 배웠으며 이를 useCallBack 함수를 사용하여 컴포넌트의 리렌더링 건너뛰어서 Memoized 콜백에서 상태 업데이트할 수 있음을 배웠습니다.
-> <br />
+> 상태변화가 다양하게 일어나고 비동기 렌더링으로 인해 원하는 순서대로 데이터 반영이 되지 않음을 배움 <br />
+> 이를 useCallBack 함수를 사용하여 컴포넌트의 리렌더링 건너뛰어서 Memoized 콜백에서 상태 업데이트할 수 있음을 배움
+
+<br />
