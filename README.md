@@ -27,6 +27,7 @@
 npm install
 npm start
 ```
+
 <br />
 
 ### &nbsp;&nbsp; React 사용 이유<br />
@@ -180,6 +181,52 @@ const handleWheel = (event) => {
 
 ## 2. 컴포넌트 재활용
 
+```bash
+components/portfolio/
+│
+├── activity/
+│   ├── ActivityForm.jsx
+│   ├── ActivityItem.jsx
+│   └── ActivitySection.jsx
+│
+├── award and certification/
+│   ├── AwardCertificationSection.jsx
+│   ├── AwardForm.jsx
+│   ├── AwardItem.jsx
+│   ├── CertificationForm.jsx
+│   └── CertificationItem.jsx
+│
+├── controller/
+│   ├── CommentController.jsx
+│   ├── PortfolioController.jsx
+│   └── PortfolioControllerItem.jsx
+│
+├── education and career/
+│   ├── CareerForm.jsx
+│   ├── CareerItem.jsx
+│   ├── EducationCareerSection.jsx
+│   ├── EducationForm.jsx
+│   └── EducationItem.jsx
+│
+├── makeportfolio/
+│   ├── Card.jsx
+│   ├── ItemTypes.jsx
+│   ├── KeywordSection.jsx
+│   ├── ProfileSection.jsx
+│   ├── SearchItem.jsx
+│   └── SectionTitle.jsx
+│
+├── project/
+│   ├── ProjectForm.jsx
+│   ├── ProjectItem.jsx
+│   ├── ProjectSection.jsx
+│   ├── ProfileViewSection.jsx
+│   └── SectionHeader.jsx
+
+```
+
+> 위와 같이 DB Table을 기준으로 컴포넌트를 나누었습니다.
+
 **2.1.** MakePortfolioPage와 PortfolioPage의 화면 구성이 비슷하기 때문에 각 Section을 구분하여 양 페이지에 사용하였습니다.
 
 - /pages/PortfolioPage.jsx
@@ -255,53 +302,6 @@ export default SectionHeader;
   ├── ProjectContentDTO.js
   ├── ProjectLanguageDTO.js
   └── ProjectUserDTO.js
-```
-
-### 예시
-
-#### AwardDTO
-
-```js
-export default class AwardDTO {
-  static lastKey = 0;
-  constructor(
-    awardId = null,
-    portfolioId = null,
-    title = null,
-    content = null,
-    awardGrade = null,
-    awardOrganization = null,
-    acquisitionDate = null
-  ) {
-    this.key = AwardDTO.lastKey++;
-    this.awardId = awardId;
-    this.portfolioId = portfolioId;
-    this.title = title;
-    this.content = content;
-    this.awardGrade = awardGrade;
-    this.awardOrganization = awardOrganization;
-    this.acquisitionDate = acquisitionDate;
-  }
-}
-```
-
-</br>
-
-> axios를 통해 데이터를 받아온 후 DTO 양식에 맞춰 변경하여 사용하였습니다.
-
-```js
-return response.data.result.map(
-  (data) =>
-    new AwardDTO(
-      data.id, // awardId
-      portfolioId, // portfolioId (default to null)
-      data.title,
-      data.content,
-      data.awardGrade,
-      data.awardOrganization,
-      data.acquisitionDate
-    )
-);
 ```
 
 ## 4. 검색
