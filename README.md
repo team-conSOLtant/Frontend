@@ -8,9 +8,10 @@
 학생/선후배 life 여정 Data 기반으로 포트폴리오와 모범 금융 로드맵을 제공하는 고객 락인(Lock-in) 금융 플랫폼
 <br />
 
-- [회원가입 시 계좌 생성 및 1원 인증](https://github.com/team-conSOLtant/Frontend/tree/main#1-%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85-%EC%8B%9C-%EA%B3%84%EC%A2%8C-%EC%83%9D%EC%84%B1-%EB%B0%8F-1%EC%9B%90-%EC%9D%B8%EC%A6%9D)
-- [메인화면 원형 스크롤](https://github.com/team-conSOLtant/Frontend/tree/main?tab=readme-ov-file#2-%EB%A9%94%EC%9D%B8%ED%99%94%EB%A9%B4-%EC%9B%90%ED%98%95-%EC%8A%A4%ED%81%AC%EB%A1%A4)
-- [컴포넌트 재활용](https://github.com/team-conSOLtant/Frontend#2-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EC%9E%AC%ED%99%9C%EC%9A%A9)
+- [메인화면 원형 스크롤](https://github.com/team-conSOLtant/Frontend?tab=readme-ov-file#1-%EB%A9%94%EC%9D%B8%ED%99%94%EB%A9%B4-%EC%9B%90%ED%98%95-%EC%8A%A4%ED%81%AC%EB%A1%A4)
+- [컴포넌트 재활용](https://github.com/team-conSOLtant/Frontend?tab=readme-ov-file#2-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EC%9E%AC%ED%99%9C%EC%9A%A9)
+- [DTO를 이용한 어댑터 패턴 구현](https://github.com/team-conSOLtant/Frontend?tab=readme-ov-file#3-dto%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%96%B4%EB%8C%91%ED%84%B0-%ED%8C%A8%ED%84%B4-%EA%B5%AC%ED%98%84)
+- [검색](https://github.com/team-conSOLtant/Frontend?tab=readme-ov-file#4-%EA%B2%80%EC%83%89)
 
 ## ⭐ Using Stacks <br/>
 
@@ -18,6 +19,16 @@
 📌 React, Redux, chart.js, Gemini API, Vite, HTML, CSS, Tailwind, Styled Components,JavaScript, axios
 ```
 
+### 빌드 및 실행 방법
+
+서비스는 [https://consoltant.site](https://consoltant.site/) 에 배포되어 있습니다.
+
+```
+npm install
+npm start
+```
+
+<br />
 ### &nbsp;&nbsp; React 사용 이유<br />
 
 > ▪️ SPA(Single Page Applicatione)로 구조가 가벼운 반응형 시스템 제공 <br/>
@@ -32,6 +43,8 @@
 ## 1. 회원가입 시 계좌 생성 및 1원 인증
 
 ## 2. 메인화면 원형 스크롤
+
+## 1. 메인화면 원형 스크롤
 
 <div align="center">
       <img src="https://github.com/user-attachments/assets/fb31a3cc-a99c-497a-8ec8-56568c99a678"  width="600" >
@@ -304,11 +317,106 @@ export default class AwardDTO {
 }
 ```
 
-### 빌드 및 실행 방법
+## 4. 검색
 
-서비스는 [https://consoltant.site](https://consoltant.site/) 에 배포되어 있습니다.
+<div align="center">
+      <img src="https://github.com/user-attachments/assets/fb31a3cc-a99c-497a-8ec8-56568c99a678"  width="600" >
+</div>
+
+<br />
+
+### 기능
+
+- 검색란 입력시 자동 검색
+- 무한 스크롤
+
+### 구현방법:
+
+> 키보드 이벤트 감지하여 state update 후 값 전달하여 axios 실행
+
+```js
+const fetchSearchResults = useCallback(
+  async (cursor = "") => {
+    const searchParams = {
+      keyword,
+      isEmployed,
+      minGpa,
+      maxGpa,
+    };
+    const response = await getSearch(cursor, size, searchParams);
+    if (response && response.result) {
+      setLast(response.result.last);
+      setSearchedList((prevList) => [...prevList, ...response.result.content]);
+    }
+  },
+  [keyword, isEmployed, minGpa, maxGpa, size]
+);
+
+useEffect(() => {
+  fetchSearchResults();
+}, [fetchSearchResults]);
+```
+
+<br />
+
+> scroll 화면의 마지막 부분 감지하며 검색결과 최종 item인지(last) 확인 후 최종 item이 아니라면 가작 마지막으로 불러온 item id로 검색 api 불러오기
+
+```js
+const [ref, inView] = useInView();
+
+  useEffect(() => {
+    if (inView && !last && searchedList.length > 0) {
+      const lastIndex = searchedList.length - 1;
+      fetchSearchResults(searchedList[lastIndex].portfolioId);
+    }
+  }, [inView, last, searchedList, fetchSearchResults]);
+
+  useEffect(() => {
+    fetchSearchResults(); // 상태가 변경될 때마다 새로운 검색 결과를 가져옴
+  }, [keyword, isEmployed, minGpa, maxGpa]);
+
+return(
+      {searchedList &&
+          searchedList.map((portfolio, index) => {
+            return (
+              <SearchItem key={index} portfolio={portfolio} index={index} />
+            );
+          })}
+        {searchedList.length > 0 && <div ref={ref}></div>}
+)
 
 ```
-npm install
-npm start
+
+<br />
+
+### Trouble Shooting
+
+> 검색 api를 호출 할 때마다 이전 입력 값이 반영되면서 검색 데이터가 한템포 밀리는 현상 발생
+
+### Solution
+
+> callback 함수를 사용하여 검색 api 호출 전 데이터 업데이트 완료
+
+```js
+const fetchSearchResults = useCallback(
+  async (cursor = "") => {
+    const searchParams = {
+      keyword,
+      isEmployed,
+      minGpa,
+      maxGpa,
+    };
+    const response = await getSearch(cursor, size, searchParams);
+    if (response && response.result) {
+      setLast(response.result.last);
+      setSearchedList((prevList) => [...prevList, ...response.result.content]);
+    }
+  },
+  [keyword, isEmployed, minGpa, maxGpa, size]
+);
 ```
+
+### Insight
+
+> 상태변화가 다양하게 일어나고 비동기 렌더링으로 인해 원하는 순서대로 데이터 반영이 되지 않음을 배웠으며 이를 useCallBack 함수를 사용하여 컴포넌트의 리렌더링 건너뛰어서 Memoized 콜백에서 상태 업데이트할 수 있음을 배웠습니다.
+> <br />
