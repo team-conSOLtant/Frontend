@@ -56,7 +56,7 @@ npm start
 
 ### 구현방법 :
 
-> 화면 크기에 따른 원 지름(Radius) 계산 및 설정
+> 화면 크기에 따른 원 지름(Radius)을 계산하여 설정했습니다.
 
 ```js
 const [radius, setRadius] = useState(0); // 반지름을 상태로 관리
@@ -75,9 +75,8 @@ const updateRadius = () => {
 
 <br />
 
-> 원 지름에 따른 메뉴 위치 설정 <br />
-> 불러온 메뉴 목록의 길이로 각 메뉴 아이템의 위치 각도 계산 <br />
-> 화면 크기에 따라 계산된 원의 지름과 아이템별 위치 각도를 사용하여 cos/sin 값으로 x, y 좌표 계산하여 설정
+> 불러온 메뉴 목록의 길이로 각 메뉴 아이템의 위치 각도를 계산했습니다. <br />
+> 화면 크기에 따라 계산된 원의 지름과 아이템별 위치 각도를 사용하여 cos/sin 값으로 x, y 좌표 계산하여 설정했습니다.
 
 ```js
 {
@@ -116,11 +115,11 @@ const updateRadius = () => {
 
 ### Trouble Shooting
 
-> 메인화면 전체의 ScrollEvent 감지로 인해 하위 컴포넌트 요소였던 장바구니 내의 ScrollEvent가 감지되지 않는 문제 발생
+> 메인화면 전체의 ScrollEvent 감지로 인해 하위 컴포넌트 요소였던 장바구니 내의 ScrollEvent가 감지되지 않는 문제가 발생했습니다.
 
 ### Solution
 
-> event.stopPropagation()으로 ScrollEvent의 상속을 끊어줌
+> event.stopPropagation()으로 ScrollEvent의 상속을 끊어주었습니다.
 
 ```js
 const handleWheel = (event) => {
@@ -130,7 +129,7 @@ const handleWheel = (event) => {
 
 ### Insight
 
-> event도 상속이 된다는 것을 배웠으며 같은 페이지 내에 event 충돌에 대해 유의 해서 코드를 작성해야한다는 것을 배움
+> event도 상속이 된다는 것을 배웠으며 같은 페이지 내 event 충돌에 유의해서 코드를 작성해야한다는 것을 배웠습니다.
 
 <br />
 
@@ -274,8 +273,8 @@ export default SectionHeader;
 
 ### 구현방법:
 
-> scroll 화면의 마지막 부분 감지하며 검색 결과 최종 item인지(last) 확인
-> 최종 item이 아니라면 가장 마지막으로 불러온 item id로 검색 api 불러옴
+> scroll 화면의 마지막 부분 감지하며 검색 결과 최종 item인지(last) 확인했습니다.
+> 최종 item이 아니라면 가장 마지막으로 불러온 item id로 검색 api를 불러왔습니다.
 
 ```js
 const [ref, inView] = useInView();
@@ -298,11 +297,11 @@ return(
 
 ### Trouble Shooting
 
-> 검색 api를 호출 할 때마다 이전 입력 값이 반영되면서 검색 데이터가 한템포 밀리는 현상 발생
+> 검색 api 호출 시 이전 검색 값이 반영되면서 검색 데이터가 한 템포 밀리는 현상이 발생했습니다.
 
 ### Solution
 
-> callback 함수를 사용하여 검색 api 호출 전 데이터 업데이트 완료
+> callback 함수를 사용하여 검색 api 호출 전 데이터의 업데이트를 완료했습니다.
 
 ```js
 const fetchSearchResults = useCallback(
@@ -320,7 +319,7 @@ const fetchSearchResults = useCallback(
 
 ### Insight
 
-> 상태변화가 다양하게 일어나고 비동기 렌더링으로 인해 원하는 순서대로 데이터 반영이 되지 않음을 배움 <br />
-> 이를 useCallBack 함수를 사용하여 컴포넌트의 리렌더링 건너뛰어서 Memoized 콜백에서 상태 업데이트할 수 있음을 배움
+> 상태변화가 다양하게 일어나고 비동기 렌더링으로 인해 원하는 순서대로 데이터 반영이 되지 않음을 배웠습니다. <br />
+> 이를 useCallBack 함수를 사용하여 컴포넌트의 리렌더링을 건너뛰어 Memoized 콜백에서 상태 업데이트할 수 있음을 배웠습니다.
 
 <br />
