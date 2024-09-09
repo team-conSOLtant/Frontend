@@ -6,13 +6,6 @@
 ⚡ 2024.08.16 ~ 2024.08.31
 ```
 
-<br />
-
-- [메인화면 원형 스크롤](https://github.com/team-conSOLtant/Frontend?tab=readme-ov-file#1-%EB%A9%94%EC%9D%B8%ED%99%94%EB%A9%B4-%EC%9B%90%ED%98%95-%EC%8A%A4%ED%81%AC%EB%A1%A4)
-- [컴포넌트 재활용](https://github.com/team-conSOLtant/Frontend?tab=readme-ov-file#2-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EC%9E%AC%ED%99%9C%EC%9A%A9)
-- [DTO를 이용한 어댑터 패턴 구현](https://github.com/team-conSOLtant/Frontend?tab=readme-ov-file#3-dto%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%96%91%EC%8B%9D-%EC%9D%BC%EA%B4%80%ED%99%94)
-- [검색](https://github.com/team-conSOLtant/Frontend?tab=readme-ov-file#4-%EA%B2%80%EC%83%89)
-
 ## ⭐ Using Stacks <br/>
 
 ```git
@@ -35,13 +28,81 @@ npm start
 > ▪️ SPA(Single Page Applicatione)로 구조가 가벼운 반응형 시스템 제공 <br/>
 > ▪️ JSX를 사용하여 컴포넌트 커스터마이징이나 자유도 면에서 Vue의 템플릿보다 확장성이 좋음
 
-### &nbsp;&nbsp; Chart.js 사용 이유<br />
+<br />
 
-> ▪️
+## 📌주요 기능
+1. [검색](https://github.com/team-conSOLtant/Frontend?tab=readme-ov-file#4-%EA%B2%80%EC%83%89)
+2. [메인화면 원형 스크롤](https://github.com/team-conSOLtant/Frontend?tab=readme-ov-file#1-%EB%A9%94%EC%9D%B8%ED%99%94%EB%A9%B4-%EC%9B%90%ED%98%95-%EC%8A%A4%ED%81%AC%EB%A1%A4)
+3. [DTO를 이용한 어댑터 패턴 구현](https://github.com/team-conSOLtant/Frontend?tab=readme-ov-file#3-dto%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%96%91%EC%8B%9D-%EC%9D%BC%EA%B4%80%ED%99%94)
 
 <br />
 
-## 1. 메인화면 원형 스크롤
+## 1. 검색
+
+<div align="center">
+      <img src="https://github.com/user-attachments/assets/e50985c3-cbd0-4dca-bb31-3cf224c56ff9"  width="600" >
+</div>
+
+<br />
+
+### 기능
+- 무한 스크롤
+
+### 구현방법:
+
+> scroll 화면의 마지막 부분 감지하며 검색 결과 최종 item인지(last) 확인했습니다. <br />
+> 최종 item이 아니라면 가장 마지막으로 불러온 item id로 검색 api를 불러왔습니다.
+
+```js
+const [ref, inView] = useInView();
+
+useEffect(() => {
+    if (inView && !last && searchedList.length > 0) {
+      const lastIndex = searchedList.length - 1;
+      fetchSearchResults(searchedList[lastIndex].portfolioId);
+    }
+}, [inView, last, searchedList, fetchSearchResults]);
+
+return(
+      {searchedList && searchedList.map((portfolio, index) => {
+            return (<SearchItem key={index} portfolio={portfolio} index={index} />);
+      `})}
+      {searchedList.length > 0 && <div ref={ref}></div>}
+)
+
+```
+
+### Trouble Shooting
+
+> 검색 api 호출 시 이전 검색 값이 반영되면서 검색 데이터가 한 템포 밀리는 현상이 발생했습니다.
+
+### Solution
+
+> callback 함수를 사용하여 검색 api 호출 전 데이터의 업데이트를 완료했습니다.
+
+```js
+const fetchSearchResults = useCallback(
+  async (cursor = "") => {
+    const searchParams = { keyword, isEmployed, minGpa, maxGpa,};
+    const response = await getSearch(cursor, size, searchParams);
+    if (response && response.result) {
+      setLast(response.result.last);
+      setSearchedList((prevList) => [...prevList, ...response.result.content]);
+    }
+  },
+  [keyword, isEmployed, minGpa, maxGpa, size]
+);
+```
+
+### Insight
+
+> 상태변화가 다양하게 일어나고 비동기 렌더링으로 인해 원하는 순서대로 데이터 반영이 되지 않음을 배웠습니다. <br />
+> 이를 useCallBack 함수를 사용하여 컴포넌트의 리렌더링을 건너뛰어 Memoized 콜백에서 상태 업데이트할 수 있음을 배웠습니다.
+
+<br />
+
+
+## 2. 메인화면 원형 스크롤
 
 <div align="center">
       <img src="https://github.com/user-attachments/assets/c643ce22-04f8-4997-b53e-c531ff18df21"  width="600" >
@@ -254,66 +315,10 @@ export default SectionHeader;
 
 <br />
 
-## 4. 검색
+## 📝느낀점
 
-<div align="center">
-      <img src="https://github.com/user-attachments/assets/e50985c3-cbd0-4dca-bb31-3cf224c56ff9"  width="600" >
-</div>
+### 김준우
+>
 
-<br />
-
-### 기능
-- 무한 스크롤
-
-### 구현방법:
-
-> scroll 화면의 마지막 부분 감지하며 검색 결과 최종 item인지(last) 확인했습니다. <br />
-> 최종 item이 아니라면 가장 마지막으로 불러온 item id로 검색 api를 불러왔습니다.
-
-```js
-const [ref, inView] = useInView();
-
-useEffect(() => {
-    if (inView && !last && searchedList.length > 0) {
-      const lastIndex = searchedList.length - 1;
-      fetchSearchResults(searchedList[lastIndex].portfolioId);
-    }
-}, [inView, last, searchedList, fetchSearchResults]);
-
-return(
-      {searchedList && searchedList.map((portfolio, index) => {
-            return (<SearchItem key={index} portfolio={portfolio} index={index} />);
-      `})}
-      {searchedList.length > 0 && <div ref={ref}></div>}
-)
-
-```
-
-### Trouble Shooting
-
-> 검색 api 호출 시 이전 검색 값이 반영되면서 검색 데이터가 한 템포 밀리는 현상이 발생했습니다.
-
-### Solution
-
-> callback 함수를 사용하여 검색 api 호출 전 데이터의 업데이트를 완료했습니다.
-
-```js
-const fetchSearchResults = useCallback(
-  async (cursor = "") => {
-    const searchParams = { keyword, isEmployed, minGpa, maxGpa,};
-    const response = await getSearch(cursor, size, searchParams);
-    if (response && response.result) {
-      setLast(response.result.last);
-      setSearchedList((prevList) => [...prevList, ...response.result.content]);
-    }
-  },
-  [keyword, isEmployed, minGpa, maxGpa, size]
-);
-```
-
-### Insight
-
-> 상태변화가 다양하게 일어나고 비동기 렌더링으로 인해 원하는 순서대로 데이터 반영이 되지 않음을 배웠습니다. <br />
-> 이를 useCallBack 함수를 사용하여 컴포넌트의 리렌더링을 건너뛰어 Memoized 콜백에서 상태 업데이트할 수 있음을 배웠습니다.
-
-<br />
+### 지수영
+>
