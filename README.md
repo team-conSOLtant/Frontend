@@ -30,10 +30,104 @@ npm start
 
 <br />
 
+### &nbsp;&nbsp; 컴포넌트 분리 및 재활용<br />
+
+
+```bash
+components/portfolio/
+│
+├── activity/
+│   ├── ActivityForm.jsx
+│   ├── ActivityItem.jsx
+│   └── ActivitySection.jsx
+│
+├── award and certification/
+│   ├── AwardCertificationSection.jsx
+│   ├── AwardForm.jsx
+│   ├── AwardItem.jsx
+│   ├── CertificationForm.jsx
+│   └── CertificationItem.jsx
+│
+├── controller/
+│   ├── CommentController.jsx
+│   ├── PortfolioController.jsx
+│   └── PortfolioControllerItem.jsx
+│
+├── education and career/
+│   ├── CareerForm.jsx
+│   ├── CareerItem.jsx
+│   ├── EducationCareerSection.jsx
+│   ├── EducationForm.jsx
+│   └── EducationItem.jsx
+│
+├── makeportfolio/
+│   ├── Card.jsx
+│   ├── ItemTypes.jsx
+│   ├── KeywordSection.jsx
+│   ├── ProfileSection.jsx
+│   ├── SearchItem.jsx
+│   └── SectionTitle.jsx
+│
+├── project/
+│   ├── ProjectForm.jsx
+│   ├── ProjectItem.jsx
+│   ├── ProjectSection.jsx
+│   ├── ProfileViewSection.jsx
+│   └── SectionHeader.jsx
+
+```
+
+> ▪️ 위와 같이 DB Table을 기준으로 컴포넌트를 나누었습니다.</br>
+> ▪️ 각 Table별로 Section, Form, Item 컴포넌트로 구분하였습니다.
+
+MakePortfolioPage와 PortfolioPage 모두에서 Section 컴포넌트를 사용합니다.
+
+- /pages/PortfolioPage.jsx
+
+```js
+<AwardCertificationSection
+  isEdit={false}
+  certificationItems={certificationItems}
+  setCertificationItems={setCertificationItems}
+  awardItems={awardItems}
+  setAwardItems={setAwardItems}
+/>
+```
+
+- /pages/MakePortfolioPage.jsx
+
+```js
+<AwardCertificationSection
+  id="awardAndCertification"
+  isEdit={true}
+  certificationItems={certificationItems}
+  setCertificationItems={setCertificationItems}
+  awardItems={awardItems}
+  setAwardItems={setAwardItems}
+/>
+```
+
+<div style="display: flex; justify-content: space-between;">
+  <div>
+    <img src="image-1.png" alt="Image 1" style="width: 90%;">
+  </div>
+  <div>
+    <img src="image-2.png" alt="Image 2" style="width: 95%;">
+  </div>
+</div>
+
+</br>
+
+> ▪️ 추후 유지 보수시 Section 컴포넌트 하나만 수정하면 두 개의 페이지에 모두 적용되는 효과를 기대할 수 있습니다.
+
+
+
+<br />
+
 ## 📌주요 기능
 1. [검색](https://github.com/team-conSOLtant/Frontend?tab=readme-ov-file#1-%EA%B2%80%EC%83%89)
 2. [메인화면 원형 스크롤](https://github.com/team-conSOLtant/Frontend?tab=readme-ov-file#2-%EB%A9%94%EC%9D%B8%ED%99%94%EB%A9%B4-%EC%9B%90%ED%98%95-%EC%8A%A4%ED%81%AC%EB%A1%A4)
-3. [DTO를 이용한 어댑터 패턴 구현](https://github.com/team-conSOLtant/Frontend?tab=readme-ov-file#3-dto%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%96%91%EC%8B%9D-%EC%9D%BC%EA%B4%80%ED%99%94)
+3. [DTO를 이용한 데이터 양식 일관화](https://github.com/team-conSOLtant/Frontend?tab=readme-ov-file#3-dto%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%96%91%EC%8B%9D-%EC%9D%BC%EA%B4%80%ED%99%94)
 
 <br />
 
@@ -188,115 +282,16 @@ const handleWheel = (event) => {
 
 <br />
 
-## 2. 컴포넌트 재활용
-
-```bash
-components/portfolio/
-│
-├── activity/
-│   ├── ActivityForm.jsx
-│   ├── ActivityItem.jsx
-│   └── ActivitySection.jsx
-│
-├── award and certification/
-│   ├── AwardCertificationSection.jsx
-│   ├── AwardForm.jsx
-│   ├── AwardItem.jsx
-│   ├── CertificationForm.jsx
-│   └── CertificationItem.jsx
-│
-├── controller/
-│   ├── CommentController.jsx
-│   ├── PortfolioController.jsx
-│   └── PortfolioControllerItem.jsx
-│
-├── education and career/
-│   ├── CareerForm.jsx
-│   ├── CareerItem.jsx
-│   ├── EducationCareerSection.jsx
-│   ├── EducationForm.jsx
-│   └── EducationItem.jsx
-│
-├── makeportfolio/
-│   ├── Card.jsx
-│   ├── ItemTypes.jsx
-│   ├── KeywordSection.jsx
-│   ├── ProfileSection.jsx
-│   ├── SearchItem.jsx
-│   └── SectionTitle.jsx
-│
-├── project/
-│   ├── ProjectForm.jsx
-│   ├── ProjectItem.jsx
-│   ├── ProjectSection.jsx
-│   ├── ProfileViewSection.jsx
-│   └── SectionHeader.jsx
-
-```
-
-> 위와 같이 DB Table을 기준으로 컴포넌트를 나누었습니다.
-
-**2.1.** MakePortfolioPage와 PortfolioPage의 화면 구성이 비슷하기 때문에 각 Section을 구분하여 양 페이지에 사용하였습니다.
-
-- /pages/PortfolioPage.jsx
-
-```js
-<AwardCertificationSection
-  isEdit={false}
-  certificationItems={certificationItems}
-  setCertificationItems={setCertificationItems}
-  awardItems={awardItems}
-  setAwardItems={setAwardItems}
-/>
-```
-
-- /pages/MakePortfolioPage.jsx
-
-```js
-<AwardCertificationSection
-  id="awardAndCertification"
-  isEdit={true}
-  certificationItems={certificationItems}
-  setCertificationItems={setCertificationItems}
-  awardItems={awardItems}
-  setAwardItems={setAwardItems}
-/>
-```
-
-> 이를 통해 유지 보수를 용이하게 개발하였습니다.
-
-**2.2.** Section의 Header가 모두 동일한 양식이었기에 SectionHeader를 따로 컴포넌트로 구분하였습니다.
-
-- /components/portfolio/project/SectionHeader.jsx
-
-```js
-function SectionHeader(props) {
-  return (
-    <SectionHeaderStyle>
-      <SectionTitleText>{props.title}</SectionTitleText>
-      <SectionTitleIcon src={props.image} />
-    </SectionHeaderStyle>
-  );
-}
-export default SectionHeader;
-```
-
-### PortfolioPage.jsx & MakePortfolioPage.jsx
-
-<div style="display: flex; justify-content: space-between;">
-  <div>
-    <img src="image-1.png" alt="Image 1" style="width: 90%;">
-  </div>
-  <div>
-    <img src="image-2.png" alt="Image 2" style="width: 95%;">
-  </div>
-</div>
-
-> 위와 같이 AwardSection을 양 페이지에 모두 사용하였습니다.
-
 ## 3. DTO를 이용한 데이터 양식 일관화
 
-- DTO를 이용하여 데이터 양식을 일관화하였습니다.
+### 기능
+
+- DTO를 이용하여 데이터 양식을 일관화
+
+### 구현방법 : 
+
+> class로 DTO를 구현하였고, Axios로 데이터를 받아오면 DTO에 넣어 관리하였습니다. </br>
+> 다음과 같은 파일 구조를 갖고, 그 중 하나인 AwardDTO입니다.
 
 ### DTO 파일 구조
 
@@ -313,12 +308,54 @@ export default SectionHeader;
   └── ProjectUserDTO.js
 ```
 
+
+```js
+export default class AwardDTO {
+  static lastKey = 0;
+  constructor(
+    awardId = null,
+    portfolioId = null,
+    title = null,
+    content = null,
+    awardGrade = null,
+    awardOrganization = null,
+    acquisitionDate = null
+  ) {
+    this.key = AwardDTO.lastKey++;
+    this.awardId = awardId;
+    this.portfolioId = portfolioId;
+    this.title = title;
+    this.content = content;
+    this.awardGrade = awardGrade;
+    this.awardOrganization = awardOrganization;
+    this.acquisitionDate = acquisitionDate;
+  }
+}
+```
+
+### Trouble Shooting
+
+> 초기에는 DTO없이 모든 데이터를 JSON 형식으로 관리하였습니다.</br>
+> 이렇게 구현하니 제가 짠 코드임에도 헷갈리고 유지보수하기 어려웠습니다.
+
+
+### Solution
+
+> BackEnd에서 사용하는 DTO를 적용하면 좋을 것 같아 DTO를 따로 구현하였습니다.
+
+### Insight
+
+> 데이터 양식이 헷갈릴 때, DTO 파일만 확인하면 되었기 때문에 개발 속도가 빨라질 수 있었습니다. </br>
+> 덕분에 데이터 양식을 맞추고 정해두는 것의 중요성을 배웠습니다.
+
 <br />
 
 ## 📝느낀점
 
 ### 김준우
->
+> 하나의 페이지에 많은 데이터를 담고 있어서 자칫하면 코드가 너무 길어질 수 있다고 생각했습니다. 그래서 읽기 쉽고 이해하기 쉬운 코드를 짜기 위해서는 컴포넌트를 잘 분리하는 것이 중요하다고 생각했었습니다.
+덕분에 컴포넌트 분리는 성공적이었지만, 데이터 양식을 일관화하지 못해 시간 소요가 많았습니다. 또한 데이터의 흐름을 고려하지 않고 개발하여서 뒤늦게 구현 로직을 변경해야 하는 경우도 생겼습니다.</br>
+잘한 점, 못한 점이 모두 있었지만 데이터 양식, 데이터 플로우를 고려한 개발을 해야함을 배웠기에 의미있는 프로젝트였습니다.
 
 ### 지수영
 >
