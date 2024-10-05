@@ -5,6 +5,7 @@ import ProjectItem from "./ProjectItem";
 
 import SectionHeader from "../SectionHeader";
 import { getProjects } from "../../../apis/Project";
+import ProjectDTO from "../../../dto/ProjectDTO";
 const ProjectSectionStyle = styled.div`
   width: 100%;
 `;
@@ -61,20 +62,24 @@ const PlusBoxButton = styled.div`
   color: white;
   font-family: "OneShinhanBold";
 `;
-function ProjectSection({ isEdit, projects }) {
-  const [formList, setFormList] = useState([{}]);
-  // const [projectList, setProjectList] = useState([]);
-  const addForm = () => {};
 
-  // useEffect(() => {
-  //   getProjectData();
-  // }, []);
-
-  // const getProjectData = async () => {
-  //   const res = await getProjects();
-  //   // console.log("res", res.award);
-  //   setProjectList(res);
-  // };
+function ProjectSection({ isEdit, projectItems, setProjectItems }) {
+  const [projectForms, setProjectForms] = useState([new ProjectDTO()]);
+  const addProjectForm = () => {
+    setProjectForms([...projectForms, new ProjectDTO()]);
+  };
+  const updateProjectForm = (updatedForm) => {
+    setProjectForms((prevForms) =>
+      prevForms.map((form) =>
+        form.key === updatedForm.key ? updatedForm : form
+      )
+    );
+  };
+  const submitProjectForm = (newForm) => {
+    console.log(newForm);
+    setProjectItems([...projectItems, newForm]);
+    setProjectForms(projectForms.filter((form) => form.key !== newForm.key));
+  };
 
   return (
     <ProjectSectionStyle>
@@ -82,14 +87,25 @@ function ProjectSection({ isEdit, projects }) {
       <SectionBody>
         {isEdit && (
           <PlusBoxContainer>
-            <PlusBoxStyle onClick={addForm}>
+            <PlusBoxStyle onClick={addProjectForm}>
               <PlusBoxButton>+</PlusBoxButton>
             </PlusBoxStyle>
           </PlusBoxContainer>
         )}
-        {isEdit && formList.map(() => <ProjectForm />)}
-        {projects.length > 0 &&
-          projects.map((data) => <ProjectItem data={data} />)}
+        {isEdit &&
+          projectForms.length > 0 &&
+          projectForms.map((data) => (
+            <ProjectForm
+              key={data.key}
+              data={data}
+              updateForm={updateProjectForm}
+              submitForm={() => submitProjectForm(data)}
+            />
+          ))}
+        {projectItems.length > 0 &&
+          projectItems.map((data) => (
+            <ProjectItem key={data.key} data={data} />
+          ))}
       </SectionBody>
     </ProjectSectionStyle>
   );

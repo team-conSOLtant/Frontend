@@ -5,6 +5,8 @@ import EducationForm from "./EducationForm";
 import CareerForm from "./CareerForm";
 import CareerItem from "./CareerItem";
 import EducationItem from "./EducationItem";
+import useFormManager from "../../../Hooks/FormManager";
+import CareerDTO from "../../../dto/CareerDTO";
 
 const EducationSectionStyle = styled.div`
   width: 100%;
@@ -32,9 +34,30 @@ const SubSectionBody = styled.div`
   flex-direction: column;
   width: 100%;
 `;
-
+const TableHeader = styled.div`
+  width: 100%;
+  justify-content: space-evenly;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+const InputTitle = styled.div`
+  font-size: 0.8rem;
+  font-family: "OneShinhanBold";
+  margin-left: 0.3rem;
+`;
 const SubSectionTitleText = styled.div``;
-
+const PlusButton = styled.div`
+  background-color: #c7c7c7;
+  color: white;
+  width: 1.5rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  text-align: center;
+  border-radius: 50%;
+  margin-left: 0.5rem;
+  box-shadow: 0 2px 2px rgb(0, 0, 0, 0.25);
+`;
 const SubSectionTitleButton = styled.div`
   background-color: #c7c7c7;
   color: white;
@@ -61,7 +84,38 @@ const CompanyName = styled.label``;
 const Rank = styled.label``;
 const CareerDuration = styled.label``;
 
-function EducationCareerSection({ isEdit, educationAndcareer }) {
+function EducationCareerSection({
+  isEdit,
+  educationAndcareer,
+  setPortfolioData,
+}) {
+  const { state, addForm, deleteForm, updateForm, submitForm } = useFormManager(
+    new CareerDTO()
+  );
+
+  const clickSubmit = (key) => {
+    const selectedForm = state.formList.find((form) => form.key === key);
+    if (selectedForm) {
+      setPortfolioData((existingData) => ({
+        ...existingData,
+        educationAndcareer: {
+          ...existingData.educationAndcareer,
+          career: [
+            ...existingData.career,
+            {
+              id: null,
+              company: selectedForm.company,
+              positionLevel: selectedForm.positionLevel,
+              startDate: selectedForm.startDate,
+              endDate: selectedForm.endDate,
+              deleted: false,
+            },
+          ],
+        },
+      }));
+    }
+  };
+
   return (
     <EducationSectionStyle>
       <SectionHeader title={"학력 / 경력"} image={"/Briefcase.svg"} />
@@ -85,9 +139,23 @@ function EducationCareerSection({ isEdit, educationAndcareer }) {
         <SubSectionStyle>
           <SubSectionHeader>
             <SubSectionTitleText>경력</SubSectionTitleText>
+            <PlusButton onClick={addForm}>+</PlusButton>
           </SubSectionHeader>
           <SubSectionBody>
-            {isEdit && <CareerForm></CareerForm>}
+            <TableHeader>
+              <InputTitle>회사명</InputTitle>
+              <InputTitle>직급</InputTitle>
+              <InputTitle>기간</InputTitle>
+            </TableHeader>
+            {isEdit &&
+              state.formList.map((data) => (
+                <CareerForm
+                  key={data.key}
+                  data={data}
+                  submit={() => clickSubmit(data.key)}
+                ></CareerForm>
+              ))}
+
             {educationAndcareer.career.length > 0 &&
               educationAndcareer.career.map((data) => (
                 <CareerItem data={data}></CareerItem>

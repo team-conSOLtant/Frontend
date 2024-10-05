@@ -30,10 +30,18 @@ function SignupPage() {
     checkPwd(pwdCheck);
   }, [setIsSamePwd, isSamePwd, setPwdCheck, pwdCheck, password, setPassword]);
 
-  useEffect(() => {}, [setIsError, isError]);
+  useEffect(() => {}, [setIsError, isError, setErrorMessage, errorMessage]);
   const submit = async () => {
     // 빈 정보란 check
-    if (!email || !emailDomain || !password || !pwdCheck || !name || !phone || !birth) {
+    if (
+      !email ||
+      !emailDomain ||
+      !password ||
+      !pwdCheck ||
+      !name ||
+      !phone ||
+      !birth
+    ) {
       setErrorMessage("모든 정보를 입력해주세요");
       setIsError(true);
     } else if (!isSamePwd) {
@@ -46,7 +54,8 @@ function SignupPage() {
       const fullEmail = `${email}@${emailDomain}`;
       const currYear = new Date();
       const myBirth = new Date(birth);
-      const age = Number(currYear.getFullYear()) - Number(myBirth.getFullYear()) + 1;
+      const age =
+        Number(currYear.getFullYear()) - Number(myBirth.getFullYear()) + 1;
       const info = {
         email: fullEmail,
         password: password,
@@ -56,14 +65,19 @@ function SignupPage() {
         birthDate: birth,
       };
       try {
-        const response = await register(info).then((data) => {
-          return data;
-        });
-        console.log(response.success);
-        if (response.success) {
+        const response = await register(info);
+        // .then((data) => {
+        // return data;
+        // });
+        console.log(response);
+        if (response === 400) {
+          setErrorMessage("이미 존재하는 이메일입니다.");
+          setIsError(true);
+          console.log("이미 존재하는 이메일입니다.");
+        } else if (response.data.success) {
+          console.log(response.data.success);
           console.log("회원가입 성공!");
-          console.log(response.result.email);
-          navigate("/signup-complete", { state: response.result.email });
+          navigate("/signup-complete");
         } else {
           setErrorMessage("회원가입 실패");
           setIsError(true);
@@ -78,18 +92,23 @@ function SignupPage() {
   return (
     <div>
       {/* 좌측 상단 로고 */}
-      <div className="flex items-center m-[2rem]">
+      <div
+        className="flex items-center m-[2rem] cursor-pointer"
+        onClick={() => navigate("/login")}
+      >
         <img className="w-[2rem]" src="/logo/shinhan_logo_blue.png" alt="" />
         <div className="text-[#5C5C5C] font-OneShinhanBold text-[1.2rem] px-[0.6rem]">
           SOL 학생 로드맵
         </div>
       </div>
       {/* 회원정보 입력란 */}
-      <div className="h-[80vh] flex justify-center items-center">
-        <div className="flex  flex-col items-center">
-          <div className="font-OneShinhanBold text-[#5C5C5C] text-[1.7rem] mb-[1rem]">회원가입</div>
+      <div className="h-[80vh] flex flex-col justify-center items-center scale-110">
+        <div className="font-OneShinhanBold text-[#5C5C5C] text-[1.7rem] mb-[1rem]">
+          회원가입
+        </div>
+        <div className="flex border rounded-[1rem] shadow-lg w-[50%] max-w-[35rem] min-w-[25rem] flex-col items-center p-[1.5rem]">
           {/* 이메일 */}
-          <div className="my-[0.5rem] flex text-[#5C5C5C] w-[40%] max-w-[35rem] min-w-[25rem] items-center justify-between text-[0.9rem]">
+          <div className="my-[0.5rem] w-[100%] flex text-[#5C5C5C] items-center justify-between text-[0.9rem]">
             <div className="w-[20%] min-w-[7rem]">아이디(이메일)</div>
             <div className="flex justify-between items-center w-[30rem] text-[0.8rem] font-OneShinhanLight">
               {/* 이메일 아이디 입력란 */}
@@ -120,7 +139,7 @@ function SignupPage() {
             </div>
           </div>
           {/* 비밀번호 */}
-          <div className="my-[0.5rem] flex text-[#5C5C5C] w-[40%] max-w-[35rem] min-w-[25rem] items-center justify-between text-[0.9rem]">
+          <div className="my-[0.5rem] flex text-[#5C5C5C] w-[100%] items-center justify-between text-[0.9rem]">
             <div className="w-[20%] min-w-[7rem]">비밀번호</div>
             <input
               type="password"
@@ -129,7 +148,7 @@ function SignupPage() {
             />
           </div>
           {/* 비밀번호 재확인 */}
-          <div className="relative my-[0.5rem] flex text-[#5C5C5C] w-[40%] max-w-[35rem] min-w-[25rem] items-center justify-between text-[0.9rem]">
+          <div className="relative my-[0.5rem] flex text-[#5C5C5C] w-[100%] items-center justify-between text-[0.9rem]">
             <div className="w-[20%] min-w-[7rem]">비밀번호 재확인</div>
             <input
               type="password"
@@ -148,7 +167,7 @@ function SignupPage() {
               ))}
           </div>
           {/* 이름 */}
-          <div className="my-[0.5rem] flex text-[#5C5C5C] w-[40%] max-w-[35rem] min-w-[25rem] items-center justify-between text-[0.9rem]">
+          <div className="my-[0.5rem] flex text-[#5C5C5C] w-[100%] items-center justify-between text-[0.9rem]">
             <div className="w-[20%] min-w-[7rem]">이름</div>
             <input
               type="text"
@@ -159,7 +178,7 @@ function SignupPage() {
             />
           </div>
           {/* 전화번호 */}
-          <div className="my-[0.5rem] flex text-[#5C5C5C] w-[40%] max-w-[35rem] min-w-[25rem] items-center justify-between text-[0.9rem]">
+          <div className="my-[0.5rem] flex text-[#5C5C5C] w-[100%] items-center justify-between text-[0.9rem]">
             <div className="w-[20%] min-w-[7rem]">전화번호</div>
             <input
               type="text"
@@ -171,7 +190,7 @@ function SignupPage() {
             />
           </div>
           {/* 생년월일 */}
-          <div className="my-[0.5rem] flex text-[#5C5C5C] w-[40%] max-w-[35rem] min-w-[25rem] items-center justify-between text-[0.9rem]">
+          <div className="my-[0.5rem] flex text-[#5C5C5C] w-[100%] items-center justify-between text-[0.9rem]">
             <div className="w-[20%] min-w-[7rem]">생년월일</div>
             <input
               type="date"
@@ -183,7 +202,7 @@ function SignupPage() {
           {/* 다음으로 */}
           <div
             onClick={submit}
-            className="mt-[3rem] py-[0.3rem] w-[40%] max-w-[35rem] min-w-[25rem] cursor-pointer font-OneShinhanMedium shadow-md border rounded-[0.5rem] flex justify-center bg-[#0046ff] text-white"
+            className="mt-[3rem] py-[0.3rem] w-[100%] cursor-pointer font-OneShinhanMedium shadow-md border rounded-[0.5rem] flex justify-center bg-[#0046ff] text-white"
           >
             다음으로
           </div>

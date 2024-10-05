@@ -133,12 +133,10 @@ const ProjectURL = styled.input``;
 
 // 포트폴리오 옆에서 순서 바꾸게 리모컨 역할 해주는 것
 function ProjectItem({ data }) {
-  // const [rangeDate, setRangeDate] = useState([new Date(), new Date()]);
   return (
     <ProjectItemStyle>
       <ProjectHeader>
         <ProjectTitleStyle>{data?.title}</ProjectTitleStyle>
-
         <ProjectDateStyle>
           {data?.startDate} ~ {data?.endDate}
         </ProjectDateStyle>

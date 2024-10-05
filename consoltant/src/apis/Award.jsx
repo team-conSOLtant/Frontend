@@ -1,3 +1,4 @@
+import AwardDTO from "../dto/AwardDTO";
 import { axios } from "./Axios";
 
 export const getAwards = async (portfolioId) => {
@@ -6,7 +7,19 @@ export const getAwards = async (portfolioId) => {
       params: { portfolioId: portfolioId },
     });
     console.log("[IN AXIOS] award response : ", response.data.result);
-    return response.data.result;
+
+    return response.data.result.map(
+      (data) =>
+        new AwardDTO(
+          data.id, // awardId
+          portfolioId, // portfolioId (default to null)
+          data.title,
+          data.content,
+          data.awardGrade,
+          data.awardOrganization,
+          data.acquisitionDate
+        )
+    );
   } catch (error) {
     console.error("get awards failed:", error);
     throw error;

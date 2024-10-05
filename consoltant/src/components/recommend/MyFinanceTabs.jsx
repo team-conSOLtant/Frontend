@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
 import MyFinanceItem from "./MyFinanceItem.jsx";
+import { useNavigate } from "react-router";
 
-function RecommendTabs() {
+function RecommendTabs({
+    financeProducts,
+    info,
+  }) {
   // 현재 선택된 탭을 관리하는 상태
   const [activeTab, setActiveTab] = useState("basicInfo");
   const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
 
   // 탭을 클릭했을 때 호출되는 함수
   const handleTabClick = (tab) => {
@@ -12,103 +17,43 @@ function RecommendTabs() {
   };
 
   useEffect(() => {
-    var dddddd = [];
-    if (activeTab == "deposit") {
-      dddddd = [
-        {
-          id: 1,
-          name: "예금 1",
-          description: "이것은 상품 1입니다.",
-          rate: 3.4,
-        },
-        {
-          id: 2,
-          name: "예금 2",
-          description: "이것은 상품 2입니다.",
-          rate: 3.4,
-        },
-        {
-          id: 3,
-          name: "예금 3",
-          description: "이것은 상품 3입니다.",
-          rate: 3.4,
-        },
-      ];
-    } else if (activeTab == "savings") {
-      dddddd = [
-        {
-          id: 1,
-          name: "적금 1",
-          description: "이것은 상품 1입니다.",
-          rate: 3.4,
-        },
-        {
-          id: 2,
-          name: "적금 2",
-          description: "이것은 상품 2입니다.",
-          rate: 3.4,
-        },
-        {
-          id: 3,
-          name: "적금 3",
-          description: "이것은 상품 3입니다.",
-          rate: 3.4,
-        },
-      ];
-    } else if (activeTab == "loan") {
-      dddddd = [
-        {
-          id: 1,
-          name: "대출 1",
-          description: "이것은 상품 1입니다.",
-          rate: 3.4,
-        },
-        {
-          id: 2,
-          name: "대출 2",
-          description: "이것은 상품 2입니다.",
-          rate: 3.4,
-        },
-        {
-          id: 3,
-          name: "대출 3",
-          description: "이것은 상품 3입니다.",
-          rate: 3.4,
-        },
-      ];
-    } else if (activeTab == "savedProduct") {
-      dddddd = [
-        {
-          id: 1,
-          name: "대출 1",
-          description: "이것은 상품 1입니다.",
-          rate: 3.4,
-        },
-        {
-          id: 2,
-          name: "대출 2",
-          description: "이것은 상품 2입니다.",
-          rate: 3.4,
-        },
-        {
-          id: 3,
-          name: "대출 3",
-          description: "이것은 상품 3입니다.",
-          rate: 3.4,
-        },
-      ];
+    let pfinance = [];
+    const productTypes = {
+      deposit: "deposit",
+      savings: "saving",
+      loan: "loan",
+      savedProduct: "recommend",
+    };
+
+    if (productTypes[activeTab]) {
+      const products = financeProducts[productTypes[activeTab]];
+      
+      for (let p in products) {
+        const product = products[p].productInfo || products[p];
+        
+        pfinance.push({
+          id: product.accountTypeUniqueNo,
+          bankName: product.bankName,
+          accountName: product.accountName,
+          accountDescription: product.accountDescription,
+          interestRate: product.interestRate,
+          subscriptionPeriod: product.subscriptionPeriod,
+          minSubscriptionBalance: product.minSubscriptionBalance || product.minLoanBalance,
+          maxSubscriptionBalance: product.maxSubscriptionBalance || product.maxLoanBalance,
+        });
+      }
     }
 
-    const items = dddddd.map((item) => <MyFinanceItem item={item} />);
+    const items = pfinance.map((item) => <MyFinanceItem item={item} />);
     setProducts(items);
-  });
+  },[]);
 
   const recommendInfo = {
-    career: 500,
-    capitalTendency: "대확행",
-    initialCapital: 1000,
-    currentCapital: 5000000,
-    period: 10,
+    salary: info.salary,
+    financeKeyword: info.financeKeyword,
+    startAsset: info.startAsset,
+    presentAsset: info.presentAsset,
+    period: info.period,
   };
 
   return (
@@ -169,40 +114,52 @@ function RecommendTabs() {
       <div className="tab-content">
         {activeTab === "basicInfo" && (
           <div className="mx-[7%]">
-            <div className="flex flex-col ">
+            <div className="flex flex-col text-lg text-[#444444] font-bold">
               <div className="flex justify-between mb-3">
-                <div>월급</div>
-                <div>
-                  <span>{recommendInfo.career}</span>
+                <div className="font-bold text-[#444444]">월급</div>
+                <div className="text-[#656F77]">
+                  <span>{recommendInfo.salary}{" "}</span>
                   <span className="">만원</span>
                 </div>
               </div>
-              <div className="flex justify-between mb-3">
-                <div>성향</div>
-                <div>
-                  <span>{recommendInfo.capitalTendency}</span>
+              <div className="flex justify-between mb-3 items-center">
+                <div className="font-bold text-[#444444]">성향</div>
+                <div className="text-[#444444] py-1 px-3 rounded-lg bg-indigo-200">
+                  <span>{recommendInfo.financeKeyword}{" "}</span>
                 </div>
               </div>
               <div className="flex justify-between mb-3">
-                <div>초기자본</div>
-                <div>
-                  <span>{recommendInfo.initialCapital}</span>
-                  <span>만원</span>
+                <div className="font-bold text-[#444444]">초기자본</div>
+                <div className="text-[#656F77]">
+                  <span>{recommendInfo.startAsset}{" "}</span>
+                  <span>원</span>
                 </div>
               </div>
               <div className="flex justify-between mb-3">
-                <div>현 자본</div>
-                <div>
-                  <span>{recommendInfo.currentCapital}</span>
-                  <span>만원</span>
+                <div className="font-bold text-[#444444]">현 자본</div>
+                <div className="text-[#656F77]">
+                  <span>{recommendInfo.presentAsset}{" "}</span>
+                  <span>원</span>
                 </div>
               </div>
               <div className="flex justify-between mb-3">
-                <div>기간</div>
-                <div>
-                  <span>10</span>
+                <div className="font-bold text-[#444444]">기간</div>
+                <div className="text-[#656F77]">
+                  <span>{recommendInfo.period}</span>
                   <span>년</span>
                 </div>
+              </div>
+              <div 
+                className="mt-10 text-[#444444] bg-[#f9f9f9] w-full h-[10rem] rounded-2xl shadow-xl flex items-center justify-start pl-6 cursor-pointer hover:bg-[#0046ff] hover:text-[#f9f9f9]"
+                onClick={()=>{navigate("/recommend")}}
+              >
+                <img src="/main/chart.png" alt="" className="w-28 mr-5" />
+                <div>
+                  <p className="text-2xl ">
+                    로드맵 추천 받으러 가기
+                  </p>
+                  <p className="text-base font-light my-2 justify-start flex">어려운 자산관리, <br /> 모법 금융 로드맵 알려드릴게요</p>
+                </div>            
               </div>
             </div>
           </div>
